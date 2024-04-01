@@ -69,8 +69,10 @@
 
 \tcolorboxenvironment{bigidea}{
     enhanced, % Skin Family `enhanced'
-    frame hidden,  % no frame
-    interior hidden, % no interior color
+    % frame hidden,  % no frame
+    colback=white,
+    % interior hidden, % no interior color
     breakable, % allows box to flow across pages
-    borderline west={2pt}{0pt}{blue!50!black}
+    % borderline west={2pt}{0pt}{blue!50!black}
+    colframe=blue!50!black,
     }
