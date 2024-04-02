@@ -349,7 +349,7 @@ We get another type of operation ``for free'' with a vector space. This is calle
 \section{Rescaling: multiplication by a number}
 
 Another operation that exists in a vector space is rescaling: we multiply a vector by a number. 
-Let $\alpha$ be a number. If you want to nitpick, let us restrict $\alpha$ to be a real number. If we have a vector $\vec{v}$ with components $v^i$, then $\alpha \vec{v}$ is also a vector.\footnote{``Also a vector'' means that it is also an element of the vector space; so $(\alpha\vec{v})$ is an element of $\RR ^3$ is $\vec{v}$ is an element of $\RR ^3$. } The components of $\alpha \vec{v}$ are
+Let $\alpha$ be a number. If you want to nitpick, let us restrict $\alpha$ to be a real number. If we have a vector $\vec{v}$ with components $v^i$, then $\alpha \vec{v}$ is also a vector.\sidenote{``Also a vector'' means that it is also an element of the vector space; so $(\alpha\vec{v})$ is an element of $\RR ^3$ is $\vec{v}$ is an element of $\RR ^3$. } The components of $\alpha \vec{v}$ are
 \begin{align}
     (\alpha v)^i = \alpha v^i \ ,
 \end{align}
@@ -518,7 +518,7 @@ Then we have encoded all of the data of vector $\vec{v}$ into the coefficients $
     \vec{v} = \alpha^1 \vec{b}_{1} + \alpha^2 \vec{b}_2 \ .
     \label{eq:R2:vec:v:in:b:components:lincomb}
 \end{align}
-Then I can write the information encoded in $\vec{v}$ as a column, which I will write with a subscript $b$ to distinguish it from the ``actual'' vector components, \eqref{eq:v:v1:v2}:\footnote{We will soon see that the there is nothing holy about \eqref{eq:v:v1:v2}.}
+Then I can write the information encoded in $\vec{v}$ as a column, which I will write with a subscript $b$ to distinguish it from the ``actual'' vector components, \eqref{eq:v:v1:v2}:\sidenote{We will soon see that the there is nothing holy about \eqref{eq:v:v1:v2}.}
 \begin{align}
     \vec{v} = 
     \begin{pmatrix}
@@ -527,7 +527,7 @@ Then I can write the information encoded in $\vec{v}$ as a column, which I will 
     \end{pmatrix}_{\vec{b}} \ .
     \label{eq:R2:vec:v:in:b:components}
 \end{align}
-The last two equations mean exactly the same thing. Now here's something cute: we can treat the two-component array\footnote{I'm trying not to call it a vector.} on the right-hand side of \eqref{eq:R2:vec:v:in:b:components} as if it were a vector. We can do vector arithmetic on it. If we have two vectors with ``$\vec{b}$ basis components''
+The last two equations mean exactly the same thing. Now here's something cute: we can treat the two-component array\sidenote{I'm trying not to call it a vector.} on the right-hand side of \eqref{eq:R2:vec:v:in:b:components} as if it were a vector. We can do vector arithmetic on it. If we have two vectors with ``$\vec{b}$ basis components''
 \begin{align}
     \vec{v}&=
     \begin{pmatrix}
@@ -661,7 +661,7 @@ To be clear, our notation has become a bit ambiguous: here $x$ is a variable and
     \cdots&&
     {\bas{e}}_N &= x^N &
 \end{align}
-These `basis vectors' are actually functions that are simple monomial powers of $x$. It should be obvious (there's that phrase again) that linear combinations of these basis vectors/functions can give any function $f(x)$ of degree up to $N$. It should also be obvious that the dimension of this space is $(N+1)$; don't forget to count the ${\bas{e}}_0$ vector.
+These `basis vectors' are actually functions that are simple monomial powers of $x$. It should be obvious (there's that phrase again) that linear combinations of these basis vectors/functions can give any function $f(x)$ of degree up to $N$. It should also be obvious that the dimension of this space is $(N+1)$; don't forget to count the ${\bas{e}}_0$ vector.\par
 
 For example, consider the polynomial $f(x) = 3+x^2$. The linear combination of basis vectors that gives this has $a^0 = 3$, $a^2 = 1$, and all other coefficients zero:
 \begin{align}
