@@ -7,7 +7,7 @@
 % \usepackage{scalefnt} 
 % \newcommand\acro[1]{{\footnotesize #1}} 
 \newcommand\acro[1]{{\small{#1}}} 
-
+\newcommand\tacro[1]{\textsc{\lowercase{#1}}}  % for inside headers
 
 %% COMMON PHYSICS MACROS
 %% ---------------------
@@ -23,6 +23,11 @@
 %% LINEAR ALGEBRA
 %% ---------------
 \newcommand{\row}[1]{\tilde{\mathbf{#1}}} % row vectors have tilde
+
+% have to compile from CTAN ("latex undertilde.ins")
+\usepackage{undertilde} 
+\renewcommand{\row}[1]{\utilde{\mathbf{#1}}}   % row vectors 
+
 \newcommand{\rbas}[1]{\row{#1}}           % row basis
 
 %% Have to compile ``latex undertilde.ins'' for this: 
