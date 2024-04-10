@@ -402,6 +402,7 @@ The second component of $\vec{u}$ is $u^2 = -26 + 4.2 = -21.8$.
 At this point it is useful to define some jargon. A \textbf{scalar}\index{scalar} is a number. This is in contrast to vectors (and matrices and tensors) which we can think of as arrays of numbers. In fact, every time you see the word scalar, you should just think ``number.'' Another name for `rescaling a vector by a number' is \emph{scalar multiplication}.
 
 \section{Linear Combination and Span}
+\label{sec:linear:combination:and:span}
 
 Based on our rules for vector space arithmetic, we know that if $\vec{v}$ and $\vec{w}$ are two vectors in our vector space and if $\alpha$ and $\beta$ are any two numbers, then
 \begin{align}
@@ -1007,7 +1008,7 @@ Suppose you want to multiply an $n\times m$ matrix onto a $k \times \ell$ matrix
 This notion of matrix multiplication is helpful and perhaps something you may have learned in earlier stages of your education. It is still the way I do many calculations. \emph{However}, the rules in this section are a \emph{shortcut} for a much richer mathematical structure. It is this mathematical structure that we want to reveal because it shows us how seemingly different mathematical structures in physics are actually rooted in the same underlying language. As such, many of the notions in this chapter may be ideas that you must first \emph{unlearn} in order to \emph{relearn} how they are outputs of the richer structure.\sidenote{When I teach this class there are often a few students who are apologetic for not having taken a formal linear algebra class. I have noticed that those students sometimes do much better in the course because they have fewer preconceptions to unlearn.}
 
 
-\chapter{Indexology}
+\chapter{Indexology}\label{ch:indexology}
 \begin{quote}
 ... should not prevent us from avoiding purely formal calculations where a \emph{debauchery of indices} hides an often simple geometrical reality. -- E.~Cartan, \emph{Lecons sur la Geometrie des Espaces de Riemann}\sidenote{From Spivak, \emph{A Comprehensive Introduction to Differential Geometry}, volume 2.}\footnote{\cite{spivak1975comprehensive}; see also \url{spivak1975comprehensive}}
 \end{quote} % cite https://hsm.stackexchange.com/questions/3320/the-debauch-of-indices-translation-request
@@ -1047,6 +1048,7 @@ At this point, you may have several questions, such as these:
 We shall answer these as we build up the machinery below. Just take this section as a request to believe that there may be method to this madness.
 
 \section{The treachery of indices}
+\label{sec:treachery:of:indices:vi:is:not:a:vector}
 
 There is something that physicists do that tend to drive mathematicians crazy: we write a generic \emph{component of a vector} and refer to it as if it were the vector itself. It is a fairly harmless peccadillo:\sidenote{There are times when you can get into trouble if you drink your own Kool Aid, so to speak. The reason is that the \emph{component} $v^i$ is simply a number, whereas $\vec{v}$ is a vector. Some manipulations are only allowed for numbers and not vectors, and you should be clear that you mean `the component $v^i$' if you are treating it like a number, and not `the \emph{vector} whose components are $v^i$.' %See Example~\ref{eg:moving:coefficients:around}.
 } if I say
@@ -1098,130 +1100,478 @@ On the far right we have used the matrix multiplication rules in Section~\ref{se
 % The final expression is familiar, right? It follows the usual rules of matrix multiplication for a ``matrix'' that happens to be one row and three columns; 
 We review this rule in Fig.~\ref{fig:row:col:mult}, labeling the components with upper and lower indices as appropriate.
 % %% FIGURE SNIPPIT
-\begin{marginfigure}%[tb]
+\begin{marginfigure}[.01em]%[tb]
     \centering
     \captionsetup{font={scriptsize,sf}}
-    \includegraphics[width=\textwidth]{figures/rowcolmult.pdf}
+    \includegraphics[width=.8\textwidth]{figures/rowcolmult.pdf}
     \caption{The `matrix multiplication rule' for acting with a row vector on a column vector.}
     \label{fig:row:col:mult}
 \end{marginfigure}
-We notice that we chose to write the components of $\row{w}$ with lower indices---this is the convention. Row vectors (which have many names) have indices written as subscripts while column vectors have indices written as superscripts. There is no mathematics here, just a choice of notation. The result of the multiplication is simply a number, which we can write as a sum:
-% \begin{align}
-%     \row{w}\vec{v}
-%     &= \sum_{i=1}^3 w_iv^i
-%     \equiv w_iv^i \ .
-%     \label{eq:row:w:on:vec:v}
-% \end{align}
-% On the right-hand side we have \emph{defined} the summation convention: \emph{whenever there is exactly one upper index and exactly one lower index with the same letter, we should understand that there is a sum over that index over all of its allowed values.} We call pairs of repeated indices where one is upper and one is lower \textbf{contracted indices}.
-
-
-% The value $w_iv^i$ is simply a number. It is not a vector. It does not have any ``vectorial'' (tensorial) structure. It is not an element of the vector space $\RR ^3$. It does not transform under rotations. It is \emph{just a number}. In other words, $w_iv^i$ behaves like an object with \emph{no indices}. Contracted indices ``cancel each other out.''
-
-% This is significant because we will see that indices tell us how objects transform. Evidently, column vectors and row vectors transform differently since one has an upper index and one has a lower index. Further, when we contract the two indices, we end up with something with no indices: a number that does not transform at all. This may seem like notational overkill---trust me, it is worth building this notation now. We will use it over and over.
-
-% \begin{figure}[tb]
-%     \centering
-%     \includegraphics[width=.5\textwidth]{figures/matrixmultiplication.pdf}
-%     \caption{The `matrix multiplication' rule for $A\vec{v} = \vec{v}'$. We show that the second element of $\vec{v}'$ is a sum of terms, where each term is a multiplication of the $j^\text{th}$ column of the $2^\text{nd}$ row of $A$ by the $j^\text{th}$ row of $\vec{v}$.}
-%     \label{fig:matrix:col:mult}
-% \end{figure}
-
-% \begin{example}
-% Matrices $M$ have the following index structure: $M\aij{i}{j}$. There is a first index and a second index---the order matters. The first index is upper, and the second index is lower. Matrix multiplication boils down to a contraction of indices:
-% \begin{align}
-%     (M\vec{v})^i = M\aij{i}{j}v^j \ .
-%     \label{eq:matrix:mult:ith:comp}
-% \end{align}
-% Let us read this equation carefully. First, $M\vec{v}$ is a vector. The $i^\text{th}$ component of this vector is $(M\vec{v})^i$. How is this related to the components of $M$ and $\vec{v}$? The right-hand side tells us that we simply take the sum:
-% \begin{align}
-%     M\aij{i}{j}v^j = 
-%     M\aij{i}{1}v^1 + M\aij{i}{2}v^2  + M\aij{i}{3}v^3 \ .
-% \end{align}
-% \end{example}
-% \begin{example}
-% From the above example, you can then excuse the glib statement: ``the \emph{vector} $M\aij{i}{j}v^j$.'' As we explained above, $M\aij{i}{j}v^j$ is not a vector, but a component of a vector. However, the point is that even though there are three indices, two of them are contracted so the object effectively only has one upper index. This is the index structure of a vector. This matches the usual matrix multiplication rule shown in Fig.~\ref{fig:matrix:col:mult}.
-% \end{example}
-
-% \begin{exercise}
-% Consider the following vector, row vector, and matrix:
-% \begin{align}
-%     \vec{v} &=
-%     \begin{pmatrix}
-%      1 \\ 2 \\ 3   
-%     \end{pmatrix}
-%     &
-%     \row{w} &=
-%     \begin{pmatrix}
-%         4&5&6
-%     \end{pmatrix}
-%     &
-%     M&=
-%     \begin{pmatrix}
-%         1 & 2 & 3 \\
-%         4 & 5 & 6 \\
-%         7 & 8 & 9
-%     \end{pmatrix} \ .
-% \end{align}
-% These have index structure $v^i$, $w_i$, and $M\aij{i}{j}$ respectively. Note that the first index of a matrix is the row and the second is the column, thus $M\aij{1}{2} = 2$ while $M\aij{2}{1} = 4$. Calculate the following: $(wM)_2$, $(Mv)^1$, $(MM)\aij{1}{2}$. Here $MM$ is understood to be the square of the matrix $M$, $(M^2)\aij{i}{j} = M\aij{i}{k}M\aij{k}{j}$.
-% \end{exercise}
-
-% \begin{example}\label{eg:moving:coefficients:around}
-% It should be clear that
-% \begin{align}
-%     w_i M\aij{i}{j} = 
-%     w_1 M\aij{1}{j} + w_2 M\aij{2}{j} + w_3 M\aij{3}{j}
-%     = 
-%     M\aij{1}{j}w_1  + M\aij{2}{j}w_2 + M\aij{2}{j}w_2
-%     =
-%     M\aij{i}{j}w_i \ .
-% \end{align}
-% After all, each of the components $w_i$ and $M\aij{i}{j}$ are simply numbers. However: even though $w_i M\aij{i}{j} = M\aij{i}{j}w_i$, it is \emph{completely incorrect} to say $\row{w}M = M\row{w}$. This is because $\row{w}$ and $M$ are \emph{tensorial} (vector-y) objects. The order of their `multiplication' matters. You can see this from the matrix notation.
-% \begin{align}
-%     \row{w}M &= 
-%     \begin{pmatrix}
-%         4&5&6
-%     \end{pmatrix}
-%     \begin{pmatrix}
-%         1 & 2 & 3 \\
-%         4 & 5 & 6 \\
-%         7 & 8 & 9
-%     \end{pmatrix}
-%     &
-%     M\row{w} &=
-%     \begin{pmatrix}
-%         1 & 2 & 3 \\
-%         4 & 5 & 6 \\
-%         7 & 8 & 9
-%     \end{pmatrix}
-%     \begin{pmatrix}
-%         4&5&6
-%     \end{pmatrix} \ .
-% \end{align}
-% The first multiplication gives a row vector, as you expect since $(wM)_j$ has one lower index. The second multiplication does not even make sense. What we see is that expressions like $w_i M\aij{i}{j} = M\aij{i}{j}w_i$ are valid as long as you are only talking about the components. The glib ``physicist slang'' of replacing a component by its vector/matrix/tensor can get you into trouble if you have moved components around in a way that is only allowed for numbers, but not vectory-things.
-% \end{example}
-
-% Since the language is now becoming cumbersome, let us define the word \textbf{tensorial} to mean an object with indices. This will replace the phrase ``vectory'' in our notes.
+Notice that we choose to write the components of $\row{w}$ with lower indices---this is the convention. Row vectors have indices written as subscripts while column vectors have indices written as superscripts. There is no mathematics here, just a choice of notation. The result of the multiplication is simply a number, which we can write as a sum:
+\begin{align}
+    \row{w}\vec{v}
+    &= \sum_{i=1}^3 w_iv^i
+    \equiv w_iv^i \ .
+    \label{eq:row:w:on:vec:v}
+\end{align}
+On the right-hand side we have \emph{defined} the summation convention:
+\begin{newrule}[Summation convention]
+Whenever there is exactly one upper index and exactly one lower index with the same letter, we should understand that there is a sum over that index over all of its allowed values. We call pairs of repeated indices where one is upper and one is lower \textbf{contracted indices}\index{contract}.
+\end{newrule}
 
 
 
+The value $w_iv^i$ is simply a number. It is not a vector. It does not have any ``vectorial'' (tensorial) structure. It is not an element of the vector space $\RR ^3$. It does not transform under rotations. It is \emph{just a number}. In other words, $w_iv^i$ behaves like an object with \emph{no indices}. Contracted indices ``cancel each other out.''
 
-% One neat thing about this is that our convention for contracting indices makes it clear that $(Mv)^i$ is a component of a vector: it has one upper index. Similarly, you may recall that the multiplication of matrices $M$ and $N$ proceeds as follows:
-% \begin{align}
-%  (MN)\aij{i}{j} = M\aij{i}{k}N\aij{k}{j} \ .
-%  \label{eq:matrix:matrix:multiplication}    
-% \end{align}
-% \begin{exercise}
-% Confirm that \eqref{eq:matrix:matrix:multiplication} holds for $2\times 2$ matrices.
-% \end{exercise}
-% On the right-hand side of \eqref{eq:matrix:matrix:multiplication}, we have one pair of contracted indices ($k$), one upper index $i$, and one lower index $j$. We thus deduce that this object is a matrix: it has one upper and one lower index. Indeed, the product of two matrices is also a matrix. Our indices and contraction rules tell us what kinds of objects we can produce by contracting indices between them. 
+This is significant because we will see that indices tell us how objects transform. Evidently, column vectors and row vectors transform differently since one has an upper index and one has a lower index. Further, when we contract the two indices, we end up with something with no indices: a number that does not transform at all. This may seem like notational overkill---trust me, it is worth building this notation now. We will use it over and over.
 
-% \begin{example}
-% You may also contract indices within an object. For example, because a matrix has one upper and one lower index, you may contract them together. This is called the trace, $\Tr M = M\aij{i}{i}$.
-% \end{example}
+
+
+\begin{example}
+Matrices $M$ have the following index structure: $M\aij{i}{j}$. There is a first index and a second index---the order matters. The first index is upper, and the second index is lower. Matrix multiplication boils down to a contraction of indices:
+\begin{align}
+    (M\vec{v})^i = M\aij{i}{j}v^j \ .
+    \label{eq:matrix:mult:ith:comp}
+\end{align}
+Let us read this equation carefully. First, $M\vec{v}$ is a vector. The $i^\text{th}$ component of this vector is $(M\vec{v})^i$. How is this related to the components of $M$ and $\vec{v}$? The right-hand side tells us that we simply take the sum:
+\begin{align}
+    M\aij{i}{j}v^j = 
+    M\aij{i}{1}v^1 + M\aij{i}{2}v^2  + M\aij{i}{3}v^3 \ .
+\end{align}
+\end{example}
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.5\textwidth]{figures/matrixmultiplication.pdf}
+    \caption{The `matrix multiplication' rule for $A\vec{v} = \vec{v}'$. We show that the second element of $\vec{v}'$ is a sum of terms, where each term is a multiplication of the $j^\text{th}$ column of the $2^\text{nd}$ row of $A$ by the $j^\text{th}$ row of $\vec{v}$.}
+    \label{fig:matrix:col:mult}
+\end{figure}
+
+\begin{example}
+From the above example, you can then excuse the glib statement: ``the \emph{vector} $M\aij{i}{j}v^j$.'' As we explained above, $M\aij{i}{j}v^j$ is not a vector, but a component of a vector. However, the point is that even though there are three indices, two of them are contracted so the object effectively only has one upper index. This is the index structure of a vector. This matches the usual matrix multiplication rule shown in Fig.~\ref{fig:matrix:col:mult}.
+\end{example}
+
+\begin{exercise}
+Consider the following vector, row vector, and matrix:
+\begin{align}
+    \vec{v} &=
+    \begin{pmatrix}
+     1 \\ 2 \\ 3   
+    \end{pmatrix}
+    &
+    \row{w} &=
+    \begin{pmatrix}
+        4&5&6
+    \end{pmatrix}
+    &
+    M&=
+    \begin{pmatrix}
+        1 & 2 & 3 \\
+        4 & 5 & 6 \\
+        7 & 8 & 9
+    \end{pmatrix} \ .
+\end{align}
+These have index structure $v^i$, $w_i$, and $M\aij{i}{j}$ respectively. Note that the first index of a matrix is the row and the second is the column, thus $M\aij{1}{2} = 2$ while $M\aij{2}{1} = 4$. Calculate the following: $(wM)_2$, $(Mv)^1$, $(MM)\aij{1}{2}$. Here $MM$ is understood to be the square of the matrix $M$, $(M^2)\aij{i}{j} = M\aij{i}{k}M\aij{k}{j}$.
+\end{exercise}
+
+\begin{example}\label{eg:moving:coefficients:around}
+It should be clear that
+\begin{align}
+    w_i M\aij{i}{j} = 
+    w_1 M\aij{1}{j} + w_2 M\aij{2}{j} + w_3 M\aij{3}{j}
+    = 
+    M\aij{1}{j}w_1  + M\aij{2}{j}w_2 + M\aij{2}{j}w_2
+    =
+    M\aij{i}{j}w_i \ .
+\end{align}
+After all, each of the components $w_i$ and $M\aij{i}{j}$ are simply numbers. However: even though $w_i M\aij{i}{j} = M\aij{i}{j}w_i$, it is \emph{completely incorrect} to say $\row{w}M = M\row{w}$. This is because $\row{w}$ and $M$ are \emph{tensorial} (vector-y) objects. The order of their `multiplication' matters. You can see this from the matrix notation.
+\begin{align}
+    \row{w}M &= 
+    \begin{pmatrix}
+        4&5&6
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & 2 & 3 \\
+        4 & 5 & 6 \\
+        7 & 8 & 9
+    \end{pmatrix}
+    &
+    M\row{w} &=
+    \begin{pmatrix}
+        1 & 2 & 3 \\
+        4 & 5 & 6 \\
+        7 & 8 & 9
+    \end{pmatrix}
+    \begin{pmatrix}
+        4&5&6
+    \end{pmatrix} \ .
+\end{align}
+The first multiplication gives a row vector, as you expect since $(wM)_j$ has one lower index. The second multiplication does not even make sense. What we see is that expressions like $w_i M\aij{i}{j} = M\aij{i}{j}w_i$ are valid as long as you are only talking about the components. The glib ``physicist slang'' of replacing a component by its vector/matrix/tensor can get you into trouble if you have moved components around in a way that is only allowed for numbers, but not vectory-things.
+\end{example}
+
+Since the language is now becoming cumbersome, let us define the word \textbf{tensorial} to mean an object with indices. This will replace the phrase ``vectory'' in our notes.
 
 
 
 
+One neat thing about this is that our convention for contracting indices makes it clear that $(Mv)^i$ is a component of a vector: it has one upper index. Similarly, you may recall that the multiplication of matrices $M$ and $N$ proceeds as follows:
+\begin{align}
+ (MN)\aij{i}{j} = M\aij{i}{k}N\aij{k}{j} \ .
+ \label{eq:matrix:matrix:multiplication}    
+\end{align}
+\begin{exercise}
+Confirm that \eqref{eq:matrix:matrix:multiplication} holds for $2\times 2$ matrices.
+\end{exercise}
+On the right-hand side of \eqref{eq:matrix:matrix:multiplication}, we have one pair of contracted indices $_k^{\phantom{k}k}$, one upper index $^i$, and one lower index $_j$. We thus deduce that this object is a matrix: it has one upper and one lower index. Indeed, the product of two matrices is also a matrix. Our indices and contraction rules tell us what kinds of objects we can produce by contracting indices between them. 
+
+\begin{example}
+You may also contract indices within an object. For example, because a matrix has one upper and one lower index, you may contract them together. This is called the \textbf{trace}\index{trace}, $\Tr M = M\aij{i}{i}$. Alternatively, you may remember the trace as the sum of all diagonal elements in a matrix. This corresponds to 
+\begin{align}
+    M\aij{1}{1} + M\aij{2}{2} + \cdots = M\aij{i}{i} \ ,
+\end{align}
+where we simply recognize that the summation convention is a shortcut for the `sum of all diagonal elements' rule. The significance of the trace is that as an object with no indices---they're both contracted---it is a pure number. Under rotations, the trace does not change. If you measure something that is the trace of a tensor, it does not matter what coordinate system you are in---you measure the same thing.
+\end{example}
+
+
+
+
+
+
+\chapter{Vectors, Row Vectors, Matrices}
+
+We begin a systematic study tensorial objects. Let us re-state some of the results from earlier chapters.\sidenote{The cost of stating things systematically is repetition. However, often there is pedagogical value to deliberate repetition.} In fact, we start by stating the \emph{sloppy} (technically incorrect) understanding---everything as indexed objects---and then we start to define the underlying mathematical machinery `under the hood.'
+
+It may seem that we are inventing sophisticated machinery in order to justify the simple index-based rules in Chapter~\ref{ch:indexology}. Perhaps that is in fact what we are doing. There is good reason for this: it is the ``underlying sophisticated machinery'' that we can generalize to different physical systems.
+
+\begin{example}
+This approach of \emph{learn how to use it then learn how it works} is a trusted pedagogical tradition. You likely learned Newtonian mechanics long before you learned Lagrangian mechanics. Newtonian mechanics taught you how to use $\vec{F} = m\vec{a}$, conservation of energy, and so forth. Lagrangian mechanics involved a lot of new machinery---variational calculus---that culminated in... what? Deriving $\vec{F}=m\vec{a}$, conservation of energy, and so forth. But in doing so, it created the framework that could be extended to both quantum mechanics\footnote{Formally through a process called geometric quantization, but less formally by identifying the role of the action in the path integral formulation of quantum mechanics.} and relativity\footnote{Where the laws of relativity are elegantly stated as action principles.}.
+\end{example} 
+
+\section{First pass: components}
+% Index notation
+%   Matrices as two indexed objects.
+
+We start by leaning on our recent familiarity with index notation to introduce our primary players.
+
+\subsection{Vectors}
+
+A \textbf{vector}\index{vector} is an object that has one upper index,\sidenote{The notation $\simeq$ here means \emph{not quite equal but you know what I mean}, as discussed in Section~\ref{sec:treachery:of:indices:vi:is:not:a:vector}.}
+\begin{align}
+    \vec{v} = \ket{v} \simeq v^i \ .
+\end{align}
+On the left-hand sides we introduce two different notations for vectors. They also have different names: vector, column vector, contravariant vector, ket. These are all equivalent names that are used in different subfields. For each value of $i$, $v^i$ is the $i^\textnormal{th}$ component of the vector. 
+
+
+\begin{newrule}[Linear combinations of vectors are vectors]\label{rule:vector:linear:combinations}
+Vectors can be rescaled and added.
+\begin{enumerate}
+    \item You can rescale a vector $\vec{v}$ by a number, $\alpha$. This simply rescales each component by the number\footnote{The fancy mathematical name for what we are calling number is \textbf{field}. For now by `number' we mean a real number.} $\alpha$:
+    \begin{align}
+        \vec{v} \to \alpha\vec{v} \simeq \alpha v^i
+    \end{align}
+    so that the components of the vector rescaled by $\alpha$ are simply $\alpha v^i$. The result of this operation is (obviously) a vector.
+    \item You can add two vectors together, $\vec{v} + \vec{w}$. The result is also a vector. The components of the combined vector are the sum of the components of each individual vector:
+    \begin{align}
+        (\vec{v}+\vec{w})^i = v^i + w^i \ . \label{eq:vector:addition:rulex}
+    \end{align}
+    You should read this to say the $i^\textnormal{th}$ component of the sum of $\vec{v}$ and $\vec{w}$ is simply the sum of the $i^\textnormal{th}$ component of $\vec{v}$ plus the $i^\textnormal{th}$ component of $\vec{w}$.
+\end{enumerate}
+The general combination of rescaling and adding is called a \textbf{linear combination}\index{linear combination}; for vectors $\vec{v}$ and $\vec{w}$ and numbers $\alpha$ and $\beta$
+\begin{align}
+    (\alpha \vec{v} + \beta\vec{w})^i = \alpha v^i + \beta w^i \ .
+\end{align}
+This says that the combination $(\alpha\vec{v}+\beta\vec{w})$ is a vector and its $i^\textnormal{th}$ components is the right-hand side of the above equation.
+\end{newrule}
+
+There are other formal aspects that we can (justifiably) take for granted. These include the following:
+\begin{enumerate}
+    \item There is a zero vector, $\vec{0}$, whose components are all zero. 
+    \item Every vector has an additive inverse that is simply rescaling $\vec{v}$ by $\alpha=-1$.
+    \item The order of vector addition does not matter. This is inherited from \eqref{eq:vector:addition:rulex}. \sidenote{This is somewhat subtle. On the left-hand side of \eqref{eq:vector:addition:rulex} we \emph{define} vector addition by defining each component of the sum. We do not know if the $+$ sign on the left-hand side is commutative. On the right-hand side we are using ordinary addition of numbers, which we know is commutative. Using this definition we can see that because $v^i+w^i = w^i+v^i$, it must be that $(\vec{v}+\vec{w})^i = (\vec{w}+\vec{v})^i$. Since this is true for every component, then the $+$ sign on vectors must be commutative: $\vec{v}+\vec{w}= \vec{w}+\vec{v}$.}
+\end{enumerate}
+% \begin{enumerate}
+%     \item There is a zero vector, $\vec{0}$, whose components are all zero. 
+%     \item Every vector has an additive inverse that is simply rescaling $\vec{v}$ by $\alpha=-1$.
+%     \item The order of vector addition does not matter. This is inherited from \eqref{eq:vector: addition:rulex}. %\sidenote{This is somewhat subtle. On the left-hand side of \eqref{eq:vector: addition:rule} we \emph{defining} vector addition by defining each component of the sum. We do not know if the $+$ sign on the left-hand side is commutative. On the right-hand side we are using ordinary addition of numbers, which we know is commutative. Using this definition we can see that because $v^i+w^i = w^i+v^i$, it must be that $(\vec{v}+\vec{w})^i = (\vec{w}+\vec{v})^i$. Since this is true for every component, then the $+$ sign on vectors must be commutative: $\vec{v}+\vec{w}= \vec{w}+\vec{v}$.}
+% \end{enumerate}
+
+
+
+
+\subsection{Row Vectors}
+
+There is another kind of vector. These are equivalently called \textbf{row vectors}\index{row vectors}, dual vectors, covariant vectors, one-forms, or bras. A row vector is an object that has one lower index,
+\begin{align}
+    \row{w} = \bra{w} \simeq w_i \ .
+\end{align}
+These behave just like vectors.
+\begin{newrule}[Row vectors are also vectors]
+Linear combinations of row vectors are also row vectors. We may thus take Rule~\ref{rule:vector:linear:combinations} and replace all the vectors with row vectors, and all the vector components with row vector components.
+\end{newrule}
+
+At this point row vectors\sidenote{dual vectors, covectors, one-forms, bras} are pretty cheap copies of column vectors\sidenote{column vectors, contravariant vectors, kets}. They just happen to have lower indices. Indeed, row vectors are \emph{dual} to column vectors in a way that only comes through when we carefully define basis vectors.
+
+Now that we have objects with lower indices, we can make use of our summation convention from Section~\ref{sec:summation}. Row vectors are `born' to contract column vectors:
+\begin{align}
+    w_i v^i = v^i w_i = w_1 v^1 + w_2 v^2 + \cdots \ .
+\end{align}
+This means the following:
+\begin{itemize}
+    \item If you have a row vector and a column vector, you can contract them to get a number.
+    \item If you have a row vector, you can think of it as a function that takes in a vector and spits out a number. 
+    \item If you have a column vector, you can think of it as a function that takes a row vector and spits out a number. 
+\end{itemize}
+Observe that the relation of a row vector to a column vector is the same as the relation of the column vector to a row vector. The two are dual to one another.
+
+Let us be clear that the contraction of a row vector with a column vector is \emph{not} a dot product. This misconception can stem from the belief that you can take the `transpose' of a vector to tip it over. We have \emph{not yet} defined what transpose means, and where we do, it \emph{definitely} is not an operation that acts on vectors. In order to create a row vector from a column vector, one requires an additional bit of mathematical machinery called a \emph{metric}. In ordinary Euclidean space, this machine is simply the identity and so when we first learn about vectors, we can freely go between vectors and row vectors. This is \emph{not generally the case} and we would not have special relativity if it were.
+
+\subsection{Matrices}
+
+A \textbf{matrix}\index{matrix} is an object with two indices: the first index is raised, the second index is lowered, see Figure~\ref{fig:Mij:index:heights}.
+\begin{marginfigure}%[th]
+    \includegraphics[width=.7\textwidth]{figures/Mij_indices.png}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{The index placement for a matrix.}
+    \label{fig:Mij:index:heights}
+\end{marginfigure}
+You can take linear combinations of matrices in the same way you take linear combinations of vectors, as per Rule~\ref{rule:vector:linear:combinations}. That is, given two matrices $M$ and $N$, the $ij$-component of the sum of these matrices is
+\begin{align}
+    (M+N)\aij{i}{j} = M\aij{i}{j} + N\aij{i}{j} \ .
+\end{align}
+The extension to linear combinations (including rescaling) is trivial.\sidenote{Trivial is how mathematicians say `obvious.' If this point is not obvious, take a moment to see if there is a better way to think about this.}
+\begin{example}
+Matrices can also be interpreted as vectors. If the index $i$ can run from $1$ to $N$, then a matrix can be understood as an $N^2$-component object. For $2\times 2$ matrices, we could write
+\begin{align}
+    \vec{v} = 
+    \begin{pmatrix}
+        v^1 & v^2 \\
+        v^3 & v^4
+    \end{pmatrix} \ .
+\end{align}
+In this way, it is a weird repackaging of a 4-component vector. You can check that you can take linear combinations of these `vectors' to form other vectors in the usual way. In this way, the matrix is a repackaging of the components of a vector. Of course, these `vectors' are \emph{completely different} from the 2-component vectors that the $2\times 2$ matrices act on. This identification is rather silly at this point. However, it plays a role in what is called representation theory: the mathematical description of symmetries.
+\end{example}
+
+The index structure of matrices means it can contract with both upper-indexed objects like vectors and lower-indexed objects like row vectors. This can happen in several ways. Suppose you have a matrix $M\aij{i}{j}$:
+\begin{itemize}
+    \item If you also have a row vector $w_i$ and a column vector $v^i$, then you can form a number by contracting them together in the only allowed way: $w_i M\aij{i}{j}v^j$.
+    \item If you have a column vector $v^i$, then you can form another column vector by contracting them in the only allowed way: $M\aij{i}{j}v^j$. Observe that this object has one free\sidenote{Here free means uncontracted.} upper index so that it is a column vector.
+    \item If you have a row vector $w^i$, then you can form another row vector by contracting them in the only allowed way: $w_iM\aij{i}{j}$. Observe that this object has one free lower index so that it is a row vector.
+    \item If you only have the matrix $M\aij{i}{j}$, you can form a number by contracting its two indices, $M\aij{i}{i}$. This is called the \textbf{trace}\index{trace} of the matrix.
+\end{itemize}
+You can easily understand the first three contractions from your intuition using the matrix multiplication language of Section~\ref{sec:matrix:multiplication},
+\begin{align}
+    \row{w} M \vec{v} &= 
+    \begin{pmatrix}
+        w_1 & w_2
+    \end{pmatrix}
+    \begin{pmatrix}
+        M\aij{1}{1} & M\aij{1}{2}\\
+        M\aij{2}{1} & M\aij{2}{2}
+    \end{pmatrix}
+    \begin{pmatrix}
+        v^1 \\ v^2
+    \end{pmatrix}
+    =  
+    w_i M\aij{i}{j} v^j
+    \\
+    \row{w} M &= 
+    \begin{pmatrix}
+        w_1 & w_2
+    \end{pmatrix}
+    \begin{pmatrix}
+        M\aij{1}{1} & M\aij{1}{2}\\
+        M\aij{2}{1} & M\aij{2}{2}
+    \end{pmatrix}
+    =  
+    \begin{pmatrix}
+        w_i M\aij{i}{1} & w_i M\aij{i}{2}
+    \end{pmatrix}
+    \\
+    M\row{v} &= 
+    \begin{pmatrix}
+        M\aij{1}{1} & M\aij{1}{2}\\
+        M\aij{2}{1} & M\aij{2}{2}
+    \end{pmatrix}
+    \begin{pmatrix}
+        v^1 \\ v^2
+    \end{pmatrix}
+    =  
+    \begin{pmatrix}
+        M\aij{1}{i}v^i \\ M\aij{2}{i}v^i
+    \end{pmatrix} \ .
+\end{align}
+But here we see something powerful about the index notation: in matrix notation, it \emph{does not} make sense to act on a row vector with a matrix `from the right,'
+\begin{align}
+    M\row{w} = ? \ .
+\end{align}
+However, from an index point of view:
+\begin{align}
+    M\aij{i}{j}w_i = w_i M\aij{i}{j} \ .
+\end{align}
+This is because $M\aij{i}{j}$ is not the matrix $M$, it is a specific \emph{component} of the matrix $M$. As such, it is just a number and multiplication of numbers is commutative.\sidenote{I refer back to Section~\ref{sec:treachery:of:indices:vi:is:not:a:vector}.} Similarly,
+\begin{align}
+    M\aij{i}{j}v_j = v_j M\aij{i}{j} \ ,
+\end{align}
+and
+\begin{align}
+    w_i M\aij{i}{j}v_j = v_j w_i M\aij{i}{j} = v_j  M\aij{i}{j} w_i \ ,
+\end{align}
+and so forth. This is not `breaking' anything. In fact, our indexology rules are highlighting that it is the matrix multiplication language of Section~\ref{sec:matrix:multiplication} that is limited. 
+
+We re-iterate once more:
+\begin{newrule}[Contracted indices] The type of object (tensor) that you have after performing an contraction is determined by the leftover \emph{uncontracted} indices.
+\end{newrule}
+This means that the trace, $M\aij{i}{i}$ is a number because it has no free (uncontracted) indices. It also means that a matrix acting on a vector $M\aij{i}{j}v^j$ is a vector because it has one free upper index. Of course, we can also imagine other types of objects that return something different when contracting with a vector.
+
+
+\subsection{Tensors}
+
+A \textbf{tensor}\index{tensor} is an object with some number of ordered indices. Each index has a definite height. We say that a tensor is a $(p,q)$ tensor if it has $p$ upper indices and $q$ lower indices. Vectors, row vectors, and matrices are all tensors. We met an example of a different type of tensor in Figure~\ref{fig:Riemann:tensor:for:indices}, the Riemann tensor,\sidenote{In general relativity (differential geometry) this tensor takes in three vectors and returns another vector. The first two vectors are sides of a parallelogram. In a general curved space, one cannot close this parallelogram. If we take the third vector and `transport it' along the two paths of the parallelogram, the difference in what happens to the third vector is what the Riemann tensor returns. See Figure~\ref{fig:Penrose:14:10:Riemann}.} $R^i_{\phantom{i}jk\ell}$. What can this object do? 
+\begin{marginfigure}%[th]
+    \includegraphics[width=.8\textwidth]{figures/Penrose_Riemann_14_10.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Graphical depiction of what the Riemann tensor from Penrose, \emph{Road to Reality}. Note that Penrose uses a different ordering of indices than we do.}
+    \label{fig:Penrose:14:10:Riemann}
+\end{marginfigure}
+Based on the index structure alone, you can determine that the Riemann tensor can:
+\begin{itemize}
+    \item Take three vectors and a row vector to return a number, $R^i_{\phantom{i}jk\ell} v^jw^ku^\ell t_i$.
+    \item Take two vectors and return a matrix, $R^i_{\phantom{i}jk\ell}v^kw^\ell$. 
+    \item Take two vectors and a row vector to return a row vector, $R^i_{\phantom{i}jk\ell}w_iv^ju^k$.
+    \item ... and a few more that you can write out. Do not forget contractions of the upper index with one of the lower indices.
+\end{itemize}
+\begin{newrule}[Tensor contractions]
+A $(p,q)$ tensor can contract with $r\leq p$ row vectors and $s \leq q$ column vectors to produce a $(p-r, q-s)$ tensor. By allowing `traces' of the tensor's own upper and lower indices, you can also produce $(p-r-n, q-s-n)$ tensors so long as $p-r-n\geq 0$ and $q-s-n\geq 0$.
+\end{newrule}
+\begin{exercise}
+You can generalize the above rule by allowing a $(p_1,q_1)$ tensor to contract with a $(p_2, q_2)$ tensor. Write out some of the ways in which a $(2,2)$ tensor can contract with a $(1,3)$ tensor. Here is one example: $T^{ij}_{\phantom{ij}k\ell} S^\ell_{\phantom{\ell}ijm}$. 
+\end{exercise}
+You can see that tensor contraction can get a little dicey. There is a cute graphical notation called birdtracks notation to keep track of this that never became popular.\sidenote{The cover image for these notes is an example of one such contraction. You can learn more about this in Penrose's \emph{Road to Reality}.} In this course we do not worry about very complicated contractions and can stick to index notation.
+
+\section{Vector Space}
+
+If you have some vectors, the combined set of all possible linear combinations of those vectors is called a \textbf{vector space}. This is the idea introduced in Section~\ref{sec:linear:combination:and:span}. Suppose you have some vectors\sidenote{Note that the lower index here is \emph{not} a component index! The vector $\vec{v_2}$ has components $(v_2)^1, (v_2)^2, \cdots$.},  $\vec{v}_1, \cdots, \vec{v}_N$. From these vectors, you can form an infinite number of other vectors by choosing numbers $\alpha^i$ and forming the linear combination
+\begin{align}
+    \alpha^1 \vec{v}_1 + \alpha^2\vec{v}_2 + \cdots + \alpha^N \vec{v}_N \ .
+    \label{eq:linear:combination:looks:like:basis}
+\end{align}
+The set of all possible vectors that can be formed this way is called the \textbf{vector space} \emph{spanned by}  $\vec{v}_1, \cdots, \vec{v}_N$. When we say that linear combinations of vectors are also vectors, what we mean is that they are \emph{also vectors in the vector space}. We write vector spaces with a capital letter, say $V$, and write that a vector $\vec{v}$ is part of the vector space by writing
+\begin{align}
+    \vec{v} \in V \ .
+\end{align}
+
+\begin{example}
+If you have two vectors,
+\begin{align}
+    \vec{v} &= 
+    \begin{pmatrix}
+        3 \\ 1 \\ 0
+    \end{pmatrix}
+    &
+    \vec{w} &= 
+    \begin{pmatrix}
+        2 \\ 1 \\ 3
+    \end{pmatrix}
+    \label{eq:eg:of:vector:space:1}
+\end{align}
+then you could form another vector that is a linear combination of the two:
+\begin{align}
+    2\vec{v} - 1 \vec{w}
+    =
+    \begin{pmatrix}
+        4 \\ 1 \\ -3
+    \end{pmatrix} \ .
+\end{align}
+We say that this vector is part of the vector space $V$ spanned by $\vec{v}$ and $\vec{w}$. 
+\end{example}
+
+\begin{example}
+If $V$ is the vector space spanned by by $\vec{v}$ and $\vec{w}$ in \eqref{eq:eg:of:vector:space:1}, then the vector
+\begin{align}
+    \vec{u}
+    =
+    \begin{pmatrix}
+        3 \\ 1 \\ 2
+    \end{pmatrix} \ .
+\end{align}
+is \emph{not} part of the vector space $V$ because there are no coefficients $\alpha^1$ and $\alpha^2$ that can satisfy
+\begin{align}
+    \alpha^1\vec{v} + \alpha^2 \vec{w} = \vec{u} \ .
+\end{align}
+If you are not convinced, please try it. In the above condition, how many unknowns are there? How many component-level constraint equations are there?
+\end{example}
+
+\begin{example}
+Consider the vectors
+\begin{align}
+    \vec{a}
+    &=
+    \begin{pmatrix}
+        1\\0
+    \end{pmatrix}
+    &
+    \vec{b}
+    &=
+    \begin{pmatrix}
+        0\\1
+    \end{pmatrix}
+    &
+    \vec{c}
+    &=
+    \begin{pmatrix}
+        1\\1
+    \end{pmatrix}\ .
+\end{align}
+The vector space spanned by these three vectors is \emph{all} of the two-component vectors. In fact, the vector space spanned by any \emph{two} of these vectors is all of the two-component vectors. 
+\end{example}
+
+
+By this notion of duality, you should expect that row vectors also form a vector space. If the space of column vectors is called $V$, then the space of row vectors is called $V^*$. Evidently there is some relation between the two, even though they appear be totally different vector space.\sidenote{That is: we could have just said that row vectors live in a vector space $W$ and $W$ has nothing to do with $V$.} Indeed, the relation is that that row vectors can contract with column vectors. The star evidently means the space of \emph{vectors that can contract with this other set of vectors}. In this way, column vectors are the dual space of row vectors: $(V^*)^* = V^{**} = V$. This is simply saying that in the contraction $w_i v^i$, we can think of $w_i$ acting on $v^i$ or we can equivalently think of $v^i$ acting on $w_i$. 
+
+
+\section{Bases}
+
+% Observation that  \eqref{eq:linear:combination:looks:like:basis} looks like our definition
+
+% def of dimension
+% Vectors and bases
+%  Use Fibonnacci eg from above
+
+
+
+There is a minimum number.
+
+
+\section{Linear Maps}
+
+
+The idea of a vector space lets us sharpen some of our language. A \textbf{matrix}\index{matrix} is a function that takes vectors and spits out other vectors. We say that these are maps from $V\to V$. Equivalently, the matrix also takes row vectors and spits out row vectors, so they are also maps from $V^* \to V^*$.  In fact, they are \emph{also} maps that take a vector and a row vector into a number:
+\begin{align}
+    M:\; V\otimes V^* \to \# \ .
+\end{align}
+The left-hand side just says ``$M$ is a map that takes...''
+We have introduced the $\otimes$ \textbf{tensor product}\index{tensor product} notation.\sidenote{I'll be real honest with you: sometimes I just write this as $\times$.} The tensor product is like a `multiplication' of \emph{spaces}. For now we leave the definition implicit---the above line simply means a map that takes an element of $V$ and an element of $V^*$ to produce a number. We further qualify what kind of map this must be shortly.\sidenote{Spoiler: it has to be linear.}
+
+This means you can think of row vectors as maps from vectors to numbers, and vectors are a map that take row vectors to numbers:
+\begin{align}
+    \row{w}:&\; V\to \# &
+    \vec{v}:&\; V^* \to \# \ .
+\end{align}
+In should be clear that \emph{both} of these refer to $w_iv^i$. If you know all the components of a row vector $w_i$, then I can give you \emph{any} $\vec{v}$ and you can perform the contraction $w_iv^i$ to produce a number. That means the information that you have (the components $w_i$) can be assembled---using our contraction rule---into a machine that takes any vector and spits out a number.
+
+\begin{exercise}
+What are all of the possible ways of treating a $(p,q)$ tensor as a map? 
+\end{exercise}
+
+
+% Row vectors as 
+% The fact that matrices take vectors and return vectors tells us that they enact transformations on the \emph{space} of vectors. Under the action of a matrix, every allowed vector is transformed into a different vector. 
+
+
+
+\section{Transformation under symmetries}
+% Motivating the indices
+% What is a symmetry
 
 
 
