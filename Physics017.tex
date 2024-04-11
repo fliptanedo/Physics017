@@ -628,11 +628,9 @@ Here are some \emph{obvious} statements\sidenote{This means: if they are not imm
     \item In the expansion of a vector as a linear combination of basis vectors, the coefficients are unique to the vector. That is: if $\vec{v} = \sum_i \alpha^i\vec{b}_i$ for a basis $\vec{b}_{1,2,3}$, then the set of numbers $(\alpha^1, \alpha^2, \alpha^3)$ uniquely defines $\vec{v}$. There is no other combination of coefficients in a linear combination that sum to $\vec{v}$. 
     \item When describing a vector, the \emph{coefficients} of the linear combination of basis vectors and the \emph{components} of a column vector with respect to that basis are identical. This is by definition. 
 \end{enumerate}
-The last point is poignant. You may have believed that a vector \emph{is} the column of numbers. We want to move away from this so that we may generalize our definition. A vector is a linear combination of basis vectors, where we are remaining agnostic about what the basis vectors are. Let me say this again: \emph{the column of numbers is not the vector, it is simply a representation of a linear combination of basis vectors. All the ``vector-ness'' is encoded in the basis vectors.}
+The last point is poignant. You may have believed that a vector \emph{is} the column of numbers. We want to move away from this so that we may generalize our definition. A vector is a linear combination of basis vectors, where we are remaining agnostic about what the basis vectors are. Let me say this again: \emph{the column of numbers is not the vector, it is simply a representation of a linear combination of basis vectors. All the ``vector-ness'' is encoded in the basis vectors.}\sidenote{For a sneak peek of this, you may want to jump to Section~\ref{sec:sub:abstraction:basis}.}
 
-\begin{example}
-Color space is a vector space that highlights this idea of a more abstract basis vector. In color theory, all colors are linear combinations of red, green, and blue. This should sound really weird because in physics these colors are simply wavelengths of light: what is special about them? Nothing in nature. What is special is that our eyes have three types of color receptor cells. Each type is sensitive to a certain window of the visible spectrum. We call these human eye responses the colors red, green, and blue. When we add colors, what we really mean is we're adding ``responses'' to a particular spectrum of light. When we add colors, we are not adding electromagnetic waves: we are adding neurological responses. For each type of color-sensitive cell, one `blip' of neural response is a basis vector for our color response. The sensation of a particular color is a linear combination of this basis. An actual human being is not sensitive to the whole vector space: for example, we cannot add negative colors to our sensory response. This is a fascinating subject and a surprising application of linear algebra.\footnote{There are some great YouTube videos on this. Here are a few: \url{https://www.youtube.com/watch?v=xAoljeRJ3lU}, \url{https://www.youtube.com/watch?v=AS1OHMW873s}, \url{https://www.youtube.com/watch?v=99v96TL-tuY}.}
-\end{example}
+
 
 
 What is less obvious is that at this point there is \emph{no preferred basis}. Any minimal set of vectors that span a vector space is a perfectly good vector. Suppose $\vec{b}_{1,2,3}$ is one such set for $\RR ^3$. We can write the vector with respect to the coefficients of the linear combination of  $\vec{b}_{1,2,3}$ basis vectors that reproduces it. If we had another basis, $\vec{b}'_{1,2,3}$, we could write the same vector with respect to a different linear combination of the $\vec{b}'_{1,2,3}$ basis. The components of these linear combinations, say $\alpha^i$ and $\alpha'^i$, will be different because the basis elements are different. However, they represent the same vector.
@@ -718,11 +716,9 @@ However, your friend Riley approaches you from the northeast so Riley is facing 
 For simplicity, assume that the length of your basis vectors are all the same---even though we haven't defined what length means. Suppose you `measure' a vector with components $v^1 = 2$, $v^2=-1$, and $v^3=1.5$. This is a vector pointing southeast and upward. What components does Riley measure with respect to their basis?
 \end{exercise}
 
-\begin{exercise}
-One of my favorite examples of a vector space is the space of Fibonacci sequences. Fibonacci sequences are infinite lists of numbers $a_i$ that satisfy $a_{i+2} = a_i+a_{i+1}$. Once you specify the first two numbers $a_0$ and $a_1$, you can iteratively generate every other number in the sequence. Each sequence is a vector in the space of possible Fibonacci sequences. Show that this is true by confirming that a linear combination of Fibonacci sequences with each $i^\text{th}$ term added, e.g.\ $(a+b)^i = a_i+b_i$ is also a Fibonacci sequence. Give an example of a basis for the Fibonacci sequences. What is the dimension of the Fibonacci sequence space? \emph{Answer}: the dimension is two, even though each element is an infinitely long list of numbers.
-\end{exercise}
 
-In some classes there is an agreed upon notion that the basis vectors are 
+
+In some physics classes there is an agreed upon notion that the basis vectors are 
 \begin{align}
     \bas{e}_1 &= \hat x_1 = \hat i
     &
@@ -1004,6 +1000,49 @@ Show that you \emph{cannot} multiply a $2\times 3$ matrix onto a $2 \times 3$ ma
 \begin{exercise}
 Suppose you want to multiply an $n\times m$ matrix onto a $k \times \ell$ matrix.. What are the conditions on the numbers $n, m, k, \ell$ for this to make sense using the matrix multiplication rule?
 \end{exercise}
+
+
+
+The rules for matrix multiplication also introduces the notion of a matrix inverse. Given a matrix $M$, the inverse of the matrix $M\inv$ `undoes' whatever the matrix does. It is also true that $M$ `undoes' whatever $M\inv$ does. In this sense $(M\inv)\inv = M$. The defining relation is
+\begin{align}
+    M M\inv = M\inv M = \one \ ,
+    \label{eq:matrix:invers:multiplcation:notation}
+\end{align}
+where $\one$ is the identity matrix that is zero except for ones along the diagonal.\sidenote{When $\one$ acts on a vector it returns the same vector: $\one \vec{v} = \vec{v}$.}
+\begin{exercise}
+Let us assign values to $M$ and $M\inv$ in the $2\times 2$ case:
+\begin{align}
+M &=
+    \begin{pmatrix}
+    a & b \\
+    c & d    
+    \end{pmatrix}
+    &
+M\inv &=
+    \begin{pmatrix}
+    x & y \\
+    z & w    
+    \end{pmatrix} \ .
+\end{align}
+Write out the \emph{four} conditions that we get from $MM\inv = \one$. \textsc{Partial answer}: one of the conditions is
+\begin{align}
+    ax + bz = 1 \ .
+\end{align}
+If you know each of the components of $M$, then you have four equations for four unknowns. This system of equations may have a solution.
+\end{exercise}
+\begin{exercise}
+Using the system of equations above, prove the usual identity for $2\times 2$ invertible matrices:
+\begin{align}
+    M\inv = \frac{1}{ad-bc}
+    \begin{pmatrix}
+    \pp d & -b \\
+    -c & \pp a    
+    \end{pmatrix} \ .
+\end{align}
+\end{exercise}
+All of this assumes that the inverse is well defined, which is not always the case. For example, if either a row or a column of $M$ is all zeros---the matrix will not be invertible. This is because the matrix \emph{projects out} information and there is no way to recover that information.
+
+
 
 This notion of matrix multiplication is helpful and perhaps something you may have learned in earlier stages of your education. It is still the way I do many calculations. \emph{However}, the rules in this section are a \emph{shortcut} for a much richer mathematical structure. It is this mathematical structure that we want to reveal because it shows us how seemingly different mathematical structures in physics are actually rooted in the same underlying language. As such, many of the notions in this chapter may be ideas that you must first \emph{unlearn} in order to \emph{relearn} how they are outputs of the richer structure.\sidenote{When I teach this class there are often a few students who are apologetic for not having taken a formal linear algebra class. I have noticed that those students sometimes do much better in the course because they have fewer preconceptions to unlearn.}
 
@@ -1423,6 +1462,31 @@ We re-iterate once more:
 \end{newrule}
 This means that the trace, $M\aij{i}{i}$ is a number because it has no free (uncontracted) indices. It also means that a matrix acting on a vector $M\aij{i}{j}v^j$ is a vector because it has one free upper index. Of course, we can also imagine other types of objects that return something different when contracting with a vector.
 
+\paragraph{Matrix inverses}
+We touched on inverse matrices in \eqref{eq:matrix:invers:multiplcation:notation}. Let us return to it using index notation. \emph{If} a matrix is invertible, then the condition \eqref{eq:matrix:invers:multiplcation:notation} is
+\begin{align}
+    M\aij{i}{k}(M\inv)\aij{k}{j} = (M\inv)\aij{i}{k}M\aij{k}{j} = \delta^i_j
+\end{align}
+where we define the Kronecker-$\delta$,\sidenote{The Kronecker-$\delta$ are the components of the identity matrix. Because it is diagonal, the order of the indices does not matter so we can write both indices with the same horizontal alignment. In a contraction, the Kronecker-$\delta$ simply says: replace a sum over one of my indices with the value of the other index.}
+\begin{align}
+    \delta^i_j = \begin{cases}
+    1 & \text{if } i=j \\
+    0 & \text{otherwise .}
+    \end{cases}
+    \label{eq:kronecker:delta}
+\end{align}
+If the indices can take values from 1 to $N$, then there are $N^2$ equations to constrain the $N^2$ components of $M\inv$. If the matrix $M$ is invertible, then one could solve this system of equations to determine $M\inv$. In silly versions of this course, one would spend time using some software---perhaps Matlab---to solve this system of equations. That's silly. Matrices are either invertible by hand, easy to invert using your favorite computer algebra system\sidenote{\emph{Mathematica} is popular among theorists, though \emph{NumPy} and \emph{SciPy} are both open source.}, or so hopelessly impossible to invert that other techniques are needed to approximate their inversion.\sidenote{Taylor expansions about an easier-to-invert matrix, for example.} However, understanding what it means to invert a matrix is a \emph{big} part of mathematical physics. In fact, it is a central thrust of physics.
+\begin{bigidea}
+A surprisingly large swath of physics---and certainly the part that is most do-able---boils down to inverting matrices of various (often infinite) sizes. This is because equations in physics are often in the form
+\begin{align}
+    (\text{operator})\, \ket{\text{state}} = \ket{\text{source}} \ .
+\end{align}
+We have used ket notation, but recall that these are just vectors. Usually you know what the operator (matrix) is and you know what the source is. For example, the operator may be some vector calculus operator, perhaps the divergence. The source is usually a physical configuration, perhaps the density of charge. Then the state---which is what you want to find---would be the electric field. The general solution to problems in this form is
+\begin{align}
+ \ket{\text{state}} = (\text{operator})\inv\, \ket{\text{source}} \ .
+\end{align}
+And it thus behooves us to understand what it means to invert an operator. So another way to think about our course, ``linear algebra for physicists,'' is to say it is the toolkit to invert operators that show up in physics.
+\end{bigidea}
 
 \subsection{Tensors}
 
@@ -1455,7 +1519,7 @@ If you have some vectors, the combined set of all possible linear combinations o
     \alpha^1 \vec{v}_1 + \alpha^2\vec{v}_2 + \cdots + \alpha^N \vec{v}_N \ .
     \label{eq:linear:combination:looks:like:basis}
 \end{align}
-The set of all possible vectors that can be formed this way is called the \textbf{vector space} \emph{spanned by}  $\vec{v}_1, \cdots, \vec{v}_N$. When we say that linear combinations of vectors are also vectors, what we mean is that they are \emph{also vectors in the vector space}. We write vector spaces with a capital letter, say $V$, and write that a vector $\vec{v}$ is part of the vector space by writing
+The set of all possible vectors that can be formed this way is called the \textbf{vector space} \emph{spanned by}  $\vec{v}_1, \cdots, \vec{v}_N$. The word \textbf{span}\index{span} means the vector space of all linear combinations of a set of vectors. When we say that \emph{linear combinations of vectors are also vectors}, what we mean is that they are \emph{also vectors in the vector space}. We write vector spaces with a capital letter, say $V$, and write that a vector $\vec{v}$ is part of the vector space by writing
 \begin{align}
     \vec{v} \in V \ .
 \end{align}
@@ -1531,15 +1595,511 @@ By this notion of duality, you should expect that row vectors also form a vector
 
 \section{Bases}
 
-% Observation that  \eqref{eq:linear:combination:looks:like:basis} looks like our definition
+Let us return to \eqref{eq:linear:combination:looks:like:basis}. Take a moment to take a good look at that equation. In fact, this equation is so important that we write it out again:
+\begin{align}
+    \alpha^1 \vec{v}_1 + \alpha^2\vec{v}_2 + \cdots + \alpha^N \vec{v}_N \ .
+    \tag{\ref{eq:linear:combination:looks:like:basis}}
+\end{align}
+Here are a few thoughts that may come to your mind while looking at this linear combination of vectors.
+\begin{enumerate}
+    \item Hmm. We have $N$ vectors and took a linear combination of them. This means that we needed $N$ coefficients. Rather than writing $\alpha$, $\beta$, $\gamma$, and so forth, we chose to jsut label them all $\alpha$ but with an upper index. 
+    \item Oh... the upper index is convenient because it means we can write the linear combination as $\alpha^i \vec{v}_i$. But this isn't a ``real'' contraction, right? Well... it follows the summation convention so I suppose that's legitimate. It is just weird that $\vec{v}_i$ is an entire vector with and additional lower index.
+    \item In fact, these $\alpha^i$ coefficient look suspiciously like the components of a vector.
+    \item Wait a second, $\alpha^i\vec{v}_i$ \emph{is} a vector.
+    \item Can I think about $\alpha^i$ as being the components of the vector $\alpha^i\vec{v}_i$?
+\end{enumerate}
+
+
+\subsection{An understanding between friends}
+This brings us to the critical idea of a basis. Now is a good time to go over the examples in the previous section. Go ahead and do that. \emph{Right now.} Okay, welcome back. Suppose that you and I agreed on a set of vectors. Let's say that we both agreed on the $N$ vectors in \eqref{eq:linear:combination:looks:like:basis}; we even agree on the numbering. Let us call this special set of vectors a \textbf{basis}\index{basis}. That means that if I want to communicate to you some linear combination of those vectors, all I have to do is give you a list of their coefficients. I would write this as a column,
+\begin{align}
+    \vec{a} = 
+    \begin{pmatrix}
+        \alpha^1\\
+        \vdots \\
+        \alpha ^N
+    \end{pmatrix} \ .
+\end{align}
+You may say: oh, that's an odd way to write a linear combination---just stacking the coefficients in a column like that. But sure, we both understand that what this \emph{really} means is
+\begin{align}
+    \vec{a} = 
+    \alpha^i \vec{v}_i \ ,
+\end{align}
+we can just leave the $\vec{v}_i$ implicit because we both already agree on what those vectors are. 
+
+Maybe you see what is going on here. We previously introduced vectors as columns of numbers. Now we are saying that columns of numbers represent a particular linear combinations of basis vectors. It seems that all this time, the `column of numbers' that we started actually mean a linear combination of a specific choice of basis vectors. In fact, the standard or canonical basis vectors can be thought of as columns:
+\begin{align}
+    \bas{e}_1 &= 
+    \begin{pmatrix}
+        1\\ 0 \\  0 \\\vdots
+    \end{pmatrix}
+    &
+    \bas{e}_2 &= 
+    \begin{pmatrix}
+        0 \\ 1 \\  0 \\\vdots
+    \end{pmatrix}
+    &
+    \bas{e}_3 &= 
+    \begin{pmatrix}
+        0 \\ 0 \\  1 \\\vdots
+    \end{pmatrix}
+    &
+    \cdots
+    \label{eq:canonical:basis}
+\end{align}
+We have moved to a notation where we write the basis vectors as $\bas{e}_i$. A basis does not \emph{need} to be nice. 
+
+
+In terms of the canonical basis \eqref{eq:canonical:basis}, we now understand that the components of a vector mean
+\begin{align}
+    \vec{v} = v^1 \bas{e}_1 + v^2 \bas{e}_2 + \cdots = v^1 \bas{e}_1 \ .
+\end{align}
+
+\begin{bigidea}[The big deal about bases]\label{idea:reasons:to:like:bases}
+This whole hubbub about bases is useful for at least two reasons:
+\begin{enumerate}
+    \item This notion completely abstracts away the \emph{meaning} of a vector. The basis vectors carry all the `vector-ness'\sidenotemark of the vector. 
+    \item If you and I are \emph{not} using the same basis, then all I have to do is convert your basis into my basis to be able to convert your components into my components.
+\end{enumerate}
+\end{bigidea}\sidenotetext{Or more generally, tensor-ness.}
+
+We briefly introduce these two ideas in turn. But first, let us address the index structure of the basis.
+
+\paragraph{Why do basis vectors have lower indices?} Previously we said objects with a single lowered index are row vectors. Are basis vectors row vectors? Not quite. In fact, when we talked about tensors, we said that the specific component $T^{i_1\cdots i_N}_{\phantom{{i_1\cdots i_N}}j_1\cdots j_M}$ is just some number. For basis vectors, once we specify $i$, $\bas{e}_i$ is \emph{not} a number: it carries all of the \emph{meaning} of what a vector \emph{is} in whatever context the vector is being used. The basis vector has a lower index because it means we can contract it with the upper index of $v^i$. The resulting object is the vector itself, $\vec{v}$ which carries no indices. If this sounds like philosophical navel gazing, please jump ahead and do Exercise~\ref{ex:fibonacci:space}---it is a rather different example of `vector-ness' than `columns of numbers.'
+
+
+
+
+
+\subsection{Abstraction}
+\label{sec:sub:abstraction:basis}
+
+% In Section~\ref{sec:sub:basis:changing} we saw how making the basis vectors explicit helps us understand how to relate tensors in one reference frame (basis) to another. Recall that there is a second reason in \bigidearef~\ref{idea:reasons:to:like:bases} why basis vectors are helpful: they
+Basis vectors help us further let vectors become more abstract.\sidenote{There is an analogy here to the \LaTeX typesetting system. The goal of \LaTeX is to separate content from the under-the-hood work to present that content. For practical purposes, we want to separate components---which are just numbers that we can work with---from underlying mathematical machinery that gives those components meaning.}
+%
+Another way of saying this is as follows:
+\begin{quote}
+Vectors are \emph{not} columns of numbers.
+\end{quote}
+Those numbers are the \emph{components} of a vector. But the \emph{meaning} of a vector depends on the context. In some contexts the vector might be a velocity or a momentum. It may be a unit excitation in the electric field. It may be the spin state of an electron. It may be a solution to the spherical Laplace equation. The magic is that all sorts of \emph{physical} quantities are described by vectors. The basis vectors carry these identities so that we can just work with numerical coefficients that we happen to denote with upper indices and that we sometimes arrange in columns.
+
+To make this concrete, please go through Exercise~\ref{ex:fibonacci:space} to meet a somewhat unusual vector space.
+\begin{exercise}[Fibonacci sequence space]\label{ex:fibonacci:space}
+One of my favorite examples of a vector space is the space of Fibonacci sequences. Fibonacci sequences are infinite lists of numbers $a_i$ that satisfy $a_{i+2} = a_i+a_{i+1}$. Once you specify the first two numbers $a_0$ and $a_1$, you can iteratively generate every other number in the sequence. Each sequence is a vector in the space of possible Fibonacci sequences. Show that this is true by confirming that a linear combination of Fibonacci sequences with each $i^\text{th}$ term added, e.g.\ $(a+b)^i = a_i+b_i$ is also a Fibonacci sequence. Give an example of a basis for the Fibonacci sequences. What is the dimension of the Fibonacci sequence space? \emph{Answer}: the dimension is two, even though each element is an infinitely long list of numbers.
+\end{exercise}
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/YoungHelm.jpg}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Sketch of Young and Hemholtz (yes, the physicists) spectral sensitivities for different photoreceptors in their trichromatic color space theory. Image from Wikipedia, `Young-Hemholtz theory.'}
+    \label{fig:young:hemholtz}
+\end{marginfigure}
+\begin{example}[Color space]\label{eg:color:space} is a vector space that highlights this idea of a more abstract basis vector. In color theory, all colors are linear combinations of red, green, and blue. This should sound really weird because in physics these colors are simply wavelengths of light: what is special about them? Nothing in nature. What is special is that our eyes have three types of color receptor cells, see Figure~\ref{fig:young:hemholtz}.\footnote{Animals can have different number of color receptor cells. One great place to read about this is Ed Yong's book, \emph{An Immense World}. Color space for those animals has a different dimension than ours.} Each type is sensitive to a certain window of the visible spectrum. We call these human eye responses the colors red, green, and blue. When we add colors, what we really mean is we're adding ``responses'' to a particular spectrum of light. When we add colors, we are not adding electromagnetic waves: we are adding neurological responses. For each type of color-sensitive cell, one `blip' of neural response is a basis vector for our color response. The sensation of a particular color is a linear combination of this basis. An actual human being is not sensitive to the whole vector space: for example, we cannot add negative colors to our sensory response. This is a fascinating subject and a surprising application of linear algebra.\footnote{There are some great YouTube videos on this. Here are a few: \url{https://www.youtube.com/watch?v=xAoljeRJ3lU}, \url{https://www.youtube.com/watch?v=AS1OHMW873s}, \url{https://www.youtube.com/watch?v=99v96TL-tuY}.} The sense in which a color is an overlap integral of a cell's sensitivity to different frequencies of light times the distribution of photons over frequency happens to also be a precursor to the inner product on infinite dimensional spaces.
+\end{example}
+
+
+
+\subsection{Changing basis} 
+\label{sec:sub:basis:changing}
+
+We started this section off by saying that the two of us just agreed on some set of basis vectors. Maybe we do not agree on a set of basis vectors. Maybe I am a little weird and I choose a set of basis vectors that seem very strange to you; this very strange basis does \emph{not} have to be aligned in any particular way.\sidenote{If you are about to say the word \emph{orthonormal}, then stop right there. We do not yet have the mathematical machinery to define orthogonality or normality.} 
+
+\paragraph{A very silly basis}
+Here is my silly choice of basis. To help us be very careful, I use square brackets for the components that \emph{you} would measure using \emph{your} basis. 
+\begin{align}
+    \bas{f}_1 &=
+    \begin{bmatrix}
+        3 \\ 1
+    \end{bmatrix}
+    &
+    \bas{f}_2 &=
+    \begin{bmatrix}
+        2 \\ 2
+    \end{bmatrix} \ .
+\end{align}
+All of my vectors are defined with respect to my basis. In fact, all the above line means is
+\begin{align}
+    \bas{f}_1 &= 3\bas{e}_1 + \bas{e}_2
+    &
+    \bas{f}_2 &= 2\bas{e}_2 + 2\bas{e}_2
+    \ .
+    \label{eq:change:basis:eg:1}
+\end{align}
+We can write this even more succinctly using tensors:
+\begin{align}
+    \bas{f}_i &= \bas{e}_j T\aij{j}{i} \ .
+    \label{eq:change:basis:eg:2}
+\end{align}
+\begin{exercise}
+What are the components of $T\aij{j}{i}$? \textsc{Partial answer:} $T\aij{1}{2} = 2$.
+\end{exercise}
+
+
+I can define a vector $\vec{a}$ with components $\alpha^{1,2}$ and package the components into a column with round brackets:
+\begin{align}
+    \vec{a} 
+    = \begin{pmatrix}
+        \alpha^1 \\ \alpha^2
+    \end{pmatrix}
+    =
+    \alpha^i \bas{f}_i  \ .
+\end{align}
+What does this mean \emph{to you?} To figure this out, you would just insert the conversion \eqref{eq:change:basis:eg:1}:
+\begin{align}
+    \vec{a} = \alpha^i \bas{f}_i = \alpha^i T\aij{j}{i} \bas{e}_j = (\alpha^i T\aij{j}{i})\bas{e}_j \equiv \beta^j \bas{e}_j \ .
+\end{align}
+From this we find that the components of the vector $\vec{a}$ in your $\bas{e}_i$ basis are
+\begin{align}
+    \beta^j = \alpha^i T\aij{j}{i} \ . 
+    \label{eq:beta:alpha:T:convert}
+\end{align}
+\begin{exercise}
+Explicitly write out the $\beta^j$. \textsc{Partial answer:} $\beta^1 = 3\alpha^1 + 2\alpha^2$.
+\end{exercise}
+
+
+If I told you that I have a vector whose components---in my $\bas{f}$ basis---are
+\begin{align}
+    \alpha^1 &= 2 & \alpha^2 &= 3    
+\end{align}
+the you would understand that
+\begin{align}
+    \vec{a} 
+    = \begin{pmatrix}
+        \alpha^1 \\ \alpha^2
+    \end{pmatrix}
+    =
+        \alpha^i \bas{f}_i 
+        =
+        2
+    \begin{bmatrix}
+        3 \\ 1
+    \end{bmatrix}
+    +
+    3
+    \begin{bmatrix}
+        2 \\ 2
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+        12 \\
+        8
+    \end{bmatrix} 
+    \equiv
+    \begin{bmatrix}
+        \beta^1 \\
+        \beta^2
+    \end{bmatrix}
+    \ .
+\end{align}
+\begin{exercise}
+Verify that these values of $\alpha^i$ and $\beta^i$ satisfy \eqref{eq:beta:alpha:T:convert}.
+\end{exercise}
+I am being \emph{very} careful here to distinguish between round and square brackets.
+In tern, we must be \emph{very} careful in how we interpret this! The round brackets and the square brackets\sidenote{I just made up this notation for illustrative purposes.} are totally different objects. So the following statement is true:
+\begin{align}
+    \vec{a} = \begin{pmatrix}
+        2 \\ 3
+    \end{pmatrix}
+    = 
+    \begin{bmatrix}
+        12 \\ 8
+    \end{bmatrix} \ .
+\end{align}
+There is no paradox here: the column in round brackets are the components in the $\bas{f}$ basis while the column in square brackets are the components in the $\bas{e}$ basis. 
+
+
+\paragraph{General discussion} The square and round bracket notation is somewhat cumbersome and non-standard. Instead, let us propose a notation that is just as cumbersome but more transparent:
+\begin{align}
+    \begin{pmatrix}
+        \alpha^1\\
+        \alpha^2\\
+        \vdots
+    \end{pmatrix}_{\bas{f}}
+    &= \alpha^i \vec{f}_i
+    &
+    \begin{pmatrix}
+        \beta^1\\
+        \beta^2\\
+        \vdots
+    \end{pmatrix}_{\bas{e}}
+    &= \beta^i \vec{e}_i \ .
+\end{align}
+A key idea is to see how we convert between bases.\sidenote{The plural of basis is \emph{bases} and is pronounced `bay-sees.' As a linguistic excursion, you can look up the plural of `hippopotamus.'}
+\begin{align}
+    \bas{f}_i = T\aij{j}{i} \bas{e}_j \ .
+    \label{eq:change:of:basis:matrix:1}
+\end{align}
+We see that in the $\bas{e}$ basis,
+\begin{align}
+    \bas{f}_1 &=
+    \begin{pmatrix}
+        T\aij{1}{1}
+        \\
+        T\aij{2}{1}
+        \\
+        \vdots
+    \end{pmatrix}_{\bas{e}}
+\end{align}
+and more generally,
+\begin{align}
+    \bas{f}_i &=
+    \begin{pmatrix}
+        T\aij{1}{i}
+        \\
+        T\aij{2}{i}
+        \\
+        \vdots
+    \end{pmatrix}_{\bas{e}} \ .
+\end{align}
+And so we find the following rule.
+\begin{newrule}[Change of basis matrix]\label{rule:change:of:basis:matrix}
+Let $T\aij{i}{j}$ be the change of basis matrix defined by \eqref{eq:change:of:basis:matrix:1}. Then  the \emph{columns} of the matrix representation of $T\aij{i}{j}$ with the components of the $\bas{f}$ basis vectors written in the $\bas{e}$ basis:
+\begin{align}
+    \begin{pmatrix}
+        T\aij{1}{1} & T\aij{1}{2} & \cdots \\
+        T\aij{2}{1} & T\aij{2}{2} & \cdots \\
+        \vdots & \vdots &\ddots  
+    \end{pmatrix}
+    &
+    =
+    \begin{pmatrix}
+        | & | & \cdots \\
+        \bas{f}_1 & \bas{f}_2 & \cdots \\
+        | & | & \ddots 
+    \end{pmatrix} \ .
+\end{align}
+\end{newrule}
+Now let me take a moment to throw up swaths of caution tape here. The reason why the components of $\bas{f}_i$ in the $\bas{e}$ basis are given by the \emph{columns} of $T\aij{i}{j}$ has to do with our choice of how $T\aij{i}{j}$ is defined in \eqref{eq:change:of:basis:matrix:1}. In our strict index convention, \eqref{eq:change:of:basis:matrix:1} is the \emph{only} structure that makes sense.\sidenote{You could have defined a tensor $S_i^{\phantom{i}j}$ such that $\bas{f}_i = S_i^{\phantom{i}j} \bas{e}_j$, but we can equivalently define a matrix $T\aij{j}{i} = S_i^{\phantom{i}j}$ that does the same thing. If you are thinking about saying $S$ and $T$ transposes of each other---hold your horses! We do not yet have the machinery to define this.} 
+
+We could then ask a separate question: if we know the components of a vector in the $\bas{e}$ basis, $\beta^i$, what are the components in the $\bas{f}$ basis? Then we can take \eqref{eq:change:of:basis:matrix:1} and act on both sides with the inverse transformation $(T\inv)\aij{i}{k}$
+\begin{align}
+    (T\inv)\aij{i}{k}T\aij{j}{i}\bas{e}_j &= (T\inv)\aij{i}{k}\bas{f}_i \\
+    \delta^j_k \bas{e}_j &= (T\inv)\aij{i}{k}\bas{f}_i\\
+    \bas{e}_k &=(T\inv)\aij{i}{k}\bas{f}_i \ ,
+    \label{eq:intermediate:e:Tinv:f}
+\end{align}
+Where we use the Kronecker-$\delta$ from \eqref{eq:kronecker:delta}.
+% 
+Contracting both sides \eqref{eq:intermediate:e:Tinv:f} by the $\bas{e}$ basis components $\beta^k$ then gives an expression for the $\alpha^k$ components in the $\bas{f}$ basis:
+\begin{align}
+   \beta^k \bas{e}_k &=(T\inv)\aij{i}{k} \beta^k \bas{f}_i \equiv \alpha^i \bas{f}_i \ .
+\end{align}
+In other words,
+\begin{align}
+    \alpha^i = (T\inv)\aij{i}{k} \beta^k \ .
+\end{align}
+Of course, at this point you can wonder about what to do if $T$ is \emph{not} an invertible matrix---and under what conditions would that be the case? Evidently we should put some thought into what a `good' basis might be, and part of that definition is likely to involve the invertibility of the transformation between different `good' bases.
+
+\begin{bigidea}
+In physics, a choice of basis often corresponds to a reference frame. For example, we could imagine trying to look at a paper map\footnote{In ancient times maps used to be printed on large pieces of paper that were folded up. Ancient navigators would find shared community in trying to re-fold these maps so that they might fit back into their glove compartments.} while standing in Parking Lot 13 at \acro{UC R}iverside. There is a two dimensional vector space of directions from where we are standing. A natural basis is 
+\begin{align}
+    \bas{e}_1 &= \text{step forward}\\
+    \bas{e}_2 &= \text{step to the right} \ .
+\end{align}
+Taking a two steps to the left would be $-2\bas{e}_2$. Then I could use my map and tell you that the Physics department is located\footnote{Nevermind that `position vectors' are not a sensible thing. As an exercise, you can try to rephrase this example in terms of velocities. It gets clunky: you are trying to throw a football with some velocity so that it reaches the physics department in a certain fixed amount of time. Analogies are like undergrads... \url{https://phdcomics.com/comics/archive.php?comicid=439}} at $900\bas{e}_1$. This is only correct if my $\bas{e}_1$ basis vector is pointing east; that is, if I am facing east. If you happen to be facing north-east, then your basis vectors would be oriented differently. Perhaps $\bas{f}_1$ still means a `step forward,' but now it is a step in the north-east direction.
+
+We want to be able to describe physical situations in different orientations. It is often easier to describe a problem in a different frame. For example, the frame where the angular momentum (pseudo-)vector is pointed in the $z$ direction, or where the moment of inertia tensor is diagonal. In relativity, it is usually helpful to be able to boost to the rest frame of a moving body.
+
+A more sophisticated version of a change of basis is the description of a quantum particle using its position versus its momentum. Some problems are much easier to solve if you describe the particle in terms of its momentum, while others are easier if you use position. One of the curiosities of quantum mechanics is that these two descriptions turn out to be incompatible, as manifested in the Heisenberg uncertainty relations.
+
+All this is to say that yes: changing basis is a big $\bas{f}$'ing deal.\footnote{To paraphrase a former vice president.}
+\end{bigidea}
+
+
+
+\subsection{Goldilocks dimension} % Why isn't the modern telling called ``Karen and the three bears?''
+
+Recall from \eqref{eq:linear:combination:looks:like:basis} that the span of a set of vectors $\vec{v}_1, \cdots, \vec{v}_N$ is the vector space $V$ of all linear combinations of those vectors. This makes us want to identify those vectors as a basis for $V$. \emph{Not so fast}. For any vector space $V$, there is a `correct' number of basis vectors vectors called the \textbf{dimension}\index{dimension} of $V$, or $\text{dim}\,V$. This dimension is the minimum number of good basis vectors that you need to describe any vector in $V$. To write it technically, $\text{dim}\,V$ is the smallest counting number $d$ such that
+\begin{align}
+    \forall \vec{v} \in V :\; \vec{v} = v^1 \bas{e}_1 + \cdots + v^{d}\bas{e}_{d} \ .
+\end{align}
+The symbol $\forall$ means ``for all,'' so the above line says: for all (really: for \emph{any}) vector $\vec{v}$ in the vector space, $\vec{v}$ is a linear combination of $d$ basis vectors. The dimension of $V$ is the smallest number $d$ for which this is true. 
+
+If your number of proposed basis vectors is larger than this dimension then vectors do not have a unique expansion. If your number of proposed basis vectors is smaller than this dimension, then there are vectors in $V$ that \emph{cannot} be described by linear combinations of your basis vectors. And even if your number of proposed basis vectors is \emph{just right} and exactly equal to $\text{dim}\,V$, you could \emph{still} fail because some of your basis vectors are actually combinations of other basis vectors. Let us go through these cases sequentially.
+
+\subsubsection{Too many basis vectors}
+
+Start with the following example:
+\begin{example}
+Suppose you have the following proposed basis:
+\begin{align}
+    \bas{e}_1 &=
+    \begin{pmatrix}
+        1\\
+        1
+    \end{pmatrix}
+    &
+    \bas{e}_2 &=
+    \begin{pmatrix}
+        2\\
+        1
+    \end{pmatrix}
+    &
+    \bas{e}_3 &=
+    \begin{pmatrix}
+        -1\\
+        \pp 1
+    \end{pmatrix} \ .
+    \label{eq:eg:too:many:basis:vectors:basis}
+\end{align}
+Suppose I then give you the vector
+\begin{align}
+    \vec{v} &=
+    \begin{pmatrix}
+        3 \\ 1
+    \end{pmatrix} \ .
+\end{align}
+What is the linear combination of your basis vectors that produces $\vec{v}$? In other words, what are the $v^i$ so that
+\begin{align}
+    \vec{v}= v^i \bas{e}_i \, ?
+\end{align}
+You can write this as a system of equations. One solution is
+\begin{align}
+    \vec{v} &= -1\bas{e}_1 + 3\bas{e}_2 + 0\,\bas{e}_3 
+    &
+    \begin{pmatrix}
+        v^1 \\ v^2 \\ v^3
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        -1 \\ \pp 3 \\ \pp 0
+    \end{pmatrix} \ .
+\end{align}
+Great, problem solved, right? Not quite. We could have \emph{alternatively} written
+\begin{align}
+    \vec{v} &= 0\,\bas{e}_1 + \frac{4}{3}\bas{e}_2 - \frac{1}{3}\bas{e}_3 
+    &
+    \begin{pmatrix}
+        v^1 \\ v^2 \\ v^3
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \pp 0 \\ \pp 4/3 \\ - 1/3
+    \end{pmatrix} \ .
+\end{align}
+Now we should be concerned. For the \emph{same} basis, there are at least \emph{two} different sets of coefficients that describe the \emph{same} vector! How are we supposed to keep track of the fact that there are \emph{degeneracies} where different combinations of components $v^i$ actually mean the \emph{same} vector? That would be madness.\sidenotemark
+\end{example}\sidenotetext{This is absolutely silly to do, but it turns out there are cases in physics where we make use of this type of madness. These are called \emph{gauge theories}. An example of a gauge theory is electromagnetism, where there is a redundancy that we call a \emph{gauge symmetry}. This corresponds to the fact that many different choices of gauge potential (the electric and vector potentials) produce the same physical electric and magnetic fields. An excellent introduction to this idea is \arXiv{hep-th/0611201}.}
+\begin{exercise}
+Write out and solve the system of equations from the previous example. Show that there are an infinite number of solutions. In fact, these solutions are a line in a three-dimensional space.
+\end{exercise}
+
+Evidently you can have \emph{too many} basis vectors. In the above example, we could have taken any two of the three basis vectors and still described the same vector space. That vector space thus has dimension two. We can see that one manifestation of the fact that we had too many basis vectors that we had more components $v^i$ than the dimension of the space.\sidenote{Indeed, the fact that the basis vectors themselves could be written with only two components with respect to the canonical basis tells us we are doing something silly with \emph{three} basis vectors.}
+
+So if you have too many basis vectors, there is no unique way of assigning vector components $v^i$ to a vector $\vec{v}$. We do not want to have too many basis vectors. 
+
+
+\subsubsection{Too few basis vectors}
+
+Let us see what happens if we go the other way. 
+\begin{example}
+Suppose you have the following proposed basis:
+\begin{align}
+    \bas{e}_1 &=
+    \begin{pmatrix}
+        1\\
+        1\\
+        0
+    \end{pmatrix}
+    &
+    \bas{e}_2 &=
+    \begin{pmatrix}
+        \pp 1\\
+        -1\\
+        0
+    \end{pmatrix}
+    \ .
+    \label{eq:eg:too:few:basis:vectors:basis}
+\end{align}
+Suppose I then give you the vector
+\begin{align}
+    \vec{v} &=
+    \begin{pmatrix}
+        3 \\ 1 \\ 1
+    \end{pmatrix} \ .
+\end{align}
+What is the linear combination of your basis vectors that produces $\vec{v}$? Once again, we solve the component-wise system of equations 
+\begin{align}
+    \vec{v}= v^i \bas{e}_i \, ,
+\end{align}
+where we recognize that there is only a sum over $i=1$ and $i=2$. There is \emph{no} third basis vector. We can uniquely assign coefficients to match the top two components of $\vec{v}$, but there is \emph{no} linear combination of $\bas{e}_1$ and $\bas{e}_2$ that can produce a non-zero element in the last component. Thus $\vec{v}$ is \emph{not} in the span of $\vec{e}_1$ and $\vec{e}_2$. If we want $\vec{v}$ to be part of the vector space $V$, we need to augment our basis with another basis vector.
+\end{example} 
+\begin{exercise}
+Write out and solve the system of equations from the previous example. Show that there are more constraints than free parameters (coefficients $v^i$) and that the constraints cannot be simultaneously. Give an example of a third basis vector that would allow you to uniquely write the vector $\vec{v}$.
+\end{exercise}
+
+If you have too few basis vectors, then there seems to be more `space' than the vector space spanned by your basis. That is fine, you just have to be aware that \emph{too few basis vectors} means that this reduced set of basis vectors spans what is called a \textbf{subspace}\index{subspace}. This is the set of vectors spanned by an `incomplete' basis.\sidenote{This is all somewhat hand-wavey because as we abstract away the meaning of the basis vectors it is not always obvious when there is more `space' to be described. In Example~\ref{eg:color:space}, you could say that color space is three dimensional. Or you could say that this is a subspace of a larger color space where we imagine that humans had a fourth type of cone cell. Mantis shrimps have a 16-dimensional color space.}
+
+% too many
+% too few
+% just right
 
 % def of dimension
 % Vectors and bases
-%  Use Fibonnacci eg from above
+
+\subsubsection{Just the right number of basis vectors}
+
+Suppose you have just the right number of basis vectors. You should be all good, right? Maybe not. 
+\begin{example}
+The canonical basis \eqref{eq:canonical:basis} is an example of a good basis. Let us consider the case of a three-dimensional vector space spanned by the first three of these basis vectors, $\bas{e}_{1,2,3}$. Now consider the following basis:
+\begin{align}
+    \bas{f}_1 &=
+    \begin{pmatrix}
+    1 \\ 1 \\ 2  
+    \end{pmatrix}_{\bas{e}}
+    &
+    \bas{f}_1 &=
+    \begin{pmatrix}
+    1 \\ 0 \\ 1  
+    \end{pmatrix}_{\bas{e}}
+    &
+    \bas{f}_1 &=
+    \begin{pmatrix}
+    0 \\ 1 \\ 1  
+    \end{pmatrix}_{\bas{e}} \ .
+    \label{eq:eg:basis:lin:dependent}
+\end{align}
+Remember that the subscript $\bas{e}$ reminds us that those columns are written in the canonical basis.
+You know the name of the game. If we have a vector $\vec{v}$, can you solve for the coefficients $v^i$ in the $\bas{f}$ basis:
+\begin{align}
+    \vec{v} = 
+    \begin{pmatrix}
+        2 \\ 2 \\ 3
+    \end{pmatrix}
+    = v^i \bas{f}_i \, ?
+\end{align}
+What are the coefficients/components $v^i$? It turns out that there is no solution.
+\end{example}
+\begin{exercise}
+Write out the system of three equations for the three components $v^i$ and show that they are \emph{degenerate} and that for a general vector $\vec{v}$ in the $\bas{e}$ basis one \emph{cannot} find solutions for $v^i$. Give an example of a vector that \emph{can} be written in the $\bas{f}$ basis. Argue that vectors that can be written in the $\bas{f}$ basis form a \emph{two} dimensional subspace.
+\end{exercise}
+
+Can you see what went wrong in the $\bas{f}$ basis in the previous example? One hint is that
+\begin{align}
+    \bas{f}_3 = \bas{f}_2 - \bas{f}_1 \ .
+\end{align}
+% {eq:eg:basis:lin:dependent}
+In other words: one of the basis vectors is a \emph{linear combination} of the others.\sidenote{It does not matter which one. In this example, you could pick any basis vector and write it in terms of the other two.} We say that this set of vectors is \textbf{linearly depenent}\index{linearly dependent}.  Because you can replace $\bas{f}_3$ with a linear combination, then any proposed linear combination $v^i$ of the three $\bas{f}$ basis vectors can be more simply written as a linear combination of only two basis vectors:
+\begin{align}
+    v^i \bas{f}_i = (v^1-v^3)\bas{f}_1 + (v^2+v^3)\bas{f}_2 \equiv w^1 \bas{f}_1 + w^2\bas{f}_2 \ .
+\end{align}
+On the right-hand side we show that could have otherwise written any such ``three component'' vector $v^i$ as a linear combination of two basis vectors. This means that vectors $v^i\bas{f}_i$ are actually part of a two-dimensional subspace and should properly be described by only two basis vectors. If we want to describe the entire three-dimensional space spanned by $\bas{e}_{1,2,3}$, we need a third \emph{linearly independent} basis vector. 
+
+The example is in contrast to, say, the canonical basis, which is \textbf{linearly independent}\index{linearly independent}. There means that there no vector $\bas{e}_i$ that can be written as a linear combination
+\begin{align}
+    \bas{e}_1 \neq \sum_{j \neq 1} \alpha^j \bas{e}_j \ .
+\end{align}
+This is obvious in the canonical basis because each basis vector is only non-zero for a unique index $i$.
 
 
-
-There is a minimum number.
+\begin{bigidea}[Basis]
+When we say that we have a basis $\bas{f}$ for a vector space $V$, we mean that
+\begin{enumerate}
+    \item $\text{Span}(\bas{f}_1, \cdots \bas{f}_N) = V$. This means that any vector in $V$ can be written $\vec{v} = v^i \bas{f}_i$. If you cannot do this, then you do not have enough [independent] basis vectors.
+    \item The basis vectors $\bas{f}_{1,\cdots,N}$ are each linearly independent from one another. This means that there is no basis vector that can be written as a linear combination of the other basis vectors. If this is not true, then you have too many basis vectors: at least one is linearly dependent on the others.
+\end{enumerate}
+These conditions are assumed when we say we have a basis. We have not said anything about what makes a \emph{good} basis, though it is clear that the canonical basis \eqref{eq:canonical:basis} is a good basis.
+\end{bigidea}
+You may have a sense in which basis vectors should be orthonormal. We still do not yet have the machinery to define orthonormality.s
 
 
 \section{Linear Maps}
@@ -1567,7 +2127,13 @@ What are all of the possible ways of treating a $(p,q)$ tensor as a map?
 % Row vectors as 
 % The fact that matrices take vectors and return vectors tells us that they enact transformations on the \emph{space} of vectors. Under the action of a matrix, every allowed vector is transformed into a different vector. 
 
+\subsection{Basis of row vectors}
 
+ We write basis row vectors as $\rbas{e}^i$ so that any row vector may be written $\row{w} = w_i \rbas{e}^i$.
+
+ \subsection{Basis of matrices}
+
+ \subsection{Basis of tensors}
 
 \section{Transformation under symmetries}
 % Motivating the indices

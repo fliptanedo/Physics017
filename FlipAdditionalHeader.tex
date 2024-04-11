@@ -27,6 +27,12 @@
 \def\BibLaTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     \LaTeX}{}}
 
+\newcommand{\arXiv}[1]{%
+    \texttt{%
+    \href{https://arxiv.org/abs/#1}{arXiv:{#1}}
+    }
+    }
+
 
 \newtheorem{newrule}{Rule}[section]
 \AtBeginEnvironment{newrule}{\footnotesize}
