@@ -1593,7 +1593,7 @@ The vector space spanned by these three vectors is \emph{all} of the two-compone
 By this notion of duality, you should expect that row vectors also form a vector space. If the space of column vectors is called $V$, then the space of row vectors is called $V^*$. Evidently there is some relation between the two, even though they appear be totally different vector space.\sidenote{That is: we could have just said that row vectors live in a vector space $W$ and $W$ has nothing to do with $V$.} Indeed, the relation is that that row vectors can contract with column vectors. The star evidently means the space of \emph{vectors that can contract with this other set of vectors}. In this way, column vectors are the dual space of row vectors: $(V^*)^* = V^{**} = V$. This is simply saying that in the contraction $w_i v^i$, we can think of $w_i$ acting on $v^i$ or we can equivalently think of $v^i$ acting on $w_i$. 
 
 
-\section{Bases}
+\section{Basis of a Vector Space}\label{sec:basis}
 
 Let us return to \eqref{eq:linear:combination:looks:like:basis}. Take a moment to take a good look at that equation. In fact, this equation is so important that we write it out again:
 \begin{align}
@@ -1682,6 +1682,99 @@ Another way of saying this is as follows:
 Vectors are \emph{not} columns of numbers.
 \end{quote}
 Those numbers are the \emph{components} of a vector. But the \emph{meaning} of a vector depends on the context. In some contexts the vector might be a velocity or a momentum. It may be a unit excitation in the electric field. It may be the spin state of an electron. It may be a solution to the spherical Laplace equation. The magic is that all sorts of \emph{physical} quantities are described by vectors. The basis vectors carry these identities so that we can just work with numerical coefficients that we happen to denote with upper indices and that we sometimes arrange in columns.
+
+
+\paragraph{Arrow space}
+Our goal is to abstract away any notion of column vectors. A useful way to think about this is an idea that is perhaps familiar: imagine vectors are arrows with a magnitude and a direction. The rule for adding vectors is that you stack them together, tail-to-head.\sidenote{It should be clear that this definition is commutative, $\vec{v}+\vec{w} = \vec{w}+\vec{v}$.} For example, consider the following basis:
+\begin{align}
+    \bas{e}_1 &= \eqfig{\includegraphics[width=2em]{figures/basis_e1.pdf}}
+    &
+    \bas{e}_2 &= \eqfig{\includegraphics[width=2em]{figures/basis_e2.pdf}} \ .
+\end{align}
+Then a vector $\vec{v}$ may be written as a linear combination of those vectors. Figure~\ref{fig:eg:basis:arrows:canonical:eg} demonstrates this.
+\begin{marginfigure}%[th]
+    \includegraphics[width=.6\textwidth]{figures/basis_red_e.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{The vector $\vec{v}$ (in red) is $2.5\bas{e}_1 + 2.5\bas{e}_2$.}
+    \label{fig:eg:basis:arrows:canonical:eg}
+\end{marginfigure}
+In that example, the components of the vector $\vec{v}$ are
+\begin{align}
+    \vec{v} &= v^i\bas{e}_i = 2.5 \bas{e}_1 + 2.5 \bas{e}_2  \ .
+\end{align}
+We could have used a different basis of the same space. This basis is
+\begin{align}
+    \bas{f}_1 &= \eqfig{\includegraphics[width=2em]{figures/basisf1.pdf}}
+    &
+    \bas{f}_2 &= \eqfig{\includegraphics[width=2em]{figures/basisf2.pdf}} \ .
+\end{align}
+Figure~\ref{fig:eg:basis:arrows:canonical:eg:odd:basis} shows the same vector $\vec{v}$ written as a linear combination of the $\bas{f}_{1,2}$ basis.
+\begin{marginfigure}%[th]
+    \includegraphics[width=.6\textwidth]{figures/basis_red_f.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{The vector $\vec{v}$ (in red) is $\bas{f}_1 + 2\bas{f}_2$.}
+    \label{fig:eg:basis:arrows:canonical:eg:odd:basis}
+\end{marginfigure}
+\begin{align}
+    \vec{v} &= v'^i\bas{f}_i =  \bas{f}_1 + 2\bas{f}_2  \ .
+\end{align}
+
+As a final demonstration, we illustrate that coefficients of basis vectors may also be negative. In Figure~\ref{fig:eg:basis:arrows:neg} we have a vector in blue that is a positive sum of the $\bas{e}_{1,2}$ basis vectors, but is the linear combination $3\bas{f}_1 - \bas{f}_2$ in the $\bas{f}_{1,2}$ basis.
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/basis_neg.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Example of a vector (blue) that has a negative coefficient of $\bas{f}_2$ in the $\bas{f}_{1,2}$ basis.}
+    \label{fig:eg:basis:arrows:neg}
+\end{marginfigure}
+
+\begin{example}
+A silly vector space the space spanned by cheeseburgers ($\bas{e}_1$) and fries ($\bas{e}_2$) are your favorite local burger joint:
+\begin{align}
+\bas{e}_1 &=
+    \eqfig{\includegraphics[width=1.5em]{figures/basis_food_icon_burger.pdf}}
+    &
+    \bas{e}_2 &=
+    \eqfig{\includegraphics[width=1.5em]{figures/basis_food_icon_fries.pdf}} 
+    &
+    \eqfig{\includegraphics[width=4em]{figures/basis_food_canonical.pdf}} 
+    \ .
+\end{align}
+Then an order $\vec{v}$ of 2 burgers and 1 fries is
+\begin{align}
+    \vec{v} =
+    2\bas{e}_1 + \bas{e}_2 = 
+    2\eqfig{\includegraphics[width=1.5em]{figures/basis_food_icon_burger.pdf}} 
+    +
+    \eqfig{\includegraphics[width=1.5em]{figures/basis_food_icon_fries.pdf}} \ .
+    \label{eq:basis:eg:meal:1}
+\end{align}
+Suppose the burger joint also offers a combo meal that includes one burger and one fries. Then we can choose another basis of combo meals ($\bas{f}_1$) and fries ($\bas{f}_2 = \bas{e}_2$); on the right we show it relative to the other basis:
+\begin{align}
+\bas{f}_1 &=
+    \eqfig{\includegraphics[width=1.5em]{figures/basis_food_icon_meal.pdf}}
+    &
+    \bas{f}_2 &=
+    \eqfig{\includegraphics[width=1.5em]{figures/basis_food_icon_fries.pdf}} 
+    &
+    \eqfig{\includegraphics[width=5em]{figures/basis_food.pdf}} 
+    \ .
+\end{align}
+Now an order $\vec{v}$ of two burgers and 1 fries is
+\begin{align} 
+    \vec{v} &=
+    2\bas{f}_1 - \bas{f}_2 = 
+    2\eqfig{\includegraphics[width=1.5em]{figures/basis_food_icon_meal.pdf}}
+    -
+    \eqfig{\includegraphics[width=1.5em]{figures/basis_food_icon_fries.pdf}} \ .
+    \label{eq:basis:eg:meal:2}
+\end{align}
+We could also draw these as arrows. It would look something like this:
+\begin{center}
+\includegraphics[width=.3\textwidth]{figures/basis_food_eg.pdf}
+\end{center}
+At this point, you could ask what a \emph{negative} order of fries ($-\bas{f}_2$) means. \emph{I don't know!} Maybe it means I should make fries for the cook? Maybe it means that fast food orders are not described well by vector spaces since the additive inverse may not have a clear meaning. But we have at least we are not talking about columns of numbers.
+\end{example}
+
 
 To make this concrete, please go through Exercise~\ref{ex:fibonacci:space} to meet a somewhat unusual vector space.
 \begin{exercise}[Fibonacci sequence space]\label{ex:fibonacci:space}
@@ -1815,14 +1908,14 @@ There is no paradox here: the column in round brackets are the components in the
         \alpha^2\\
         \vdots
     \end{pmatrix}_{\bas{f}}
-    &= \alpha^i \vec{f}_i
+    &= \alpha^i \bas{f}_i
     &
     \begin{pmatrix}
         \beta^1\\
         \beta^2\\
         \vdots
     \end{pmatrix}_{\bas{e}}
-    &= \beta^i \vec{e}_i \ .
+    &= \beta^i \bas{e}_i \ .
 \end{align}
 A key idea is to see how we convert between bases.\sidenote{The plural of basis is \emph{bases} and is pronounced `bay-sees.' As a linguistic excursion, you can look up the plural of `hippopotamus.'}
 \begin{align}
@@ -2102,17 +2195,43 @@ These conditions are assumed when we say we have a basis. We have not said anyth
 You may have a sense in which basis vectors should be orthonormal. We still do not yet have the machinery to define orthonormality.s
 
 
+
+\section{Linearity}
+
+\begin{bigidea}[Linearity] We say that a function $f$ is \textbf{linear}\index{linear} if linear combinations of arguments (inputs) produce linear combinations of outputs. Suppose $f$ is a function that takes in some object, $\vec{x}$. The output of $f$ can be the same type of object or a different type of object. Then $f$ is linear if for any two input-type objects $\vec{x}$ and $\vec{y}$ and any two numbers $\alpha$ and $\beta$:
+\begin{align}
+    f(\alpha\vec{x}+ \beta\vec{y}) = \alpha f(\vec{x}) + \beta f(\vec{y}) \ .
+\end{align}
+Let us suppose the inputs $\vec{x}$ and $\vec{y}$ are vectors. Then the argument on the left-hand side is a linear combination of vectors, which is itself a vector. Linearity means that if we already know what $f(\vec{x})$ and $f(\vec{y})$ are, then we do not have to recalculate anything to find $f(\alpha\vec{x}+\beta\vec{y})$; we simply take a linear combination of the outputs with the same coefficients, $\alpha$ and $\beta$.
+\end{bigidea}
+
+\begin{example}
+Consider functions from $\mathbbm{R}\to\mathbbm{R}$. These are ordinary functions that take numbers and return numbers. Using our definition, $f(x) = ax$ is linear because
+\begin{align}
+    f(\alpha x+\beta y) = a(\alpha x + \beta y)  = a\alpha x + a \beta y =\alpha f(x) + \beta f(y) \ .
+\end{align}
+\end{example}
+
+\begin{exercise}
+Show that the equation for a line $f(x) = ax + b$ is \emph{not linear} for $b\neq 0$.\sidenotemark
+
+Deduce that it is generally true that a linear function must satisfy $f(\vec{0}) = 0$. \textsc{Hint}: consider taking linear combinations with $\vec{0}$.
+\end{exercise}\sidenotetext{Yes, you heard this correctly. A function that plots to a line in the Cartesian plane is not necessarily \emph{linear}.}
+
+By the way, we often use the term \textbf{map}\index{map} instead of function. I think this is because some people assume that a function only outputs a number, whereas a `map' can take in some object and spit out another object---where the output object may have more structure than a number.\sidenote{For example, it may take in a vector and output a vector.}
+
 \section{Linear Maps}
 
-
-The idea of a vector space lets us sharpen some of our language. A \textbf{matrix}\index{matrix} is a function that takes vectors and spits out other vectors. We say that these are maps from $V\to V$. Equivalently, the matrix also takes row vectors and spits out row vectors, so they are also maps from $V^* \to V^*$.  In fact, they are \emph{also} maps that take a vector and a row vector into a number:
+Combining the idea of a vector space with linearity lets us sharpen some of our language. A \textbf{matrix}\index{matrix} is a linear function that takes vectors and spits out other vectors. We say that these are linear maps from $V\to V$. Equivalently, the matrix also takes row vectors and spits out row vectors, so they are also maps from $V^* \to V^*$.  In fact, they are \emph{also} linear maps that take a vector and a row vector into a number:
 \begin{align}
     M:\; V\otimes V^* \to \# \ .
 \end{align}
 The left-hand side just says ``$M$ is a map that takes...''
-We have introduced the $\otimes$ \textbf{tensor product}\index{tensor product} notation.\sidenote{I'll be real honest with you: sometimes I just write this as $\times$.} The tensor product is like a `multiplication' of \emph{spaces}. For now we leave the definition implicit---the above line simply means a map that takes an element of $V$ and an element of $V^*$ to produce a number. We further qualify what kind of map this must be shortly.\sidenote{Spoiler: it has to be linear.}
+We have introduced the $\otimes$ \textbf{tensor product}\index{tensor product} notation.\sidenote{I'll be real honest with you: sometimes I just write this as $\times$.} The tensor product is like a `multiplication' of \emph{spaces}. 
+% 
+The above line simply means a linear map that takes an element of $V$ and an element of $V^*$ to produce a number.\sidenote{The $f:V\to\#$ notation does not necessarily mean that $f$ is linear. But in this course we only deal with linear functions/maps. }
 
-This means you can think of row vectors as maps from vectors to numbers, and vectors are a map that take row vectors to numbers:
+This means you can think of row vectors as linear maps from vectors to numbers. In turn, vectors are linear maps that take row vectors to numbers:
 \begin{align}
     \row{w}:&\; V\to \# &
     \vec{v}:&\; V^* \to \# \ .
@@ -2120,7 +2239,7 @@ This means you can think of row vectors as maps from vectors to numbers, and vec
 In should be clear that \emph{both} of these refer to $w_iv^i$. If you know all the components of a row vector $w_i$, then I can give you \emph{any} $\vec{v}$ and you can perform the contraction $w_iv^i$ to produce a number. That means the information that you have (the components $w_i$) can be assembled---using our contraction rule---into a machine that takes any vector and spits out a number.
 
 \begin{exercise}
-What are all of the possible ways of treating a $(p,q)$ tensor as a map? 
+What are all of the possible ways of treating a $(p,q)$ tensor as a map? That is: what are the possible inputs for such an object, and for each object, what is the output? For example, if $q\geq 1$, then I can feed a $(p,q)$ tensor a vector and the output is a $(p,q-1)$ tensor.
 \end{exercise}
 
 
@@ -2129,7 +2248,136 @@ What are all of the possible ways of treating a $(p,q)$ tensor as a map?
 
 \subsection{Basis of row vectors}
 
- We write basis row vectors as $\rbas{e}^i$ so that any row vector may be written $\row{w} = w_i \rbas{e}^i$.
+We write the basis row vectors as $\rbas{e}^i$ so that any row vector may be written $\row{w} = w_i \rbas{e}^i$. We have again chosen indices so that we may use summation convention. Everything that we have discussed about basis vectors in Section~\ref{sec:basis} carries over, except now the basis vectors are basis \emph{row} vectors. Because row vectors are themselves a vector space, this is not surprising. In fact, this is simply the \emph{duality} between $V$ and $V^*$. 
+
+Now that we are armed with the idea of row vectors\sidenote{a.k.a\ dual vectors, covectors, bras} as linear transformations, we can go further and explain the nature of this duality. Fixing a basis of column vectors in $V$ automatically fixes the basis in $V^*$ in the following way:
+% 
+\begin{bigidea}[Basis of dual vectors]\label{idea:basis:of:dual:vectors}
+Given a basis $\bas{e}_{1,\cdots,N}$ for a vector space $V$, the basis for the vector space $V^*$ is $\rbas{e}^{1,\cdots,N}$ and is defined as follows:
+\begin{align}
+    \rbas{e}^i\left[ \bas{e}_j \right] = \delta^i_j \ .
+    \label{eq:basis:of:dual:vectors}
+\end{align}
+For example, $\rbas{e}^1\left[\bas{e}_2\right] = 0$ and $\rbas{e}^1\left[\bas{e}_1\right] = 1$.
+\end{bigidea}
+% 
+This merits some reflection. Here is a sequence of thoughts:
+\begin{enumerate}
+    \item A basis dual vector is an linear map that takes in vectors and returns a number---this is our enlightened definition\sidenote{As opposed to a `sideways vector' or `the same thing as a vector,' which are slightly less enlightened (read: not useful, largely incorrect) definitions.} of a dual vector. 
+    \item Because the map is linear, it is sufficient to define its action on a set of basis vectors. 
+    \item Given a specific basis $\bas{e}_{1,\cdots,N}$ of the vector space $V$, there is a canonical\sidenote{Here canonical means ``correct choice.''} basis for $V^*$, \eqref{eq:basis:of:dual:vectors}. Each element of this canonical dual vector basis returns one when it is fed its `partner' vector basis element, and otherwise returns zero.
+\end{enumerate}
+
+Let us see this in action.
+
+\paragraph{Basis dual vector eats a vector}
+The vector itself is a linear combination of basis vectors: 
+\begin{align}
+    \vec{v} = v^i \bas{e}_i \ .
+\end{align}
+A [basis] dual/row vector is a linear function of vectors. This means that we can take any basis row vector $\rbas{e}^i$ and feed it the vector $\vec{v}$, we have
+\begin{align}
+    \rbas{e}^i\left[\vec{v}\right]
+    =
+    \rbas{e}^i\left[v^j\bas{e}_j\right]
+    =
+    v^j \rbas{e}^i\left[\bas{e}_j\right]
+\ .
+\end{align}
+Note that the summation convention still holds, even though the basis vectors are in the jaws of the basis dual vector that is `eating' it. To be very clear, let us write this out explicitly for a two-dimensional vector space: 
+\begin{align}
+    \rbas{e}^i\left[\vec{v}\right]
+    =
+    \rbas{e}^i\left[ v^1\bas{e}_1 + v^1\bas{e}_1 \right]
+    =
+    v^1 \rbas{e}^i \left[\bas{e}_1\right] + v^2 \rbas{e}^i\left[\bas{e}_2\right]
+\ .
+\end{align}
+Now we can invoke our defining rule for the basis dual vectors \eqref{eq:basis:of:dual:vectors}. We remember that Kronecker-$\delta$s collapse sums to a single element:
+\begin{align}
+    \rbas{e}^i\left[\vec{v}\right]
+    =
+    v^j \delta^i_j
+    = v^j
+\ ,
+\end{align}
+so that the $i^\textnormal{th}$ basis row vector $\rbas{e}^i$ acting on a vector simply returns the $i^\textnormal{th}$ component of the vector in the associated vector basis $\bas{e}_i$.
+ 
+
+\paragraph{A dual vector as a linear combination of basis dual vectors}
+A row vector is a linear combination of basis row vectors,
+\begin{align}
+    \row{w} = w_i\rbas{e}^i \ .
+\end{align}
+When we feed a row vector a column vector, each of the basis row vectors takes a bite:
+\begin{align}
+    \row{w}\vec{v} =
+    w_i\rbas{e}^i\left[v^j\bas{e}_j\right]
+    =
+    w_i v^j \rbas{e}^i\left[\bas{e}_j\right]
+    =
+    w_i v^j \delta^i_j
+    =
+    w_i v^i \ ,
+    \label{eq:linear:transformation:origin:of:summation}
+\end{align}
+which is \emph{precisely} the origin of the summation convention.
+
+\begin{bigidea}[Origin of summation convention]
+Given a basis for a vector space, there is a canonical basis of dual vectors given by \eqref{eq:basis:of:dual:vectors}. These basis dual vectors are linear functions of the vectors. The summation convention is a shorthand for what happens when a \emph{linear combination of basis vectors} $\vec{v}$ are fed to a \emph{linear combination of basis dual vectors} $\row{w}$. The notation is extended to tensors, which are linear maps between multiple copies of $V$ and $V^*$. These are called multi-linear maps because they are linear in each index.
+\end{bigidea}
+
+\begin{exercise}\label{ex:vector:act:on:row}
+In this section we have defined basis dual vectors as the `eaters of vectors.' Of course, the nature of this duality is that we may \emph{equivalently} treat vectors as the `eaters of row vectors.'\sidenotemark Rewrite all of the results in this section by treating row vectors as the food and column vectors as the linear function. Confirm that it is \emph{obvious} that the analog of \eqref{eq:basis:of:dual:vectors} is
+\begin{align}
+    \bas{e}_i\left[\rbas{e}^j\right] = \delta^j_i \ .
+    \label{eq:basis:of:dual:vectors:reverse}
+\end{align}
+
+\end{exercise}\sidenotetext{The fancy way of saying this is that $(V^*)^* = V$. The space of linear functions on row vectors is exactly the space of vectors.}
+
+
+\subsection{Transformation of Row Vectors}
+
+% change of basis on row vectors: rotates oppositely!
+
+
+\subsection{Duality and the Bra-Ket Notation}
+
+This is one place where the bra-ket notation of quantum mechanics starts to shine. As a reminder, vectors are written as kets,
+\begin{align}
+    \vec{v} \defeq \ket{v} \ .
+\end{align}
+There is \emph{no content} in this equation! It simply defines an equivalent notation for vectors. We write the basis kets as\sidenote{Sometimes it is expedient to simply write $\ket{e_i} = \ket{i}$, but then you lose the reminder that it has a lower index.}
+\begin{align}
+    \bas{e}_i \defeq \ket{e_i} \ .
+\end{align}
+This means that a vector is
+\begin{align}
+    \ket{v} &= v^i\ket{e_i} \ .
+\end{align}
+% 
+Similarly, row vectors are bras with associated basis bras:
+\begin{align}
+    \row{w} &\defeq \bra{w} & \rbas{e^i} &\defeq \bra{e^i}
+    & \bra{w} &= w_i \bra{e^i} \ .
+\end{align}
+
+
+Now the duality expressed in Exercise~\ref{ex:vector:act:on:row} is clear because we just think of the vertical edge of the bra or ket being its \emph{interface} with the other type. The duality relations \eqref{eq:basis:of:dual:vectors} and \eqref{eq:basis:of:dual:vectors:reverse} reduce to a single relation:
+\begin{align}
+    \la e^i \mid e_j \ra = \delta^i_j \ .
+\end{align}
+Then the action of a bra on a ket is manifestly symmetric with the action of a ket on a bra. They are the same thing.
+\begin{align}
+    \la w \mid v \ra &= w_iv^j \la e^i \mid e_j \ra  = w_i v^j \delta^i_j = w_iv^j \ .
+\end{align}
+
+
+
+
+
+
 
  \subsection{Basis of matrices}
 
