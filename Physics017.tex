@@ -179,7 +179,7 @@ In this course we will see how the three equations in \eqref{eq:three:equations}
 
 
 
-\chapter{The Basics}
+\chapter{The Basics}\label{ch:basics}
 
 \section{Pre-conceptions}
 
@@ -792,6 +792,7 @@ Let $\mathbf{r}=(x,y,z)$ be a ``position vector'' of a point relative to the ori
 This gives a notion of how the dot product is related to measuring distances, but it turns out to be a bit of a red herring! The real sense in which the dot product measures the `closeness' of two vectors is the sense in which it defines an angle between those vectors. (See below.)
 \end{example}
 
+
 The \textbf{cross product} is a different story. You may remember the cross product from such hits as\footnote{\url{https://tvtropes.org/pmwiki/pmwiki.php/Main/YouMightRememberMeFrom}} angular momentum, $\vec{r}\times\vec{p}$. It looks like a map that takes two vectors and spits out another vector, $V\times V \to V$. Indeed, this is the case in Euclidean three-space. However, it had some funny properties compared to the dot product. For example, there was something weird with the order of the two vectors: $\vec{a}\times \vec{b}  = - \vec{b}\times \vec{a}$. It is also a bit funny that the direction of the output vector is completely different\sidenote{The technical meaning of `completely different' is \emph{orthogonal}, which we define below with the help of the metric.} from the directions of the input vectors. It will turn out that this product does not generalize as simply as the dot product, though there is a generalization called the \textbf{wedge product} which is outside the scope of this course.\sidenote{That is not to say that the wedge product is not relevant in phsyics. The wedge product features prominently in a mathematical field called \emph{differential geometry}, which is in turn the framework for general relativity. The wedge product is related to defining volumes and integration measures. You may also be interested in a field called \emph{geometric algebra} which is a related approach to the wedge product.\footnotemark}\footnotetext{e.g.\ see \url{https://www.youtube.com/watch?v=60z_hpEAtD8}}
 
 \begin{exercise}
@@ -805,6 +806,7 @@ Try to define a generalization of the cross product in two-dimensional Euclidean
 
 
 \section{Length in Euclidean three-space}
+\label{sec:Euclidean:three:length}
 
 Euclidean three-space is real space combined with the Euclidean dot product, \eqref{eq:euclidean:3d:metric:intro}. The [Euclidean] \textbf{magnitude} (length) of a three vector $\vec{v}$ as $|\vec{v}|$ in Euclidean three-space. The magnitude is defined to be
 \begin{align}
@@ -861,6 +863,19 @@ Let $\vec{v}$ be defined as in \eqref{eq:eg:v:340}. The unit vector associated w
 \end{align}
 
 \end{example}
+
+\section{Angle in Euclidean three-space}
+\label{sec:Euclidena:three:angle}
+
+Once you have an inner product you can define the angle, $\theta$, between two vectors, $\vec{v}$ and $\vec{w}$. This is defined as follows:
+\begin{align}
+    \vec{v}\cdot\vec{w} \defeq |\vec{v}||\vec{w}| \cos\theta  \ .
+    \label{eq:angle:between:3:vectors}
+\end{align}
+\begin{exercise}
+Show that the angle between two vectors only depends on their orientation and not their magnitude. 
+\end{exercise}
+
 
 \section{Matrix Multiplication}
 \label{sec:matrix:multiplication}
@@ -1009,7 +1024,7 @@ The rules for matrix multiplication also introduces the notion of a matrix inver
     \label{eq:matrix:invers:multiplcation:notation}
 \end{align}
 where $\one$ is the identity matrix that is zero except for ones along the diagonal.\sidenote{When $\one$ acts on a vector it returns the same vector: $\one \vec{v} = \vec{v}$.}
-\begin{exercise}
+\begin{exercise}\label{ex:matrix:inversino:the:hard:way}
 Let us assign values to $M$ and $M\inv$ in the $2\times 2$ case:
 \begin{align}
 M &=
@@ -1045,6 +1060,47 @@ All of this assumes that the inverse is well defined, which is not always the ca
 
 
 This notion of matrix multiplication is helpful and perhaps something you may have learned in earlier stages of your education. It is still the way I do many calculations. \emph{However}, the rules in this section are a \emph{shortcut} for a much richer mathematical structure. It is this mathematical structure that we want to reveal because it shows us how seemingly different mathematical structures in physics are actually rooted in the same underlying language. As such, many of the notions in this chapter may be ideas that you must first \emph{unlearn} in order to \emph{relearn} how they are outputs of the richer structure.\sidenote{When I teach this class there are often a few students who are apologetic for not having taken a formal linear algebra class. I have noticed that those students sometimes do much better in the course because they have fewer preconceptions to unlearn.}
+
+
+\section{Rotations}\label{sec:Euclidean:three:space:rotations}
+
+Rotations are transformations that take vectors into other vectors. They are a specific example of what is more generally known as an \emph{isometry}---and idea that we shall refer to over and over in this course. Your intuition about rotations may align with the following observations:
+\begin{itemize}
+    \item Rotations preserve the magnitude of vectors.
+    \item Rotations preserve the angle between vectors. 
+\end{itemize}
+Because both magnitude and angle are related to the dot product, you may guess that rotations have something to do with the dot product. This is correct---but we need to build up some mathematical structure before we can articulate this idea carefully. In this section, we simply whet your appetite by saying that a `working definition' of rotations in Euclidean space of any dimension is that a rotation is a matrix $R$ that satisfies
+\begin{align}
+    R^\trans R = \one \ ,
+    \label{eq:RTR:one}
+\end{align}
+where the \textbf{transpose} of a matrix $R^\trans$ is what happens when you flip all the elements along the diagonal:
+\begin{align}
+    \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}^\trans \defeq
+    \begin{pmatrix}
+        a & c \\
+        b & d
+    \end{pmatrix} \ .
+\end{align}
+We write $\one$ to mean the unit matrix: the matrix with only ones along the diagonal. Matrices $R$ that satisfy \eqref{eq:RTR:one} are called \textbf{orthogonal}\index{orthogonal}---this is just a fancy name for rotation. 
+
+\begin{exercise}
+Show that the standard form of a rotation in two dimensions,
+\begin{align}
+R=
+    \begin{pmatrix}
+    \cos \theta & -\sin\theta \\
+    \sin \theta & \cos\theta      
+    \end{pmatrix} \ .
+\end{align}
+satisfies \eqref{eq:RTR:one}. Using this form of rotations, show that rotations in 2-dimensional Euclidean space preserve the length of vectors and the angle between vectors. \textsc{Hint}: use $\cos^2\theta + \sin^2\theta = 1$.
+\end{exercise}
+
+
+
 
 
 \chapter{Indexology}\label{ch:indexology}
@@ -1277,6 +1333,7 @@ where we simply recognize that the summation convention is a shortcut for the `s
 
 
 \chapter{Vectors, Row Vectors, Matrices}
+\label{ch:vectors:row:matrices:in:indices}
 
 We begin a systematic study tensorial objects. Let us re-state some of the results from earlier chapters.\sidenote{The cost of stating things systematically is repetition. However, often there is pedagogical value to deliberate repetition.} In fact, we start by stating the \emph{sloppy} (technically incorrect) understanding---everything as indexed objects---and then we start to define the underlying mathematical machinery `under the hood.'
 
@@ -1339,7 +1396,7 @@ There are other formal aspects that we can (justifiably) take for granted. These
 
 \subsection{Row Vectors}
 
-There is another kind of vector. These are equivalently called \textbf{row vectors}\index{row vectors}, dual vectors, covariant vectors, one-forms, or bras. A row vector is an object that has one lower index,
+There is another kind of vector. These are equivalently called \textbf{row vectors}\index{row vectors}, dual vectors, covariant vectors, one-forms, linear forms, linear functionals, or bras. A row vector is an object that has one lower index,
 \begin{align}
     \row{w} = \bra{w} \simeq w_i \ .
 \end{align}
@@ -1462,10 +1519,39 @@ We re-iterate once more:
 \end{newrule}
 This means that the trace, $M\aij{i}{i}$ is a number because it has no free (uncontracted) indices. It also means that a matrix acting on a vector $M\aij{i}{j}v^j$ is a vector because it has one free upper index. Of course, we can also imagine other types of objects that return something different when contracting with a vector.
 
+\paragraph{Matrix multiplication} In terms of index notation, matrix multiplication is the contraction of the upper index of one matrix with the lower index of the other. If we multiply matrices $M$ and $N$ in that order, then the $i$--$j$ component of the product is:
+\begin{align}
+    (MN)\aij{i}{j} =   M\aij{i}{k} N\aij{k}{j}  = N\aij{k}{j} M\aij{i}{k} \ .\label{eq:multiplication:MN:indices}
+\end{align}
+The second equality here is simply a statement that the product of \emph{numbers} is commutative. Explicitly for the two dimensional case:
+\begin{align}
+    (MN)\aij{i}{j} &= 
+    M\aij{i}{1} N\aij{1}{j} + M\aij{i}{2} N\aij{2}{j}\\
+    &=
+    N\aij{1}{j} M\aij{i}{1}  + N\aij{2}{j} M\aij{i}{2} \ .
+\end{align}
+Be sure to read this carefully. Equation \eqref{eq:multiplication:MN:indices} does \emph{not} mean that matrix multiplication is commutative, in particular:
+\begin{align}
+    N\aij{k}{j} M\aij{i}{k} \neq (NM)\aij{i}{j} \ .
+\end{align}
+\begin{exercise}
+Write out $(NM)\aij{i}{j}$ and confirm that the index contractions are \emph{not} the same as $N\aij{k}{j} M\aij{i}{k}$.
+\end{exercise}
+What should we make of all this? When we write $MN$ we are implicitly using the matrix multiplication convention of Section~\ref{sec:matrix:multiplication}. Thus $MN$ is \emph{different} from $NM$, as you can check by expanding out the indices.\sidenote{Please do this for a pair of $2\times 2$ matrices if this is not yet clear.} However, index notation tells us that in the expression for a \emph{component of}, $MN$, that is, in $(MN)\aij{i}{j}$, each term in the sum is simply made up of a product of numbers. That product is commutative. 
+
+To say all this differently: matrix multiplication a~la  Section~\ref{sec:matrix:multiplication} told us that there are two different ways to multiply matrices $M$ and $N$: $MN$ and $NM$. In index notation, we also have two different ways to multiply matrices:
+\begin{align}
+    M\aij{i}{k}N\aij{k}{j}
+    &&\text{and}&&
+    M\aij{k}{j}N\aij{i}{k} = N\aij{i}{k}M\aij{k}{j} \ .
+\end{align}
+These two different index contractions correspond to $MN$ and $NM$ respectively.\sidenote{If this is making you scratch your head or exhale with a deep sigh of ennui, it may help to know that matrix multiplication is still an active field of computational mathematics research.\footnotemark}\footnote{\url{https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/}}
+
 \paragraph{Matrix inverses}
 We touched on inverse matrices in \eqref{eq:matrix:invers:multiplcation:notation}. Let us return to it using index notation. \emph{If} a matrix is invertible, then the condition \eqref{eq:matrix:invers:multiplcation:notation} is
 \begin{align}
     M\aij{i}{k}(M\inv)\aij{k}{j} = (M\inv)\aij{i}{k}M\aij{k}{j} = \delta^i_j
+    \label{eq:index:matrix:inverse}
 \end{align}
 where we define the Kronecker-$\delta$,\sidenote{The Kronecker-$\delta$ are the components of the identity matrix. Because it is diagonal, the order of the indices does not matter so we can write both indices with the same horizontal alignment. In a contraction, the Kronecker-$\delta$ simply says: replace a sum over one of my indices with the value of the other index.}
 \begin{align}
@@ -1476,7 +1562,7 @@ where we define the Kronecker-$\delta$,\sidenote{The Kronecker-$\delta$ are the 
     \label{eq:kronecker:delta}
 \end{align}
 If the indices can take values from 1 to $N$, then there are $N^2$ equations to constrain the $N^2$ components of $M\inv$. If the matrix $M$ is invertible, then one could solve this system of equations to determine $M\inv$. In silly versions of this course, one would spend time using some software---perhaps Matlab---to solve this system of equations. That's silly. Matrices are either invertible by hand, easy to invert using your favorite computer algebra system\sidenote{\emph{Mathematica} is popular among theorists, though \emph{NumPy} and \emph{SciPy} are both open source.}, or so hopelessly impossible to invert that other techniques are needed to approximate their inversion.\sidenote{Taylor expansions about an easier-to-invert matrix, for example.} However, understanding what it means to invert a matrix is a \emph{big} part of mathematical physics. In fact, it is a central thrust of physics.
-\begin{bigidea}
+\begin{bigidea}\label{idea:matrix:inverse:in:physics}
 A surprisingly large swath of physics---and certainly the part that is most do-able---boils down to inverting matrices of various (often infinite) sizes. This is because equations in physics are often in the form
 \begin{align}
     (\text{operator})\, \ket{\text{state}} = \ket{\text{source}} \ .
@@ -1489,6 +1575,7 @@ And it thus behooves us to understand what it means to invert an operator. So an
 \end{bigidea}
 
 \subsection{Tensors}
+\label{sec:index:tensors:rotation:on:each:index}
 
 A \textbf{tensor}\index{tensor} is an object with some number of ordered indices. Each index has a definite height. We say that a tensor is a $(p,q)$ tensor if it has $p$ upper indices and $q$ lower indices. Vectors, row vectors, and matrices are all tensors. We met an example of a different type of tensor in Figure~\ref{fig:Riemann:tensor:for:indices}, the Riemann tensor,\sidenote{In general relativity (differential geometry) this tensor takes in three vectors and returns another vector. The first two vectors are sides of a parallelogram. In a general curved space, one cannot close this parallelogram. If we take the third vector and `transport it' along the two paths of the parallelogram, the difference in what happens to the third vector is what the Riemann tensor returns. See Figure~\ref{fig:Penrose:14:10:Riemann}.} $R^i_{\phantom{i}jk\ell}$. What can this object do? 
 \begin{marginfigure}%[th]
@@ -1511,6 +1598,73 @@ A $(p,q)$ tensor can contract with $r\leq p$ row vectors and $s \leq q$ column v
 You can generalize the above rule by allowing a $(p_1,q_1)$ tensor to contract with a $(p_2, q_2)$ tensor. Write out some of the ways in which a $(2,2)$ tensor can contract with a $(1,3)$ tensor. Here is one example: $T^{ij}_{\phantom{ij}k\ell} S^\ell_{\phantom{\ell}ijm}$. 
 \end{exercise}
 You can see that tensor contraction can get a little dicey. There is a cute graphical notation called birdtracks notation to keep track of this that never became popular.\sidenote{The cover image for these notes is an example of one such contraction. You can learn more about this in Penrose's \emph{Road to Reality}.} In this course we do not worry about very complicated contractions and can stick to index notation.
+
+
+\subsection{A prelude to symmetry}
+\label{sec:isometry:first:pass:indices}
+Some ideas are so significant that we introduce them multiple times. Let us preview a key idea: an \textbf{isometry}\index{isometry} is a special symmetry that some vector spaces may have.\sidenote{Specifically, vector spaces equipped with an inner product---called metric spaces---may have isometries.} Let us not concern ourselves for now with the conditions for when such symmetries exist. Instead, for this first pass let us say that isometries are generalizations of rotations.  Take a moment to review the `matrix multiplication' picture of rotations in Section~\ref{sec:Euclidean:three:space:rotations}: rotations $R$ satisfy $R^\trans R = \one$ and, due to this, they preserve the angle and length of vectors. The preservation of angle and length depend on a definition of the dot product---and we are not doing that just yet. However, we can take the lesson that the dot product takes vectors and creates scalars.\sidenote{Scalar is a fancy name for number. More practically, scalars do \emph{not} change under rotations.}
+
+We know that one way to form numbers from objects that have indices is to contract all available indices. Let us examine the simplest such case: a row vector whose indices are contracted with a column vector: $w_iv^i$. Rotations are transformations that act on both row vectors and column vectors. Because row and column vectors are two separate classes of tensorial objects, we allow for the possibility that row vectors and column vectors transform differently:
+\begin{align}
+    v^i &\to v'^i \defeq R\aij{i}{j}v^j & w_i &= \to w'_j\defeq w_j \tilde{R}\aij{j}{i} \ ,
+    \label{eq:components:of:vector:and:row:under:rotatino}
+\end{align}
+where $R$ and $\tilde{R}$ are the matrices that encode the linear transformation on vectors and row vectors respectively.\sidenote{Neither of these have anything to do with the Riemann curvature tensor, which unfortunately is denoted with an $R$.} We write $v'^i$ and $w'_j$ to be the components of the rotated $v^i$ and $w_j$. Inspired by our earlier intuition that rotations should preserve the value of `fully contracted' objects,\sidenote{All tensor indices are contracted, no free indices.} we can demand that
+\begin{align}
+    w_i v^i =w'_i v'^i = R\aij{i}{j}v^j \, w_k\tilde{R}\aij{k}{i}
+    =\tilde{R}\aij{k}{i}R\aij{i}{j} w_kv^j \ .
+    \label{eq:rotations:index:preserve:inner:product:01}
+\end{align}
+Let us do something silly. We would like to `do algebra' on this equation, which means I would like to cancel out common factors on each side. I would like to cancel the $w_i$ and $v^i$ on the left with the $w_kv^j$ on the right. I can relabel dummy indices,\sidenote{By `dummy index' I mean contracted indices where the choice of variable name does not matter. Though every time I say `dummy index' I think about the `dummy plug' program in \emph{Neon Genesis Evangelion}.} but we need to break apart the fact that $w_i$ and $v^i$ have the same index on the left-hand side. To do this, we multiply by one using the Kronecker-$\delta$: $w_iv^i = w_i \delta^i_j v^j$. Then we may rewrite  \eqref{eq:rotations:index:preserve:inner:product:01} as
+\begin{align}
+    \cancel{w_i} \cancel{v^j}  \delta^i_j
+    =\tilde{R}\aij{i}{\ell}R\aij{\ell}{j} \cancel{w_i} \cancel{v^j} \ ,
+\end{align}
+from which we have simply:
+\begin{align}
+    \tilde{R}\aij{i}{\ell}R\aij{\ell}{j} &= \delta^i_j \ .
+    \label{eq:R:Rtilde:transformation:from:indices:rotation}
+\end{align}
+Comparing to \eqref{eq:index:matrix:inverse}, we see that this is the statement that $\tilde R = R\inv$. We have come to a key observation:
+\begin{quote}
+Under a rotation, an object with an upper index transforms with some matrix $R$ that encodes the rotation. An object with a lower index then transforms with the inverse matrix, $R\inv$. In this way, when a row vector and column vector have their indices contracted, they produce a number that is \emph{invariant} (unchanged) under rotations.
+\end{quote}
+This observation actually generalizes:
+% 
+\begin{newrule}[Transformation of upper and lower indices under rotations]
+\label{idea:transformation:of:upper:and:lower:indices}
+Under an isometry (such as a rotation) $R$, a tensorial object transforms as follows
+\begin{align}
+    T\aij{i_1\cdots i_N}{j_1\cdots j_M}
+    \to 
+    R\aij{i_1}{k_1}\cdots R\aij{i_N}{k_N}
+    (R\inv)\aij{\ell_1}{j_1}\cdots (R\inv)\aij{\ell_M}{j_M}
+    T\aij{k_1\cdots k_N}{\ell_1\cdots \ell_M} \ .
+    \label{eq:transformation:of:upper:and:lower:indices}
+\end{align}
+That is to say: each upper index is contracted with a rotation $R$ and each lower index is contracted with an inverse rotation $R\inv$. 
+\end{newrule}
+
+\begin{exercise}
+Show that for the case of $2\times 2$ rotations, the inverse is equivalent to the transpose. This turns out to be true for any rotation matrix in Euclidean space.
+\end{exercise}
+
+\begin{exercise}
+Show that our rule for how row vectors transform can be written in matrix notation as:
+\begin{align}
+    \row{w} \to \row{w}' \equiv \row{w} R^\trans \ .
+\end{align}
+To do this, show that the index contracts correspond to the right-hand side. Use the result of the previous exercise that $R\inv = R^\trans$ for rotations.
+In this way, it is clear that $\row{w}\vec{v} = \row{w'}\vec{v'}$ is invariant under rotations:
+\begin{align}
+    \row{w'}\vec{v'} = \row{w}R^\trans R\vec{v} = \row{w} \one \vec{v} \ ,
+\end{align}
+where we use the definition \eqref{eq:RTR:one}.
+\end{exercise}
+
+
+
+
 
 \section{Vector Space}
 
@@ -1727,7 +1881,7 @@ As a final demonstration, we illustrate that coefficients of basis vectors may a
     \label{fig:eg:basis:arrows:neg}
 \end{marginfigure}
 
-\begin{example}
+\begin{example}\label{ex:cheeseburger:space}
 A silly vector space the space spanned by cheeseburgers ($\bas{e}_1$) and fries ($\bas{e}_2$) are your favorite local burger joint:
 \begin{align}
 \bas{e}_1 &=
@@ -2122,12 +2276,7 @@ Write out and solve the system of equations from the previous example. Show that
 
 If you have too few basis vectors, then there seems to be more `space' than the vector space spanned by your basis. That is fine, you just have to be aware that \emph{too few basis vectors} means that this reduced set of basis vectors spans what is called a \textbf{subspace}\index{subspace}. This is the set of vectors spanned by an `incomplete' basis.\sidenote{This is all somewhat hand-wavey because as we abstract away the meaning of the basis vectors it is not always obvious when there is more `space' to be described. In Example~\ref{eg:color:space}, you could say that color space is three dimensional. Or you could say that this is a subspace of a larger color space where we imagine that humans had a fourth type of cone cell. Mantis shrimps have a 16-dimensional color space.}
 
-% too many
-% too few
-% just right
 
-% def of dimension
-% Vectors and bases
 
 \subsubsection{Just the right number of basis vectors}
 
@@ -2201,6 +2350,7 @@ You may have a sense in which basis vectors should be orthonormal. We still do n
 \begin{bigidea}[Linearity] We say that a function $f$ is \textbf{linear}\index{linear} if linear combinations of arguments (inputs) produce linear combinations of outputs. Suppose $f$ is a function that takes in some object, $\vec{x}$. The output of $f$ can be the same type of object or a different type of object. Then $f$ is linear if for any two input-type objects $\vec{x}$ and $\vec{y}$ and any two numbers $\alpha$ and $\beta$:
 \begin{align}
     f(\alpha\vec{x}+ \beta\vec{y}) = \alpha f(\vec{x}) + \beta f(\vec{y}) \ .
+    \label{eq:linear:function}
 \end{align}
 Let us suppose the inputs $\vec{x}$ and $\vec{y}$ are vectors. Then the argument on the left-hand side is a linear combination of vectors, which is itself a vector. Linearity means that if we already know what $f(\vec{x})$ and $f(\vec{y})$ are, then we do not have to recalculate anything to find $f(\alpha\vec{x}+\beta\vec{y})$; we simply take a linear combination of the outputs with the same coefficients, $\alpha$ and $\beta$.
 \end{bigidea}
@@ -2220,11 +2370,11 @@ Deduce that it is generally true that a linear function must satisfy $f(\vec{0})
 
 By the way, we often use the term \textbf{map}\index{map} instead of function. I think this is because some people assume that a function only outputs a number, whereas a `map' can take in some object and spit out another object---where the output object may have more structure than a number.\sidenote{For example, it may take in a vector and output a vector.}
 
-\section{Linear Maps}
+\section{Linear Maps}\label{sec:linear:maps}
 
-Combining the idea of a vector space with linearity lets us sharpen some of our language. A \textbf{matrix}\index{matrix} is a linear function that takes vectors and spits out other vectors. We say that these are linear maps from $V\to V$. Equivalently, the matrix also takes row vectors and spits out row vectors, so they are also maps from $V^* \to V^*$.  In fact, they are \emph{also} linear maps that take a vector and a row vector into a number:
+We may combine the idea of a vector space with our definition of linearity to sharpen some of our language. A \textbf{matrix}\index{matrix} is a linear function that takes vectors and spits out other vectors. We say that these are \emph{linear maps} from $V\to V$. Equivalently, the matrix also takes row vectors and spits out row vectors, so they are also maps from $V^* \to V^*$.  In fact, they are \emph{also} linear functions that take a vector and a row vector into a number:
 \begin{align}
-    M:\; V\otimes V^* \to \# \ .
+    M:\; V\otimes V^* \to \# \ . \label{eq:M:tensor:product}
 \end{align}
 The left-hand side just says ``$M$ is a map that takes...''
 We have introduced the $\otimes$ \textbf{tensor product}\index{tensor product} notation.\sidenote{I'll be real honest with you: sometimes I just write this as $\times$.} The tensor product is like a `multiplication' of \emph{spaces}. 
@@ -2239,8 +2389,86 @@ This means you can think of row vectors as linear maps from vectors to numbers. 
 In should be clear that \emph{both} of these refer to $w_iv^i$. If you know all the components of a row vector $w_i$, then I can give you \emph{any} $\vec{v}$ and you can perform the contraction $w_iv^i$ to produce a number. That means the information that you have (the components $w_i$) can be assembled---using our contraction rule---into a machine that takes any vector and spits out a number.
 
 \begin{exercise}
-What are all of the possible ways of treating a $(p,q)$ tensor as a map? That is: what are the possible inputs for such an object, and for each object, what is the output? For example, if $q\geq 1$, then I can feed a $(p,q)$ tensor a vector and the output is a $(p,q-1)$ tensor.
+What are all of the possible ways of treating a $(p,q)$ tensor as a linear function? That is: what are the possible inputs for such an object, and for each object, what is the output? For example, if $q\geq 1$, then I can feed a $(p,q)$ tensor a vector and the output is a $(p,q-1)$ tensor.
 \end{exercise}
+
+\paragraph{Jargon: functions, maps, transformations} Let us get some terminology sorted out.\sidenote{This paragraph is to establish the correct mathematical jargon. Usually one can get away with being somewhat sloppy and using these terms interchangeably, but we should be clear about the distinction somewhere in these notes.}
+A \textbf{function}\index{function} is a mathematical machine that takes some inputs and produces some output. The inputs can be numbers, vectors, or more sophisticated objects. The outputs may also be numbers, vectors, or more sophisticated objects. The outputs do not have to be the same type of object as the inputs---in general they are not.
+% 
+A \emph{function} that takes one input and returns one output is called a \textbf{map}\index{map}. 
+% 
+A \emph{map} that takes one type of object and returns the same type of object is called a \textbf{transformation}\index{transform}. Mathy-folks like to draw diagrams like Fig.~\ref{fig:Linear Transformation}.
+
+\begin{figure}[tb]
+\sidecaption[][-2\baselineskip]{%
+        Example of a linear transformation. The transformation $M$ (for matrix) takes a vector $\vec{v}$ and turns it into a different vector that we call $\vec{v}'$. This new vector is related to $\vec{v}$ by the matrix $\vec{v'}=M\vec{v}$. \emph{Every} vector is transformed under the map $M$. This is an \emph{active transformation} where all vectors transform, but the basis (${\bas{e}}_i$) stays fixed. \label{fig:Linear Transformation}}
+        %
+        %% \label command inside the \sidecaption command
+    \centering
+    \includegraphics[width=\textwidth]{figures/lineartransformation.pdf}
+\end{figure}
+
+
+\begin{example}
+Here are a few examples of each of the above terms:
+\begin{itemize}
+    \item A price checker at a store takes in barcodes and returns the cost of the item. This is a \emph{map} from barcodes to prices. This is not a map between vector spaces.\sidenotemark
+    \item Conversion from kilograms to pounds is a \emph{map} takes a quantity in one unit and converts it to the same quantity in different units. This map is also \emph{linear}: if the input quantity is twice as heavy in kilograms, it will be twice as heavy in pounds. If you add two quantities in kilograms, the mass of the total object in pounds is the sum of the individual masses in pounds.
+    \item A function that takes in a vector $\vec{v}\in\mathbbm{R}^2$ and returns $2\vec{v}$ is a transformation. Both the inputs and outputs are vectors in the same vector space. 
+\end{itemize}
+\end{example}\sidenotetext{At least I cannot figure out a reasonable vector space interpretation. I think I was already pushing it a bit far when we talked about cheeseburger-and-fries space in Example~\ref{ex:cheeseburger:space}.}
+
+\paragraph{More jargon: one-to-one, onto, invertible}
+
+We are going to make a big deal about \textbf{invertible transformations}\index{invertible}. An invertible transformation is one that can be reversed or undone. The transformation need not be linear---though our focus will be linear invertible functions---so for this paragraph let use write $\vec{f}(\vec{v})$ to mean an invertible, not-necessarily-linear transformation. I have even written the function as $\vec{f}$ rather than $f$ to remind us that the output is a vector. Mathematically, an invertible function is one where $\vec{f}^{-1}(\vec{v})$ is defined for any $\vec{v}$ and
+\begin{align}
+    \vec{f}\inv(\vec{f}(\vec{x})) = \vec{f}(\vec{f}\inv(\vec{x})) = \vec{x} \ .
+\end{align}
+The \emph{reason} why we care about invertible transformations is precisely the point in \bigidearef~\ref{idea:matrix:inverse:in:physics}: so much of physics is written in the form
+\begin{align}
+    (\text{operator})\, \ket{\text{state}} = \ket{\text{source}} \ ,
+\end{align}
+and our job is to invert the operator so that we can figure out what the state is as a function of the source. That is, we are usually given an equation
+\begin{align}
+    \vec{f}(\vec{x}) = \vec{w} \ ,
+\end{align}
+and we are given the form of the function $\vec{f}$ and the value of the source $\vec{w}$.\sidenote{Maxwell's equations are like this: on the left-hand side there's some fancy vector calculus differential operator acting on the field that you want to calculate, on the right-hand side there is some kind of charge or current distribution.} Our job is to determine $\vec{x} = \vec{f}\inv(\vec{v})$. 
+
+Sometimes it is the case that $\vec{f}(\vec{x})$ is a pretty nasty function.\sidenote{By nasty I mean nonlinear. By nonlinear I mean \emph{not linear}, where the definition of linearity is \eqref{eq:linear:function}.} So instead of using $\vec{f}$, we can perform a Taylor expansion and consider the \emph{linear} part of $\vec{f}$. From our discussions so far, a linear transformation is represented as a matrix, $M$. Thus we end up writing:
+\begin{align}
+    \vec{f}(\vec{x}) \approx M\vec{x}  \ ,
+\end{align}
+and the problem inverting $\vec{f}$ reduces to the problem of inverting a linear transformation $M$. It is for this reason that we make a big deal about understanding when $M$ is invertible and, when it is, how to determine $M\inv$ in a systematic way.\sidenote{In Exercise~\ref{ex:matrix:inversino:the:hard:way} you already showed that finding the inverse of a matrix boils down to writing out and solving a system of equations. This method is intractable for very large matrices. Our goal is to reach infinite-dimensional matrices.}
+
+\begin{example}
+A function that takes your student identification number and returns your net\tacro{ID} is one-to-one. Every student identification number corresponds to a unique student with a unique net\tacro{ID}. However, not every net\tacro{ID} belongs to a student---faculty have net\tacro{ID}s but not student identification number, for example---so this function is not invertible. 
+\end{example}
+
+A few more bits of jargon. We won't use these, but consider these to be essential tools if you ever find yourself in a verbal sparring match with a mathematician:
+\begin{enumerate}
+    \item \textbf{Injective}\index{injective}/\textbf{one-to-one}\index{one-to-one}: 
+    every output is unique; if you knew the output then you can deduce the input. However there may be some output-class objects that are not the outputs of the function for any input.
+    \item \textbf{Surjective}\index{surjective}/\textbf{onto}\index{onto}: every output-class object is the result of some input, however there may be multiple inputs that produce the same output.
+    \item \textbf{Bijective}\index{bijective}: this is a fancy name for \emph{invertible}. 
+\end{enumerate}
+% Every linear function is surjective. 
+
+\begin{example}
+Dual vectors are linear functions of vectors to numbers. Any non-zero dual vector $\row{w}$ is surjective. To see this, take any vector $\vec{v}$ and calculate $\row{w}\vec{v}$; call this number $a$. Any other number, say $b$, is the output of $\row{w}$ acting on $(b/a)\vec{v}$. Thus every output-class object (number) is realized as $\row{w}$ acting on some input. 
+\end{example}
+
+\begin{example}
+In general, dual vectors are \emph{not} injective. For example, consider the dual vector $\row{w}=\begin{pmatrix}
+    a & -a
+\end{pmatrix}$. Then $\row{w}\vec{v} = 0$ for any vector $\vec{v}$ of the form
+\begin{align}
+    \vec{v} = 
+    \begin{pmatrix}
+        b \\ b
+    \end{pmatrix}\ .
+\end{align}
+The zero vector is of this form so that $\row{w}\vec{0}=0$, as required by linearity. 
+\end{example}
 
 
 % Row vectors as 
@@ -2337,7 +2565,6 @@ In this section we have defined basis dual vectors as the `eaters of vectors.' O
 \end{exercise}\sidenotetext{The fancy way of saying this is that $(V^*)^* = V$. The space of linear functions on row vectors is exactly the space of vectors.}
 
 
-\subsection{Transformation of Row Vectors}
 
 % change of basis on row vectors: rotates oppositely!
 
@@ -2359,7 +2586,7 @@ This means that a vector is
 % 
 Similarly, row vectors are bras with associated basis bras:
 \begin{align}
-    \row{w} &\defeq \bra{w} & \rbas{e^i} &\defeq \bra{e^i}
+    \row{w} &\defeq \bra{w} & \rbas{e}^i &\defeq \bra{e^i}
     & \bra{w} &= w_i \bra{e^i} \ .
 \end{align}
 
@@ -2368,32 +2595,385 @@ Now the duality expressed in Exercise~\ref{ex:vector:act:on:row} is clear becaus
 \begin{align}
     \la e^i \mid e_j \ra = \delta^i_j \ .
 \end{align}
-Then the action of a bra on a ket is manifestly symmetric with the action of a ket on a bra. They are the same thing.
+Then the action of a bra on a ket is manifestly symmetric with the action of a ket on a bra. They are the same thing:
 \begin{align}
     \la w \mid v \ra &= w_iv^j \la e^i \mid e_j \ra  = w_i v^j \delta^i_j = w_iv^j \ .
+    \label{eq:basis:of:dual:vectors:bra:ket:form}
 \end{align}
 
+\subsection{Basis of matrices}
+
+Matrices have one upper index and one lower index. If we think about matrices as squares of numbers,\sidenote{... and one of the goals of this course is to go \emph{beyond} thinking of matrices this way.} then we can imagine what a basis of matrices looks like. For a $2\times 2$ matrix $M$,
+\begin{wide}
+ \begin{align}
+        M=
+     \begin{pmatrix}
+         M\aij{1}{1} & M\aij{1}{2}\\
+         M\aij{2}{1} & M\aij{2}{2}
+     \end{pmatrix}
+     &= 
+     M\aij{1}{1} 
+     \begin{pmatrix}
+     1 & 0 \\
+     0 & 0    
+     \end{pmatrix}
+     + M\aij{1}{2}
+     \begin{pmatrix}
+     0 & 1 \\
+     0 & 0    
+     \end{pmatrix}
+     + M\aij{2}{1} 
+     \begin{pmatrix}
+     0 & 0 \\
+     1 & 0    
+     \end{pmatrix}
+     + M\aij{2}{2}
+     \begin{pmatrix}
+     0 & 0 \\
+     0 & 1    
+     \end{pmatrix}
+\end{align} \ .
+\label{eq:M:2:2:basis:of:matrices:0}
+\end{wide}
+We can write this succinctly in bra-ket notation as follows:
+\begin{align}
+    \begin{pmatrix}
+         M\aij{1}{1} & M\aij{1}{2}\\
+         M\aij{2}{1} & M\aij{2}{2}
+     \end{pmatrix}
+     &= 
+     M\aij{i}{j} \ket{e_j}\!\bra{e^i} \ .
+     \label{eq:M:2:2:basis:of:matrices:1}
+\end{align}
+Does this make sense? Evidently it implies that $\ket{j}\!\bra{i}$ encodes the $2\times 2$ matrix that has a one on the $i$--$j$ component and zeroes everywhere else.
+% 
+Does this, in turn, make sense? $\ket{e_j}\!\bra{e^i}$ is a machine that, when acting on a vector, does two things:
+\begin{enumerate}
+    \item It takes in a vector and pulls out the $i^\text{th}$ component,
+    \item then it places that into the $j^\text{th}$ component of the output vector.
+\end{enumerate}
+\begin{exercise}
+Confirm that $\ket{e_j}\!\bra{e^i}$ behaves as described above.
+\end{exercise}
+This is precisely the action of a matrix that is zero except for the $i$--$j$ component, which is one. For example:
+\begin{align}
+    \begin{pmatrix}
+    0 & 0\\
+    1 & 0  
+    \end{pmatrix}
+    \begin{pmatrix}
+        v^1 \\
+        v^2
+    \end{pmatrix}
+    &= 
+    \begin{pmatrix}
+        0 \\
+        v^1
+    \end{pmatrix} \ 
+    &
+    \ket{e_2}\!\la{e^1} \mid v\ra 
+    &= 
+    v^1 \ket{2} \ .
+\end{align}
+We have used the defining relation of the bra (dual vector) bases, \eqref{eq:basis:of:dual:vectors:bra:ket:form}. So we see that indeed the bases in \eqref{eq:M:2:2:basis:of:matrices:0} and \eqref{eq:M:2:2:basis:of:matrices:1} are identical. 
+
+The ket-bra $\ket{j}\!\bra{i}$ is an example of a tensor product\index{tensor product}, a phrase we first use in \eqref{eq:M:tensor:product}. Poetically, this tensor product is gluing together two machines: a vector and a dual vector. Each machine is simultaneously an object (vectors are acted on by dual vectors) and a linear functions that acts on objects to produce numbers (vectors also act on dual vectors). The idea in Section~\ref{sec:linear:maps} that a matrix is many different kinds of linear maps\sidenote{Recall that a matrix can be understood as any of the following: $V\otimes V^*\to \#$, $V\to V$, or $V^* \to V^*$.} is simply a choice of the different combinations of whether the machines are treated as objects or the linear functions acting on objects. 
+ 
+Sometimes, if we are feeling fancy, we may write this using that fancy X-Men symbol:\sidenote{As this is being written, the animated series \emph{X-Men '97} is airing and the ``Fall of X'' story arc of the comic series is drawing to a close.}
+\begin{align}
+    \ket{e_j}\!\bra{e^i} = \ket{e_j} \otimes \bra{e^i} = \bas{e}_i \otimes \rbas{e}^j \ .
+\end{align}
+The \sout{X-Men symbol} tensor product is there to remind us that these bras (dual vectors) and kets (vectors) are not acting on each other.  Otherwise the expression on the right may be confused with\sidenote{This is the sense in which $V=(V^*)^*$; vectors are themselves dual to dual vectors.} 
+\begin{align}
+\bas{e}_i \rbas{e}^j \stackrel{?}{=}
+    \bas{e}_i[\rbas{e}^j] = \delta^j_i \ ,
+\end{align}
+which it is \emph{not}. This is another benefit of the bra-ket notation.
 
 
+Let us recover our rule for matrix multiplication using this notation. We start by writing a matrix acting on a vector:
+\begin{align}
+    M\vec{v} &= 
+    M\aij{i}{j}\ket{e_i}\!\bra{e^j}\; 
+    v^k\ket{e_k}
+    =
+    M\aij{i}{j} 
+    v^k\; 
+    \ket{e_i}\!\la{e^j} \mid {e_k} \ra
+    % =
+    % M\aij{i}{j} 
+    % v^k\; \delta^{k}_j \; \ket{e_i}
+    =
+    M\aij{i}{j} 
+    v^j\; \ket{e_i} \ .
+\end{align}
+We have used our one defining relation, $\la{e^j} \mid {e_k} \ra = \delta^j_k$, and simply pulled all the \emph{numbers}/\emph{coefficients}---$M\aij{i}{j} v^k$---from all of the tensorial stuff---the bras and kets. 
+
+\begin{bigidea}[Columns to indices to maps]\index{idea:columns:to:indices:to:maps}
+Appreciate what has happened here. In Chapter~\ref{ch:basics} we introduced the `matrix multiplication' picture where we treated vectors as columns of numbers and matrices as square arrays of numbers. Then in Chapter~\ref{ch:vectors:row:matrices:in:indices} we replaced that picture with a different one based on indices. In Section~\ref{sec:treachery:of:indices:vi:is:not:a:vector} we reflected on the ambiguity of expressions like $\vec{v}\simeq v^i$: does $v^i$ refer to a vector, or a \emph{component} of a vector? Now we have gone one layer deeper and explained that there was a in the index-only picture that had been implicit: the notion of a basis. Furthermore, this basis is rigorously understood in the language of linear maps. 
+
+Using the defining feature of row versus column basis vectors \eqref{eq:M:2:2:basis:of:matrices:0}, we derive the index contraction rule that was an assumption in the intermediate index-only picture. Granted, we have \emph{invented} this `deeper structure,' but this invention is meaningful. It defines the \emph{duality} between $V$ and $V^*$ and gives us a functional understanding of index contraction.
+\end{bigidea}
+
+As another illustrative example, the multiplication of two matrices. Now we have
+\begin{align}
+    M\aij{i}{j} \ket{e_i}\! \bra{e^j} \quad N\aij{k}{\ell}  \ket{e_k}\!\bra{e^\ell}
+    &=
+    M\aij{i}{j} N\aij{k}{\ell} \quad \ket{e_i} \la{e^j} \mid {e_k}\ra \bra{e^\ell}
+    \\&=
+    M\aij{i}{j} N\aij{k}{\ell}\, \delta^k_j \quad \ket{e_i}\!\bra{e^\ell} 
+    \\&=
+    M\aij{i}{j} N\aij{j}{\ell} \; \ket{e_i}\!\bra{e^\ell} \ ,
+\end{align}
+from which we read that the $i$--$\ell$ component of the matrix $MN$ is $ M\aij{i}{j} N\aij{j}{\ell}$ \ .
+
+This basis and the bra-ket notation also gives a convenient way to express the \textbf{trace}\index{trace} of a matrix---or more generally, the contraction of an upper and lower index of the same tensor. The trace operation is
+\begin{align}
+    \Tr(\cdots) = 
+    \bra{e^i} \cdots \ket{e_i} \ .
+\end{align}
+For a matrix:
+\begin{align}
+    \Tr M &= \bra{e^i}\; \left(M\aij{k}{\ell}\ket{e_k}\!\bra{e^\ell}\right) \;\ket{e_i}
+    = M\aij{k}{\ell}  
+    \la {e^i} \mid {e_k}\ra \, \la {e^\ell} \mid {e_i} \ra 
+    \\
+    &= 
+    M\aij{k}{\ell}  \delta^i_k \delta^\ell_i 
+    =  M\aij{i}{i} \ .
+\end{align}
+Indeed we recover our usual index-based definition, which in turns was a sophisticated way of saying ``sum the diagonal components of a square array of numbers.'' Observe that the bra-ket notation really shined her: this would have been a minor pain to describe using the $\bas{e_i}$ and $\bas{e^j}$ expressions.
 
 
+% again a place where the bra ket notation shines, much harder to write this using e's.
 
 
- \subsection{Basis of matrices}
 
  \subsection{Basis of tensors}
 
+ We may generalize to tensors by writing a generic tensor as:
+ \begin{align}
+    T =
+     T\aij{i_1\cdots i_N}{j_1\cdots j_M}
+     \ket{e_{i_1}}\cdots \ket{e_{i_N}}
+     \bra{e^{j_1}}\cdots \bra{e^{j_M}} \ .
+ \end{align}
+\begin{exercise}
+Show how the index rules for tensors contraction onto other objects works using the bra-ket basis notation. Try making up some tensors, say $T^{ij} \ket{e_i}\ket{e_j}$ to see how it can contract onto other objects and use the defining relation \eqref{eq:basis:of:dual:vectors:bra:ket:form} to derive the usual index contractions. Observe that it can sometimes be ambiguous to know which bras and which kets are contracting with one another, so one may have to specify this explicitly. That is: if $T^{ij} \ket{e_i}\ket{e_j}$ is acting on $w_k\bra{e^k}$, which of $\ket{e_i}$ or $\ket{e_j}$ hits the $\bra{e^k}$? 
+\end{exercise}
+
+Practically when one has a tensor with several of the same type of basis bra or ket, one ends up symmetrizing or antisymmetrizing any contraction. This amounts to separating a tensor like $T^{ij} = T^{ij}_\textnormal{s} + T^{ij}_\textnormal{a}$ into a symmetric piece with $T_\textnormal{s}^{ij} = T_\textnormal{s}^{ji}$ and an antisymmetric piece with $T_\textnormal{a}^{ij}=-T_\textnormal{a}^{ji}$. Having done this, it does not matter \emph{which} of the `identical' indices you contract with because they are all treated on the same footing. This sort of symmetrizing/antisymmetrizing game shows up in the representation theory of symmetries.
+% Example: H2 dissociation
+
+\begin{exercise}
+Let $B_{ij}\bra{e^i}\bra{e^j}$ be a $(0,2)$ tensor. Separate it into a symmetric and an antisymmetric piece, $B = S+A$ where $S_{ij} = S_{ji}$ and $A_{ij} = - A_{ji}$. Assuming you know each component $B_{ij}$, write out each component $S_{ij}$ and $A_{ij}$.
+
+Let $\vec{v} = v^i\ket{e_i}$ be a vector. Show that $B\ket{v}\ket{v} = S\ket{v}\ket{v}$. That is, show that
+\begin{align}
+    A\ket{v}\ket{v} = 0 \ .
+\end{align}
+
+Let $C^{ij}\ket{e_i}\ket{e_j}$ be an \emph{antisymmetric} $(2,0)$ tensor so that $C^{ij} = C^{ji}$. Show that $BC = AC$, or otherwise that
+\begin{align}
+    SC = 0 \ .
+\end{align}
+
+\textsc{Comment}: in each of these questions, there should be no ambiguity about which bras and which kets are contracted. If you worry that you have to make an arbitrary choice, check that the (anti-)symmetrization means that it does not actually matter up to a minus sign, provided that all objects that have multiple upper and/or multiple lower indices are symmetrized or anti-symmetrized.
+\end{exercise}
+ 
+
 \section{Transformation under symmetries}
+
+Let us return to dancing around the really-big-idea of symmetries, even though we continue to be coy about actually defining these. We first introduced rotations in Section~
+\ref{sec:Euclidean:three:space:rotations}, where we pontificated about the relation of rotations to the dot product because rotations leave vector lengths and angles between vectors unchanged. In Section~\ref{sec:isometry:first:pass:indices} we defined Rule~\ref{idea:transformation:of:upper:and:lower:indices} that told us how objects with indices transform. For example, in two-dimensional Euclidean space rotations that move the positive $x$-axis\sidenote{Here I should really say the $\bas{e}_1$ axis rather than the $x$-axis. This is because $x$ and $y$ are typically the coordinates what is called a `base space' or a base \emph{manifold}. In this section we refer to $x,y,$ and $z$ to appeal to our familiarity with three-space.} counter-clockwise (towards the positive $y$ axis) by and angle $\theta$ are $2\times 2$ matrices of the form
+\begin{align}
+    R(\theta)=
+    \begin{pmatrix}
+        \cos\theta & -\sin\theta \\
+        \sin\theta & \pp \cos\theta
+    \end{pmatrix} \ .
+\end{align}
+The following exercises introduce some of the machinery for rotations.
+\begin{exercise}
+If you have not done so yet, please confirm that $R(\theta)^\trans = R(\theta)\inv = R(-\theta)$.
+\end{exercise}
+\begin{example}
+In three dimensions there are more kinds of rotations. One way to characterize this is to consider rotations about each coordinate axis. 
+\begin{align}
+    R_x(\theta) &= 
+    \begin{pmatrix}
+        1 & & \\
+        &  \cos\theta & -\sin\theta \\
+        & \sin\theta &  \pp\cos\theta 
+    \end{pmatrix}
+    \\
+    R_y(\theta) &= 
+    \begin{pmatrix}
+        \pp \cos\theta & &\sin\theta \\
+        & 1 & \\
+        -\sin\theta& & \cos\theta
+    \end{pmatrix}
+    \\
+    R_z(\theta) &= 
+    \begin{pmatrix}
+       \cos\theta & - \sin\theta & \\
+        \sin\theta &\pp \cos\theta & \\
+        & & 1
+    \end{pmatrix}\ ,
+    \label{eq:3D:rotation:matrices}
+\end{align}
+where all unlisted components are zero. Notice that these are all reshufflings of the rotations of the plane with the rotation axis held fixed---that should make sense. Also notice that the $R_y(\theta)$ rotation has the $-\sin\theta$ term in the lower-left while the other two rotations have it on the upper-right. This is to consistently apply the right-hand rule convention: a rotation about the $i^\textnormal{th}$ axis corresponds to gripping the axis with your right hand so that your thumb is pointing along the positive direction and identifying the direction that your fingers curl as the rotation direction. For each of these matrices, $R_i(\theta)^\trans = R_i(\theta)\inv = R_i(-\theta)$. 
+\end{example}
+\begin{exercise}
+Taylor expand each of the three matrices in \eqref{eq:3D:rotation:matrices} and write them each in the form
+\begin{align}
+    R_i(\theta) = \one + i T_i \theta + \mathcal O(\theta^2) \ .
+\end{align}
+Here $i$ is the imaginary number, $i^2=1$, and the matrix $T_i$ is also pure imaginary.\footnote{This factor of $i$ is a convention in physics.} 
+
+\textsc{Comment:}
+The $T_i$ matrices are called \textbf{generators} each type of rotation. Physically, they represent the effect of an infinitesimal rotation about the respective axes. Infinitesimal rotations about other axes are given by \emph{linear combinations} of the $T_i$. In this way, the $T_i$ are a \emph{basis} for rotations.
+
+Show that $T_xT_y - T_y T_x \propto T_z$ and determine the constant of proportionality. This relation is called an \emph{algebra} and denotes the mathematical structure of rotational symmetry.\footnote{This symmetry is called \SO{3}, the special orthogonal group of rank 3. Special means unit determinant, orthogonal means $R^\trans R = \one$.}
+\end{exercise}
+
+\begin{exercise}
+The \emph{generator} of \SO{2}, rotations of the Euclidean plane, is
+\begin{align}
+    T = \begin{pmatrix}
+        0 & i \\
+        -i & i
+    \end{pmatrix} \ .
+\end{align}
+Show that $R(\theta) = \exp(iT\theta)$ where the matrix exponential is defined as its power series:
+\begin{align}
+    e^{M} = 1 + M + \frac{1}{2}M^2 + \cdots \ .
+\end{align}
+Use the power series expansion of the trigonometric functions. 
+\end{exercise}
+
+Assuming that we have a definition for which transformations are rotations,\sidenote{More generally, which transformations are \emph{isometries}. We finally present such a definition in Chapter~\ref{ch:metric:spaces}.} then we can examine how the basis vectors and row vector transform.
+
 % Motivating the indices
 % What is a symmetry
 
 
 
+\subsection{Transformation of Vectors}
+
+To be somewhat philosophical: under an isometry like a rotation, there are two pictures to think about what happens to a vector:
+\begin{itemize}
+    \item \textbf{Active transformation}\index{active transformation}: your basis vectors stay put, but the vector is changing into a different vector, $\ket{v} \to \ket{v'}$. The components of $\ket{v'}$ are clearly different from the components of $\ket{v}$ because it the two are simply not the same vector.
+    \item \textbf{Passive transformation}\index{passive transformation}: the vector \emph{does not change}, but the basis vectors change, $\ket{e_i} \to \ket{e'_i}$. This means that the components of $\ket{v}$ must \emph{also} change so that $v^i\ket{e_i} = v'^{i}\ket{e_i}$.
+\end{itemize}
+In an active transformation, the vector space and every vector in it change. In a passive transformation, the observer changes.\sidenote{There is something oddly Zen and philosophical about this.} For an isometry---a symmetry of the system---either perspective is valid. 
+% 
+
+Let $R(\theta)$ be the rotation about some axis by some angle $\theta$ that enacts a symmetry transformation. In the passive picture, vectors remain unchanged, but the basis vectors and the corresponding components do change:
+\begin{align}
+    \ket{v} = v^i \ket{e_i} =
+    % v^i R\inv R \ket{e'_i}
+    v^\ell R\aij{i}{\ell} (R\inv)\aij{\ell}{k}  \ket{e_k} \
+    \defeq (v')^\ell \ket{e'_\ell}
+    \ .
+\end{align}
+In the second equality we have simply inserted $\one = R R\inv$. On the right-hand side we \emph{define} the rotated components $v'$ and rotated basis vectors $\ket{e'}$ by absorbing the $R$ and $R\inv$ rotations:
+\begin{align}
+    (v')^i &\defeq R\aij{i}{\ell} v^\ell
+    &
+    \ket{e'_i} &\defeq  (R\inv)\aij{j}{i}\ket{e_j} \ .
+    \label{eq:passive:transformation:of:vector:and:basis}
+\end{align}
+All we have done is collect into $v'^i$ all objects that contract with $v^ell$ and leave an object of a single upper index: that means that we absorb the $R\aij{i}{\ell}$. Similarly, we collect into $\ket{e'_i}$ all objects that contract with $\ket{e_j}$ and leave an object of a single lower index: that means we absorb the $(R\inv)\aij{j}{i}$. From this we have \emph{derived} the ``indexology rule'' \eqref{eq:components:of:vector:and:row:under:rotatino} which led us to the general tensor transformation in \bigidearef{}~\ref{idea:transformation:of:upper:and:lower:indices}.
+
+Let me say that one more time: in \eqref{eq:passive:transformation:of:vector:and:basis} we are not \emph{applying} the rule that upper indices transform with $R$ and lower indices transform with $R\inv$. In fact, we are \emph{deriving it} from the condition that a passive [symmetry] transformation leaves the vector $\ket{v}$ unchanged while simply changing the basis and components of $\ket{v}$ while preserving $\ket{v}$.
 
 
 
+To be clear, this choice of active versus passive pictures is only true for symmetries (isometries) where in some sense the system is not meaningfully changing. A general transformation that is \emph{not} an isometry should be thought of as an active transformation that change vectors.
+\begin{example}
+If we were to rotate the entire solar system, then it does not matter too much whether we think about this as some cosmic entity actually changing the configuration of every celestial object \emph{or} if we simply choose a rotated set of coordinates for the solar system. However, if we were to \emph{stretch} the solar system along one axis of the plane of the planets' rotation, then all of a sudden the planets would not be in stable orbits.\sidenotemark
+\end{example}\sidenotetext{In this hypothetical: the coordinates do not change and Newton's laws do not change. Thus stretching the positions of each of the plants pulls them further away from the center of the sun without changing their angular momentum.}
 
 
+\subsection{Transformation of Row Vectors}
+
+The same argument holds for row vectors. For an isometry, one may take the passive transformation perspective in which row vectors do not transform, but we transform both the basis row vectors $\bra{e^i}$ and components of the row vector $w_i$ in such a way that $\bra{e^i}w_i \to \bra{{e'}^i}w'_i = \bra{w}$: 
+\begin{align}
+    w'_i &\defeq \tilde R\aij{\ell}{i} w_\ell
+    &
+    \bra{e'^i} &\defeq  (\tilde{R}\inv)\aij{i}{j}\bra{e^j} \ .
+    \label{eq:passive:transformation:of:row:vector:and:basis}
+\end{align}
+In principle, this rotation $\tilde R$ is a different rotation from $R$. One may think think that $\tilde R$ has \emph{nothing to do} with the transformation of vectors, $v^i\ket{e_i} \to R\aij{i}{k}v^k(R\inv)\aij{\ell}{i}\ket{e_\ell}$. However, if $R$ and $\tilde R$ enact a symmetry of the system, then the transformations must preserve the defining relation of the dual vector basis \eqref{eq:basis:of:dual:vectors}, or the bra-ket form of that rule \eqref{eq:basis:of:dual:vectors:bra:ket:form}. This means we want to impost
+\begin{align}
+    \la e'^i \mid e'_j \ra \equiv \delta^i_j \ .
+\end{align}
+Inserting our expressions of the passively rotated basis elements relative to the original basis elements,\sidenote{We do this because we assume that the original basis elements satisfy $\la e^i \mid e_j \ra \equiv \delta^i_j$.}
+\begin{align}
+    \la e'^i \mid e'_j \ra &= 
+    \la e^k \mid (\tilde{R}\inv)\aij{i}{k} (R\inv)\aij{\ell}{j} \mid e_\ell \ra
+    =
+    (\tilde{R}\inv)\aij{i}{k} (R\inv)\aij{\ell}{j} \la e^k \mid e_\ell \ra
+    \\
+    &=
+    (\tilde{R}\inv)\aij{i}{k} (R\inv)\aij{\ell}{j} \delta^k_\ell
+    =
+    (\tilde{R}\inv)\aij{i}{k} (R\inv)\aij{k}{j} \ .
+\end{align}
+In order for this to equal $\delta^i_j$ we must have
+\begin{align}
+    (\tilde R)\inv R\inv = \one \ ,
+\end{align}
+or equivalently
+\begin{align}
+    \tilde R = R\inv \ ,
+\end{align}
+which is precisely what we motivate below \eqref{eq:R:Rtilde:transformation:from:indices:rotation}. 
+
+
+\subsection{Transformation of Tensors}
+
+Having established how $\ket{e_i}$ and $\bra{e^j}$ transform, the transformation of a general tensor---one composed of the tensor product of some number of bras and some number of kets---follows simply from the transformation of each bra and ket individually.
+
+\begin{wide}
+In this way, we may augment \bigidearef{}~\ref{idea:transformation:of:upper:and:lower:indices} and \eqref{eq:transformation:of:upper:and:lower:indices} with the statement that from the passive transformation perspective, the basis tensors transform as
+\begin{align}
+    % T\aij{i_1\cdots i_N}{j_1\cdots j_M}
+    % \to 
+    % R\aij{i_1}{k_1}\cdots R\aij{i_N}{k_N}
+    % (R\inv)\aij{\ell_1}{j_1}\cdots (R\inv)\aij{\ell_N}{j_N}
+    % T\aij{k_1\cdots k_N}{\ell_1\cdots \ell_M} \ .
+    % \label{eq:transformation:of:upper:and:lower:indices}
+    \ket{e_{i_1}} \cdots \ket{e_{i_N}}
+    \bra{e^{j_1}} \cdots \bra{e^{j_M}}
+    \to 
+    (R\inv)\aij{k_1}{i_1}\cdots (R\inv)\aij{k_N}{i_N}
+    R\aij{j_1}{\ell_1}\cdots R\aij{j_N}{\ell_M}
+    \ket{e_{k_1}} \cdots \ket{k_{i_N}}
+    \bra{e^{\ell_1}} \cdots \bra{e^{\ell_M}} \ .
+\end{align}
+For completeness, here is how the components transform:
+\begin{align}
+    T\aij{i_1\cdots i_N}{j_1\cdots j_M}
+    \to 
+    R\aij{i_1}{k_1}\cdots R\aij{i_N}{k_N}
+    (R\inv)\aij{\ell_1}{j_1}\cdots (R\inv)\aij{\ell_M}{j_M}
+    T\aij{k_1\cdots k_N}{\ell_1\cdots \ell_M} \ .
+    \tag{\ref{eq:transformation:of:upper:and:lower:indices}}
+\end{align}
+\end{wide}
+
+
+
+\chapter{Interlude}
+\section{The Big Picture}
+
+\chapter{Metric Spaces}\label{ch:metric:spaces}
+
+\section{Inner Product}
+
+\section{Adjoints}
 
 
 

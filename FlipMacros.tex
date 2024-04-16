@@ -44,7 +44,7 @@
 \newcommand{\inv}{^{-1}}
 
 \newcommand{\one}{\mathbbm{1}}
-\newcommand{\Tr}{\text{Tr}\,}
+\newcommand{\Tr}{\operatorname{\text{Tr}}}
 \newcommand*{\trans}{{\mkern-1.5mu\mathsf{T}}}     % transpose
 
 
@@ -109,3 +109,17 @@
 \newcommand{\eqfig}[1]{%
   \vcenter{\hbox{#1}}}
 %% USAGE: \eqfig{\includegraphics[width=.3\textwidh]{example-image-a}}
+
+%% SO(N), etc. 
+%% ------------
+\newcommand{\SO}[1]{\ifmmode
+  \textnormal{\acro{SO(}}#1\textnormal{\acro{)}}
+  \else \acro{SO($#1$)} \fi}
+
+\newcommand{\SU}[1]{\ifmmode
+  \textnormal{\acro{SU(}}#1\textnormal{\acro{)}}
+  \else \acro{SU($#1$)} \fi}
+
+\newcommand{\Sp}[1]{\ifmmode
+  \textnormal{\acro{Sp(}}#1\textnormal{\acro{)}}
+  \else \acro{Sp($#1$)} \fi}
