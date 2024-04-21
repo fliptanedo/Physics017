@@ -1344,6 +1344,7 @@ This approach of \emph{learn how to use it then learn how it works} is a trusted
 \end{example} 
 
 \section{First pass: components}
+\label{sec:component:notation}
 % Index notation
 %   Matrices as two indexed objects.
 
@@ -2594,6 +2595,7 @@ Similarly, row vectors are bras with associated basis bras:
 Now the duality expressed in Exercise~\ref{ex:vector:act:on:row} is clear because we just think of the vertical edge of the bra or ket being its \emph{interface} with the other type. The duality relations \eqref{eq:basis:of:dual:vectors} and \eqref{eq:basis:of:dual:vectors:reverse} reduce to a single relation:
 \begin{align}
     \la e^i \mid e_j \ra = \delta^i_j \ .
+    \label{eq:defining:bra:ket:relatin}
 \end{align}
 Then the action of a bra on a ket is manifestly symmetric with the action of a ket on a bra. They are the same thing:
 \begin{align}
@@ -2720,6 +2722,7 @@ As another illustrative example, the multiplication of two matrices. Now we have
     M\aij{i}{j} \ket{e_i}\! \bra{e^j} \quad N\aij{k}{\ell}  \ket{e_k}\!\bra{e^\ell}
     &=
     M\aij{i}{j} N\aij{k}{\ell} \quad \ket{e_i} \la{e^j} \mid {e_k}\ra \bra{e^\ell}
+    \label{eq:basis:matrix:mult:MN}
     \\&=
     M\aij{i}{j} N\aij{k}{\ell}\, \delta^k_j \quad \ket{e_i}\!\bra{e^\ell} 
     \\&=
@@ -2745,6 +2748,37 @@ For a matrix:
 Indeed we recover our usual index-based definition, which in turns was a sophisticated way of saying ``sum the diagonal components of a square array of numbers.'' Observe that the bra-ket notation really shined her: this would have been a minor pain to describe using the $\bas{e_i}$ and $\bas{e^j}$ expressions.
 
 
+\begin{example}[Choosing a contraction]\label{eg:contraction:choices}
+In \eqref{eq:basis:matrix:mult:MN} we multiplied two matrices,
+\begin{align}
+     M\aij{i}{j} \ket{e_i}\! \bra{e^j} \quad N\aij{k}{\ell}  \ket{e_k}\!\bra{e^\ell} \ .
+\end{align}
+How do we \emph{know} which of the basis bras and kets are hitting each other? In that case, we \emph{assumed} that the $\bra{e^j}$ acts on the $\ket{e_i}$. This gave the conventional definition that the lower index of $M$ contracts with the upper index of $N$. 
+
+Alternatively, we could have said that the $\bra{e^\ell}$ contracts with the $\ket{e_i}$. That gives:
+\begin{align}
+    M\aij{i}{j} N\aij{k}{\ell} 
+    \quad \ket{e_k}\! \bra{e^j}   \la {e^\ell} \mid {e_i} \ra
+    &=
+    M\aij{i}{j} N\aij{k}{\ell}\, \delta^\ell_i \quad \ket{e_k}\! \bra{e^j}
+    \\&=
+    M\aij{i}{j} N\aij{k}{i} \; \ket{e_k}\! \bra{e^j}
+    \\&=
+    N\aij{k}{i}M\aij{i}{j} \; \ket{e_k}\! \bra{e^j}\ .
+\end{align}
+Follow this carefully: all that differs from \eqref{eq:basis:matrix:mult:MN} is that we \emph{demanded by fiat}\footnote{We literally just wrote it in words. There is no mathematical notation that showed which ket and which bra are contracting, it is something that is \emph{understood before} we wrote the equation. Some people have made up notation---look up bird tracks---but for most cases this is complete overkill.} that a different bra/ket pair act on each other. The result is that instead of what we normally call $MN = M\aij{i}{j}N\aij{j}{\ell}$, we ended up with what we normally call $NM= N\aij{k}{i}M\aij{i}{j}$. In hindsight, this is not so surprising: given two matrices, there are two ways to combine them to get another matrix. In the old matrix multiplication language of Section~\ref{sec:matrix:multiplication}, we would call these $MN$ and $NM$ and comment on how matrix multiplication does not commute. In our linear map picture of tensors, we see that this really boils down to \emph{choosing} which of the two possible ways that the bras and kets can act on each other. 
+
+In a given physical situation, how are you suppose to know which basis bras and kets are supposed to contract? It is almost always the case that this is either obvious\footnote{Examples for why the bra/ket action may be obvious: perhaps someone is using the old `matrix multiplication' language so you know that bras act on adjacent kets, or perhaps because you know the physical meaning of what the matrix does and there is a particular transformation that you are performing.} or otherwise it is communicated explicitly in words. 
+\end{example}
+
+\begin{exercise}\label{eq:matrix:product:trace}
+In the multiplication of the two matrices in \eqref{eq:basis:matrix:mult:MN}, one could have also demanded that \emph{all} of the bras and kets contract. There are two ways of doing this. In one case, you get the product of the traces of each matrix:
+\begin{align}
+    (\Tr{M})(\Tr{N}) = M\aij{i}{i} N\aij{j}{j} \ .
+\end{align}
+Show that in the other case you get the trace of the product, $\Tr{MN}$. Show that $\Tr{MN} = \Tr{NM}$.
+\end{exercise}
+
 % again a place where the bra ket notation shines, much harder to write this using e's.
 
 
@@ -2757,12 +2791,84 @@ Indeed we recover our usual index-based definition, which in turns was a sophist
      T\aij{i_1\cdots i_N}{j_1\cdots j_M}
      \ket{e_{i_1}}\cdots \ket{e_{i_N}}
      \bra{e^{j_1}}\cdots \bra{e^{j_M}} \ .
+     \label{eq:tensor:T:with:basis}
  \end{align}
 \begin{exercise}
-Show how the index rules for tensors contraction onto other objects works using the bra-ket basis notation. Try making up some tensors, say $T^{ij} \ket{e_i}\ket{e_j}$ to see how it can contract onto other objects and use the defining relation \eqref{eq:basis:of:dual:vectors:bra:ket:form} to derive the usual index contractions. Observe that it can sometimes be ambiguous to know which bras and which kets are contracting with one another, so one may have to specify this explicitly. That is: if $T^{ij} \ket{e_i}\ket{e_j}$ is acting on $w_k\bra{e^k}$, which of $\ket{e_i}$ or $\ket{e_j}$ hits the $\bra{e^k}$? 
+Show how the index rules for tensors contraction onto other objects works using the bra-ket basis notation. Try making up some tensors, say $T^{ij} \ket{e_i}\ket{e_j}$ to see how it can contract onto other objects and use the defining relation \eqref{eq:basis:of:dual:vectors:bra:ket:form} to derive the usual index contractions. 
 \end{exercise}
 
-Practically when one has a tensor with several of the same type of basis bra or ket, one ends up symmetrizing or antisymmetrizing any contraction. This amounts to separating a tensor like $T^{ij} = T^{ij}_\textnormal{s} + T^{ij}_\textnormal{a}$ into a symmetric piece with $T_\textnormal{s}^{ij} = T_\textnormal{s}^{ji}$ and an antisymmetric piece with $T_\textnormal{a}^{ij}=-T_\textnormal{a}^{ji}$. Having done this, it does not matter \emph{which} of the `identical' indices you contract with because they are all treated on the same footing. This sort of symmetrizing/antisymmetrizing game shows up in the representation theory of symmetries.
+\begin{bigidea}[Tensors as linear functions]\label{idea:tensor:as:function}
+Tensors are linear maps from some number of copies of $V$ and $V^*$ to numbers: a $(p,q)$ tensor is a map from $V^q \times (V^*)^p \to \#$. If we write such a tensor as $T\aij{i_1\cdots i_p}{j_1\cdots j_q}$, then these indices may contract with $p$ lower indices and $q$ upper indices to give a number. This is equivalently understood as a \emph{multi-linear} machine that takes in $q$ vectors and $p$ dual vectors to return a number. Here mutli-linear means that the machine is linear in each argument. 
+\end{bigidea}
+
+\begin{example}
+Consider the $(2,1)$ tensor $T$ with components $T\aij{ij}{k}$. This is a map from $V\times V \times V^* \to \#$ because we may feed it a vector, $v^i$, and two row vectors, $w_j$ and $u_k$ to contract into a number:
+\begin{align}
+    T(\row{w},\row{u}, \vec{v})
+    &=
+    T\aij{ij}{k}v^k w_i u_j \ .
+\end{align}
+\end{example}
+
+\begin{bigidea}[Tensors as linear maps]\label{idea:tensor:as:map}
+Tensors are also linear maps between copies of vector spaces and dual vector spaces into other copies of vector spaces and dual vector spaces depending how its indices contract with other objects. A $(p,q)$ tensor $T$ may contract with an $(r,s)$ tensor $S$ such that:
+\begin{itemize}
+    \item Anywhere 
+    \item from 0 to $\min(p,s)$ the upper indices of $T$ are contracted with the pairs of the lower indices of $S$.
+    \item Anywhere from 0 to $\min(q,r)$ of the lower indices of $T$ are contracted with the upper indices of $S$.
+\end{itemize}
+Depending on these choices, the resulting object is a $(m,n)$ tensor where 
+\begin{itemize}
+    \item $m$ is from $[(p+q) - \min(p,s) - \min(q,r)]$, in the case of maximal contractions, to $(p+q)$, in the case of no contractions.
+    \item $n$ is from $[(s+r) - \min(p,s) - \min(q,r)]$, in the case of maximal contractions, to $(s+r)$, in the case of no contractions.
+\end{itemize}
+\end{bigidea}
+
+\begin{example}[Maps between product spaces]\label{eg:maps:between:product:spaces}
+Example~\ref{eg:contraction:choices} and Exercise~\ref{eq:matrix:product:trace} demonstrate this for the case of two (1,1) tensors. 
+
+Consider the case of a $(2,1)$ tensor $T\aij{ij}{k}$. Here are some possible contractions with different kinds of objects (we suppress the basis tensors and only write the components):
+\begin{itemize}
+    \item $T\aij{ij}{k}v^k$ is a (2,0) tensor $(T\vec{v})^{ij}$.
+    \item $T\aij{ij}{k}w_i$ is a (1,1) tensor $(T\row{w})\aij{j}{k}$.
+    \item $T\aij{ij}{k}M\aij{k}{\ell}$ is a (2,1) tensor $(TM)\aij{ij}{\ell}$
+    \item $T\aij{ij}{k}M\aij{k}{j}$ is a (1,0) tensor $(TM)^i$.
+    \item $T\aij{ij}{k}M\aij{\ell}{j}$ is a (2,1) tensor $(TM)\aij{ik}{\ell}$.
+    \item $T\aij{ij}{k}T\aij{k\ell}{m}$ is a (3,1) tensor $(T^2)\aij{ij\ell}{m}$.
+    \item $T\aij{ij}{k}T\aij{k\ell}{j}$ is a (2,0) tensor $(T^2)^{i\ell}$.
+\end{itemize}
+As practice, you are welcome to confirm all of this by including the bases `ket-bra' tensors. 
+\end{example}
+
+\begin{example}[Why ket-bras?]\label{eg:why:ketbra}
+When writing a generic tensor in terms of its basis, say $T$ in \eqref{eq:tensor:T:with:basis}, we typically write these with kets first then bras.\sidenotemark This is a convention that makes it clear that none of the kets are acting on any of the bras.
+
+What if you have a tensor where the order of the indices do not match the kets-first-then-bras convention? For example, a tensor:
+\begin{align}
+    Y = Y^{ij\phantom{k}\ell}_{\phantom{ij}k}
+    \ket{e_i}\otimes\ket{e_j}\otimes\bra{e^k}\otimes\ket{e_\ell} \ ,
+\end{align}
+where we have used the \sout{X-men} tensor symbol $\otimes$ to make it clear that none of the bras or kets are acting on each other. This avoids any ambiguity, but it is cumbersome to write. (At least not without humming the theme song of the X-men animated series from the 1990s.)
+
+In these cases, it is useful to simply \emph{define} a tensor where the order of indices is more convenient, but that otherwise contains the same information:
+\begin{align}
+    W = W\aij{ij\ell}{k} 
+    \ket{e_i}\ket{e_j} \ket{e_k} \bra{e_\ell}
+    \defeq 
+    Y^{ij\phantom{k}\ell}_{\phantom{ij}k}
+    \ket{e_i} \otimes \ket{e_j} \otimes \bra{e^k} \otimes \ket{e_\ell}
+    \ .
+\end{align}
+This amounts to the component-wise identification
+\begin{align}
+    W\aij{ij\ell}{k} \equiv Y^{ij\phantom{k}\ell}_{\phantom{ij}k} \ .
+\end{align}
+
+\end{example}\sidenotetext{Notationally, kets and bras act on each other when the vertical lines match up, not when their angled parts point at each other.}
+
+Observe that it can sometimes be ambiguous to know which bras and which kets are contracting with one another, so one may have to specify this explicitly. That is: if $T^{ij} \ket{e_i}\ket{e_j}$ is acting on $w_k\bra{e^k}$, which of $\ket{e_i}$ or $\ket{e_j}$ hits the $\bra{e^k}$? 
+
+Practically when one has a tensor with several of the same type of basis bra or ket, one ends up symmetrizing or antisymmetrizing any contraction. This amounts to separating a tensor like $T^{ij} = T^{ij}_\textnormal{s} + T^{ij}_\textnormal{a}$ into a symmetric piece with $T_\textnormal{s}^{ij} = T_\textnormal{s}^{ji}$ and an antisymmetric piece with $T_\textnormal{a}^{ij}=-T_\textnormal{a}^{ji}$. Having done this, it does not matter \emph{which} of the `identical' indices you contract with because they are all treated on the same footing---at least up to a minus sign for the antisymmetric case. See Section~\ref{sec:permutation:symmerty} for the case of two lower indices. This sort of symmetrizing/antisymmetrizing game shows up in the representation theory of symmetries.
 % Example: H2 dissociation
 
 \begin{exercise}
@@ -2780,6 +2886,7 @@ Let $C^{ij}\ket{e_i}\ket{e_j}$ be an \emph{antisymmetric} $(2,0)$ tensor so that
 
 \textsc{Comment}: in each of these questions, there should be no ambiguity about which bras and which kets are contracted. If you worry that you have to make an arbitrary choice, check that the (anti-)symmetrization means that it does not actually matter up to a minus sign, provided that all objects that have multiple upper and/or multiple lower indices are symmetrized or anti-symmetrized.
 \end{exercise}
+
  
 
 \section{Transformation under symmetries}
@@ -2967,16 +3074,130 @@ For completeness, here is how the components transform:
 
 Let us observe that the rule we proposed in Rule~\ref{idea:transformation:of:upper:and:lower:indices} is simply a \emph{byproduct} of our definition of how the basis bras and kets transform. In fact, it is the product of the definition of how \emph{either} the basis bras or the basis kets transform, since the transformation law of the other type of object necessarily follows from \eqref{eq:basis:transform:under:rotation}.
 
+\section{Dropping the Basis Tensors... Again}
+
+In Section~\ref{sec:component:notation} we presented tensors the way that most physicists use tensors: objects with indices. In the rest of this chapter, we built up the machinery of basis linear maps that form the underlying structure of what tensors are. This helps us understand how the components of a tensor transform when we change basis. By virtue of the defining relation between basis bras and kets, \eqref{eq:defining:bra:ket:relatin}, you may have found that once we all agree upon a basis, then \emph{all of those basis tensors are kind of redundant}!
+
+In other words, when there is no ambiguity about basis, I could have just written $v^i$ and you would \emph{know} that the only possible thing that I could mean is $v^i\ket{e_i}$. Similarly, the matrix $M\aij{i}{j}$ could \emph{only} possibly mean $M\aij{i}{j}\ket{e_i}\!\bra{e^j}$. This is because we know that all of these objects are intrinsically index-free---the indices all contract with the appropriate basis objects. This then leads us to the idea that maybe we could just \emph{drop} the basis tensors and just write everything as objects with indices.
+
+Everything we have said in this chapter is still true and still \emph{under the hood}, so to speak. But you will find that physicists find it most convenient to work in the shorthand of just writing the \emph{components} of tensors with the implicit understanding of there being a contraction with basis tensors.\footnote{Roger Penrose proposes formalizing this shorthand in what is called \emph{abstract index notation}. A good online discussion is this one: \url{https://math.stackexchange.com/questions/455478/}} 
+
+
 
 \begin{subappendices}
+
+
+\section{Permutation Symmetry}\label{sec:permutation:symmerty}
+
+Our favorite objects thus far---vectors, dual vectors, and matrices---have been refreshingly \emph{unambiguous} in the following sense: If you are looking to contract indices, you know \emph{exactly} which indices can contract. An ambiguity arises when we have a tensor that has multiple upper or lower indices. Consider the following example of a (0,2) tensor $A$ acting on a vector $\ket{v}$:
+\begin{align}
+    B_{ij}\bra{e^i}\bra{e^j} \; v^k \ket{e_k} \ .
+\end{align}
+The following two statements are equivalent:
+\begin{itemize}
+    \item There is an ambiguity about which of the two bras, $\bra{e^i}$ or $\bra{e^j}$, contracts with the basis ket $\ket{e_k}$. 
+    \item In the shorthand where we do not write the basis tensors, there is an ambiguity about which of the lower $i$ or $j$ indices of the matrix $B$ contracts with the upper index of the $\vec{v}$.
+\end{itemize}
+\begin{exercise}
+Show that both of these statements are equivalent by using \eqref{eq:defining:bra:ket:relatin}. 
+\end{exercise}
+One way to break the degeneracy is to explicitly specify \emph{which} contraction we really want---this is in the spirit of Example~\ref{eg:contraction:choices}. There is a trick that we often employ: take symmetric and antisymmetric combinations of the indices.
+
+For our purposes, let us stick to the case of tensors with two lower indices like $B$ above. The trick is to separate the components of $B$ into a symmetric and an antisymmetric part:
+\begin{align}
+    B_{ij} &= S_{ij}+A_{ij}
+\end{align}
+where these pieces are 
+\begin{align}
+    S_{ij} &= \frac{1}{2} \left(B_{ij} + B_{ji}\right)
+    \\
+    A_{ij} &= \frac{1}{2} \left(B_{ij} - B_{ji}\right) \ .
+\end{align}
+\begin{exercise}
+Decompose the (0,2) tensor $B_{ij}$ below\footnote{For ease of notation we have written the components of $B_{ij}$ as a square array of numbers. This does not mean that $B$ is a matrix---at least not in the sense of being a (1,1) tensor. This is simply for notation. When writing out the components of any two-index tensor in ``matrix multiplication'' notation, there is no way to distinguish between (2,0), (1,1), and (0,2) tensors.} into its symmetric and antisymmetric parts:
+\begin{align}
+    \begin{pmatrix}
+        B_{11} & B_{12}\\
+        B_{21} & B_{22}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 & 2\\
+        0 & 3
+    \end{pmatrix} \ .
+\end{align}
+\end{exercise}
+
+
+\begin{exercise}
+A basis of symmetric and antisymmetric (0,2)-tensors are:
+\begin{align}
+    \la{e^{(i}}|\la{e^{j)}}|
+    \defeq&
+    \frac{1}{2}\left( 
+        \bra{e^i}\bra{e^j} + \bra{e^i}\bra{e^j}
+    \right)
+    \\
+    \la{e^{[i}}|\la{e^{j]}}|
+    \defeq&
+    \frac{1}{2}\left( 
+        \ket{e^i}\bra{e^j} - \ket{e^i}\bra{e^j}
+    \right) \ .
+\end{align}
+The factor of $1/2$ is conventional. The subtle curved-versus-square bracket notation is also a standard convention. How would you perform the projection that takes $(0,2)$ tensors into their symmetric parts? What about their antisymmetric parts?
+
+Show that if $S_{ij} = S_{ji}$ is symmetric, then 
+\begin{align}
+     S_{ij}\la{e^{[i}}|\la{e^{j]}}| = 0 \ .
+ \end{align}
+\end{exercise}
+
+
+The symmetric tensor is especially nice:
+\begin{quote}
+When contracting a symmetric tensor $S_{ij}$ with a vector, it does not matter which index one contracts with. 
+\end{quote}
+Let us see this in action\sidenote{We simply contract components---if you want, you can write this in full bra-ket notation with the basis tensors written out. It is a good exercise if you are not used to it.}:
+\begin{align}
+    S_{ij}v^j = S_{ji}v^j \ .
+\end{align}
+We use the symmetry of $S$ to show that we could have equivalently contracted with the first index or the second. Note that the free index needs to remain the same in order for the equality to make sense: we are looking at the $i^\text{th}$ component of $S\ket{v}$.
+
+We can see this in action for a contraction with two vectors as well:
+\begin{align}
+    S_{ij}v^iw^j = S_{ji}v^i w^j = S_{ij} v^j w^i \ .
+    \label{eq:symmetric:with:two:vectors}
+\end{align}
+In the last equality we simply relabel the contracted (`dummy') indices.
+
+The antisymmetric tensor is also nice, though slightly less so. Here we have
+\begin{align}
+    A_{ij}v^j = - A_{ji}v^j \ .
+\end{align}
+The effect of whether we contract with the first or the last index is an overall minus sign. For a double contraction:
+\begin{align}
+    A_{ij}v^iw^j = -A_{ji}v^i w^j = -A_{ij} w^i v^j \ .
+\end{align}
+In the last line we have deliberately swapped the order of $w^i v^j$---which commute---to make this look suggestively similar to the cross product. \flip{To fill in: connection of Levi-Civita symbol to cross product in three dimensions.}
+
+
+
+
+
+\begin{exercise}
+Convince yourself that all of our discussion here holds for tensors with two upper indices. Further, convince yourself that the discussion holds if $B$ happened to also have an upper index: $B\aij{i}{jk}$. Finally, convince yourself that if $B$ had two upper and two lower indices, $B\aij{ij}{k\ell}$, one could separately symmetrize and antisymmetrize each index.
+\end{exercise}
+
+
+
 \section{\texorpdfstring{The Kronecker $\delta$}{The Kronecker Delta}}
 
 The Kronecker $\delta$ is defined to be
 \begin{align}
     \delta^i_j = 
     \begin{cases}
-        1 \text{ if }i=j \\
-        0 \text{ otherwise}
+        1 &\text{ if }i=j \\
+        0 &\text{ otherwise}
     \end{cases} . 
 \end{align}
 A useful way to think of this is that $\delta^i_j$ are the components of the identity matrix:
@@ -3122,6 +3343,18 @@ We present this picture as if you already know what the trajectory $\gamma(t)$ i
 
 A bit more philosophically: the laws of physics are defined microscopically. They relate the dynamics of the system at one point to the dynamics at nearby points. This is why our theories are all written with differential operators. Taking the picture that the tangent planes are approximations for moving along the manifold, everything that we call \emph{physics}\sidenote{Notably, equations of motion and the underlying structures from which they are derived.} is defined on how these tangent planes relate to each other. In this way, we can measure things like arclength on a trajectory by using the \emph{metric} (see Chapter~\ref{ch:metric:spaces}) and summing together the infinitesimal lengths of tangent vectors along the trajectory. The components of the metric are a \emph{field}\index{field} defined on the manifold, $g_{ij}(x)$. This means that the `rulers' we use to measure distance are warped if space is curved.\sidenote{The requirement that the connection between tangent planes may be metric compatible is one about the $x$-dependence of the components of the metric.} In general relativity, gravity is encoded in the metric. 
 
+\section{Diffeomorphisms}
+
+Often the tensors on the tangent bundle are defined with respect to the coordinates of the base space, $x$. As you saw in the previous sections, these can show up as partial derivatives with respect to these coordinates, which are a natural\sidenote{Natural, if somewhat unexpected.} basis for the tangent planes. The way we choose to place coordinates on a manifold, however, is not a property of the manifold: it is simply a choice that we make. Thus all these bundles must not depend on whether we choose one reasonable set of coordinates versus another. This is called \emph{diffeomorphism invariance}. When we change coordinates on $M$, say from $x\to y,$ the quantities on the tangent planes also change coordinates. Because those quantities are written with respect to partial derivatives, the transformations look like\sidenote{Note that an upper index in the denominator contracts like a lower index. It is one of the convenient quirks of the summation convention. Convince yourself that this makes sense.}
+\begin{align}
+    \frac{\partial}{\partial x^i} \to 
+    \frac{\partial y^j}{\partial x^i} 
+    \frac{\partial}{\partial y^j}  \ .
+\end{align}
+Thus in relativity you will often see change of coordinates written as ${\partial y^j}/{\partial x^i}$. On a given tangent plane, these play the role of generalized rotation matrices.
+
+
+
 
 \section{Bundles of Fun}
 
@@ -3142,12 +3375,624 @@ The fundamental forces in subatomic physics are part of a structure called a \te
 
 \chapter{Metric Spaces}\label{ch:metric:spaces}
 
-\section{Inner Product}
+Prior to this chapter we have developed the theory of vector spaces, dual vector spaces, and the tensor products of these spaces. We defined the relation between these spaces with respect to linear maps. This, in turn, gave further insight on how the basis imposed on a vector space is translated to its dual space. We presented the idea that a tensor could be used to convert one type of object into another. 
 
-\section{Adjoints}
+In this chapter we see what happens when we \emph{define} an \emph{additional} machine on this structure. This machine is a special tensor called the \textbf{metric}, also known as the \textbf{dot product}, \textbf{inner product}. By defining this structure, we \emph{upgrade} or vector space into what is called a \textbf{metric space}\index{metric space}---a vector space equipped with a metric. This upgrade unlocks our ability to define key ingredients for geometry: length and angle. In turn, this allows us to describe special relativity a language naturally attuned to it.\sidenote{Having come this far, you may see that we have worked hard to build a mathematical machinery. The example of special relativity is our first payoff: it is not that we want to build unnecessarily sophisticated mathematics, it is that building the mathematical machine lets us write actual physical phenomena in a \emph{succinct} language that highlights physical principles. That is: I would rather understand relativity as a unification of space and time under a metric rather than as a cobbled together list of otherwise unrelated rules.}
+
+\section{Metric and Inner Product}
+
+The metric and inner product are so closely related that they are \emph{essentially} the same idea. The \textbf{metric} is a special (0,2)-tensor that we write as
+\begin{align}
+    g_{ij}\bra{e^i}\bra{e^j} \ .
+\end{align}
+Often physicists just write the \emph{components} of the metric, $g_{ij}$, and assume that you all agree on the basis.\sidenote{There's more to this. Usually the metric defines for us what a `nice' basis is. When physicists simply write $g_{ij}$ without telling you the basis, it is usually because the \emph{only} nice bases are the components of the metric are the same.} By definition, the components of the metric are symmetric:
+\begin{align}
+    g_{ij} = g_{ji} \ .
+\end{align}
+
+Why should we consider symmetric metrics? Part of the answer is the observation in Section \ref{sec:permutation:symmerty} that symmetric (0,2) tensors remove the ambiguity of having to define which of the metric's lower indices contracts when offered another tensor's upper index. Another post-facto justification is that the way we use the metric to define lengths and angles is naturally symmetric.
+
+\begin{example}
+The \textbf{Euclidean metric}\index{Euclidean metric} is
+\begin{align}
+    g_{ij} = 
+    \begin{cases}
+        1 &\text{ if } i = j \\
+        0 &\text{ otherwise} \ .
+    \end{cases}
+    \label{eq:metric:euclidean}
+\end{align}
+When written as an array of numbers, it is simply the identity matrix.\footnote{Though clearly as an object with two lower indices it is a (0,2) tensor, \emph{not} a matrix---which is what we call (1,1) tensors.}
+You may wonder if this is the same as the Kronecker $\delta$ from Section~\ref{eq:kronecker:delta}. It may have the same components when written as an array, but it is \emph{not} the same. The Kronecker $\delta$ is a (1,1) tensor, whereas a metric is a (0,2) tensor. They may have the same numerical values of their components, but they are completely different objects.\footnote{Pick your favorite convergent evolution example to use as an analogy. Sharks and dolphins look remarkably similar, even though one is a fish and the other is a mammal.} 
+
+You could write $g_{ij} = \delta^i_j$, but this is a very strange-looking equation since the index heights do not match. That equation is true component wise---meaning ``plug in any values for $i$ and $j$''---but it is not true if you think this is a tensorial relation:
+\begin{align}
+    g_{ij}\bra{e^i}\bra{e^j} \neq \delta^i_j \ket{e_i}\bra{e_j} \ .
+\end{align}
+\end{example}
+
+\begin{example}\label{eg:Minkowski:metric}
+The metric for Minkowski space (special relativity) is
+\begin{align}
+    g_{\mu\nu} = \eta_{\mu\nu}
+    =
+    \begin{cases}
+    \pp 1 & \text{if } \mu=\nu = 0\\
+    -1 & \text{if } \mu=\nu > 0\\
+    \pp 0 & \text{otherwise}
+    \end{cases} \ .
+    \label{eq:Minkowski:metric}
+\end{align}
+We introduce some conventional notation. First, the special relativity metric is called $\eta_{\mu\nu}$ whereas the general relativity (with gravity) metric is called $g_{\mu\nu}$. Second, we distinguish between time and space by indexing time as $\mu=0$. In order to remind us that the indices start with zero, we use lowercase letters from the middle of the Greek alphabet ($\mu, \nu$) instead of $i,j$.
+
+About a quarter of physicists use this form of the metric. This tribe includes nearly all particle physicists. Another quarter or so use the convention where $\eta_{\mu\nu}^\text{grav.} = -\eta_{\mu\nu}$. This group includes gravitational physicists and formal theorists (what we used to call string theorists). The other half could not care less about the metric of spacetime. 
+\end{example}
+
+From the metric one can define the \textbf{inner product}\index{inner product}, which in Euclidean space is what we call a \textbf{dot product}\index{inner product}. This is a function that uses the metric to take in two vectors to return a number:\sidenote{You would be correct in wondering how this is at all different from the metric itself. From the linear map perspective, any (0,2) tensor is \emph{defined} to be a function that takes two vectors and returns a number, $V\times V \to \#$. In this sense, the inner product is \emph{literally} the same as the metric. However, conventionally colleagues say \emph{metric} to mean the components and \emph{inner product} to mean the function. By now we all agree that these really encode same thing.}
+\begin{align}
+    \la \vec{v},\vec{w} \ra = g(\vec{v},\vec{w})
+    = g_{ij} v^i w^j \ .
+\end{align}
+Because of the symmetry of $g_{ij}$, we have
+\sidenote{By the way, please appreciate that we now freely moving between our different conventions for referring to tensors---$v^i$, $\vec{v}$, $\ket{v}$---based on whichever is \emph{most convenient} for the case at hand. This avoids cumbersome notation, like writing an inner product using ket notation, for example: $\la \ket{v}, \ket{w} \ra$. }
+\begin{align}
+    \la \vec{v}, \vec{w} \ra = \la \vec{w}, \vec{v} \ra \ .
+\end{align}
 
 
 
+\begin{exercise}
+Show that the components the metric are easily (perhaps \emph{tautologically}\footnote{This is a mathematicians way of saying `obvious.' In fact, it is more than that. It is something that Anthony Zee calls ``more obvious than obvious'' (I think I picked this up from his quantum field theory book). What this means is that the fact is so `by definition' self-apparent that any attempt to explain it will only obfuscate the matter.}) expressed as inner products of the basis vectors:
+\begin{align}
+    g_{ij} = \la \bas{e_i}, \bas{e_j}\ra \ .
+\end{align}
+\end{exercise}
+
+There is one more practical requirement for a metric: the metric is invertible. Another way of saying this is that it is \emph{non-degenerate}. 
+
+\section{A tool to define length}
+
+The \textbf{length}\index{length} of a vector $\vec{v}$ is defined by
+\begin{align}
+ |\vec{v}|^2  
+ = \la \vec{v},\vec{v} \ra 
+ = g_{ij}v^iv^j
+ \ .
+ \label{eq:lenght:in:terms:of:metric}
+\end{align}
+
+\begin{exercise}
+Observe that if the metric had any antisymmetric part, then it would cancel in its contribution to the length. 
+\end{exercise}
+
+\begin{example}
+For the case of the Euclidean metric \eqref{eq:metric:euclidean}, the length is exactly what one expects from plane geometry: a vector is some arrow starting at the origin whose length is determined by an application of the Pythagorean theorem. One obvious observation is that any Euclidean vector with non-zero components has non-zero length.
+\end{example}
+
+\begin{example}
+For the case of the Minkowski metric \eqref{eq:Minkowski:metric} in (1+1)-dimensions\footnote{It is conventional to write the dimension of Minkowski space as a sum of the time and space dimensions.} the length of a vector is:
+\begin{align}
+    |\vec{v}|^2 = (v^0)2 - (v^1)^2 \ .
+\end{align}
+Unlike Euclidean space, you can have a Minkowski space vector, say 
+\begin{align}
+    v^\mu = 
+    \begin{pmatrix}
+        7\\
+        7
+    \end{pmatrix} \ ,
+\end{align}
+that has obviously non-zero components but has \emph{zero length}. We call these \textbf{null vectors}\index{null vector}. In fact, any such vector in (1+1)-dimensional Minkowski space with $|v^0| = |v^1|$ is a null vector.
+\end{example}
+
+\begin{exercise}
+Argue that in any metric space, the length of the vector is a square root of some expression that is quadratic in the components of the vector. In other words, there can be no metric spaces where something weird happens like
+\begin{align}
+    |\vec{v}| = \sqrt[3]{(v^1)^2 + v^1v^2 - (v^2)^2}
+\end{align}
+or perhaps
+\begin{align}
+    |\vec{v}| = (v^1)^3 - (v^2)^2 \ .
+\end{align}
+You can argue this purely based on the mathematical definition of a metric space. As a physicist, these definitions also make no sense the moment you think about units.
+\end{exercise}
+
+Because the length is just a number, we can rescale any vector by its length to get a \textbf{unit vector}\index{unit vector}, a vector with unit length:
+\begin{align}
+    \hat{\vec{v}} \defeq \frac{\vec{v}}{|\vec{v}|} \ .
+\end{align}
+We say that vectors with unit length are \textbf{normalized}\index{normalized}. 
+
+
+\section{A tool to define angles}
+
+Given two vectors $\vec{v}$ and $\vec{w}$, the \textbf{angle}\index{angle} between these vectors is defined by
+\begin{align}
+    \cos\theta = \frac{\la \vec{v}, \vec{w} \ra}{|\vec{v}| |\vec{w}|}
+    =
+    \la \hat{\vec{v}}, \hat{\vec{w}} \ra \ .
+    \label{eq:cos:theta:angle:defined:metric}
+\end{align}
+Because the metric and inner product are symmetric, the cosine of the angle between two vectors does not depend on the order of the vectors.\sidenote{There is a notion of the angle from $\vec{v}$ to $\vec{w}$ being negative that of the angle from $\vec{w}$ to $\vec{v}$. This is called orientation. However, because cosine is an even function, $\cos\theta = \cos(-\theta)$, and so the definition for the cosine of the angle in terms of the inner product is robust. One just has to remember that inverting the cosine has multiple solutions.}
+
+\begin{exercise}
+Show that the angle between two vectors is independent of the length of the vector. 
+\end{exercise}
+
+\begin{exercise}
+Show that in (1+1)-dimensional Minkowski space two vectors may each be \emph{null} (zero length), $\la \vec{v},\vec{v}\ra =0$, but may have non-zero angle with one another. Give an explicit example.  \textsc{Hint}: the condition for a vector to be null has two solutions. Check the inner product of the two.
+\end{exercise}
+
+
+\section{A tool to lower indices}
+
+The following observation is, by far, the most common way to think about the metric:
+\begin{quote}
+The metric is a machine that takes an upper index and returns a lower index.
+\end{quote}
+That this is true is obvious: any (0,2) tensor is a linear map from vectors to dual vectors. We know this from the discussion in Example~\ref{eg:maps:between:product:spaces}. Here's how it works in full tensorial glory:
+\begin{align}
+    g_{ij}\bra{e^i}\bra{e^j} \; v^k \ket{e_k}
+    &= 
+    g_{ij}v^k \delta^j_k \; \bra{e^i}
+    =
+    g_{ij}v^j\; \bra{e^i}
+    % \defeq v_i \bra{e^i} 
+    \ .
+    \label{eq:metric:lowering:full:tensor}
+\end{align}
+\begin{exercise}
+Use the fact that the metric is symmetric to show that one obtains the same result if we contract the $\bra{e^i}$ with the $\ket{e_k}$ rather than the $\bra{e^j}$ with the $\ket{e_k}$ in \eqref{eq:metric:lowering:full:tensor}. That is:
+\begin{align}
+    g_{ij}\bra{e^i}\bra{e^j} \; v^k \ket{e_k}
+    = 
+    g_{ij}\bra{e^j} \; v^k \la {e^i}\mid {e_k}\ra \
+    =
+    g_{ji}v^i \bra{e^j}
+    \ .
+\end{align}
+\end{exercise}
+
+What is significant here is that when we define the metric space, we require that everyone agrees on the definition of the metric. That means that given a vector $\ket{v} = v^i\ket{e_i}$ in a metric space with a metric $g_{ij}\bra{e^i}\bra{e^j}$,\sidenote{Usually we would just say ``given a vector $v^i$ and a metric $g_{ij}$'' and leave the tensor basis implicit.} we can make the following \emph{definition}:
+\begin{align}
+    v_i \defeq g_{ij}v^j \ .
+\end{align}
+Let us spell out exactly what is going on:
+\begin{enumerate}
+    \item Until this point, there was \emph{no object} whose component carries a single lower index. We only assumed that you have a vector (one upper index) and a metric (two lower indices). 
+    \item Now we have defined a new object $v_j$ who shares the same variable name as the vector $v^i$, except with a lower index.
+    \item This lower-object version of $v^i$ is defined to be the contraction of $v^i$ with the metric. It is completely expected that this contraction gives an object with a lower index, but usually we would call it $(gv)_i = g_{ij}v^j$.
+    \item Since there is no other object that (a) has the variable name $v$ \emph{and} (b) carries a single lower index, we choose to \emph{define} $v_i = g_{ij}v^j$. 
+    \item Because we are in a metric space, we assume everyone knows what the metric is. That means there is no ambiguity about how to form $v_i$ from $v^j$: it is \emph{understood} that we use the metric. So as a shorthand, we stop writing the metric explicitly.
+\end{enumerate}
+
+We generalize this to lower any index on a tensor with an upper index:
+\begin{newrule}[Lowering indices with the metric]
+Suppose you have a tensor whose components include some upper index, say $T\aij{ijk}{\ell}$. If you see a tensor with the \emph{same variable name} but with that index lowered, then it is \emph{understood} that this means
+\begin{align}
+    T\aij{ij}{k\ell} \defeq g_{km}T\aij{ijm}{\ell} \ .
+\end{align}
+\end{newrule}
+Now that we have a rule to lower indices, please be careful that you must \emph{preserve the order of the indices}! 
+\begin{example}
+If you have a tensor with components $T\aij{ijk}{\ell}$, then $T\aij{ij}{k\ell}$ is different from $T^{i\phantom{j}k}_{\phantom{i}j\phantom{k}\ell}$. Explicitly:
+\begin{align}
+    T\aij{ij}{k\ell} = g_{km}T\aij{ijm}{\ell}
+    \neq
+    T^{i\phantom{j}k}_{\phantom{i}j\phantom{k}\ell}
+    = g_{nj}T\aij{ink}{\ell} \ .
+\end{align}
+\end{example}
+\begin{example}
+We can lower multiple indices. Suppose you have a tensor whose components include some upper index, say $T\aij{ijk}{\ell}$. Then we have an implicit definition for the tensor with all of its indices lower:
+\begin{align}
+    T_{ijk\ell} = g_{im}g_{jn}g_{kp}T\aij{mnp}{\ell} \ .
+\end{align}
+\end{example}
+
+\section{Is this a transpose?}
+
+At this point, it is natural to draw on your familiarity with matrix algebra and to think that the metric seems to ``tip over'' a column vector and turn it into a row vector. You may ask, as the popular meme in Figure~\ref{fig:is:this:a:transpose}, whether we are defining a transpose. We are \emph{not}.
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/IsThisTranspose.jpg}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{The metric is \emph{not} a transpose. ``Is This a Pigeon'' meme via \url{https://imgflip.com/i/8nc9fd}.}
+    \label{fig:is:this:a:transpose}
+\end{marginfigure}
+
+\begin{example}[Tipping over a column vector?]
+In \emph{Euclidean space}, lowering an index with the metric is apparently equivalent to ``tipping over'' the column vector. As an explicit example, consider a vector
+\begin{align}
+    \vec{v}=
+    \begin{pmatrix}
+        v^1\\v^2\\v^3
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1\\2\\3
+    \end{pmatrix} \ .
+\end{align}
+By acting on this vector with the metric, we produce a row vector with components $v_i = g_{ij}v^j$. Using the trivial Euclidean metric \eqref{eq:metric:euclidean}, this says that the component with the upper index is the same as the component with the lower index:
+\begin{align}
+    \row{v} = 
+    \begin{pmatrix}
+        v_1 & v_2 & v_3
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 & 2 & 3
+    \end{pmatrix} \ .
+\end{align}
+So indeed, it looks like we just knocked the column vector over and it is now lying down flat---but the components are all the same. 
+
+In any other space, the numerical values of the row vector are rather different. Consider the Minkowski metric \eqref{eq:Minkowski:metric}. Once again, we start with a column vector with the same components---though in line with the Minkowski convention in Example~\ref{eg:Minkowski:metric} we index starting from 0:
+\begin{align}
+    \vec{v}=
+    \begin{pmatrix}
+        v^0\\v^1\\v^1
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1\\2\\3
+    \end{pmatrix} 
+    \ .
+\end{align}
+As before, the components of the row vector are $v_\mu = g_{\mu\nu}v^\nu$, where the content of this equation is \emph{identical} to $v_i = g_{ij}v^j$ except that we use the physics convention of writing spacetime indices with Greek indices. Then our row vector has \emph{different} components:
+\begin{align}
+    \row{v} = 
+    \begin{pmatrix}
+        v_0 & v_1 & v_1
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 & -2 & -3
+    \end{pmatrix} \ .
+\end{align}
+\end{example}
+
+\begin{exercise}
+Consider a 2-dimensional metric space whose metric contains---rather annoyingly---off-diagonal elements:
+\begin{align}
+    g_{ij} = \begin{pmatrix}
+        g_{11} & g_{12} \\
+        g_{21} & g_{22}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 & \varepsilon \\
+        \varepsilon & 1
+    \end{pmatrix} \ ,
+\end{align}
+for some constant $\varepsilon$. If you have a vector $\vec{v} = v^i \bas{e}_i$, what are the components of the corresponding dual vector $\row{v} = v_i \rbas{e}^i$? Make sure that this matches the Euclidean case when $\varepsilon\to 0$.
+\end{exercise}
+
+So let us emphasize: using the metric to lower an index is \emph{not} a transpose. There is a proper definition of transpose for matrices, but there is no such thing as the `transpose of a vector.' One feature that is useful from that otherwise incorrect notion is that the tensor with a metric-lowered index physically encodes the same content as the original tensor. In this way, it is the `same' tensor.
+
+\begin{bigidea}[Is it a `different' tensor?]
+Conceptually, \emph{in a metric space}, you should think of $\ket{v} = v^k \ket{e_k}$ and $\bra{k} = v_k \bra{e^k}$ as the `same' essential object, but with different components reflecting whether the object is being used as a vector or a dual vector. This is usually the case in physical applications. For example, in relativity the four-momentum---a vector containing the energy and the three spatial momenta---is a vector. The dual vector may have different components---the metric introduces minus signs on the spatial components---but we understand it to encode the same ``energy and the three spatial momenta'' as the upper-indexed object.
+\end{bigidea}
+
+
+
+\begin{example}
+The fact that the Euclidean metric is so boring is part of the reason why we often take it for granted. Many first-time learners of linear algebra (done properly) are confused why row vectors and column vectors are treated differently. In these lectures we emphasized that when you only have a vector space and not a metric space, you cannot convert between vectors and row vectors. The vector spaces that we grow up with---Euclidean three-space---implicitly have a metric. After all, you grew up `knowing' how to take the length of a vector or the angle between vectors.\footnote{Of course, many of us also grow up with the completely wrong idea that positions are vectors.} 
+
+The challenge here is to realize that when we were young, we had been \emph{assuming} the existence of a metric without explaining that it is an additional structure that we can choose---as in the case of Minkowski space. I grew up in a household where every meal came with rice. It never occurred to me that there might be other starches that could form the base of a meal. The first time I went to a grade school friend's house for dinner and we had mashed potatoes---but no rice---completely blew my mind. 
+\end{example}
+
+In this course the primary example of a non-Euclidean metric is Minkowski space and special relativity. General relativity---which is special relativity plus gravity---have different kinds of spacetime metric.\sidenote{In fact, the metric itself is a dynamical variable that responds to energy.} In quantum mechanics our vector space of quantum states has what is essentially a Euclidean metric, though the space is formally complex.\sidenote{Every time we say `number' we allow for the number to contain some imaginary part.} The other place where unusual metrics show up in physics are more abstract vector spaces. My favorite example of this what are the vector spaces of generalized rotations.\sidenote{Unfortunately this topic is rather outside the scope of our course.}
+
+\section{Inner Product, pre-loaded}\label{eq:inner:product:pre:loaded}
+
+The inner product\sidenote{Which, again, is really the same thing as the metric but often is written out with angle brackets.} is a linear function from $V\times V \to \#$. This is a good place to review the linear map picture of tensors from Section~\ref{sec:linear:maps}. We recognized in that section that a linear map from $V\times V \to \#$ could equivalently be understood as a linear map from $V \to V^*$. In fact, this is precisely what it means to `lower an index' and convert a vector into a dual vector.
+
+From the perspective of linear functions,\sidenote{Here we shift again to a different notation to make the idea clear---but everything we write could equivalently be written in bra-ket notation.} the dual vector that we produce from a vector $\vec{v}$ is 
+\begin{quote}
+the inner product with one of the slots pre-filled with $\vec{v}$.
+\end{quote}
+To let this sink in, let us write it out mathematically:
+\begin{align}
+    \row{v} \defeq \la \vec{v}, \Vtextvisiblespace[1em]{}\, \ra \ .
+\end{align}
+Here we have written a space, \Vtextvisiblespace[1em]{} to mean \emph{ put in the argument of the linear function $\row{v}$ in here}. In other words, the \emph{dual vector} $\row{v}$ acts on some other vector $\vec{w}$ as
+\begin{align}
+    \row{v}\left(\ket{w}\right)
+    =
+    \la \vec{v}, \vec{w} \ra \ .
+\end{align}
+This means that $\row{v}$, the row-vector version of $\vec{v}$, is a linear function from $V\to \#$ in the sense that you can feed it any vector $\vec{w}$ and it returns $\la \vec{v}, \vec{w}\ra$, which is a number. Linearity is guaranteed because the inner product $\la \Vtextvisiblespace[1em]{}\,,\, \Vtextvisiblespace[1em]{} \ra $ is linear in each argument.\sidenote{In case you forgot, this means that $\row{v}(\alpha \vec{a} + \beta \vec{b}) = \alpha \row{v}\vec{a} + \beta\row{v}\vec{b}$.}
+\begin{exercise}
+Rewrite everything in this section using bra-ket notation. 
+\end{exercise}
+
+
+\section{Poetic Notation}
+
+In bra-ket notation, there are two very similar expressions: the inner product $\la \vec{w}, \vec{v} \ra$ and the action of a bra and a ket as linear operators: $\row{w}\vec{v} = \la w \mid v\ra$. \emph{Formally} these are different things:
+\begin{itemize}
+    \item $\la \vec{w}, \vec{v} \ra$ is an inner product. This means that you have two vectors and you want to combine them to get a number. This requires that you have a metric.
+    \item $\la w \mid v\ra$ is the definition of the dual relationship between row vectors and dual vectors: they are linear functions of one another. This means that you take one vector $\vec{v} = \ket{v}$ and one row vector $\row{w} = \bra{w}$ and you combine them in the only way that you can to form a number. This does \emph{not} require a metric and was something that we already defined in a regular old vector space.
+\end{itemize}
+
+\emph{Practically}, on the other hand, these are deeply connected and the $\la \Vtextvisiblespace[1em]{}\,,\, \Vtextvisiblespace[1em]{} \ra $ inner product notation is a poetic nod to this. We can see the poetry as follows. We can think of the inner product $\la \vec{w}, \vec{v} \ra$ not as a map between two vectors to numbers, but as a map from vectors to dual vectors---as we expressed in Section~\ref{eq:inner:product:pre:loaded}. In this perspective, we imagine that we \emph{first} take the vector $\vec{w}$ and define a row vector
+\begin{align}
+    \row{w} \defeq \la \vec{w},  \Vtextvisiblespace[1em]{}\, \ra \ .
+\end{align}
+That is: we take the vector $\vec{w}$ and pre-load it into the metric. The pre-loaded metric requires a vector before it can return a number, and so is a row-vector. In this sense, feeding the \emph{second} vector, $\vec{v}$ into the metric is akin to feeding the vector $\vec{v}$ to the newly-created $\row{w}$ dual vector:
+\begin{align}
+    \la \vec{w}, \vec{v} \ra = \row{w}(\vec{v}) = \la w \mid v\ra \ ,
+\end{align}
+where in the last equality we simply revert to bra-ket notation. This example explicitly relates the two tensor map interpretations of the inner product \emph{as a map from $V\times V \to \#$} and of the inner product \emph{as a map from $V\to V^*$}. In the first interpretation it is a `new' machine that converts pairs of vectors into numbers. In the second interpretation it is machine to convert vectors into dual vectors so that one can then use the vector space definition of \emph{dual vectors acting on vectors to produce numbers}.
+
+
+
+
+\section{Inverse metric}
+
+One understated assumption\sidenote{Okay, I deliberately understated it.} about the metric is that it should be \emph{invertible}. When the metric converts a vector into a dual vector, there should be a way to take that dual vector back into the original vector. This means that there should be an inverse metric, $g\inv$ which takes dual vectors into vectors.
+\begin{exercise}
+Explain, in words, why the components of the inverse metric $g\inv$ must have two upper indices. 
+\end{exercise}
+The form of such an inverse metric is
+\begin{align}
+    (g\inv)^{ij} \ket{e_i}\ket{e_j} \ ,
+\end{align}
+and the components must satisfy
+\begin{align}
+    (g\inv)^{ij} g_{jk} = \delta^i_k \ .
+    \label{eq:inv:g:g:delta}
+\end{align}
+\begin{exercise}
+Prove \eqref{eq:inv:g:g:delta}. In my opinion, most of the work here can be done using words rather than equations.
+\end{exercise}
+\begin{exercise}[Symmetry of the inverse metric]
+Argue that if $g_{ij}$ is symmetric, then the inverse metric must also be symmetric.
+\end{exercise}
+
+
+Now for another notational quirk. You know that the components of the metric \emph{only} have two lower indices. Similarly, the components of the inverse metric \emph{only} have two upper indices. Because the components make it clear what the objects are, we often just \emph{drop} the inverse symbol. 
+\begin{bigidea}[We drop the inverse symbol for the inverse metric.]
+Because there is no ambiguity, we write
+\begin{align}
+    g^{ij}\defeq (g\inv)^{ij} \ .
+\end{align}
+This notation also emphasizes the duality between vector spaces and their dual spaces: neither is more primal than the other. 
+\end{bigidea}
+From this perspective, $g^{ij}$ and $g_{ij}$ are just machines that raise and lower indices in a self-consistent way. Once you define one, you have uniquely defined the other.
+\begin{exercise}
+Explain why defining either the metric \emph{uniquely} defines the inverse metric, and vice versa. You may want to argue based on a unique expression for the components of one in terms of the components of the other. 
+\end{exercise}
+
+\begin{example}
+Both the Euclidean metric and its inverse are as simple as it gets, c.f.\ \eqref{eq:metric:euclidean}:
+\begin{align}
+    g_{ij} = g^{ij} =
+    \begin{cases}
+        1 &\text{ if } i = j \\
+        0 &\text{ otherwise} \ .
+    \end{cases}
+    \label{eq:metric:and:inverseeuclidean}
+\end{align}
+Similarly, the Minkowski metric \eqref{eq:Minkowski:metric} and its inverse have the same components:
+\begin{align}
+    \eta_{\mu\nu}
+    = \eta^{\mu\nu}
+    =
+    \begin{cases}
+    \pp 1 & \text{if } \mu=\nu = 0\\
+    -1 & \text{if } \mu=\nu > 0\\
+    \pp 0 & \text{otherwise}
+    \end{cases} \ .
+    \label{eq:Minkowski:metric:and:inverse}
+\end{align}
+\end{example}
+\begin{example}[A metric with a different inverse]
+Here's a strange metric on two-dimensional space:
+\begin{align}
+    g_{ij} =
+    \begin{pmatrix}
+        g_{11} & g_{12}\\
+        g_{21} & g_{22}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        2 & 0\\
+        0 & 3
+    \end{pmatrix} \ .
+\end{align}
+The inverse metric has components
+\begin{align}
+    g^{ij} =
+    \begin{pmatrix}
+        g^{11} & g^{12}\\
+        g^{21} & g^{22}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \frac{1}{2} & 0\\
+        0 & \frac{1}{3}
+    \end{pmatrix} \ .
+\end{align}
+\end{example}
+\begin{exercise}
+Another strange metric is 
+\begin{align}
+    g_{ij} =
+    \begin{pmatrix}
+        g_{11} & g_{12}\\
+        g_{21} & g_{22}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        0 & 1\\
+        1 & 0
+    \end{pmatrix} \ .
+\end{align}
+Show that the inverse metric has the same components. 
+\end{exercise}
+
+The metric tensor and its inverse give a self-consistent way of raising and lowering indices.\sidenote{Self-consistent means that if you raise-then-lower or lower-then-raise you get the original object.} Thus on a metric space you an freely raise or lower indices because everyone understands what it means for an objects index to be raised or lowered. If you define the tensor with some convention for the index heights, you can unambiguously map that tensor to the version with different index heights. 
+
+\begin{example}
+The components of a (0,2) tensor are $T_{ij}$. There is a (2,0) version of this tensor given by
+\begin{align}
+    T^{ij} \equiv g^{ik}g^{j\ell}T_{k\ell} \ .
+\end{align}
+\end{example}
+
+\begin{exercise}[Why it makes sense to drop the inverse symbol]
+Consider the metric $g_{ij}$ as a tensor with two lower indices. Show that if you raised each of these indices you simply get the inverse metric, $g^{ij}$. In other words: it makes sense that we wrote the metric and the inverse metric with the same symbol, $g$ (rather than writing $g\inv$ for the inverse).
+\end{exercise}
+
+\begin{exercise}
+What do you get if you try to raise or lower the index of a Kronecker $\delta$?
+\end{exercise}
+
+\section{Nice bases}
+
+Having a metric means we can define what we mean by a \textbf{nice basis}\index{nice basis}. Okay, \emph{nice basis} is not a technical term, but this is absolutely the right way to think about it. You know deep in your heart that the standard basis $\bas{e}_{1,2}$ is a nice basis for two-dimensional space, but a random pair of non-collinear vectors is not:
+\begin{align}
+    \bas{f}_1 &=
+    \begin{pmatrix}
+        2\\0
+    \end{pmatrix}
+    &
+    \bas{f}_2 &=
+    \begin{pmatrix}
+        1\\4
+    \end{pmatrix} \ .
+\end{align}
+$\bas{f}_{1,2}$ is a \emph{bad} choice of basis vectors. But what's so bad about it? It is certainly a valid basis. Any vector you can write in the $\bas{e}_{1,2}$ basis, you can equivalently write in the $\bas{f}_{1,2}$ basis. But there is something \emph{nice} about the $\bas{e}_{1,2}$ basis. In fact, if I propose a third basis:
+\begin{align}
+    \bas{g}_1 &=
+    \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1\\1
+    \end{pmatrix}
+    &
+    \bas{g}_2 &=
+    \begin{pmatrix}
+        -1\\\pp 1
+    \end{pmatrix} \ ,
+    \label{eq:rotated:R2:basis}
+\end{align}
+you would probably agree that this is a decent basis. It is much nicer than the $\bas{f}_{1,2}$ basis, though perhaps not as nice as the standard basis. The metric helps us understand why we feel this way.
+
+A \emph{nice basis} is \textbf{orthonormal}\index{orthonormal}. This means two things:
+\begin{enumerate}
+    \item The basis vectors are \textbf{normalized}\index{normalized}, which means they have unit length: $|\bas{e}_i| = 1$. This invokes the metric through our definition of length, \eqref{eq:lenght:in:terms:of:metric}. 
+    \item The basis vectors are \textbf{orthogonal}\index{orthogonal}, which means that the angle between any pair is $\pi/2$,\sidenote{Up to adding or subtracting $\pi$.} which means the cosine between them vanishes: $\cos\theta_{ij} = 0$. This invokes the metric through our definition of angle, \eqref{eq:cos:theta:angle:defined:metric}. 
+\end{enumerate}
+Combining these two conditions means that an orthonormal basis $\bas{e}_{i}$ satisfies
+\begin{align}
+  \la \bas{e}_i , \bas{e}_j \ra
+  = 
+  \begin{cases}
+    1 &\text{ if } i=j \\
+    0 &\text{ if } i \neq j  
+  \end{cases}   \ .
+  \label{eq:orthornormal:basis:condition}
+\end{align}
+\begin{exercise}
+Confirm that \eqref{eq:orthornormal:basis:condition} matches our written definition of orthonormality.
+\end{exercise}
+\begin{exercise}
+Confirm that the $\bas{g}_{1,2}$ basis in \eqref{eq:rotated:R2:basis} is orthonormal.
+\end{exercise}
+
+
+
+
+\section{Isometry}\label{sec:isometry:next:pass:bases}
+
+
+The $\bas{g}_{1,2}$ basis in \eqref{eq:rotated:R2:basis} is a nice basis, but not the nicest basis. The relation between two \emph{nice bases} is called an isometry.\sidenote{You may have noticed that the $\bas{g}_{1,2}$ basis is related to the $\bas{e}_{1,2}$ basis by a $\pi/4$ rotation in the counter-clockwise direction.} Isometries are generalizations of rotations. Etymologically, this word means that a  transformation \emph{preserves the metric}. Part if this means that the orthonormality condition holds for both bases. We tackle a formal definition in Section~\ref{sec:isometries}. For now, the key point is that a transformation is an isometry if the components of the metric $g_{ij}$ are the same in one basis versus in the transformed basis.\sidenote{What we need to work up to in Section~\ref{sec:isometries}: how do the components of $g_{ij}$ transform?}
+
+Here's how it works---we do this carefully in Section~\ref{sec:isometries}---let $R\aij{a}{i}$ be a transformation that converts the components of a vector $v^i$ into the components $(v')^a$ of the same vector in a different basis. We have used different indices\sidenote{Lowercase letters from the beginning versus the middle of the Roman alphabet.} to indicate components in different bases, $\bas{e}_i$ and $\bas{g}_a$. The inverse of this metric is $(R\inv)\aij{i}{a}$. Notice how the indices work: $(R\inv)\aij{i}{a}(v')^a$ returns a vector component with an upper $i$ index, so we have converted back into the original basis.
+
+Under a basis transformation $R$, it is \emph{tautologically} true that
+\begin{align}
+v^i w^j g_{ij}
+&= (v')^a(w')^b g'_{ab} \\
+&= R\aij{a}{i}v^i R\aij{b}{j}w^j g'_{ab} \ .
+\label{eq:isometry:first:pass}
+\end{align}
+Here $g'_{ab}$ is the form of the metric in the $\bas{g}_a$ basis. For a general transformation, $g'_{ab}$ is \emph{different} in order to enforce the above relation. After all, a change in basis does not change the inner product. The inner product is a property of the metric space, we are the silly ones who pick a funny basis.\sidenote{We could have even used the really silly $\bas{f}_{1,2}$ basis that was obviously not orthonormal.} 
+
+What makes $R$ an isometry is if\sidenote{The notation here is cumbersome on the right-hand side. We could have just written $g_{ab}$. We write it with the Kronecker $\delta$s to emphasize that the $i,j$ indices are reserved for quantities in the $\bas{e}_i$ basis, while the $a,b$ indices are reserved for quantities in the $\bas{g}_{a}$ basis.}
+\begin{align}
+    g'_{ab} = g_{ij}\delta^i_a \delta^j_b \ .
+\end{align}
+Let us take the first component. On the left-hand side, we are looking at the $1$-$1$component in the $\bas{e}_i$ basis: $g_{11}$. On the right-hand side, we are looking at the $1$-$1$ component in the $\bas{g}_a$ basis, $g'_{11}$. In general, these are \emph{different}. For an \emph{isometry}, the components of the metric are the same in both bases. 
+
+\begin{example}[Deriving rotations in two-dimensional Euclidean space]
+What are the components of an isometry $R$ in two-dimensional Euclidan space? From \eqref{eq:isometry:first:pass}, we have
+\begin{align}
+    g_{ij} = R\aij{a}{i}R\aij{b}{j}g_{ab} \ .
+\end{align}
+We know the components of $g_{ij}=g_{ab}$ in Euclidean space, \eqref{eq:metric:euclidean}, so this is a set of four equations for the four unknown components of $R$:
+\begin{align}
+    1 &= R\aij{1}{1}R\aij{1}{1} + R\aij{2}{1}R\aij{2}{1}
+    &
+    0 &= R\aij{1}{1}R\aij{1}{2} + R\aij{2}{1}R\aij{2}{2}
+    \\
+    0 &= R\aij{1}{2}R\aij{1}{1} + R\aij{2}{2}R\aij{2}{1}
+    &
+    1 &= R\aij{1}{2}R\aij{1}{2} + R\aij{2}{2}R\aij{2}{2} \ .
+\end{align}
+That's a lot of indices. Let us simplify it:
+\begin{align}
+    R = 
+    \begin{pmatrix}
+        R\aij{1}{1} & R\aij{1}{2}\\
+        R\aij{2}{1} & R\aij{2}{2}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        x & y\\
+        z & q
+    \end{pmatrix} \ ,
+\end{align}
+so that the conditions for a Euclidean isometry (rotation) are
+\begin{align}
+    1 &= x^2 + z^2
+    &
+    0 &= xy + zw
+    \\
+    0 &= xy + zw
+    &
+    1 &= y^2 + w^2 \ .
+\end{align}
+These equations are a little more tedious to solve. I would use a computer algebra system. Inspired by $\cos^2\theta + \sin^2\theta = 1$, the solution to this system of equations turns out to be
+\begin{align}
+    R = 
+    \begin{pmatrix}
+        R\aij{1}{1} & R\aij{1}{2}\\
+        R\aij{2}{1} & R\aij{2}{2}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        x & y\\
+        z & q
+    \end{pmatrix} 
+    =
+    \begin{pmatrix}
+        \cos\theta & -\sin\theta\\
+        \sin\theta &\pp \cos\theta
+    \end{pmatrix} 
+    \ .
+\end{align}
+
+\end{example}
+
+ 
+
+% Need to define transformation on basis 
+% then transformation of matrices in general first
+
+
+
+\chapter{Special Relativity as a Metric Space}
 
 \section{Lorentz Transformations}\label{sec:Lorentz:transformations}
 
@@ -3870,6 +4715,44 @@ Because these are all parities---in the sense that $C^2 = P^2 = T^2 = \mathbbm{1
 
 \end{subappendices}
 
+
+
+
+
+
+
+
+\chapter{Linear Transformations}
+
+\section{The hierarchy of transformations}
+
+\section{Action on basis vectors}
+
+\section{Isometries}
+\label{sec:isometries}
+
+\section{Projections}
+
+\section{Gram-Schmidt}
+
+
+\section{Adjoints}
+
+\begin{quote}
+Yes, \emph{this} is the transpose!
+\end{quote}
+
+
+\chapter{Eigensystem}
+
+\chapter{Complex Spaces}
+
+\chapter{Quantum Mechanics}
+
+\chapter{Function Spaces}
+
+
+
 \chapter*{Closing Thoughts}
 
 \section*{Acknowledgments}
@@ -3888,6 +4771,10 @@ Because these are all parities---in the sense that $C^2 = P^2 = T^2 = \mathbbm{1
 
 % It may be nice to incorporate something like \texttt{classicthesis}\footnote{\url{https://www.ctan.org/tex-archive/macros/latex/contrib/classicthesis/}}
 
+
+% \section{Levi-Civita Tensor}
+% Related to symmetry/antisymmetry?
+% cross product
 
 \printindex
 

@@ -100,6 +100,14 @@
   \newcommand{\cmark}{\ding{51}}%
   \newcommand{\xmark}{\ding{55}}%
 
+%% extension of \textvisiblespace
+%% usage: \Vtextvisiblespace[1em]
+%% from: https://tex.stackexchange.com/a/50807/8094
+\newcommand\Vtextvisiblespace[1][.3em]{%
+  \mbox{\kern.06em\vrule height.3ex}%
+  \vbox{\hrule width#1}%
+  \hbox{\vrule height.3ex}}
+
 
 %% FIGURES INLINE WITH EQUATIONS (e.g. Feynman diagrams)
 %% -----------------------------
