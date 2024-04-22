@@ -1548,6 +1548,36 @@ To say all this differently: matrix multiplication a~la  Section~\ref{sec:matrix
 \end{align}
 These two different index contractions correspond to $MN$ and $NM$ respectively.\sidenote{If this is making you scratch your head or exhale with a deep sigh of ennui, it may help to know that matrix multiplication is still an active field of computational mathematics research.\footnotemark}\footnote{\url{https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/}}
 
+
+
+\begin{newrule}[From matrix multiplication to index contraction and back]\label{rule:matrix:multiplication:to:indices:and:back}
+To convert from the matrix multiplication picture---where matrices are $N\times N$ blocks of numbers that act on columns according to Figure~\ref{fig:matrix:col:mult}---to index notation: first write out all objects with explicit indices. Matrix multiplication corresponds to the contraction of consecutive indices, for example $A\vec{v} = A\aij{i}{j}v^j$. Once you have written everything in terms of indices, you can move factors around: $A\aij{i}{j}v^j = v^jA\aij{i}{j}$ because there is no ambiguity which indices are contracted.
+
+To go from index notation back to matrix multiplication, arrange all contractions so that they are consecutive and interpret consecutive contractions as matrix multiplications. For example:
+\begin{align}
+     A\aij{i}{j}v_j  w_i =
+     w_i A\aij{i}{j} v_j = \row{w} A \vec{v} 
+     = 
+     \begin{pmatrix}
+         w_1 & w_2 
+     \end{pmatrix}
+     \begin{pmatrix}
+         A\aij{1}{1} & A\aij{1}{2}\\
+         A\aij{2}{1} & A\aij{2}{2}
+     \end{pmatrix}
+     \begin{pmatrix}
+         v^1\\
+         v^2
+     \end{pmatrix}
+     \ .
+\end{align}
+It does not matter if you contract lower indices to upper indices or upper indices to lower indices as you read from left-to-right, only that the indices are consecutive. 
+
+\textbf{Caveats}: sometimes different tensor contractions appear to give the same matrix multiplication. Usually in these cases the type of contraction is formally not allowed in the limited matrix multiplication picture. For example, $w^iv^j g_{ij}$ is a valid tensor contraction involving two vectors and an object with two lower indices. It cannot be written as a matrix multiplication without breaking the rules.
+\end{newrule}
+
+
+
 \paragraph{Matrix inverses}
 We touched on inverse matrices in \eqref{eq:matrix:invers:multiplcation:notation}. Let us return to it using index notation. \emph{If} a matrix is invertible, then the condition \eqref{eq:matrix:invers:multiplcation:notation} is
 \begin{align}
@@ -2890,6 +2920,7 @@ Let $C^{ij}\ket{e_i}\ket{e_j}$ be an \emph{antisymmetric} $(2,0)$ tensor so that
  
 
 \section{Transformation under symmetries}
+\label{sec:transformation:under:symmetries}
 
 Let us return to dancing around the really-big-idea of symmetries, even though we continue to be coy about actually defining these. We first introduced rotations in Section~
 \ref{sec:Euclidean:three:space:rotations}, where we pontificated about the relation of rotations to the dot product because rotations leave vector lengths and angles between vectors unchanged. In Section~\ref{sec:isometry:first:pass:indices} we defined Rule~\ref{idea:transformation:of:upper:and:lower:indices} that told us how objects with indices transform. For example, in two-dimensional Euclidean space rotations that move the positive $x$-axis\sidenote{Here I should really say the $\bas{e}_1$ axis rather than the $x$-axis. This is because $x$ and $y$ are typically the coordinates what is called a `base space' or a base \emph{manifold}. In this section we refer to $x,y,$ and $z$ to appeal to our familiarity with three-space.} counter-clockwise (towards the positive $y$ axis) by and angle $\theta$ are $2\times 2$ matrices of the form
@@ -3294,7 +3325,7 @@ This poses a mathematical problem: what does it mean for the traveler to move wi
 
 
 
-\section{No position vectors}
+\section{No position vectors}\label{sec:no:position:vectors}
 
 Vectors in physics live in structures like these tangent planes. With the appropriate amount of abstraction, \emph{every}\sidenote{I think this is true for every vector. I may be wrong, but I do not know of any good counterexamples.} vector in physics can be viewed as a ``velocity'' of some path along some manifold. These manifolds do not necessarily represent space or spacetime; they may be rather abstract.\sidenote{For example, the space of $2\times 2$ matrices} The collection of all of the tangent spaces to a manifold is called the \textbf{tangent bundle}\index{tangent bundle}. It represent the space of all possible velocity vectors at all points on the manifold.
 
@@ -3985,18 +4016,130 @@ These equations are a little more tedious to solve. I would use a computer algeb
 
 \end{example}
 
+
+\begin{bigidea}[Physical interpretation of isometries]
+The basis on a vector space typically gives a way to describe the components that a given observer measures in some reference frame. Two sets of bases that are related by a rotation, for example, may represent ways that different observers describe tensors they are facing different directions. When we move from space to space\emph{time}, different bases can represent observers that are in boosted frames relative to one another. 
+\end{bigidea}
  
 
 % Need to define transformation on basis 
 % then transformation of matrices in general first
 
+\chapter{Special Relativity}
+
+Special relativity is our premiere example of a metric space in mechanics. Rather than the classic thought-experiment presentation in most physics texts, we take a top-down metric space perspective. For completeness, we present a slice of the thought-experiment presentation in Section~\ref{sec:subappendix:relativity}. The key tenet of special relativity is that 
+\begin{quote}
+the speed of light is constant.
+\end{quote}
+The logical consequence of this---see Section~\ref{sec:subappendix:relativity}---is that observers in different reference frames measure\sidenote{Think \emph{metric}.} the same phenomena rather differently.
 
 
-\chapter{Special Relativity as a Metric Space}
+\begin{marginfigure}%[th]
+    \includegraphics[width=.8\textwidth]{figures/vsr_cover.png}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{How to learn special relativity.}
+    \label{fig:VSR:cover}
+\end{marginfigure}
+\begin{marginfigure}%[th]
+    \includegraphics[width=.8\textwidth]{figures/MSW_cover.png}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Published 50 years ago---right around when the Standard Model was established---\tacro{MSW} is still one of the most insightful places to learn and re-learn relativity. }
+    \label{fig:MTW:cover}
+\end{marginfigure}
 
-\section{Lorentz Transformations}\label{sec:Lorentz:transformations}
+My favorite reference to appreciate the geometric structure of special relativity is the book \emph{Very Special Relativity}\autocite{bais2007very}. It looks like a miniature coffee table book, but it is a perfect book for physics students who have completed their lower-level coursework.\sidenote{If you can derive every result in the book then you are ready to take general relativity. You should be able to do this over a winter break.}\sidenote{Do not confuse the title of this book with the Cohen--Glashow hypothesis, \arXiv{hep-ph/0601236}, which is a rather different thing.} Once you have mastered this, you can pick up your favorite general relativity textbook for a bit more of the mathematical formalism. Some suggestions: Hartle\autocite{Hartle:2003yu}, Schutz\autocite{schutz2009first}, and Carroll\autocite{Carroll:2004st}. I would be remiss not to also mention the beautiful and elegant tome known lovingly as \acro{MSW}\autocite{misner2017gravitation}; a book so beloved that it had its own 50$^\textnormal{th}$ anniversary celebration.\footnote{\url{https://www.youtube.com/watch?v=a-4-IPBNV60}}
 
-How do you relate vector quantities between different reference frames? A particle may have some four momentum\sidenote{We write $p$ to mean the abstract four-vector without specifying its components. We skip the `physics notation' of writing $p^\mu$ for clarity.} $p$. The \emph{components} of $p$ depend on the reference frame of the observer. We measure the components to be $p^\mu = (p^0, p^1, p^2, p^3)$. Another observer in another reference frame measures components $p'^\mu=(p'^0, p'^1, p'^2, p'^3)$. These components are related by a \textbf{Lorentz transformation}\index{Lorentz transformation} \eqref{eq:Lorentz:2D:prime:to:unprimed}:
+
+
+\section{The metric of spacetime}
+
+The metric for spacetime without gravity is the four-dimensional Minkowski metric \eqref{eq:Minkowski:metric}. For the purposes of most of these examples, we will switch between the four-dimensional Minkowski metric and a simpler two-dimensional case with one dimension of time and one dimension of space.\sidenote{The simplified case is sufficient for motion along a single direction.} 
+
+\begin{example}[West coast versus east coast]
+There are two choices for the Minkowski metric:
+\begin{align}
+    g_{\mu\nu} &= 
+    \begin{pmatrix}
+        1 & & & \\
+        & -1 & & \\
+        & & -1 & \\
+        & & & -1 
+    \end{pmatrix}
+    & \text{or}&
+    &
+    g_{\mu\nu} &= 
+    \begin{pmatrix}
+        -1 & & & \\
+        & 1 & & \\
+        & & 1 & \\
+        & & & 1 
+    \end{pmatrix} \ .
+\end{align}
+These are known as the mostly-minus (or ``west coast'') convention and the mostly-plus (or ``east coast'') convention respectively. One of the most diabolically frustrating open debates in physics is which of these equivalent metrics is more convenient. Some physicists like the mostly-minus metric because the norm of the four-momentum of a physical particle is positive. Others like the mostly-plus metric because the spatial components match the Euclidean metric. Whichever one you use, you pay the price somewhere else. As a particle physicist, I impose the mostly-minus metric.
+\end{example}
+
+Sometimes we write four-component vectors in a two-component shorthand. This is something I do for spacetime to separate the temporal from the spatial components of the four-vector.\sidenote{You may be a bit annoyed because it mixes up some of our notation.} In this notation, I may write a four-vector in Minkowski space as follows:
+\begin{align}
+    v^\mu = 
+    \begin{pmatrix}
+    v^0\\
+    \vec{v}    
+    \end{pmatrix} \ ,
+\end{align}
+where $\vec{v}$ is a three-vector is simply a number. However, the notation above also generalizes to different numbers of spatial dimensions.
+
+
+\section{Natural Units}
+
+There's one more convention that is useful in this business: \textbf{natural units}.\sidenote{Natural units are not strictly necessary for special relativity, but I find that if I do not use natural units I end up making errors all over the place.} This has nothing to do with linear algebra, but it does make our lives significantly easier. For our purposes, natural units is the following:
+\begin{align}
+    c = 1 \ .
+\end{align}
+Here $c$ is the speed of light, which usually has units of length divided by time. In natural units, we use the universal constant $c$ to convert between the two. Astronomers are already used to this: they measure distances in light years: the distance that a photon travels in one year, $d = c\times(1~\text{year})$. In natural units, we would just say `year.' In particle physics we also set Planck's constant $\hbar = 1$ which lets us convert between energy and time, but for our purposes it is sufficient to leave $c$ implicit. 
+
+Natural units make our notation easier because we want the components of a four-vector to have the same units. It is silly to talk about a displacement four-vector\sidenote{Recall from Section~\ref{sec:no:position:vectors} that position vectors do not make sense, but relative positions do make sense as vectors.} $\Delta x^\mu$ if $\Delta x^0$ has units of seconds and $\Delta x^i$ has units of meters. This is even more perverse when we do a `rotation' between space and time (called a \emph{boost}). If we rotate in space, we know what it means when $\Delta x'^1 = \cos\theta \Delta x^1 + \sin\theta \Delta x^2$. This is because every term has the same dimensions. What does it mean to write $\Delta x'^0 = a \Delta x^0 + b \Delta x^1$ when $\Delta x^0$ is in seconds and $\Delta x^1$ is in meters? (We sort out the coefficients $a$ and $b$ below.) So one usually writes 
+\begin{align}
+    \Delta x^\mu = 
+    \begin{pmatrix}
+        c\Delta t \\ \Delta x \\ \Delta y \\ \Delta z
+    \end{pmatrix} \ .
+\end{align}
+Maybe you don't mind that factor of $c$ in there? Things get annoying again when we write down four-momenta, whose time-like component is an energy. In order for the energy of a particle to have the same units as the three-momentum, we need to divide by $c$. Thus we write
+\begin{align}
+    p^\mu = 
+    \begin{pmatrix}
+        E/c \\
+        p^1\\
+        p^2\\
+        p^3
+    \end{pmatrix} \ .
+\end{align}
+In order to avoid all of these factors of $c$---you can always replace them at the end of a calculation by requiring dimensional consistency---we can simply set $c=$ so that
+\begin{align}
+    \Delta x^\mu &= 
+    \begin{pmatrix}
+        \Delta t \\ \Delta x \\ \Delta y \\ \Delta z
+    \end{pmatrix}
+    &
+    p^\mu &= 
+    \begin{pmatrix}
+        E \\
+        p^1\\
+        p^2\\
+        p^3
+    \end{pmatrix} \ .
+    \label{eq:momentum:4vec}
+\end{align}
+Because we are using units where $c=1$, the maximum velocity is 1. For historical reasons, we refer to the relative velocity between frames as $\beta = v/c$. In natural units, $\beta = v$ and $|\beta| \leq 1$.  
+
+
+\section{Isometries of Minkowski spacetime}\label{sec:Lorentz:transformations}
+
+% \section{Lorentz Transformations}\label{sec:Lorentz:transformations}
+
+A \textbf{reference frame}\index{reference frame} is a basis for the vector space that represents what an observer may see. In ordinary Euclidean space, two frames may differ due to their relative orientation: if you are facing north, then the basis of `forward' and `to your right' means something different than if you were facing east. In relativity, in addition to rotations, observers in relative motion to one another also have different basis vectors. This, in turn, leads to different measurements of space and time when two observers are in relative motion.
+
+How do you relate vector quantities between different reference frames? A particle may have some four momentum $p$.\sidenote{As per convention, we do not use bra-ket notation in relativity. I also reserve the typical vector notation $\vec{p}$ for the three-vector part of a four vector. It thus falls on you to determine from context whether $p$ refers to a four-momentum or the square root of its length, $p=\sqrt{p^\mu p_\mu}$. Sometimes we revert to component notation and write $p^\mu$ to mean the entire four-vector. Sorry, I could not think of a better alternative that would not stray too far from standard notation.} The \emph{components} of $p$ depend on the reference frame of the observer. We measure the components to be $p^\mu = (p^0, p^1, p^2, p^3)$. Another observer in another reference frame measures components $p'^\mu=(p'^0, p'^1, p'^2, p'^3)$. These components are related by a \textbf{Lorentz transformation}\index{Lorentz transformation}:
 \begin{align}
     p^\mu = \Lambda\aij{\mu}{\nu}p'^\nu \ .
 \end{align}
@@ -4012,10 +4155,12 @@ If we align the spatial parts of each observer's coordinate system so that their
     \ . 
     \label{eq:Lorentz:in:z}
 \end{align}
-This is simply what we showed in \eqref{eq:Lorentz:2D:in:equations}, extended to the $4\times 4$ case. You should think about this as an analog of the rotation matrix in Euclidean space.\sidenote{The relation is as follows. Rotations are the isometries of Euclidean space: they are the transformations that preserve the dot product. Lorentz transformations are the isometries of Minkowski space: they are the transformations that preserve the metric. In both cases, the isometries are the allowed transformations that preserve the spacetime structure as encoded by the metric.} Here $\beta$ is the relative velocity between the two frames. 
+You should think about this as an analog of the rotation matrix in Euclidean space.\sidenote{The relation is as follows. Rotations are the isometries of Euclidean space: they are the transformations that preserve the dot product. Lorentz transformations are the isometries of Minkowski space: they are the transformations that preserve the metric. In both cases, the isometries are the allowed transformations that preserve the spacetime structure as encoded by the metric.} Here $\beta$ is the relative velocity between the two frames. If our coordinates are the unprimed coordinates and the other observer measures the primed coordinates, then $\beta$ is the other observer's velocity that we measure in our unprimed frame. 
 \begin{exercise}
 Check that \eqref{eq:Lorentz:in:z} is a transformation from frame $\mathcal O'$
  to frame $\mathcal O$, where $\mathcal O'$ is moving in the $+\hat{z}$ direction relative to the $\mathcal O$. Show that the inverse of $\Lambda$ simply swaps the sign of $\beta$. 
+
+I often confuse myself about whether the $\gamma \beta$ terms should have a positive or negative sign in front of them. You can return to this thought-experiment to cross check  the sign of $\beta$ for yourself.
 \end{exercise}
 \begin{example}
 A nice way to see the relation between Lorentz transformations and boosts is to note that we may write the boost parameter as \textbf{rapidity}\index{rapidity} $\eta$ defined through the identification:
@@ -4052,9 +4197,9 @@ Here we appreciate the critical minus sign that is the difference between space 
 What about the transformation of lower index objects, like $p_\mu$? We can motivate based on what we know physically. But first, it is useful to review the case of simple rotations:
 % 
 \begin{example}[Transformation of row vectors]\label{eg:row:vector:transform}
-Consider a Euclidean three-vector $\vec{v} = (v^x, v^y, v^z)^\trans$ and a Euclidean row vector, $\row{w} = (w_x, w_y, w_z)$. You know that the contraction these two objects is a number that is \emph{invariant}.
+Consider a Euclidean three-vector $\vec{v} = (v^1, v^2, v^3)^\trans$ and a Euclidean row vector, $\row{w} = (w_1, w_2, w_3)$. You know that the contraction these two objects is a number that is \emph{invariant}.
 \begin{align}
-    \row{w}\vec{v} = w_xv^x + w_y v^y + w_z v^z .
+    \row{w}\vec{v} = w_1v^1 + w_2 v^2 + w_2 v^2 .
 \end{align}
 In fact, if $\row{w} = \vec{w}^\trans$, then $\row{w}\vec{v}$ is simply the inner product $|\vec{w}||\vec{v}|\cos\theta$. At any rate, the contraction $w_i v^i$ carries no indices and is a pure scalar quantity. That means it does not transform under rotations. However, we know that $\vec{v}$ \emph{does transform under rotations},
 \begin{align}
@@ -4094,14 +4239,15 @@ We thus conclude that
 \begin{align}
     S(\theta) = R(\theta)^{-1} = R(-\theta) = R(\theta)^\trans \ .
 \end{align}
-So we demonstrate something very important: row vectors like $\row{w}$ `rotate oppositely' from column vectors like $\vec{v}$.
+So we demonstrate something very important: row vectors like $\row{w}$ `rotate oppositely' from column vectors like $\vec{v}$. All of this is simply a rehash of what we discussed in Section~\ref{sec:transformation:under:symmetries}.
 \end{example}
 
 The lesson from the above example is that lower indexed objects transform with the \emph{inverse transformation} as upper indexed objects. Thus if $p^\mu \to \Lambda\aij{\mu}{\nu}p^\nu$, we must have
 \begin{align}
     p_\mu \to (\Lambda^{-1})\aij{\nu}{\mu} p^\nu\ .
 \end{align}
-Check to make sure that you agree with the position of the indices. It is $(\Lambda^{-1})\aij{\nu}{\mu}$, not $(\Lambda^{-1})_{\mu}^{\phantom{\mu}\nu}$. Refer back to Example~\ref{eg:row:vector:transform} if that is not clear.
+Check to make sure that you agree with the position of the indices. It is $(\Lambda^{-1})\aij{\nu}{\mu}$, not $(\Lambda^{-1})_{\mu}^{\phantom{\mu}\nu}$. 
+%Refer back to Example~\ref{eg:row:vector:transform} if that is not clear.
 
 
 
@@ -4142,7 +4288,7 @@ First let us consider calculating everything in the Earth's reference frame. Thi
     \gamma \tau \\ \gamma\beta \tau    
     \end{pmatrix} \ ,
 \end{align}
-where we have noticed that the muon lifetime is a displacement along the $t'$ axis used our results in \eqref{eq:Lorentz:2D:prime:to:unprimed}. We find that the lifetime in the Earth's frame is actually larger than the lifetime in the muon rest frame: $t = \gamma \tau$. There is also a spatial component, but this is no surprise: in the Earth frame the muon is moving, so when the muon decays it is in a different position. 
+where we have noticed that the muon lifetime is a displacement along the $t'$ axis. We find that the lifetime in the Earth's frame is actually larger than the lifetime in the muon rest frame: $t = \gamma \tau$. There is also a spatial component, but this is no surprise: in the Earth frame the muon is moving, so when the muon decays it is in a different position. 
 
 How much is the muon's lifetime \emph{time dilated}? We plug $\beta$ into the expression for $\gamma = (1-\beta^2)^{-1/2}$. We find\footnote{There's a cute trick here: $\beta^2 = (1-\epsilon)^2 \approx 1- 2\epsilon$ by Taylor expanding in the small number $\epsilon = 10^{-4}$.} that to one significant figure, $\gamma = 100$. This means that the time for the muon decay in the Earth's frame is $2\times 10^-4$~seconds, which means that it travels approximately $d=60~$km, which is larger than the distance from the upper atmosphere to the surface. As a sanity check: this is exactly the value in the spatial component of $\Delta x^\mu$.
 
@@ -4164,43 +4310,43 @@ Note that now we have a measurement in the Earth frame (a vertical line denoting
 Using the Lorentz transformation laws, show that the distance from the muon to the surface of the Earth at the moment of the muon's creation is $L'=L/\gamma$ where $L=10$~km is the distance in the Earth frame. 
 \end{exercise}
 
-\section{The metric tensor}
+% \section{The metric tensor}
 
-The \textbf{inner product} (or dot product) is a machine that takes two vectors and outputs a number. It is manifested by a tensor called the metric, which has two lower indices:
-\begin{align}
-    \langle p,q\rangle = p\cdot q = g_{\mu\nu}p^\mu q^\mu \ .
-\end{align}
-In special relativity the metric is conventionally written as $\eta_{\mu\nu}$ and has a simple form in Cartesian coordinates:
-\begin{align}
-    \eta_{\mu\nu} = 
-    \begin{pmatrix}
-        1 & & & \\
-        & -1 & & \\
-        & & -1 & \\
-        & & & -1
-    \end{pmatrix}
-    = \textnormal{diag}(1,-1,-1,-1) \ .
-\end{align}
-Some physics tribes\sidenote{Particle physicists use the `West coast' or `mostly minus' notation. It is usually relativists and formal theorists who use the East coast/mostly plus convention. A third convention, the `Pauli convention' uses a metric proportional to the identity but with the timelike component imaginary $x^4 = ix^0$. In that notation, boosts look like complex rotations. See Appendix F of \emph{Diagrammatica}\footnotemark by Veltman for a discussion.}\footnotetext{\cite{Veltman:1994wz}} use a different convention, $\eta_{\mu\nu} = \text{diag}(-1,1,1,1)$. The choice of whether the spatial or temporal pieces pick up the minus sign is a convention---while the intermediate steps of any calculation differ by these annoying signs, any physical result is independent of the convention.\sidenote{I am hopelessly entrenched in the mostly minus tribe. If I were being honest, I think the mostly-plus metric is probably easier to start learn if you were starting from scratch. But I intend to run with team mostly-minus until I die.}
-
-
-The metric has an inverse, $g^{\mu\nu}$ or $\eta^{\mu\nu}$ in special relativity. It has two upper indices and satisfies
-\begin{align}
-    g_{\mu\nu}g^{\mu\nu} = g^{\mu\nu}g_{\mu\nu} = \delta^\mu_\nu \ .
-\end{align}
-We do not bother writing $(g^{-1})^{\mu\nu}$ because the height of the indices indicates precisely whether you are using the metric or inverse metric. In special relativity, the components of $\eta_{\mu\nu}$ and $\eta^{\mu\nu}$ are identical. Also observe that the Kronecker-$\delta$ has no distinction between first and second indices:
-\begin{align}
-    \delta^\mu_\nu =
-    \begin{cases}
-    1 & \text{if } \mu = \nu \\
-    0 & \text{otherwise} 
-    \end{cases}
-    \ .
-\end{align}
-The Kronecker-$\delta$ represents the components of the unit matrix, $\mathbbm{1}\aij{\mu}{\nu} = \delta^\mu_\nu$.
+% The \textbf{inner product} (or dot product) is a machine that takes two vectors and outputs a number. It is manifested by a tensor called the metric, which has two lower indices:
+% \begin{align}
+%     \langle p,q\rangle = p\cdot q = g_{\mu\nu}p^\mu q^\mu \ .
+% \end{align}
+% In special relativity the metric is conventionally written as $\eta_{\mu\nu}$ and has a simple form in Cartesian coordinates:
+% \begin{align}
+%     \eta_{\mu\nu} = 
+%     \begin{pmatrix}
+%         1 & & & \\
+%         & -1 & & \\
+%         & & -1 & \\
+%         & & & -1
+%     \end{pmatrix}
+%     = \textnormal{diag}(1,-1,-1,-1) \ .
+% \end{align}
+% Some physics tribes\sidenote{Particle physicists use the `West coast' or `mostly minus' notation. It is usually relativists and formal theorists who use the East coast/mostly plus convention. A third convention, the `Pauli convention' uses a metric proportional to the identity but with the timelike component imaginary $x^4 = ix^0$. In that notation, boosts look like complex rotations. See Appendix F of \emph{Diagrammatica}\footnotemark by Veltman for a discussion.}\footnotetext{\cite{Veltman:1994wz}} use a different convention, $\eta_{\mu\nu} = \text{diag}(-1,1,1,1)$. The choice of whether the spatial or temporal pieces pick up the minus sign is a convention---while the intermediate steps of any calculation differ by these annoying signs, any physical result is independent of the convention.\sidenote{I am hopelessly entrenched in the mostly minus tribe. If I were being honest, I think the mostly-plus metric is probably easier to start learn if you were starting from scratch. But I intend to run with team mostly-minus until I die.}
 
 
-\section{Example: What does someone else measure?}
+% The metric has an inverse, $g^{\mu\nu}$ or $\eta^{\mu\nu}$ in special relativity. It has two upper indices and satisfies
+% \begin{align}
+%     g_{\mu\nu}g^{\mu\nu} = g^{\mu\nu}g_{\mu\nu} = \delta^\mu_\nu \ .
+% \end{align}
+% We do not bother writing $(g^{-1})^{\mu\nu}$ because the height of the indices indicates precisely whether you are using the metric or inverse metric. In special relativity, the components of $\eta_{\mu\nu}$ and $\eta^{\mu\nu}$ are identical. Also observe that the Kronecker-$\delta$ has no distinction between first and second indices:
+% \begin{align}
+%     \delta^\mu_\nu =
+%     \begin{cases}
+%     1 & \text{if } \mu = \nu \\
+%     0 & \text{otherwise} 
+%     \end{cases}
+%     \ .
+% \end{align}
+% The Kronecker-$\delta$ represents the components of the unit matrix, $\mathbbm{1}\aij{\mu}{\nu} = \delta^\mu_\nu$.
+
+
+\section{Example: Alien measurement}
 \label{sec:relativity:alien}
 
 
@@ -4250,48 +4396,48 @@ Rephrase everything in this example in terms of the inner product in Minkowski s
 
 
 
-\section{Tensors: the meaning of indices}
+% \section{Tensors: the meaning of indices}
 
 
-The lightning-quick review of special relativity here is an example of tensor analysis in physics.\sidenote{Where can you learn more? I recommend my Physics 17 lecture notes. Want a more advanced version? Check out my Physics 231 lecture notes.} Tensors show up \emph{all over the place} in physics. Even in your lower division physics courses: did you ever wonder why it is called the moment of inertia \emph{tensor} and not the moment of inertia \emph{matrix}? Yes, there is a difference.\footnote{See e.g.\,\url{https://hepweb.ucsd.edu/ph110b/110b_notes/node24.html}}\sidenote{I am frustrated that few textbooks take a moment to explain the significance this difference.} For our purposes, we can think of a \textbf{tensor}\index{tensor} as an object that has an ordered number of indices. The indices each have a height, either upper or lower. 
+% The lightning-quick review of special relativity here is an example of tensor analysis in physics.\sidenote{Where can you learn more? I recommend my Physics 17 lecture notes. Want a more advanced version? Check out my Physics 231 lecture notes.} Tensors show up \emph{all over the place} in physics. Even in your lower division physics courses: did you ever wonder why it is called the moment of inertia \emph{tensor} and not the moment of inertia \emph{matrix}? Yes, there is a difference.\footnote{See e.g.\,\url{https://hepweb.ucsd.edu/ph110b/110b_notes/node24.html}}\sidenote{I am frustrated that few textbooks take a moment to explain the significance this difference.} For our purposes, we can think of a \textbf{tensor}\index{tensor} as an object that has an ordered number of indices. The indices each have a height, either upper or lower. 
 
-The order of the indices matters; if you want it takes precedence over the height of the index: 
-\begin{align}
-    T^{ij\phantom{k}\ell}_{\phantom{ij}k} \neq
-    T^{\phantom{k}ij\ell}_{k} \ .
-\end{align}
-If you have a metric, this is more clear since you can lower (or raise) all the indices, so that 
-\begin{align}
-    T^{ij\phantom{k}\ell}_{\phantom{ij}k} &= T^{ijm\ell}g_{mk}
-    \\
-    T^{\phantom{k}ij\ell}_{k}&=T^{mij\ell} g_{mk}
-\end{align}
-and you can see that $T^{mij\ell} \neq T^{ijm\ell}$.
+% The order of the indices matters; if you want it takes precedence over the height of the index: 
+% \begin{align}
+%     T^{ij\phantom{k}\ell}_{\phantom{ij}k} \neq
+%     T^{\phantom{k}ij\ell}_{k} \ .
+% \end{align}
+% If you have a metric, this is more clear since you can lower (or raise) all the indices, so that 
+% \begin{align}
+%     T^{ij\phantom{k}\ell}_{\phantom{ij}k} &= T^{ijm\ell}g_{mk}
+%     \\
+%     T^{\phantom{k}ij\ell}_{k}&=T^{mij\ell} g_{mk}
+% \end{align}
+% and you can see that $T^{mij\ell} \neq T^{ijm\ell}$.
 
-There are some equivalent ways of thinking about tensors. The most formally correct way is to think about them as \emph{multilinear maps} between vector spaces (or tensor products\sidenote{Given a vector space $V$, a tensor product $V\otimes V$ is two copies of the vector space.} thereof). Perhaps more practically, a tensor is an object that encodes information that transforms according to the height of the indices. Generalizing our rules from Section~\ref{sec:Lorentz:transformations}:
-% 
-\begin{newrule}[Tensor transformation]\label{rule:tensor:transform}
-If $T$ is a tensor with upper indices $i_1, \cdots, i_N$ and lower indices $j_1, \cdots, j_M$, then under a symmetry transformation $R(\theta)$, $T$ transforms as
-\begin{align}
-    T^{\cdots}_{\cdots} \to 
-    R(\theta)^{i_1}_{\phantom{i_1} k_1} 
-    \cdots 
-    R(\theta)^{i_N}_{\phantom{i_N} k_N}
-    (R(\theta)^{-1})^{\ell_1}_{\phantom{\ell_1}j_1} 
-    \cdots 
-    (R(\theta)^{-1})^{\ell_M}_{\phantom{\ell_M}j_M} T^{\cdots}_{\cdots} \ ,
-\end{align}
-where we have written $\cdots$ on the left hand side to mean `some arrangement of upper $i$ and lower $j$ indices,' while on the right the $\cdots$ mean `some arrangement of upper $k$ and lower $\ell$ indices.'
+% There are some equivalent ways of thinking about tensors. The most formally correct way is to think about them as \emph{multilinear maps} between vector spaces (or tensor products\sidenote{Given a vector space $V$, a tensor product $V\otimes V$ is two copies of the vector space.} thereof). Perhaps more practically, a tensor is an object that encodes information that transforms according to the height of the indices. Generalizing our rules from Section~\ref{sec:Lorentz:transformations}:
+% % 
+% \begin{newrule}[Tensor transformation]\label{rule:tensor:transform}
+% If $T$ is a tensor with upper indices $i_1, \cdots, i_N$ and lower indices $j_1, \cdots, j_M$, then under a symmetry transformation $R(\theta)$, $T$ transforms as
+% \begin{align}
+%     T^{\cdots}_{\cdots} \to 
+%     R(\theta)^{i_1}_{\phantom{i_1} k_1} 
+%     \cdots 
+%     R(\theta)^{i_N}_{\phantom{i_N} k_N}
+%     (R(\theta)^{-1})^{\ell_1}_{\phantom{\ell_1}j_1} 
+%     \cdots 
+%     (R(\theta)^{-1})^{\ell_M}_{\phantom{\ell_M}j_M} T^{\cdots}_{\cdots} \ ,
+% \end{align}
+% where we have written $\cdots$ on the left hand side to mean `some arrangement of upper $i$ and lower $j$ indices,' while on the right the $\cdots$ mean `some arrangement of upper $k$ and lower $\ell$ indices.'
 
-In other words:
-\begin{itemize}
-    \item For each upper index, multiply by a factor of $R(\theta)$ and contract with the lower index of $R(\theta)$.
-    \item For each lower index, multiply by a factor of $R(\theta)^{-1}$ and contract with the upper index of $R(\theta)^{-1}$. Note that this is contraction with the \emph{first} index of $R(\theta)^{-1}$. 
-\end{itemize}
-\end{newrule}
-To apply the rule for Lorentz transformations, simply replace $R$ with $\Lambda$ and convert the indices into $\mu$s and $\nu$s. 
+% In other words:
+% \begin{itemize}
+%     \item For each upper index, multiply by a factor of $R(\theta)$ and contract with the lower index of $R(\theta)$.
+%     \item For each lower index, multiply by a factor of $R(\theta)^{-1}$ and contract with the upper index of $R(\theta)^{-1}$. Note that this is contraction with the \emph{first} index of $R(\theta)^{-1}$. 
+% \end{itemize}
+% \end{newrule}
+% To apply the rule for Lorentz transformations, simply replace $R$ with $\Lambda$ and convert the indices into $\mu$s and $\nu$s. 
 
-We ultimately care about quantities that are \emph{invariant}\index{invariant} under Lorentz transformations. These are objects that everyone agrees upon, no matter what their reference frame. If you were to build a theory of nature, you would want the physical laws from that theory to be invariant with respect to reference frame---so the objects you would build that theory out of are naturally invariants. 
+% We ultimately care about quantities that are \emph{invariant}\index{invariant} under Lorentz transformations. These are objects that everyone agrees upon, no matter what their reference frame. If you were to build a theory of nature, you would want the physical laws from that theory to be invariant with respect to reference frame---so the objects you would build that theory out of are naturally invariants. 
 
 
 
@@ -4301,18 +4447,19 @@ We ultimately care about quantities that are \emph{invariant}\index{invariant} u
 
 How does one know that rotations are important symmetries in Euclidean space? This certainly comes from our own experience with physics---the laws of physics are rotationally invariant. In fact, we learn very quickly in our physics training to use rotational invariance to simplify problems. What about in special relativity? Historically, the Michelson--Morley non-observation\sidenote{Perhaps the most significant null result in science.} of aether---that is, the observation that the speed of light is constant---led us to realize that requirement that physics cannot depend on reference frame leads to a different class of symmetries. What characterizes these symmetries?
 
-From a top-down perspective, rotations and their generalizations\sidenote{Such as Lorentz transformations in special relativity.} are \emph{isometries}. An \textbf{isometry} is a symmetry of \emph{the form of the metric}. Specifically, it is a transformation---enacted by a matrix acting on vectors, for example---for which the \emph{components} of the metric do not change. With our conventions, special relativity requires that the components of the metric are $\eta_{\mu\nu} = \text{diag}(+,-,-,-)$; this means that the metric takes this form in \emph{any} reference frame. 
+From a top-down perspective, rotations and their generalizations\sidenote{Such as Lorentz transformations in special relativity.} are \emph{isometries}. An \textbf{isometry}\index{isometry} is a symmetry of \emph{the form of the metric}. Specifically, it is a transformation---enacted by a matrix acting on vectors, for example---for which the \emph{components} of the metric do not change. With our conventions, special relativity requires that the components of the metric are $\eta_{\mu\nu} = \text{diag}(+,-,-,-)$; this means that the metric takes this form in \emph{any} reference frame. 
 
-Ah! But we know from Rule~\ref{rule:tensor:transform} that the metric is an object with two lower indices. That means that it has a prescribed transformation rule. If $v^\mu \ to R\aij{\mu}{\alpha}v^\alpha$ for some transformation $R$, then the metric transforms as
+
+Ah! But we know that the metric is an object with two lower indices. That means that it has a prescribed transformation rule. If a transformation $R$ sends $v^\mu \to R\aij{\mu}{\alpha}v^\alpha$, then the metric transforms as\sidenote{The mapping $g_{\mu\nu} \to   (R\inv)\aij{\alpha}{\mu} (R\inv)\aij{\beta}{\nu} g_{\alpha\beta}$ is true for \emph{any} linear transformation $R$, not just isometries. You can check this by taking the inner product.}
 \begin{align}
-  g_{\mu\nu} \to   R\aij{\alpha}{\mu} R\aij{\beta}{\nu} g_{\alpha\beta} \stackrel{?}{=} g_{\mu\nu} \ .
+  g_{\mu\nu} \to   (R\inv)\aij{\alpha}{\mu} (R\inv)\aij{\beta}{\nu} g_{\alpha\beta} \stackrel{?}{=} g_{\mu\nu} \ .
 \end{align}
-For $R$ to be an isometry, the last expression (marked `?') must be true:
+For $R$ to be an \textbf{isometry}\index{isometry}, the last expression (marked `?') must be true:
 \begin{align}
-    R\aij{\alpha}{\mu} R\aij{\beta}{\nu} g_{\alpha\beta} = g_{\mu\nu} \ .
+    (R\inv)\aij{\alpha}{\mu} (R\inv)\aij{\beta}{\nu} g_{\alpha\beta} = g_{\mu\nu} \ .
     \label{eq:defining:isometry}
 \end{align}
-We call the isometries of spacetime Lorentz transformations\index{Lorentz transformation} and typically write $R=\Lambda$. The isometries of Euclidean space are the rotations, which we usually keep writing as $R$. In this course we also meet the complex versions of rotations,\sidenote{This should familiar from quantum mechanics. Symmetries are described by a mathematical class called a group. Rotations in $N$ dimensions are the group $\textnormal{SO}(N)$ for ``special orthogonal'' $N\times N$ matrices. Special means unit determinant and orthogonal means $R^\trans R = \one$. The complex version is the group $\textnormal{SU}(N)$, for special \emph{unitary} matrices. Unitary means $U^\dag U = 1$.} which we write $R=U$.
+We call the isometries of spacetime Lorentz transformations\index{Lorentz transformation} and typically write\sidenote{Do not be confused by the choice to write $R\inv$ here. It is just a convention for which direction we are transforming. Just as rotations and inverse rotations in \tacro{2D} differ by $\theta \leftrightarrow -\theta$, so too do boosts and their inverse differ by a sign of $\beta$.} $R\inv=\Lambda$. The isometries of Euclidean space are the rotations, which we usually keep writing as $R$. In this course we also meet the complex versions of rotations,\sidenote{This should familiar from quantum mechanics. Symmetries are described by a mathematical class called a group. Rotations in $N$ dimensions are the group $\textnormal{SO}(N)$ for ``special orthogonal'' $N\times N$ matrices. Special means unit determinant and orthogonal means $R^\trans R = \one$. The complex version is the group $\textnormal{SU}(N)$, for special \emph{unitary} matrices. Unitary means $U^\dag U = 1$.} which we write $R=U$.
 
 \begin{exercise}[Definition of Lorentz Tranform]
 \label{ex:lorentz:definition:indices}
@@ -4324,7 +4471,7 @@ This is of course just a change of symbols. When this is introduced in some text
 \begin{align}
     \Lambda^\trans \eta \Lambda = \eta \ .
 \end{align}
-Show that these two forms are indeed equivalent. \textsc{Hint}: the matrix formalism suppresses indices because it assumes that consecutive indices are contracted. 
+Show that these two forms are indeed equivalent. \textsc{Hint}: the matrix formalism suppresses indices because it assumes that consecutive indices are contracted. See Section~\ref{rule:matrix:multiplication:to:indices:and:back}.
 \end{exercise}
 % 
 \begin{example}
@@ -4414,9 +4561,9 @@ This is obvious when considering transformations like $A = \textnormal{diag}(3,3
 
 
 \begin{example}
-It is clear that rotations (Lorentz transformations) are a leave the metric unchanged. What about translations? We know that translation invariance is a symmetry of spacetime---the homogeneity of space leads to momentum conservation. Why do we not have a matrix $R$ for translations?
+It is clear that rotations (Lorentz transformations) leave the metric unchanged. What about translations? We know that translation invariance is a symmetry of spacetime---the homogeneity of space leads to momentum conservation. Why do we not have a matrix $R$ for translations?
 
-This is related to the point in Section~\ref{sec:index:upper} that there is no such thing as a `position vector' and the definition of \emph{linear} in \eqref{eq:def:linear:oneform}. There is simply no such thing as translation in a vector space. In a vector space, the origin means something: it is the null (zero) vector. Translations do not make sense because they say that a different element is now the null vector. This makes no sense because the null vector is the unique element for which $\vec{0}+\vec{v} = \vec{v} + \vec{0} = \vec{v}$ for any $\vec{v}$. 
+This is related to the point in Section~\ref{sec:no:position:vectors} that there is no such thing as a `position vector.' There is simply no such thing as translation in a vector space. In a vector space, the origin means something: it is the null (zero) vector. Translations do not make sense because they say that a different element is now the null vector. This makes no sense because the null vector is the unique element for which $\vec{0}+\vec{v} = \vec{v} + \vec{0} = \vec{v}$ for any $\vec{v}$. 
 
 Of course, translations \emph{are} a key part of understanding physics. Vector spaces are just the wrong structure to describe them. The vector spaces that we deal with for spacetime are \textbf{tangent planes} to spacetime. A particle's velocity $\vec{v}$ is a vector of a tangent plane at a point $p$ on spacetime. We say that
 \begin{align}
@@ -4433,6 +4580,69 @@ To push this further: you also appreciate that there are other forces in nature-
 For a good starting point for all of this, I recommend the lecture notes by Collinucci and Wijns: \cite{Collinucci:2006hx}.
 \end{example}
 
+\section{Simultaneity}
+
+Special relativity is rife with apparent paradoxes that made this subject a rich topic for beginning and arm-chair physicists.\sidenote{I imagine there was a past time where people without a formal physics education would pick up \emph{The Scientific American} or even an introductory textbook and would delight in trying to resolve these paradoxes. It is really only by \emph{working through} them---being confused, often going down wrong paths before finding a correct one---that we really learn. I worry that these days it is harder to learn because when presented with an apparent paradox, it is too easy to look up the solution online. While the internet has has democratized learning, lifelong learners should never lose an appreciation for the joy of figuring something out on one's own terms.} All of these paradoxes are \emph{apparent} because there is no actual inconsistency in relativity: instead, the rigorous logical rules of relativity (Minkowski space) lead to results that seem unintuitive based on our non-relativistic experience. Most of these apparent paradoxes are linked to the question of simultaneity. 
+
+Simultaneity is the question of whether two events happened at the same time. Non-relativistically this is not a problem. We each synchronize our clocks and then even if we travel far away from each other, we know exactly when the other's clock says it is 9:00am. We now know that the clocks in frames that are boosted relative to our own are time dilated, so this notion of synchronization is challenging when one of us starts moving. However, the situation is more subtle than that. 
+
+In our reference frame with time coordinate $t$, two events are simultaneous if they occur with the same time coordinate $t_0$. It does not matter what their spatial coordinate $x$ may be. Two stationary clocks far away from one another still tick at the same rate. \emph{However}, an observer boosted relative to us sees the two clocks moving. No worries, we think: the observer sees the two clocks moving at the same velocity. There may be some time dilation about the \emph{rate} at which the clocks are ticking, but surely the boosted observer will agree that they tick at the same time. \emph{This is not the case!}
+
+
+\begin{exercise}
+The best way to see this is to actually plot the boosted observer's space and time axes with respect to our space and time axes. In other words, take our basis for space and time and perform a Lorentz transformation on them. These are the basis vectors as seen by a boosted observer, but written in \emph{our} basis. This is shown in Figure~\ref{fig:re:dilation}.
+\end{exercise}
+
+\begin{exercise}
+One of the great apparent paradoxes in special relativity is the pole-in-barn problem. A Lorentz transform causes lengths to contract: that is, if something is moving relative to us, we measure its length along the direction of motion to be \emph{smaller} than the length someone would measure in the frame where the object is stationary (the so-called \textbf{proper length}\index{proper length}.)
+
+Imagine a pole with proper length $\ell_0$ that is larger than the proper length of a barn, $L_0 < \ell_0$. The barn is at rest in our frame. But the pole is moving lengthwise towards the barn. Perhaps someone is running with it, like the part of a pole vault before the vaulting. The barn doors are open and the pole passes through the barn. If the pole is moving fast enough, then the pole length that we observe $\ell$ can be smaller than the length of the barn, $\ell < L_0$, that we observe. That seems to imply that to us, it appears that there was an instant where the pole is completely inside the barn. Weird.
+
+It gets weirder: to the person carrying the pole, it is the barn that has become \emph{even shorter}. The person carrying the pole observes a barn length shorter than its proper length $L < L_0$, so that in the pole's frame, $L \ll \ell_0$.  This implies that to the person carrying the pole, there was no moment where the entirety of the pole is inside the barn. It would simply be impossible. What gives?
+
+\textsc{Answer:} the answer is based on the idea that the two frames do not agree on what is simultaneous. In the pole runner's frame, the front of the pole passes through the far door first, \emph{then} the back of the pole passes through the near door. In our frame, there is an instant where both the front and back of the pole are within the barn. You can show this by performing a Lorentz transform on spacetime displacements from a convenient origin. However, a better way to show this is to use a spacetime diagram like Figure~\ref{fig:re:dilation}. Write up a solution using the diagram.
+\end{exercise}
+
+There is a deep significance of the relativity of simultaneity: causality. We believe that the laws of physics must be causal: the cause has to come \emph{before} the effect. Someone may say that they could not do their homework because they were mourning the passing of a pet, but this explanation only makes sense if the pet has passed \emph{before} the homework was due. All of the best science fiction time travel stories deal with this: if you go back in time and prevent your grandparents from meeting, then you cannot be born---so who prevented your grandparents from meeting? These types of causal issues are great for science fiction, but run against everything we observe in nature. It is thus standard to assume causality in any physical theory.
+
+
+\begin{marginfigure}%[th]
+    \includegraphics[width=.8\textwidth]{figures/spacetime_simultaneity.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Frames $(t,x)$ and $(t',x')$ are boosted relative to one another, but they agree on the origin. The unprimed observer sees event $A$ occurring \emph{after} $t=0$ while the primed observer observes $A$ occurring \emph{before} $t'=0$.}
+    \label{fig:simultaneous:not}
+\end{marginfigure}
+What do the paradoxes of simultaneity teach us about causality? We learn that any events that occur at \emph{sufficiently} far away distances have \emph{ambiguous time ordering}. In Figure~\ref{fig:simultaneous:not} we plot the coordinates seen by two observers in relative motion, but who agree on the origin. An event, $A$, is shown as a red dot. The two observers disagree on whether the event occurs before or after the synchronization event at 0. Weird! Confirm that this is the same effect that we saw in the pole-in-barn problem.
+
+What defines what is \emph{sufficiently} far away? This is based on an idea called the \textbf{light cone}\index{light cone}. See Figure~\ref{fig:lightcone}.
+\begin{figure}[ht]
+\includegraphics[width=.8\textwidth]{figures/spacetime_lightcone.pdf}
+\captionsetup{font={scriptsize,sf}}
+    \caption{Left: The green lines are lightcones: these are the trajectories of particles traveling at the speed of light. If you include additional spatial directions, the green lines form a conical surface of revolution. The green shaded region is the future lightcone. The yellow region is the past lightcone. The unshaded regions are spacelike separated from the origin. Right: When we show the coordinate axes observed by a boosted observer, we notice that the boosted observer agrees on the lightcones. In blue we show arrows to highlight that the lightcones are equidistant from either axis. This means that timelike and spacelike regions are maintained under Lorentz transformations.}
+    \label{fig:lightcone}
+\end{figure}
+The lightcone is the set of possible trajectories of a particle traveling at the speed of light that passes through the origin. In more than one spatial dimension, it is a surface of revolution and hence a cone around the time axis. Any event that is closer to the time axis than the space axis---the shaded regions of Figure~\ref{fig:lightcone}---are said to be \textbf{timelike separated}\index{timelike} from the origin. This means that in \emph{any} reference frame there is a well defined ordering: if the event is in the green shaded region, every observer agrees that it occurs \emph{after} the synchronized point at the origin.\sidenote{Recall that boosts are isometries that preserve the origin---as required by linearity. Physically this means that the two reference frames have synchronized their clocks and rulers so that the zeros are synchronized at the same spacetime point.} On the other hand, events that are \textbf{spacelike separated}\index{spacelike} from the origin can either be observed as happening before, after, or synchronously with the origin \emph{depending on the observer}. Events that are on the lightcone remain on the lightcone in any frame and are called \textbf{lightlike separated}\index{lightlike separated}.
+
+The restriction of causality then tells us that the physics of the present can only depend on events in the past lightcone and can only influence events in the future lightcone.\sidenote{In fact, causality really tells us that on a microscopic level, all interactions occur on the lightcone.} Ultimately this is a statement that the laws of physics must be \emph{local}: the microscopic laws of physics cannot depend on what is going on some finite distance away. This is why all of your favorite `laws of physics' are written as \emph{derivatives}. Derivatives are the infinitesimal separation of two points in spacetime. When the underlying laws of physics are written this way, it guarantees that you do not end up with a break in causality.
+
+
+\section{Not all frames are inertial}
+
+One of my favorite paradoxes in relativity is the twin paradox. Take a pair of twins. One of them becomes an astronaut and gets into a rocket ship where they travel at relativistic speeds to a nearby galaxy and then returns to Earth. The other twin remains on Earth. To the rocket-faring twin, it is the Earthbound twin who has traveled relativistically (along with the planet) before returning to meet their rocket ship. To the Earthbound twin, it is the astronaut who has been traveling relativistically. Each twin, then, would invoke the phenomenon of time dilation and would expect the other to be much younger when they reunite. Given that the two twins have equivalent reference frames, which one is older and which one is younger? 
+
+Unlike the simultaneity puzzle, the twins are at the same spacetime point when they leave one another and they return to the same spacetime point when they compare ages.
+The puzzle here is really about what breaks the asymmetry between the two frames. The resolution of the puzzle is that the space-bound twin is not in an \emph{inertial} frame: at some point their rocket has to decelerate, stop, then turn around to return to Earth. 
+\begin{exercise}
+Given that I have spoiled the big idea, determine which of the two twins has aged more.
+\end{exercise}
+\begin{exercise}
+What if the universe were closed? This means that the universe is like the classic arcade game \emph{Asteroids} or \emph{Pac-Man}: if you travel too far in one direction, you end up on the other end of the screen. This is a universe that is still \emph{flat}, but has \emph{periodic boundary conditions}. In this case, the twin in the rocket ship does not need to decelerate. Then they can keep going around the universe until they meet their Earthbound twin again. This is indeed a valid inertial frame.
+
+\textsc{Solution}: See Jeffrey Weeks' article in \emph{The American Mathematical Monthly} in 2001.\autocite{weeks:twin:doi:10.1080/00029890.2001.11919789} I am surprised that it took until 2001 for someone to have written up a solution to this problem---no doubt this was influenced by the resurrection of extra dimensions in 1998 as a potential solution to problems in particle physics. Because the resolution appeared in a professional journal analogous to our \emph{American Journal of Physics}, not many physicists seem to have known about this resolution and there were several papers after 2001 that re-discovered the same result.
+\end{exercise}
+
+
+
 \begin{subappendices}
 
 \section{Relativity by Thought Experiment}\label{sec:subappendix:relativity}
@@ -4446,7 +4656,7 @@ Just as the word \emph{gedankenexperiment} tells you where special relativity wa
 \begin{align}
     (t=0,x=0) = (t'=0,x'=0) \ .
 \end{align}
-The above equation should be treated to mean \emph{the point that we call $(0,0)$ coincides with the point that Oppie calls $(0,0)$.} In this way, a generic point $(t,x)$ is really a \emph{separation} between that point and the origin.\sidenote{Recall our caveat in Chapter~\ref{sec:index:upper}: positions are not vectors, but differences in positions are vectors.}
+The above equation should be treated to mean \emph{the point that we call $(0,0)$ coincides with the point that Oppie calls $(0,0)$.} In this way, a generic point $(t,x)$ is really a \emph{separation} between that point and the origin.\sidenote{Recall our caveat in Section~\ref{sec:no:position:vectors}: positions are not vectors, but differences in positions are vectors.}
 
 
 \subsection{Time dilation}
@@ -4709,7 +4919,7 @@ In order to restrict to sensible isometries, we say that valid observers in spec
 There is one more discrete symmetry that is often mentioned along with parity and time reversal: charge inversion. Unlike the other two, charge inversion is \emph{not} a spacetime symmetry since it acts only on particles (fields). Charge inversion takes every particle and flips their charges. For now you may think about flipping the \emph{electric} charge of the particle---but this actually holds for all of the types of charges that we examine in this course.\sidenote{Charges are conserved quantities. Remember that conserved quantities come from symmetries of the action. Unlike the spacetime symmetries of this chapter, those charges are related to \emph{internal} symmetries.} There are two combinations of these discrete symmetries that are notable:
 \begin{itemize}
     \item The combination $CP$ (charge--parity) is the transformation that takes a particle to its anti-particle.
-    \item The combination $CPT \equiv \mathbbm{1}$. That is: if we perform all three discrete symmetries, we return to the same state.\sidenote{I leave this here with no proof. I know such proofs exist, but they are largely in the domain of a construction called axiomatic quantum field theory, which I know nothing about. You can learn more about this in\footnotemark}\footnotetext{\cite{Blum:2022eol}}
+    \item The combination $CPT \equiv \mathbbm{1}$. That is: if we perform all three discrete symmetries, we return to the same state.%\sidenote{I leave this here with no proof. I know such proofs exist, but they are largely in the domain of a construction called axiomatic quantum field theory, which I know nothing about. You can learn more about this in\footnotemark}\footnotetext{\cite{Blum:2022eol}}
 \end{itemize}
 Because these are all parities---in the sense that $C^2 = P^2 = T^2 = \mathbbm{1}$---we see an relation between the antimatter transformation $CP$ and the idea of moving backward in time. You may want to remember then when our Feynman diagram notation makes it \emph{look like} antiparticles are particles moving backward in time.\sidenote{To be clear, this is \emph{not} what is happening.}
 
