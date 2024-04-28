@@ -2997,7 +2997,7 @@ Assuming that we have a definition for which transformations are rotations,\side
 
 
 
-\subsection{Transformation of Vectors}
+\subsection{Transformation of Vectors}\label{sec:active:passive}
 
 To be somewhat philosophical: under an isometry like a rotation, there are two pictures to think about what happens to a vector:
 \begin{itemize}
@@ -3266,7 +3266,7 @@ For any specific $i$, only one of the terms is non-zero. For example,
 \end{example}
 
 
-\begin{example}
+\begin{example}\label{eq:double:sum:delta}
 Consider the double sum $w_i \delta^i_j v^j$ \ .
 \begin{align}
     w_i \delta^i_j v^j = &
@@ -3292,6 +3292,71 @@ Consider the contraction between two general tensors:
     S\aij{i_1\cdots i_N \ell}{j_1\cdots j_M} T\aij{k_1\cdots k_P}{\ell_1\cdots \ell_Q \ell}\ ,
 \end{align}
 where in the second line we simply show that it does not matter whether you replace the upper or lower index.
+\end{example}
+
+
+\begin{example}
+Sometimes it is helpful to see something written in gory detail. Let us write out even more terms in Example~\ref{eq:double:sum:delta}:
+\begin{align}
+    w_i \delta^i_j v^j = 
+    &
+    \pp w_1 \delta^1_1 v^1 
+    + w_1 \cancel{\delta^1_2} v^2 
+    + w_1 \cancel{\delta^1_3} v^3 
+    + w_1 \cancel{\delta^1_4} v^4 
+    + \cdots 
+    \\
+    & 
+    + w_2 \cancel{\delta^2_1} v^1
+    + w_2 {\delta^2_2} v^2 
+    + w_2 \cancel{\delta^2_3} v^3 
+    + w_2 \cancel{\delta^2_4} v^4 
+    + \cdots 
+    \\    & 
+    + w_3 \cancel{\delta^3_1} v^1
+    + w_3 \cancel{\delta^3_2} v^2 
+    + w_3 {\delta^3_3} v^3 
+    + w_3 \cancel{\delta^3_4} v^4 
+    + \cdots 
+    \\    & 
+    + w_4 \cancel{\delta^4_1} v^1
+    + w_4 \cancel{\delta^4_2} v^2 
+    + w_4 \cancel{\delta^4_3} v^3 
+    + w_4 {\delta^4_4} v^4 
+    + \cdots 
+    \\
+    = &
+    \pp w_1 \delta^1_1 v^1 
+    \phantom{+ w_1 \cancel{\delta^1_2} v^2 }
+    \phantom{+ w_1 \cancel{\delta^1_3} v^3 }
+    \phantom{+ w_1 \cancel{\delta^1_4} v^4 }
+    \phantom{+ \cdots }
+    \\
+    & 
+    \phantom{+ w_2 \cancel{\delta^2_1} v^1}
+    + w_2 {\delta^2_2} v^2 
+    \phantom{+ w_2 \cancel{\delta^2_3} v^3 }
+    \phantom{+ w_2 \cancel{\delta^2_4} v^4 }
+    \phantom{+ \cdots }
+    \\    & 
+    \phantom{+ w_3 \cancel{\delta^3_1} v^1}
+    \phantom{+ w_3 \cancel{\delta^3_2} v^2 }
+    + w_3 {\delta^3_3} v^3 
+    \phantom{+ w_3 \cancel{\delta^3_4} v^4 }
+    \phantom{+ \cdots }
+    \\    & 
+    \phantom{+ w_4 \cancel{\delta^4_1} v^1}
+    \phantom{+ w_4 \cancel{\delta^4_2} v^2 }
+    \phantom{+ w_4 \cancel{\delta^4_3} v^3 }
+    + w_4 {\delta^4_4} v^4 
+    + \cdots 
+    % & w_1v^1 + w_2 v^2 + \cdots = w_iv^i 
+    \\
+    =& w_1v^1\phantom{\delta^i_j} + w_2 v^2\phantom{\delta^i_j} + w_3 v^3\phantom{\delta^i_j} + w_4 v^4\phantom{\delta^i_j} \cdots 
+    \\=& w_iv^i 
+    \ .
+\end{align}
+The key here is to first understand why several terms are zero, then to learn the `rule of thumb' that the $\delta^i_j$ reduces a double sum into a single sum. Any time you have a repeated index where one of the repeated indices is on a Kronecker-$\delta$, you can simply remove the Kronecker $\delta$ and replace that index with the \emph{other} index on $\delta$. In the example above, we saw that there was a repeated $j$ index in $w_i \delta^i_j v^j$. We found that we can simply remove the $\delta$ and replace the $v^j$ with $v^i$ because $i$ is the `other' index on $\delta^i_j$.
 \end{example}
 
 
@@ -3337,6 +3402,15 @@ The tangent bundle picture of vectors also explains the following maxim that I h
 \end{quote}
 Vectors live in a tangent space $\textnormal{T}_pM$. On a tangent space there is a natural meaning of the zero vector: it is the case of zero velocity. However, \emph{positions} live on the manifold, $M$. There is \emph{no} natural meaning of a `zero' position: that is simply an arbitrary choice of the origin of coordinates. Because the origin has no significance, there is also no natural meaning for taking a linear combination of positions.\sidenote{On the other hand, \emph{differences} of positions \emph{can} have physical meanings since they do not depend on an arbitrary origin.}
 
+\begin{example}
+In a vector space, the zero vector is special because it is the additive identity. Any vector plus the zero vector is well defined: it returns the vector itself,
+\begin{align}
+    \vec{v} + \vec{0} = \vec{v} \ .
+\end{align}
+If I define a coordinate system for space, the zero point of that coordinate system means nothing. There is no meaningful sense in which you can \emph{add} that position to another position, let alone for it to be understood to be the additive identity. 
+
+However, differences of positions are meaningful vectors. The zero vector is when two points are coincident. Adding the zero vector does not change the separation between two points. 
+\end{example}
 
 
 \section{Taylor Expansion, yet again}
@@ -3503,7 +3577,8 @@ For the case of the Euclidean metric \eqref{eq:metric:euclidean}, the length is 
 \begin{example}
 For the case of the Minkowski metric \eqref{eq:Minkowski:metric} in (1+1)-dimensions\footnote{It is conventional to write the dimension of Minkowski space as a sum of the time and space dimensions.} the length of a vector is:
 \begin{align}
-    |\vec{v}|^2 = (v^0)2 - (v^1)^2 \ .
+    |\vec{v}|^2 = (v^0)^2 - (v^1)^2 \ .
+    \label{eq:minkowski:length:2d}
 \end{align}
 Unlike Euclidean space, you can have a Minkowski space vector, say 
 \begin{align}
@@ -4020,6 +4095,15 @@ These equations are a little more tedious to solve. I would use a computer algeb
 \begin{bigidea}[Physical interpretation of isometries]
 The basis on a vector space typically gives a way to describe the components that a given observer measures in some reference frame. Two sets of bases that are related by a rotation, for example, may represent ways that different observers describe tensors they are facing different directions. When we move from space to space\emph{time}, different bases can represent observers that are in boosted frames relative to one another. 
 \end{bigidea}
+
+
+\begin{example}[Remembering the condition for an isometry]
+If you are stuck on a desert island and wanted to remember the conditions for a transformation\footnote{The notation $v^i\to R\aij{i}{j}v^j$ means that we convert the component $v^i$ into a new component $(v')^i$. The new component $(v')^i$ is related to the original components by $(v')^i = R\aij{i}{j}v^j$. } $v^i \to R\aij{i}{j}v^j$ to be an isometry, you can approach it as follows. You know that $\la \vec{v}, \vec{w}\ra = g_{ij} v^i w^j$ is a scalar. You also know how the upper index objects transform. You also know that $g'_{ij}=g_{ij}$, which is the definition of an isometry. Then $\la \vec{v}, \vec{w}\ra  = \la R\vec{v}, R\vec{w}\ra $ gives
+\begin{align}
+    g_{ij}R\aij{i}{k} R\aij{j}{\ell} v^k w^\ell &= g_{ij} v^i w^j \ .
+\end{align}
+In order to simplify this, rewrite the right-hand side by relabeling the dummy indices: $g_{ij}v^i v^j \equiv g_{k\ell}v^k w^\ell$ and then `cancel' the $v^k$ and $w^\ell$ on both sides.\footnote{This is not quite a mathematically rigorous statement, but it is mathematically true. The ambiguity is that we are taking indices that are formally summed and somehow identifying just one component. The reason why this is valid is that the equation is true for \emph{any} values of $v^k$ and $w^\ell$. Convince yourself of why this holds. If you are confused, try choosing $v^k = (1,0, \cdots)^\trans$.}
+\end{example}
  
 
 % Need to define transformation on basis 
@@ -4625,6 +4709,10 @@ The lightcone is the set of possible trajectories of a particle traveling at the
 
 The restriction of causality then tells us that the physics of the present can only depend on events in the past lightcone and can only influence events in the future lightcone.\sidenote{In fact, causality really tells us that on a microscopic level, all interactions occur on the lightcone.} Ultimately this is a statement that the laws of physics must be \emph{local}: the microscopic laws of physics cannot depend on what is going on some finite distance away. This is why all of your favorite `laws of physics' are written as \emph{derivatives}. Derivatives are the infinitesimal separation of two points in spacetime. When the underlying laws of physics are written this way, it guarantees that you do not end up with a break in causality.
 
+\begin{exercise}[The length of a Minkowski space vector]
+In Euclidean space, any vector with non-zero components has positive length-squared. In Minkowski space the length-squared can be positive, zero, or negative. This is clear from \eqref{eq:minkowski:length:2d}. In the $v^0$--$v^1$ plane, constant values of $|\vec{v}|^2$ correspond to hyperbolas. Plot the hyperbolas of points that correspond to $\vec{v}^2 = \pm 1$ and $0$. The null case, $|\vec{v}|=0$, correspond to the lightcone. In our metric sign convention, $|\vec{v}|>0$ corresponds to a timelike vector and $|\vec{v}|<0$ corresponds to a spacelike vector. Each connected component of the hyperbolae represent all of the possible components that a given vector can be observed to have by observers in different reference frames.
+\end{exercise}
+
 
 \section{Not all frames are inertial}
 
@@ -4640,6 +4728,8 @@ What if the universe were closed? This means that the universe is like the class
 
 \textsc{Solution}: See Jeffrey Weeks' article in \emph{The American Mathematical Monthly} in 2001.\autocite{weeks:twin:doi:10.1080/00029890.2001.11919789} I am surprised that it took until 2001 for someone to have written up a solution to this problem---no doubt this was influenced by the resurrection of extra dimensions in 1998 as a potential solution to problems in particle physics. Because the resolution appeared in a professional journal analogous to our \emph{American Journal of Physics}, not many physicists seem to have known about this resolution and there were several papers after 2001 that re-discovered the same result.
 \end{exercise}
+
+It is a common refrain that acceleration cannot be accounted for in special relativity. This is formally incorrect. Like the treatment of acceleration in Newtonian mechanics, it is a bit more difficult than the simple case with no acceleration. There is, however, a reason why one may be itchy not to dwell too much on accelerated frames in special relativity. The great leap between special and general relativity comes from the realization that an accelerated observer feels forces that are identical to those of gravity. It is a much smaller leap to the identify these two ideas. We leave that for a proper exploration of general relativity.\sidenote{As a particle physicist, I would be remiss if I did not further remark that all other fundamental forces can similarly be endowed with a geometric interpretation. This geometric picture called \emph{gauge theory} is at the heart of active research in fundamental physics.}
 
 
 
@@ -4934,12 +5024,62 @@ Because these are all parities---in the sense that $C^2 = P^2 = T^2 = \mathbbm{1
 
 \chapter{Linear Transformations}
 
+In this chapter we focus on linear transformations in metric spaces. Recall that the term \emph{linear transformation} means a linear function that takes in one type of object and returns the same type of object. The linearity means that a linear combination of inputs returns a linear combination of outputs. In this course, we reserve the word \textbf{matrix}\index{linear transformation} to mean a linear transformation. We observed that a matrix $M\aij{i}{j}\ket{e_i}\!\bra{e_j}$ can equivalently take in a vector or a row vector and output an object of the same class. 
+
+
 \section{The hierarchy of transformations}
+
+There is something odd that I do when I think about mathematical objects. I impose upon these objects some subjective feeling of niceness or not-niceness. Nice matrices are easy to use. The nicest matrices are easy to undo. Matrices that are not nice may be complicated---perhaps they are a complicated manifestation of something which is supposed to be simple. Another not-nice feature is if a matrix is not invertible: once you apply it, the object on which you have applied it has lost information. The worst matrices do not fall into these categories. There is one step below `worst': matrices that are not even matrices by our definition, for example linear maps that do not return vectors in the same vector space as the input.\sidenote{There are even worse (worser?) ``matrices'' like the $N\times (N+1)$ objects you write down to do weird shit like ``reduced row echelon form'' in a traditional linear algebra class. That's just solving a system of linear equations---that's just algebra, it is not even \emph{linear algebra}.}
+
+The following hierarchy of matrices is not official. It is not found in any textbook of mathematics or physics. In fact, I would vehemently deny that I even taught this to you.\sidenote{This reminds me of the advice my Ph.D advisor gave me when I asked what I should do if my first seminar talk does not go well. He told me, ``If it goes \emph{really} poorly, then lie about who your advisor is.''} However, it does help me categorize the types of matrices that \emph{do} show up in physics and how to think about them.\sidenote{You may compare this to what psychologist refer to as Maslow's hierarchy of needs.}
+
+\begin{enumerate}
+    \item The top-of-the line, S-rank, nicest matrices are multiples of the identity. These are just numbers: not only are they defined by a single proportionality constant, but they add and multiply as if they are just numbers. Unfortunately, these matrices are \emph{too} nice: all they do is rescale the vector or dual vector that they act on. That is a little boring, even for us.
+    \item The A-class matrices are diagonal in the basis you are currently using. We also assume that each of the diagonal elements are non-zero.\sidenote{We say the matrix is \emph{non-degenerate}.} In this basis, the matrix acts by rescaling each component of a vector or row vector. Each component is stretched or shrunk independently: that means that the resulting vector could look rather different. Most of the time we specialize to the case where the diagonal elements are positive.
+    \item At \emph{almost} the same level as the diagonal matrices are matrices that are \emph{diagonalizable} and, when diagonalized, have no zero elements along the diagonal. The verb `to diagonalize' means that there is some \emph{isometry} (rotation) where we may change basis and the components of $A$ would be diagonal. Most of our active transformations in physics---the ones where we ``do something''---take this form. Because diagonal matrices are so nice, it then behooves us to take these matrices and rotate into the proper basis where they are diagonal.\sidenote{This is called the eigenbasis or basis of eigenvectors. The word `eigen' means `proper' in German. At least I think that's what it means. The diagonal components of the matrix in the eigenbasis are called eigenvalues.}
+    \item Now I pause to (re-)define a different class of matrices, \textbf{isometries}. Isometries are transformations that preserve the form of the metric. In some sense, they should not even be on this list since they are most naturally understood as \emph{passive} transformations---see Section~\ref{sec:active:passive}. They are a special class because we use these isometries to go into a basis where matrices are diagonal.\sidenote{In my brain diagonalizing matrices is ``doing [the] eigenstuff.''}
+    \item There are matrices that are not so `nice' are often meaningful and useful. These are called \textbf{projections}. These are matrices that are not invertible because they remove information from the vectors that they act on. A good example is a diagonal matrix with at least one zero diagonal component. When that matrix acts on a vector, the information of that component is completely lost---there is no way to recover it based on the output vector. 
+    \item The last useful type of matrix are those that are none of the above but are otherwise $N\times N$ matrices that take vectors from one vector space and return vectors in the same vector space. These may be random $N\times N$ matrices, for example. We neither expect them to be diagonalizable by a rotation nor are they obviously meaningful as projections. These matrices may still be diagonalized, but usually the transformation to do this is not a simple isometry. Further, the diagonal matrices may not necessarily be positive upon diagonalization.
+    \item All other matrices---for example, $N\times M$ matries with $M\neq N$---are just completely off the table. 
+\end{enumerate}
+
+\begin{example}[Active versus passive] In a passive transformation, tensors do not transform. Instead, we are simply changing our basis---physically, we are changing our reference frame. For such a transformation, the components of a tensor change because the basis vectors change, even if the tensor itself remains the same. 
+
+In an active transformation, the components of a tensor change but the basis remains the same. This corresponds to actually changing the tensor and not changing the observer.
+\end{example}
+
+\begin{exercise}
+Draw a vector---any vector---in $\mathbbm{R}^2$. Act on this vector with the matrix, whose components we write with respect to the standard basis:
+\begin{align}
+    A = \begin{pmatrix}
+        A\aij{1}{1} & A\aij{1}{2}\\
+        A\aij{2}{1} & A\aij{2}{2}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        3 & 0\\
+        0 & \frac{1}{2}
+    \end{pmatrix} \ .
+\end{align}
+Draw the resulting vector. Do the same for the case with the same matrix except that $A\aij{1}{1} = -3$.
+\end{exercise}
+
+
+% Identity
+% Diagonal
+% Rotated from the diagonal: symmetric
+% Projections
+% All others
+% not included: $N\times M$
 
 \section{Action on basis vectors}
 
 \section{Isometries}
 \label{sec:isometries}
+
+% active vs passive: 
+% passive acts on basis, so components compensate
+% active leaves basis, but changes components, actual change
 
 \section{Projections}
 
@@ -4959,6 +5099,561 @@ Yes, \emph{this} is the transpose!
 
 \chapter{Quantum Mechanics}
 
+\chapter{Petit Fourier}
+
+\section{Asymmetric Interval}
+\flip{Here we get the usual sine series that's simpler. Implicitly we have projected out the cosine with boundary conditions. In what follows we are not projecting out any states. It's worth going through this as the simpler case, even though the boundary condition is a bit of a red herring.}
+
+\section{Trigonometric Orthogonality}
+
+In this chapter $n$ and $m$ are understood to be integers.
+
+\subsection{Averaging over a period}
+
+Let us start with a simple statement. The average of sine or cosine over an entire period vanishes:\sidenote{This is an example of what Tony Zee would call ``more obvious than obvious.''}
+\begin{align}
+    \frac{1}{2\pi}
+    \int_{-\pi}^\pi d\theta\, \sin n\theta 
+    &= 0
+    \\
+    \frac{1}{2\pi}
+    \int_{-\pi}^\pi d\theta\, \cos n\theta 
+    &= 0
+    \ .
+\end{align}
+
+
+The average over the \emph{square} of the trigonometric functions is one half:
+\begin{align}
+    \frac{1}{2\pi}
+    \int_{-\pi}^\pi d\theta\, \sin^2 n\theta 
+    &= \frac{1}{2}
+    \\
+    \frac{1}{2\pi}
+    \int_{-\pi}^\pi d\theta\, \cos^2 n\theta 
+    &= \frac{1}{2} \ .
+\end{align}
+As a sanity check, you may observe that this is consistent with $\sin^2 \theta + \cos^2\theta = 1$.\sidenote{In fact, you can derive the average of the squares of trigonometric functions using $\sin^2\theta + \cos^2\theta = 1$. There is no math to do, just argue that over an entire period the sines and cosines are essentially the same function and so should have the same average.}
+The average over the sine times the cosine vanishes:
+\begin{align}
+    \frac{1}{2\pi}
+    \int_{-\pi}^\pi d\theta\, \sin n\theta \, \cos^2 m\theta 
+    &= 0 \ .
+    \label{eq:fourier:trig:cos:sin}
+\end{align}
+\sidenotetext{When I say `prove' you can read this as ``make a convincing case to a physicist.''}
+\begin{exercise}
+Prove\sidenotemark \eqref{eq:fourier:trig:cos:sin} for any integers $n$ and $m$ \textsc{Hint}: draw a picture of the sine and cosine functions for small values of $n$ and $m$. In fact, you may want to start with $m=0$ and $n=1,2,3$. Argue that every positive contribution in the integral is canceled by an equal negative contribution. Then see what happens when $m=1$. After some thought (and plotting if needed), convince yourself that the fact that sine is odd and cosine is even guaranteees that the integral over an entire period \eqref{eq:fourier:trig:cos:sin} vanishes.
+\end{exercise}
+The average over two of the same trigonometric function but with different integers scaling the argument also vanishes:
+\begin{align}
+    \frac{1}{2\pi}
+    \int_{-\pi}^\pi d\theta\, \sin n\theta \,\sin m\theta 
+    &= 0
+    &
+    \text{if }n\neq m&
+    \\
+    \frac{1}{2\pi}
+    \int_{-\pi}^\pi d\theta\, \cos n\theta \,\cos m\theta 
+    &= 0 
+    &
+    \text{if }n\neq m&
+    \ .
+\end{align}
+These relations look remarkably like orthogonality conditions. 
+\begin{exercise}
+Prove these `orthogonality' relations. \textsc{Hint}: like the previous exercise, it helps to plot $\sin n\theta$ and $\sin m\theta$ on the same graph for some choice of $n\neq m$. Check that every region where the product takes some value is paired with another region where the product is negative that value.
+\end{exercise}
+
+\subsection{An orthogonal set of functions}
+
+Let $f(\theta)$ be a function over the circle. This simply means that $f(\theta)$ is periodic with $f(\theta+2\pi) \equiv f(\theta)$. The crux of \textbf{Fourier series}\index{Fourier series} is that we may write this function as
+\begin{align}
+    f(\theta) = \frac{1}{2}a_0
+    + \sum_{n=1}^\infty a_n \cos n\theta
+    + \sum_{m=1}^\infty b_m \sin m\theta \ .
+    \label{eq:fourier:series:sine:cos}
+\end{align}
+We justify the convenient factor of half on the $a_0$ below. It is clear that each term in the above infinite sum is period and therefore the function is periodic.
+\begin{exercise}[Completeness?] 
+At this point you should wonder if \emph{any} periodic function $f(\theta)$ may be written in the above form. Alternatively, is there a unique map between periodic functions and the coefficients $a_{0,n}$ and $b_m$ for $n,m>0$? 
+
+If you are mathematically inclined, you may prove the uniqueness this in some fancy way. As a physicist, convince yourself that you can clearly \emph{approximate} the behavior of any nice periodic function with a small number of coefficients with $n$ and $m$ close to zero. Make plots if you are uncertain. There's physical intuition here: the values of $n$ and $m$ correspond to wave numbers, or \emph{momenta}. What you observe here is that low wave numbers (small momenta) corresponds to large wavelengths, or long-distance features. This inverse relationship between momentum and distance is the crux of Heisenberg's uncertainty principle. It is also the reason why high-energy colliders are used to probe subatomic length scales.
+\end{exercise}
+
+Given a periodic function $f(\theta)$, how do you determine the \textbf{Fourier coefficients}\index{Fourier coefficient} $a_{0,n}$, $b_m$? We may simply use the orthogonality relations between the trigonometric functions:
+\begin{align}
+    a_n &= \frac{1}{\pi}\int_{-\pi}^\pi
+    \D{\theta}\, f(\theta) \cos(n\theta) & n&\geq 0
+    \\
+    b_m &= \frac{1}{\pi}\int_{-\pi}^\pi
+    \D{\theta}\, f(\theta) \sin(m\theta) 
+    & m&> 0
+    \ .
+\end{align}
+\begin{exercise}
+Prove these relations using the orthogonality relations in the previous subsection. You should not have to do any calculations other than a \emph{trivail} bit of algebra to confirm the factors of $\pi$ in the normalization. Note this justifies the factor of half on the $a_0$ coefficient: it is a convenient way write the constant term in terms of an overlap integral with $\cos n\theta$ for $n=0$.
+\end{exercise}
+\begin{exercise}
+Why is there no $m=0$ term? 
+\end{exercise}
+
+\subsubsection{Complex basis}
+Trigonometric functions become easy when we write them in terms of complex exponentials:
+\begin{align}
+    e^{i\theta} = \cos\theta + i \sin\theta \ .
+\end{align}
+Inverting this gives
+\begin{align}
+    \cos\theta &= \frac{e^{i\theta} + e^{-i\theta}}{2}
+    \\
+    \sin\theta &= \frac{e^{i\theta} - e^{-i\theta}}{2i} 
+    \ .
+\end{align}
+By plugging these into the trigonometric Fourier expansion \eqref{eq:fourier:series:sine:cos} we see that we may equivalently write any real periodic function $f(\theta)$ as
+\begin{align}
+    f(\theta) &= \sum_{n=-\infty}^\infty
+    c_n e^{in\theta} \ ,
+    \label{eq:fourier:complex:series}
+\end{align}
+where we observe that the integer index $n$ now takes on both positive and negative (and zero) values. 
+\begin{exercise}
+Express the coefficients $c_n$ in terms of the coefficients $a_n$ and $b_n$ in  \eqref{eq:fourier:series:sine:cos}.
+\end{exercise}
+
+It is easy to see the orthogonality of the complex exponentials. For any integer $k\neq 0$, we see that
+\begin{align}
+    \int_{-\pi}^\pi \D{\theta} \, e^{ik\theta}
+    = \frac{1}{ik}
+    \left(e^{ik\pi} - e^{-ik\pi}\right) = 0 \ .
+\end{align}
+\begin{exercise}
+Prove the above relation. One way to do this is to note that $e^{ik\pi} = e^{-ik\pi}$  for integer $k$, which you can see by plotting these points on the complex plane. Alternatively, one may write $e^{\pm i k\pi}$ in terms of cosine and sine functions and remember that $\cos(-\theta) = \cos \theta$ while $\sin(-\theta) = -\sin\theta$.
+\end{exercise}
+When $k=0$ the integrand is simply one and evaluates to $2\pi$. We thus have:
+\begin{align}
+    \int_{-\pi}^\pi \D{\theta} \, e^{ik\theta}
+    = 
+    \begin{cases}
+    2\pi &\text{if } k=0\\
+    0 &\text{otherwise}
+    \end{cases}
+    \ .
+\end{align}
+This factor of $2\pi$ originates from the ``average over a period'' nature of what we are doing. It also happens to be the factor of $2\pi$ that causes the most grief when trying to compare between different Fourier conventions, see Figure~\ref{fig:2pi:shell:game}.
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/2piShellGame.jpg}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{How it feels keeping track of the $2\pi$ factors when comparing different Fourier conventions. Image adapted from \url{https://imgflip.com/i/8o9ed0}.}
+    \label{fig:2pi:shell:game}
+\end{marginfigure}
+\begin{exercise}
+Using the orthogonality of the complex exponentials, show that the coefficients $c_n$ in \eqref{eq:fourier:complex:series} are
+\begin{align}
+    c_n = \frac{1}{2\pi}\int_{-\pi}^\pi \D{\theta}\, f(\theta)\, e^{-in\theta} \ .
+\end{align}
+There's that famous factor of $2\pi$. Do not lose track of it.
+\end{exercise}
+
+Let us write this relationship explicitly in the form of an orthonormality relation:
+\begin{align}
+    \frac{1}{2\pi}
+    \int_{-\pi}^\pi \D{\theta} \,
+    % \frac
+    {e^{in\theta}}
+    % {\sqrt{2\pi}}
+    % \frac
+    {e^{-im\theta}}
+    % {\sqrt{2\pi}}
+    = 
+    \begin{cases}
+    1 &\text{if } n=m\\
+    0 &\text{otherwise}
+    \end{cases}
+    \ .
+\end{align}
+\begin{example}[Freedom to choose bras and kets]
+The expression above is indeed an orthonormality condition. The most natural assumption would be to define basis functions and dual functions
+\begin{align}
+    \ket{e_n} &\defeq \frac{e^{in\theta}}{\sqrt{2\pi}}
+    &
+    \bra{e_m} &\defeq 
+    \int_{-\pi}^\pi \D{\theta} \, 
+    \frac{e^{-in\theta}}{\sqrt{2\pi}}
+    \Vtextvisiblespace[1em]{} \,
+\end{align}
+so that
+\begin{align}
+    \la e_m, e_n \ra 
+    =
+    \frac{1}{2\pi}
+    \int_{-\pi}^\pi \D{\theta} \,
+    % \frac
+    {e^{in\theta}}
+    % {\sqrt{2\pi}}
+    % \frac
+    {e^{-im\theta}}
+    % {\sqrt{2\pi}}
+     \ .
+     \label{eq:complex:trig:function:inner:prod:even}
+\end{align}
+However, one could similarly define
+\begin{align}
+    \ket{e_n} &\defeq {e^{in\theta}}\ ,
+\end{align} 
+and posit that the $(2\pi)\inv$ in \eqref{eq:complex:trig:function:inner:prod:even} is part of the definition of the inner product. In this case the bra $\bra{e^m}$ has a funny asymmetric factor of $(2\pi)\inv$,
+\begin{align}
+    \bra{e^n} &\defeq \la e_n(\theta), \Vtextvisiblespace[1em]{} \ra 
+    =
+    \int_{-\pi}^\pi \D{\theta} \,
+     \frac
+    {e^{-in\theta}}
+     {{2\pi}}
+     \Vtextvisiblespace[1em]{} \,
+    \ .
+\end{align}
+Here the empty space $\Vtextvisiblespace[1em]{}$ is meant to be a slot where you insert the vector (function) that the bra acts upon. From an aesthetic perspective, is is somewhat surprising that the typical convention in physics is to use the asymmetric convention.
+\end{example}
+
+
+
+\section{From period to interval}
+
+The variable $\theta \in [-\pi, \pi]$ might obscure our ultimate goal of representing functions over position. Let us replace the angular variable $\theta$ with a position variable over a range of distance $L$ centered around the origin, $x \in [-{L}/{2},L/2]$,
+\begin{align}
+    \theta = \alpha \frac{x}{L} = \frac{2\pi x}{L} \ .
+\end{align}
+The factor of $L$ denominator is necessary from dimensional analysis.\sidenote{$x$ has units of length whereas $\theta$ does not. Thus $\theta$ must be a ratio of $x$ to some other length.} The value of $\alpha = 2\pi$ is what is needed to map the interval $[-L/2,L/2]$ to the period $[-\pi,\pi]$. To avoid confusions about factors of $2\pi$, we leave it packaged as $\alpha$ for now. 
+
+With these identifications, we now know that a real {function} $f(x)$ defined\sidenote{We are committing a small notational sin here. Technically we should call this a different function, $g(x) \equiv f(\alpha x/L)$. However, I hope it is clear that $f(x)$ differs from $f(\theta)$ by the rescaling of the argument.} over the interval $x\in[-L/2,L/2]$ may be written as
+\begin{align}
+    f(x) &= \sum_{n=-\infty}^\infty c_n e^{i\alpha n x/L} \ ,
+    \label{eq:fourier:interval:complex}
+\end{align}
+where the Fourier coefficients are
+\begin{align}
+    c_n &= \frac{\alpha}{2\pi L} \int_{-\pi L/\alpha}^{\pi L/\alpha} \D{x}\; f(x)\, e^{-i\alpha n x/L} \ .
+    \label{eq:fourier:interval:complex:coefficient}
+\end{align}
+One may insert $\alpha = 2\pi$ to simplify this, but for now we leave this factor separate to keep track of all of the $2\pi$ factors. The explicit factor of $(2\pi)\inv$ above is still the average over a period.
+
+
+\begin{exercise}
+Please appreciate that we are `unwinding' the circle here. The function $f(x)$ is formally defined over $x\in[-L/2,L/2]$, the region that we mapped to the circle. However, we can extend the definition to all of $x\in \mathbbm{R}$ if we assume that the real line just keeps winding around the circle. In this way, $f(x)$ with $x\in \mathbbm{R}$ is a periodic function that repeats itself with period $L$: $f(x) = f(x+L)$.
+\end{exercise}
+
+\noindent
+The orthogonality condition over the ``physical'' (non-repeated) domain is 
+\begin{align}
+    \frac{\alpha}{2\pi L} \int_{-\pi L/\alpha}^{\pi L/\alpha} \D{x}\;
+    e^{i\alpha n x/L}
+    e^{-i\alpha m x/L}
+    =
+    \begin{cases}
+    1 &\text{if } n=m\\
+    0 &\text{otherwise} 
+    \end{cases}
+    \ .
+\end{align}
+
+
+\begin{exercise}[A silly sign convention]\label{ex:Fourier:using:Peskin:exponential:sign:convention}
+Show that an alternative, equally valid definition of the Fourier series in \eqref{eq:fourier:interval:complex} is
+\begin{align}
+    f(x) = \sum_{n=-\infty}^\infty \tilde c_n e^{-i\alpha n x/L} \ .
+    \label{eq:fourier:series:Peskin:convention}
+\end{align}
+This differs from \eqref{eq:fourier:interval:complex} by a minus sign in the argument of the exponential: $e^{i\alpha nx/L} \to e^{-i\alpha nx/L}$. The coefficients of this alternate Fourier series $\tilde c_n$ are different from those of the original series, $c_n$. However, this relationship is simple. Derive how $\tilde c_n$ and $c_n$ are related.
+
+\textsc{Answer}: $\tilde c_n = c_{-n}$. The Fourier convention \eqref{eq:fourier:series:Peskin:convention} is what I use---it is what is standard in graduate textbooks in my field. This somewhat unusual minus sign can cause some head scratching if you are not aware of the alternative choices for how one may define the Fourier series.
+\end{exercise}
+
+
+\begin{example}[A silly prefactor convention.]\label{ex:Fourier:prefactor:convention}
+There is nothing holy about writing the terms in \eqref{eq:fourier:interval:complex} as a coefficient times an exponential. Perhaps you would like to rescale the coefficient and compensate by rescaling the exponential? The following is an equivalent Fourier series:
+\begin{align}
+    f(x) = \sum_{n=-\infty}^\infty 
+    \frac{c_n}{A} \, \left[A e^{i\alpha n x/L} \right] \ .
+\end{align}
+This is \emph{obviously} equivalent since the factors of $A$ simply cancel out and reproduce \eqref{eq:fourier:interval:complex}. What we demonstrate is that there is an arbitrary separation of prefactors between what we call the `basis functions' and the `coefficients.'\sidenotemark  In principle the rescaling factor $A$ could even be $n$-dependent. 
+\end{example}\sidenotetext{You should worry that rescaling the basis functions spoils orthonormality. The trick here is that one must also redefine the definition of the inner product appropriately.}
+
+
+\section{From integral to real line}
+The discussion above gave a nice way of describing \emph{any} function over the interval $[-L/2, L/2]$ subject to the condition that $f(-L/2) = f(L/2)$. This condition is the periodic boundary condition coming from the original circle on which the function was understood to be defined.\sidenote{What is happening here is that the ``original'' space on which $f(\theta)$ is defined is a circle, $S^1$. This space is closed and has a periodic boundary condition.} We then said that we could extend the range of $x$ if we interpret this as continuing around the circle. When $L$ is very large, the periodic interval becomes so large that we find a representation of all functions on the interval $x\in (\infty, \infty)$. 
+
+It behooves us to be a bit careful taking continuum limits, so let is take this limit carefully. In the sum over $n$ in \eqref{eq:fourier:interval:complex}, let us insert a \emph{trivial} factor of $\Delta n = 1$:
+\begin{align}
+    f(x) &= \sum_{n=-\infty}^\infty \Delta n\, c_n e^{i\alpha n x/L} \ .
+    \label{eq:toward:fourier:transform:discrete:sum}
+\end{align}
+This factor is \emph{obviously} there and you can think of it as treating the right-hand side as a sum over a distribution.\sidenote{Think of a historgram. Each bin has a height that is proportional to some count. If you want the total number of counts in some interval, you are not actually summing all of the heights of the bin: you are summing the heights \emph{times their bin width}. Admittedly, often the bin width is one unit---but when the statistics are low, for example, you may want to have larger bins.} 
+
+Now we want to take the $L\to \infty$ limit. If we do this na\"ively, it looks like the argument of the exponential immediately goes to zero. We realize, however, that we are being too quick: because the limits of the $n$ sum also go to $\pm \infty$, the product $nx$ for any $x\neq 0$ also goes to $\infty$. So it is better to think about ratios of quantities that each can go to $\pm\infty$. However, we want to keep the $x$-dependence explicit since the left-hand side is a function of $x$. This motivates us to define a variable with dimension of inverse length,
+\begin{align}
+    p \defeq \frac{\alpha n}{L} = \frac{2\pi n}{L} \in (-\infty,\infty) \ .
+\end{align}
+We deliberately label this with a character typically known to be \emph{momentum}, though formally this is a \emph{wave number}\index{wave number}.\sidenote{In natural units momenta and lengths have opposite dimension.} Most importantly, because $L\to\infty$, the ratio $n/L$ takes on any continuous value in $\mathbbm{R}$. We further identify 
+\begin{align}
+    \Delta p = \frac{\alpha \Delta n}{L} = 2\pi\frac{\Delta n}{L} \ .
+\end{align}
+In the $L\to\infty$ limit, this $\Delta p$ becomes infinitesimally small and we may write this as $\D{p}$. We thus find the continuum limit of the sum,
+\begin{align}
+    \sum_{n=-\infty}^\infty \Delta n &=
+    \frac{L}{2\alpha} \int_{-\infty}^\infty \D{p} \ .
+    \label{eq:toward:fourier:transform:sum:to:int}
+\end{align}
+
+
+The explicit factor of $L$ is a bit concerning since we know $L\to\infty$. However, we see that there is a compensating factor in $c_n$ in \eqref{eq:fourier:interval:complex:coefficient}. We proceed to write this Fourier coefficient as a function of the continuous variable $p$,
+\begin{align}
+    c_n \to c(p)
+     &= \frac{\alpha}{2\pi L} \int_{-\infty}^{\infty} \D{x}\; f(x)\, e^{-ip x} 
+     \equiv 
+     \frac{\alpha}{2\pi L} \tilde{f}(p)
+     \ .
+    \label{eq:toward:fourier:transform:cn:to:cp}
+\end{align}
+In the last line we define the \textbf{Fourier transform}\index{Fourier transform} $\tilde{f}(p)$ of $f(x)$. 
+
+A quick sanity check is in order. In both \eqref{eq:toward:fourier:transform:sum:to:int} and \eqref{eq:toward:fourier:transform:cn:to:cp} we have separately written the factor of $(2\pi)\inv$ coming from the original ``average over a period'' and the factor of $\alpha$ which came from mapping the period to a particular interval.\sidenote{$\alpha$ happens to equal $2\pi$.} What is significant is that in the Fourier representation of a function $f(x)$ defined over the entire real line, the factors of $\alpha$ cancel, but the ``average over a period'' does not. Plugging into \eqref{eq:toward:fourier:transform:discrete:sum} gives:
+\begin{align}
+    f(x) = \int_{-\infty}^\infty \frac{\D{p}}{2\pi}\; 
+    % \left[\int_{-\infty}^\infty\D{x'}\, f(x') e^{-ipx'}\right] 
+    \tilde f(p)\,
+    e^{ipx} 
+    \equiv 
+    \int_{-\infty}^\infty \Dbar{p}\; 
+    \tilde f(p)\,
+    e^{ipx} 
+    \ ,
+\end{align}
+where on the right-hand side we have defined the convenient notation\sidenote{I am surprised that this notation is not more standard.} $\Dbar{p} \equiv (2\pi)\inv \D{p}$. \eqref{eq:fourier:transform:convention} is called the \textbf{Fourier transform}\index{Fourier transform}. The definition of $\tilde f(p)$ is related to $f(x)$ by the \textbf{inverse Fourier transform}, \eqref{eq:toward:fourier:transform:cn:to:cp},
+\begin{align}
+    \tilde f(p) = 
+    \int_{-\infty}^\infty \D{x}\, f(x)\, e^{-ipx} 
+    \ .
+\end{align}
+
+
+\begin{newrule}[Fourier transform and its inverse]\label{rule:Fourier:transform:standard}
+A function $f(x)$ of positions $x\in \mathbbm{R}$ may be equivalently encoded in a basis of plane waves and described by a function over momenta $p\in \mathbbm{R}$ as follows:
+\begin{align}
+    f(x) &= 
+    \int_{-\infty}^\infty \Dbar{p}\; 
+    \tilde f(p)\,
+    e^{ipx} 
+    \label{eq:fourier:transform:convention}
+\\
+    \tilde f(p) &= 
+    \int_{-\infty}^\infty \D{x}\, f(x)\, e^{-ipx} 
+    \ .
+    \label{eq:fourier:inverse:transform:convention}
+\end{align}
+By dimensional analysis, the units of $p$ and $x$ are inverses of one another. In this notation, $\Dbar{p}\defeq \D{p}/2\pi$.
+\end{newrule}
+
+\section{Fourier Conventions}
+
+% The Fourier transform \eqref{eq:fourier:transform:convention} and its inverse \eqref{eq:fourier:inverse:transform:convention}
+
+The Fourier transform Rule~\ref{rule:Fourier:transform:standard} gives the momentum and position space representations of a function. However, there are signs and factors of $2\pi$ that can get shuffled around in different conventions, Figure~\ref{fig:2pi:shell:game}. One of the most annoying challenges in your physics life will be keeping track of signs and $2\pi$s across different conventions. Let us go over two such choices. These correspond to Exercise~\ref{ex:Fourier:using:Peskin:exponential:sign:convention} and Example~\ref{ex:Fourier:prefactor:convention}.\sidenote{Please review these before moving on.}
+
+First, following Exercise~\ref{ex:Fourier:using:Peskin:exponential:sign:convention}, we observe that we may flip the sign of the momentum $p$ in the exponential:
+\begin{align}
+    f(x) &= 
+    \int_{-\infty}^\infty \Dbar{p}\; 
+    \tilde f(p)\,
+    e^{-ipx} 
+    \label{eq:fourier:transform:convention:sign}
+\\
+    \tilde f(p) &= 
+    \int_{-\infty}^\infty \D{x}\, f(x)\, e^{+ipx} 
+    \ .
+    \label{eq:fourier:inverse:transform:convention:sign}
+\end{align}
+The coefficients $\tilde f(p)$ in this convention are numerically equivalent to the coefficients $\tilde f(-p)$ in the Rule~\ref{rule:Fourier:transform:standard} convention.
+
+\begin{newrule}[Fourier conventions in this class]\label{rule:Fourier:transform:Flip}
+While the derivation of the Fourier transform conventions in Rule~\ref{rule:Fourier:transform:standard} follow straightforwardly from our very reasonable discussion of the Fourier series, in \emph{this class} and in all of \emph{my work} I use the flipped-sign convention in \eqref{eq:fourier:transform:convention:sign} and\eqref{eq:fourier:inverse:transform:convention:sign} that is standard in particle physics.\sidenotemark 
+\end{newrule}\sidenotetext{``\emph{My class, my rules.}''}
+
+Secondly, one notices an asymmetry in the Fourier transform and its inverse: one has a factor of $(2\pi)\inv$ and the other does not.\sidenote{If you are a stickler for symmetry this probably really bothers you. I suspect this is another place where mathematicians are baffled why we would use such an odd notation.} You may even accuse me of trying to hide that factor of $2\pi$ by defining the $\Dbar{p}=\D{p}/(2\pi)$ notation. We emphasize that the existence of this $(2\pi)\inv$ is absolutely mathematically significant: it came from the fact that we have been averaging over an entire period. You might wonder if there is a way to more democratically distribute the $2\pi$ between $f(x)$ and $\tilde f(p)$. The answer is yes, as evidenced in Example~\ref{ex:Fourier:prefactor:convention}. We simply redefine $\tilde f(p)$ to absorb a $(2\pi)^{-1/2}$:
+\begin{align}
+    f(x) &= 
+    \int_{-\infty}^\infty \frac{\D{p}}{\sqrt{2\pi}}\; 
+    \tilde f(p)\,
+    e^{ipx} 
+    \label{eq:fourier:transform:convention:even:pi}
+\\
+    \tilde f(p) &= 
+    \int_{-\infty}^\infty \frac{\D{x}}{\sqrt{2\pi}}\; 
+    f(x)\, e^{-ipx} 
+    \ .
+    \label{eq:fourier:inverse:transform:convention:even:pi}
+\end{align}
+This notation is certainly more symmetric and perhaps easier to remember. However, physicists tend to use the asymmetric version where the $(2\pi)$ stays in one place.
+\begin{example}
+Why do physicists like this asymmetric notation? I suspect it connects to the way we teach angular frequency in introductory physics. At some point, most freshman physics students get a headache trying to figure out why there is both frequency and angular frequency: the two are related by a factor of $2\pi$. Well, my friend, \emph{this} is precisely that same factor of $2\pi$. It is the same $2\pi$ when we define \emph{wave number}. These factors of $2\pi$ show up in the volume of phase space in statistical mechanics and in quantum scattering. While it is ultimately a convention where we place them---the physical results are invariant---many of the physical quantities we care about in either position or momentum space have a straightforward interpretation with the $2\pi$ in `one place.'
+\end{example}
+
+\section{\texorpdfstring{Rediscovering $\delta$}{Rediscovering delta}}
+
+There is a consistency condition for whatever conventions you use for the Fourier transform: if you do the Fourier transform and then the inverse Fourier transform, then you had better return to the original function. Let us see this in action using the Fourier conventions in Rule~\ref{rule:Fourier:transform:Flip}. We start by expressing $f(x)$ in terms of its Fourier modes $\tilde f(p)$, \eqref{eq:fourier:transform:convention:sign}
+\begin{align}
+    f(x) &= 
+    \int_{-\infty}^\infty \Dbar{p}\; 
+    \tilde f(p)\,
+    e^{-ipx} 
+    \ .
+\end{align}
+Next, insert the expression for $\tilde f(p)$ in terms of the original function \eqref{eq:fourier:inverse:transform:convention:sign},
+\begin{align}
+f(x) &= 
+    \int_{-\infty}^\infty \Dbar{p}\; 
+    % \tilde f(p)\,
+    \left[
+     \int_{-\infty}^\infty \D{y}\, f(y)\, e^{ipy} 
+    \right]
+    e^{-ipx} 
+    \\
+    &=
+    \int_{-\infty}^\infty \D{y}\; f(y)
+    \int_{-\infty}^\infty \Dbar{p}\, \, e^{-ip(x-y)} 
+    \ ,
+    \label{eq:fourier:transform:delta:function:int1}
+\end{align}
+where we had to use a different dummy\sidenote{We say `dummy variable' in the sense of a dummy index. The expression itself has no actual $y$ dependence because the dummy variable $y$ is integrated over.} position variable $y$ so as to not confuse it with the not-dummy variable $x$. 
+
+Take a good look at \eqref{eq:fourier:transform:delta:function:int1}. The $\Dbar{p}$ integral evaluates to some function\sidenote{Technically a \emph{distribution}.} over $y$ that, when integrated with $\D{y}\, f(y)$, produces $f(x)$. There is a function that does this: the Dirac $\delta$-function. We have found the Fourier representation of the $\delta$ function:
+\begin{align}
+    \delta(x-y) = \int \Dbar{p}\, e^{-ip(x-y)} \ .
+    \label{eq:fourier:representation:of:Dirac:delta}
+\end{align}
+Do not forget that $\Dbar{p} = \D{p}/(2\pi)$.
+
+\begin{exercise}
+Show that the manipulations in this section give the same result, \eqref{eq:fourier:representation:of:Dirac:delta}, even if we were using the Rule~\ref{rule:Fourier:transform:standard} Fourier conventions. Show the same for the `democratic' Fourier convention in \eqref{eq:fourier:transform:convention:even:pi} and \eqref{eq:fourier:inverse:transform:convention:even:pi}.
+
+You should appreciate that the $(2\pi)$ is \emph{really there} and not some convention-dependent artifact. Comment on the sign of the argument of $\delta(x)$---does it matter? Does the sign of $p$ in the exponential of \eqref{eq:fourier:representation:of:Dirac:delta} matter?
+\end{exercise}
+
+\begin{exercise}
+Show in one line that \eqref{eq:fourier:representation:of:Dirac:delta} is equivalent to
+\begin{align}
+    \delta(x) = \int_{-\infty}^\infty \D{q}\; e^{2\pi i xq} \ ,
+\end{align}
+which is another common integral representation of the $\delta$-function.
+\end{exercise}
+
+\section{Momentum Space}
+
+What does the Fourier transform buy us? 
+
+We 
+
+Exercise~\ref{ex:Fourier:using:Peskin:exponential:sign:convention}... with minus sign convention ***
+
+
+
+
+
+
+\begin{subappendices}
+\section{A general Fourier transform}
+
+There are two choices one can make when defining a Fourier transform convention\footnote{This appendix draws from an excellent discussion at \url{https://physics.stackexchange.com/a/308248}}; we parameterize these choices by real numbers $a$ and $b$. The Fourier transform $\tilde f(\omega)$ of a function $f(t)$ is
+\begin{align}
+  \tilde f(\omega)
+  &= 
+  \sqrt{\frac{|b|}{(2\pi)^{1-a}}}
+  \int_{-\infty}^\infty \D{t}\, e^{ib\omega t} f(t) \ .
+\end{align}
+We see that $a$ tells us about the $(2\pi)$ factors and $b$ tells us about the argument of the basis function $e^{ib\omega t}$. With this basis, the inverse Fourier transform is 
+\begin{align}
+  f(t)&=
+  \sqrt{\frac{|b|}{(2\pi)^{1+a}}}
+  \int_{-\infty}^\infty \D{\omega}\, e^{-ib\omega t} f(\omega) \ .
+\end{align}
+
+One may check that the inverse Fourier transform of a Fourier transform gives the original function:
+\begin{align}
+  \tilde{\tilde f} &=
+  \frac{|b|}{2\pi}
+  \int_{-\infty}^\infty \D{\omega}\, e^{-ib\omega t}
+  \int_{-\infty}^{\infty}
+  ds\, e^{ib\omega s} f(s)
+  \\
+  &= 
+  \frac{|b|}{2\pi}
+  \int ds\, f(z) \int \D{\omega} \, e^{ib\omega(s-t)}
+  \\
+  &= \int \D{s}\, \delta(s-t) f(s) \ ,
+\end{align}
+where we have used $\int \D{\xi} \exp(2\pi i x\xi) = \delta(x)$. 
+
+\section{Our Conventions}
+
+The convention that we will choose for the \emph{time}--\emph{frequency} [inverse] Fourier transform is
+\begin{align}
+  f(t) &= \int_{-\infty}^{\infty} \Dbar\omega
+  \; e^{-i\omega t} \tilde f(\omega)
+  &
+  \Dbar\omega &\equiv\frac{d\omega}{2\pi} \ .
+\end{align}
+This corresponds to $a=b=1$. The corresponding transform for the frequency-domain function is
+\begin{align}
+  \tilde f(\omega) &= 
+  % \frac{1}{2\pi}
+  \int_{-\infty}^\infty \D{t}\, e^{i\omega t} f(t) \ .
+  \label{eq:inverse:fourier:convention}
+\end{align}
+
+\section{Higher Dimensions}
+
+All of this generalizes to higher dimensions: you simply Fourier transform each dimension. In fact, one is free to use a different Fourier transform convention for each direction. We can use this freedom to pick a convention that `automatically' fits our conventions for spacetime. In particular, given a four-vector $x=(t,\vec{x})$ and its conjugate four-momentum $p=(\omega, \vec{k})$, one may choose to Fourier transform as follows: 
+\begin{align}
+  f(x) &= \int \Dbar\omega \DDbar{3}{\vec{k}}\; 
+  e^{-i(\omega t-\vec{k}\cdot\vec{x})} \tilde f(p)
+  \ .
+\end{align}
+With this convention, the basis function is simply
+\begin{align}
+  e^{-i(\omega t-\vec{k}\cdot\vec{x})} 
+  = e^{-ip\cdot x} \ , 
+\end{align}
+where $p\cdot x$ is the usual Minkowski dot product, $p_\mu x^\mu$. This makes it clear that the basis function is Lorentz invariant. The Fourier transform would still respect the spacetime symmetries even if we had not chosen a convenient notation---it just wouldn't be as simple to see.
+
+
+
+\begin{example}
+\textbf{Statistical Mechanics.} One motivation for our Fourier convention is statistical mechanics. One formulation of classical statistical mechanics is to assume that phase space is discrete: a particle has momentum $\vec{p}$ whose components take integer multiples of some unit momentum, $h$. Assuming that the particle has $g$ internal degrees of freedom (e.g.~$g=2$ for a particle that can be spin-up or spin-down), then the density of states is $g/h^{3}$. Quite remarkably in the history of physics, the value of $h$ can be identified with Planck's constant in quantum mechanics. In natural units we take $\hbar = h/(2\pi)\equiv 1$, so the phase space density is $g/(2\pi)^3$. For a particle with a phase space distribution function $f(\vec{x},\vec{p})$, this means that the number density of particles is
+\begin{align}
+  n = g\int \DDbar{3}{\vec{p}} \, f(\vec{p}) \ .
+\end{align}
+We see that it is convenient to take a convention where every $\D{p}$ comes with a $(2\pi)^{-1}$.
+\end{example}
+
+\begin{exercise}\textbf{Lorentz-Invariant Phase Space.}
+% See also https://physics.stackexchange.com/questions/141724/why-is-there-1-2-pi-in-int-fracdp2-pip-rangle-langle-p (
+% Josh's response)
+In relativistic systems, the energy and the momenta are related by $E^2 = \vec{p}^2 + m^2$. We are, of course, using natural units where $c=1$. The phase space integral over $\dbar^3p$ is thus also an integral over the energy. In order to enforce the relativistic relation, the full phase space density is usually written as $\DDbar{4}{p}\, (2\pi)\,\delta(E^2-p^2-m^2)$. Show that integrating over the $\delta$-function gives
+\begin{align}
+  \int \DDbar{4}{p}\, \delta(E^2-p^2-m^2) &= 
+  \int \frac{\DDbar{3}{\vec{p}}}{2E(p)}
+  &
+  E(p) \equiv \sqrt{p^2 + m^2} \ .
+\end{align}
+\end{exercise}
+
+\end{subappendices}
+
+
+
+
+
+
+
 \chapter{Function Spaces}
 
 
@@ -4967,13 +5662,14 @@ Yes, \emph{this} is the transpose!
 
 \section*{Acknowledgments}
 
-\acro{PT}\ thanks the students of Physics 17 (Spring 2022, 2023, and 2024) for their feedback and patience and thanks Owen Long for his support for creating this course. He also thanks Yakov Eliashberg, from whom he first heard the phrase ``\emph{there is no such thing as a position vector}.''
+\acro{PT}\ thanks the students of Physics 17 (Spring 2022, 2023, and 2024) for their feedback and patience and thanks Owen Long for his support for creating this course and believing in it. He also thanks Yakov Eliashberg, from whom he first heard the phrase ``\emph{there is no such thing as a position vector}.''
 %
 % \acro{PT} is supported by the \acro{DOE} grant \acro{DE-SC}/0008541.
 \acro{PT} is supported by a \acro{NSF CAREER} award (\#2045333).
 
 %% Appendices
 \appendix
+
 % \chapter{Proper appendix}
 % Unlike Chapter~\ref{sec:subappendix:eg}, this is an appendix at the end of the document rather than a sub-appendix within a chapter. Check out the index that follows this chapter.
 
@@ -4985,6 +5681,16 @@ Yes, \emph{this} is the transpose!
 % \section{Levi-Civita Tensor}
 % Related to symmetry/antisymmetry?
 % cross product
+
+\chapter{Miscellaneous}
+
+\section{Unexpected linear algebra}
+
+\begin{itemize}
+    \item ``Multidimensional measurements,'' by David Stevenson in \emph{Physics Today}\autocite{10.1063/pt.ogyk.yscx}. Howard Georgi made a similar argument in the \emph{APS News} in June 2022,\footnote{\url{https://www.aps.org/publications/apsnews/202206/backpage.cfm}} which is a write up from an earlier talk at the Kavli Institute for Theoretical Physics\autocite{Georgi:2022jfv}.
+
+    \item One of the building blocks of machine learning is linear algebra. In fact, in the mid-2010s when physicists were starting to realize that deep neural networks could be a powerful tool for research,\sidenote{And, vice versa, that there was a rich physical research program to understand deep learning. See \url{https://iaifi.org}.} the way we would explain neural networks to each other would start with ``look, it really just boils down to matrix multiplication.'' To be fair, the real magic of neural networks is the deliberate \emph{nonlinearity} between what is otherwise a linear system. 
+\end{itemize}
 
 \printindex
 
