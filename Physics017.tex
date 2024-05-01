@@ -1099,7 +1099,126 @@ R=
 satisfies \eqref{eq:RTR:one}. Using this form of rotations, show that rotations in 2-dimensional Euclidean space preserve the length of vectors and the angle between vectors. \textsc{Hint}: use $\cos^2\theta + \sin^2\theta = 1$.
 \end{exercise}
 
+\begin{subappendices}
+\section{Transpose}
+The \textbf{transpose} of a matrix is what happens when you `flip all the elements along the diagonal.' Given a matrix $M$, the transpose of $M$ is $M^T$ with components
+\begin{align}
+    (M^T)\aij{i}{j} &= M\aij{j}{i} \ .
+    \label{eq:transpose:components}
+\end{align}
 
+\begin{example}
+The following two matrices are transposes of each other.
+\begin{align}
+    M &= 
+    \begin{pmatrix}
+        9 & -3 & 2 \\
+        2 & \pp 5 & 7 \\
+        1 & \pp 0 & 3
+    \end{pmatrix}
+    &
+    M^T &= 
+    \begin{pmatrix}
+        \pp 9 & 2 & 1 \\
+        -3 & 5 & 0 \\
+        \pp 2 & 7 & 3
+    \end{pmatrix}
+    \ .
+\end{align}
+\end{example}
+
+This unusual operation will turn out to be rather useful for us. I leave the following cryptic statement: the transpose of a matrix is \emph{not} its inverse, but it does have a \emph{dual} relationship to the original matrix. Once we define a metric, we will be able to give a more rigorous definition for transpose. For now, let use take \eqref{eq:transpose:components} as the definition of something we can `do' to matrices. 
+
+
+\section{Trace}
+
+The \textbf{trace} of a matrix $M$ is simply the sum of its diagonal components:
+\begin{align}
+    \Tr M = M\aij{i}{i} = M\aij{1}{1} + M\aij{2}{2} + \cdots \ .
+\end{align}
+It is not obviously meaningful from the perspective of $M$ being a linear transformation. However, it ends up being useful as as a mechanical procedure that one can do to matrices. The reason for this is something we will see soon: the trace of a matrix is unchanged under rotations. 
+
+\section{Determinant}
+
+
+Here's another seemingly strange operation that you can do on a matrix. The determinant of a $2\times 2$ matrix is defined to be
+\begin{align}
+    \det M \equiv M\aij11 M\aij12 - M\aij12 M\aij21 \ .
+\end{align}
+Weird, right? Determinants for higher-dimensional square matrices can be defined recursively by taking specific linear combinations of sub-matrices. There are silly rules for this. There are fancy words for the sub-matrices (minors) and the appropriate sign for summing together those determinants (cofactors). Look, it's a mess. You should be able to calculate the determinant of a general $2\times 2$ matrix because it's easy. In case of national crisis, you should be able to calculate the determinant of a general $3\times 3$ matrix after consulting a reference to double check the signs. However, at this stage we will not make a big deal about determinants. I think engineering classes make a big deal about determinants because they can help with solving systems of linear equations using matrices---but \emph{that's not the kind of linear algebra we're doing in physics}.
+
+\begin{example}\label{eg:determinant:of:diagonal}
+The determinant of a diagonal matrix is simply the product of each of its diagonal elements. 
+\end{example}
+
+Determinants of a matrix are at least as curious as its trace because the determinant of a matrix turns out to also be unchanged under rotations. Furthermore, in multivariable calculus, the determinant shows up in the volume element. In fact, there is a formal definition of the determinant that comes from differential geometry where we use the determinant to rigorously define volumes of curved spaces. This sort of thing shows up in general relativity.
+%
+One way of starting to see why this is plausible is the observation that the determinant of a matrix $M$ is equal to the area of the parallelogram whose sides are given by the transformed basis vectors, $M\bas{e}_i$. We sketch this in two dimensions in Fig.~\ref{fig:determinant:map:area}. 
+% 
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/determinant_sketch.pdf}
+    \caption{The transformation by $M$ of a unit square with sides $\bas{e}_i$ is a parallelogram with sides $M\bas{e}_i$. The determinant of $M$ is the area of the parallelogram. In more than three dimensions the shape is called a parallelpiped, which is a fun word to say.}
+    \label{fig:determinant:map:area}
+\end{figure}
+% 
+To prove this claim in two dimensions, we enclose the parallelogram into a box and start figuring out the area of various sub-shapes. Let $A_\text{r}$ be the area in the two red triangles, $A_\text{b}$ be the area in the two green triangles, and $A_\text{g}$ be the area of the two blue boxes. These areas are---accounting for the factor of two because there are two of each shape:
+\begin{align}
+    A_\text{r} &= M\aij 11 M \aij 21
+    &
+    A_\text{g} &= M\aij 22 M \aij 12
+    &
+    A_\text{b} &= 2 M\aij 12 M \aij 21 \ .
+\end{align}
+The total area of the large box is
+\begin{align}
+    A_\text{tot} &= (M\aij 11 + M\aij 12)(M\aij 22 + M\aij 21) 
+    \\&= M\aij 11 M\aij 22 + 
+    M\aij 11 M\aij 21 + 
+    M\aij 12 M\aij 22 + 
+    M\aij 12 M\aij 21 
+    \\ &= 
+    M\aij 11 M\aij 22 + 
+    A_\text{r} + 
+    A_\text{g}  + 
+    \frac 12 A_\text{b} 
+    \ . 
+\end{align}
+% 
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/determinant_sketch2.pdf}
+    \caption{Graphical aid for understanding the area of the parallelogram whose sides are $M\bas{e}_i$.}
+    \label{fig:determinant:map:area:proof}
+\end{figure}
+% 
+The area of the parallelogram is simply the area of the large box minus the areas of the non-parallelogram shapes, $A_\text{tot}- A_\text{r} - A_\text{g} - A_\text{b}$:
+\begin{align}
+    A_\text{parallelogram} =  M\aij 11 M\aij 22 - \frac 12 A_\text{b}  = M\aij 11 M\aij 22  - M\aij 12 M\aij 21  = \det M \ .
+    \label{eq:det:is:area:parallelogram}
+\end{align}
+And so we have shown the result in a simple case: determinants are related to areas. Specifically, we see that the determinants are related to the areas (volumes) of parallelograms (parallelpipeds) with sides $M\bas{e}_i$. 
+
+This interpretation of determinants as volumes\footnote{I now say `volumes' instead of `area' because what follows is general to any dimension of space.} also motivates some further expressions for the determinant of the product of matrices and the determinant of the inverse of a matrix. If we perform subsequent transformations with two matrices, $N$ and $M$, then the unit parallelpiped is first mapped to a parallelpiped of volume $\det N$. When we apply the second matrix $M$, this intermediate parallelpiped is mapped to a third parallelpiped whose volume is rescaled by $\det M$. The resulting volume is $(\det N)(\det M)$. We thus deduce that the determinant of a product of matrices is the product of the determinants of each matrix:
+\begin{align}
+    \det NM = (\det N)(\det M) \ . 
+    \label{eq:det:of:product}
+\end{align}
+Going further, because $M M\inv = \one$, we have
+\begin{align}
+    \det M M\inv &= (\det M)(\det M\inv ) 
+    % = \det\one 
+    = 1 
+    & \Rightarrow&
+    &
+     \det M\inv &= \frac{1}{\det M} \ .
+    % {eq:det:of:product}
+    \label{eq:det:of:inverse}
+\end{align}
+We have been deliberately hand-wavy to motivate thesse relations for determinants. If we were to be more rigorous, the are rather tricky to prove, though you can do them by brute force by calculating components. 
+
+
+\end{subappendices}
 
 
 
@@ -2423,6 +2542,8 @@ In should be clear that \emph{both} of these refer to $w_iv^i$. If you know all 
 What are all of the possible ways of treating a $(p,q)$ tensor as a linear function? That is: what are the possible inputs for such an object, and for each object, what is the output? For example, if $q\geq 1$, then I can feed a $(p,q)$ tensor a vector and the output is a $(p,q-1)$ tensor.
 \end{exercise}
 
+\section{Interlude: some math-speak}
+
 \paragraph{Jargon: functions, maps, transformations} Let us get some terminology sorted out.\sidenote{This paragraph is to establish the correct mathematical jargon. Usually one can get away with being somewhat sloppy and using these terms interchangeably, but we should be clear about the distinction somewhere in these notes.}
 A \textbf{function}\index{function} is a mathematical machine that takes some inputs and produces some output. The inputs can be numbers, vectors, or more sophisticated objects. The outputs may also be numbers, vectors, or more sophisticated objects. The outputs do not have to be the same type of object as the inputs---in general they are not.
 % 
@@ -2504,6 +2625,18 @@ The zero vector is of this form so that $\row{w}\vec{0}=0$, as required by linea
 
 % Row vectors as 
 % The fact that matrices take vectors and return vectors tells us that they enact transformations on the \emph{space} of vectors. Under the action of a matrix, every allowed vector is transformed into a different vector. 
+
+
+\section{Basis in terms of linear transformations}
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/maps_M.pdf}
+    \caption{$M$ is a linear transformation from $\RR ^2\to\RR ^2$. If we know the action of $M$ on the basis vectors $\bas{e}_i$ of $\RR ^2$, then we know the action of $M$ on any vector $\vec{v}$.}
+    \label{fig:map:M}
+\end{figure}
+
+The magic of linearity is that if you know how basis vectors transform, then you know how all vectors transform. This is demonstrated in Figure~\ref{fig:map:M}. In turn, we can understand linear transformations themselves in terms of basis transformations.
 
 \subsection{Basis of row vectors}
 
@@ -2602,6 +2735,49 @@ In this section we have defined basis dual vectors as the `eaters of vectors.' O
 
 \subsection{Duality and the Bra-Ket Notation}
 
+
+\begin{table}
+    \renewcommand{\arraystretch}{1.3} % spacing between rows
+    \centering
+    \begin{tabular}{ @{} llllll @{} } \toprule % @{} removes space
+        Notation
+        & $V$ element
+        & $V^*$ element
+        & Contraction
+        & Matrix
+        & Identity
+        \\ \hline
+        Classic
+            & vector
+            & row-vector
+            & 
+            &       
+        \\
+            & $\vec{v} = v^i \bas{e}_i$
+            & $\row{w} = w_i \rbas{e}^i$
+            & $\rbas{e}^i\bas{e}_j = \delta^i_j$
+            & $M=M\aij{i}{j} \bas{e}_i\otimes \rbas{e}^j$
+            & $\one$
+        \\ \hline
+        Quantum 
+            & ket
+            & bra
+            &       
+            &
+        \\
+            & $\ket{v} = v^i\ket{e_i}$
+            & $\bra{w} = w_i \bra{e^i}$
+            & $\langle i | j\rangle = \delta^i_j$
+            & $M=M\aij{i}{j} \ket{e_i}\bra{e^j}$
+            & $\ket{e_i}\bra{e^i}$
+        \\ \bottomrule
+    \end{tabular}
+    \caption{
+        Dictionary between `classic' notation and `quantum' (bra--ket) notation.
+        \label{tab:classic:bra:ket:dictionary}
+    }
+\end{table}
+
 This is one place where the bra-ket notation of quantum mechanics starts to shine. As a reminder, vectors are written as kets,
 \begin{align}
     \vec{v} \defeq \ket{v} \ .
@@ -2620,6 +2796,7 @@ Similarly, row vectors are bras with associated basis bras:
     \row{w} &\defeq \bra{w} & \rbas{e}^i &\defeq \bra{e^i}
     & \bra{w} &= w_i \bra{e^i} \ .
 \end{align}
+We summarize the bra-ket notation in Table~\ref{tab:classic:bra:ket:dictionary}.
 
 
 Now the duality expressed in Exercise~\ref{ex:vector:act:on:row} is clear because we just think of the vertical edge of the bra or ket being its \emph{interface} with the other type. The duality relations \eqref{eq:basis:of:dual:vectors} and \eqref{eq:basis:of:dual:vectors:reverse} reduce to a single relation:
@@ -2629,9 +2806,11 @@ Now the duality expressed in Exercise~\ref{ex:vector:act:on:row} is clear becaus
 \end{align}
 Then the action of a bra on a ket is manifestly symmetric with the action of a ket on a bra. They are the same thing:
 \begin{align}
-    \la w \mid v \ra &= w_iv^j \la e^i \mid e_j \ra  = w_i v^j \delta^i_j = w_iv^j \ .
+    \la w \mid v \ra &= w_iv^j \la e^i \mid e_j \ra  = w_i v^j \delta^i_j = w_iv^i \ .
     \label{eq:basis:of:dual:vectors:bra:ket:form}
 \end{align}
+
+We present \eqref{eq:defining:bra:ket:relatin} as a definition. In a space that is equipped with a bit more machinery---a \emph{metric space}---one may derive this relation. We do this below \eqref{eq:row:col:delta:bra:ket}.
 
 \subsection{Basis of matrices}
 
@@ -2812,8 +2991,71 @@ Show that in the other case you get the trace of the product, $\Tr{MN}$. Show th
 % again a place where the bra ket notation shines, much harder to write this using e's.
 
 
+\subsection{Interlude: Inverse transformations}
 
- \subsection{Basis of tensors}
+Let $M$ be a linear transformation from $V\to V$. This is just to say that $M$ is a matrix that acts on vectors in $V$. For ``nice'' matrices, $M$, there is a unique \textbf{inverse} matrix (inverse transformation) $M\inv$ with components $(M\inv)\aij{i}{j}$. The defining property of the matrix inverse is $M\inv M = \one $. That means that $M\inv(M\vec{v})=\vec{v}$ for any vector $\vec{v}$. The matrix inverse simply undoes the transformation $M$. This is shown in Fig.~\ref{fig:map:M:inv}. 
+
+% \flip{in progress}
+% not always defined.
+
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/maps_Minv.pdf}
+    \caption{Let $M$ is a linear transformation from $\RR ^2 \to \RR ^2$, as we drew in Fig.~\ref{fig:map:M}. Now assume that you have a vector $\vec{w}$ that is the linear combination of some basis vectors $\vec{f}_i$, see the right-hand side of the sketch. If the $\vec{f}_i$ can be obtained as the transformation by $M$ of some other vectors---the basis vectors we called $\bas{e}_i$ in Fig.~\ref{fig:map:M}---then the inverse transformation $M\inv$ acts as a map ``back'' to the original basis. }
+    \label{fig:map:M:inv}
+\end{figure}
+
+Given a basis, matrices are described by their components, $M\aij{i}{j}$. How do you find the components of the inverse matrix, $(M\inv)\aij{i}{j}$? The most straightforward way is the hard way. Let us consider the $2\times 2$ case. We know that the defining relationship is
+\begin{align}
+    M(M\inv)=(M\inv)M &= \one 
+    &
+    M\aij{i}{k}(M\inv)\aij{k}{j}
+    =
+    (M\inv)\aij{i}{k}M\aij{k}{j} 
+    = \delta^i_j \ .
+    \label{eq:inverse:matrix:definition}
+\end{align}
+On the right we have four equations for each combination of $i,j \in\{1,2\}$. We also have four unknown components, $(M\inv)\aij{i}{j}$. This is a system of linear equations that one can usually solve. Sometimes the system will not be solvable---in that case the matrix $M$ is not invertible.
+
+\begin{exercise}
+Convince yourself that \eqref{eq:inverse:matrix:definition} holds for \emph{any} vector space of any dimension, $N$. You end up with $N^2$ equations for $N^2$ unknown components $M\aij{i}{j}$. Does this change if all of the components are allowed to be complex numbers?
+\end{exercise}
+
+
+The product of two matrices $M$ and $N$ is a matrix, $MN$. The inverse of the product of matrices is the product of their inverses \emph{in the reverse order}
+\begin{align}
+    (MN)\inv = N\inv M\inv \ .
+\end{align}
+You can that this is because you have to undo the transformation that was last applied:
+\begin{align}
+    (MN)\inv MN = N\inv M\inv MN = N\inv \one  N = \one  \ .
+\end{align}
+
+
+
+
+\begin{example}
+The inverse of a diagonal matrix is easy:
+\begin{align}
+    M &=
+    \begin{pmatrix}
+     3 & \pp  0 \\
+     0 & -2
+    \end{pmatrix}
+    &
+    M\inv &=
+    \begin{pmatrix}
+    \frac{1}{3} & \pp 0 \\
+    0 & -\frac{1}{2}
+    \end{pmatrix} \ .
+\end{align}
+We have used the fact that the product of diagonal matrices $\hat M$ and $\hat N$ is also a diagonal matrix whose elements are the products of the corresponding elements in $\hat M$ and $\hat N$.
+\end{example}
+
+
+
+\subsection{Basis of tensors}
 
  We may generalize to tensors by writing a generic tensor as:
  \begin{align}
@@ -2980,7 +3222,7 @@ The \emph{generator} of \SO{2}, rotations of the Euclidean plane, is
 \begin{align}
     T = \begin{pmatrix}
         0 & i \\
-        -i & i
+        -i & 0
     \end{pmatrix} \ .
 \end{align}
 Show that $R(\theta) = \exp(iT\theta)$ where the matrix exponential is defined as its power series:
@@ -3004,8 +3246,27 @@ To be somewhat philosophical: under an isometry like a rotation, there are two p
     \item \textbf{Active transformation}\index{active transformation}: your basis vectors stay put, but the vector is changing into a different vector, $\ket{v} \to \ket{v'}$. The components of $\ket{v'}$ are clearly different from the components of $\ket{v}$ because it the two are simply not the same vector.
     \item \textbf{Passive transformation}\index{passive transformation}: the vector \emph{does not change}, but the basis vectors change, $\ket{e_i} \to \ket{e'_i}$. This means that the components of $\ket{v}$ must \emph{also} change so that $v^i\ket{e_i} = v'^{i}\ket{e_i}$.
 \end{itemize}
-In an active transformation, the vector space and every vector in it change. In a passive transformation, the observer changes.\sidenote{There is something oddly Zen and philosophical about this.} For an isometry---a symmetry of the system---either perspective is valid. 
+In an active transformation, the vector space and every vector in it change. In a passive transformation, the observer changes.\sidenote{There is something oddly Zen and philosophical about this.} For an isometry---a symmetry of the system---either perspective is valid. See Figures~\ref{fig:do:something} and \ref{fig:passive:rotation}.
 % 
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.5\textwidth]{figures/passivetransform_dosomething.pdf}
+    \caption{
+        Nothing actually happens during a passive transformation. The basis vectors transform, but the components of the vector transform in such a way that $v'^i\bas{e}'_i = v^i\bas{e}_i$. Such a `transformation' may come off as uninspiring, but this is the basis of symmetries in physics. 
+        From \url{https://knowyourmeme.com/memes/cmon-do-something}.
+    }
+    \label{fig:do:something}
+\end{figure}
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.43\textwidth]{figures/rotate_1.pdf}
+    \quad\quad
+    \includegraphics[width=.43\textwidth]{figures/rotate_2.pdf}
+    \caption{Example of a passive rotation. You are looking at a vector $\vec{v}$ through your phone. The image on your phone has a natural orientation for a basis $\bas{e}_i$ and the components of $\vec{v}$ in this basis are $v^i$. You could also rotate your phone, leaving the vector $\vec{v}$ untouched. The new basis vectors are $\bas{e}_i'$; they are different from $\bas{e}_i$ because your phone has changed orientation. With respect to the new basis, the same vector $\vec{v}$ now has components $v'^i$.}
+    \label{fig:passive:rotation}
+\end{figure}
 
 Let $R(\theta)$ be the rotation about some axis by some angle $\theta$ that enacts a symmetry transformation. In the passive picture, vectors remain unchanged, but the basis vectors and the corresponding components do change:
 \begin{align}
@@ -3104,6 +3365,10 @@ For completeness, here is how the components transform:
 \end{wide}
 
 Let us observe that the rule we proposed in Rule~\ref{idea:transformation:of:upper:and:lower:indices} is simply a \emph{byproduct} of our definition of how the basis bras and kets transform. In fact, it is the product of the definition of how \emph{either} the basis bras or the basis kets transform, since the transformation law of the other type of object necessarily follows from \eqref{eq:basis:transform:under:rotation}.
+
+\begin{example}[Moment of inertia]
+The moment of inertia tensor has two lower indices.\footnote{This may depend on conventions. It is certainly true that the moment of inertia tensor has two indices that are both the same height.} Explain why it transforms differently from a matrix, which has one upper and one lower index.
+\end{example}
 
 \section{Dropping the Basis Tensors... Again}
 
@@ -3221,7 +3486,7 @@ Convince yourself that all of our discussion here holds for tensors with two upp
 
 
 
-\section{\texorpdfstring{The Kronecker $\delta$}{The Kronecker Delta}}
+\section{\texorpdfstring{The Kronecker $\delta$}{The Kronecker Delta}}\label{sec:kronecker}
 
 The Kronecker $\delta$ is defined to be
 \begin{align}
@@ -3363,7 +3628,7 @@ The key here is to first understand why several terms are zero, then to learn th
 \end{subappendices}
 
 
-\chapter{Interlude}
+\chapter{Interlude on Bundles}\label{ch:bundles}
 
 
 Over the last few chapters, we have taken a very concrete picture of vectors and have made it successively more abstract. At this point, physics students are well in their right to ask: where are there vector spaces in physics?\sidenote{This interlude is ``for culture'' and is outside the main narrative of the course.}
@@ -3395,6 +3660,20 @@ This poses a mathematical problem: what does it mean for the traveler to move wi
 Vectors in physics live in structures like these tangent planes. With the appropriate amount of abstraction, \emph{every}\sidenote{I think this is true for every vector. I may be wrong, but I do not know of any good counterexamples.} vector in physics can be viewed as a ``velocity'' of some path along some manifold. These manifolds do not necessarily represent space or spacetime; they may be rather abstract.\sidenote{For example, the space of $2\times 2$ matrices} The collection of all of the tangent spaces to a manifold is called the \textbf{tangent bundle}\index{tangent bundle}. It represent the space of all possible velocity vectors at all points on the manifold.
 
 The key question in differential geometry is how to connect these tangent spaces together. For the tangent bundle of the sphere, the \emph{geometry} tells us how to connect the nearby tangent planes so that ideas like ``constant velocity'' are well defined. The mathematical object that connects these nearby tangent spaces is something that is called a \textbf{connection}\index{connection}---yeah, it is not the most inspired name.\sidenote{For those who have read ahead: observe that this does not necessarily require a metric, only a connection. However, if you have a metric, there is typically an `obvious' connection that is compatible with the metric. This is like saying: if you have a Mac, you probably also have an iPhone.}
+
+% \begin{marginfigure}%[th]
+%     \includegraphics[width=\textwidth]{figures/base_space_tangent_space.pdf}
+%     \captionsetup{font={scriptsize,sf}}
+%     \caption{The base space is ``coordinate space.'' These are positions. Positions are not vectors and the base space is not a vector space. Positions depend on the coordinate system. At each position $(x,y)$, there is a vector space called the tangent space at $(x,y)$. This \emph{is} a vector space and the vectors can be thought of as possible velocities of a particle at $(x,y)$. In the picture on the right hand side we have `peeled' the base space away from the tangent space to make it clear that they are different, even though they both look like sheets of paper. There is no assumed curvature in the base space. There is a different tangent space for each position. The combination of the infinite number of tangent spaces over the base space is known as a tangent space bundle.}
+%     \label{fig:tangent:space:polar}
+% \end{marginfigure}
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.7\textwidth]{figures/base_space_tangent_space.pdf}
+    \caption{The base space is ``coordinate space.'' These are positions. Positions are not vectors and the base space is not a vector space. Positions depend on the coordinate system. At each position $(x,y)$, there is a vector space called the tangent space at $(x,y)$. This \emph{is} a vector space and the vectors can be thought of as possible velocities of a particle at $(x,y)$. In the picture on the right hand side we have `peeled' the base space away from the tangent space to make it clear that they are different, even though they both look like sheets of paper. There is no assumed curvature in the base space. There is a different tangent space for each position. The combination of the infinite number of tangent spaces over the base space is known as a tangent space bundle.}
+    \label{fig:tangent:space:polar}
+\end{figure}
 
 The tangent bundle picture of vectors also explains the following maxim that I have repeated over and over:
 \begin{quote}
@@ -3788,6 +4067,124 @@ The challenge here is to realize that when we were young, we had been \emph{assu
 
 In this course the primary example of a non-Euclidean metric is Minkowski space and special relativity. General relativity---which is special relativity plus gravity---have different kinds of spacetime metric.\sidenote{In fact, the metric itself is a dynamical variable that responds to energy.} In quantum mechanics our vector space of quantum states has what is essentially a Euclidean metric, though the space is formally complex.\sidenote{Every time we say `number' we allow for the number to contain some imaginary part.} The other place where unusual metrics show up in physics are more abstract vector spaces. My favorite example of this what are the vector spaces of generalized rotations.\sidenote{Unfortunately this topic is rather outside the scope of our course.}
 
+
+\section{Example: Polar Coordinates}
+
+In the bundle picture of Chapter~\ref{ch:bundles}, we said that each tangent plane is a different vector space. Polar coordinates on Euclidean space is an example where this bundle structure shows up in a space that is \emph{not} actually curved, but is described readily with curved for the base space. 
+
+\textbf{Curvilinear coordinates}\index{curvilinear coordinates} are coordinates grids that are not straight lines, the way that the Cartesian $x$--$y$ plane is a grid. Polar coordinates replace $(x,y)$ with $(r,\theta)$. Here $r$ is the distance from the origin and $\theta$ is the angle from the positive $x$-axis. These are coordinates on the \emph{base space}, which is not a vector space.
+ 
+This example is surprisingly subtle. The take-away is that the metric in polar coordinates is
+\begin{align}
+    g_{ij} = 
+    \begin{pmatrix}
+        g_{rr} & g_{r\theta} \\
+        g_{\theta r} & g_{\theta\theta}    
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        1 & \\
+        & r^2
+    \end{pmatrix} \ .
+    \label{eq:polar:metric}
+\end{align}
+The bottom right component is not one, but rather the radial coordinate on the base space. 
+
+The surprising piece in \eqref{eq:polar:metric} is that $g_{\theta\theta} = r^2$. This means that the metric changes as you move further away from the origin of the coordinate space. This is in contrast to the Euclidean metric whose components are proportional to the identity no matter where you happen to be.
+
+This should not surprise us. We know that the same \emph{angular displacement} $\Delta \theta$ corresponds to a different traversed circumference depending on the radius. If you are close to the origin, then a displacement of $\Delta\theta$ is not particularly far. If you are far from the origin, then a displacement of $\Delta\Theta$ can be huge, see Fig.~\ref{fig:polar:displacement}.\footnote{This sometimes shows up in the ``paradox'' (it is not a paradox) that ``shadows travel faster than the speed of light.''} From a physics perspective, you could have guessed this from pure dimensional analysis: $\Delta \theta$ is dimensionless. If you want your metric to output a squared distance, then you need something with dimensions of length---the only plausible candidate is $r^2$. This is illustrated nicely in the \emph{Calvin and Hobbes} comic in Fig.~\ref{fig:CH:record:player}.
+
+
+
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.4\textwidth]{figures/polar_longer_distance_dtheta.pdf}
+    \caption{The meaning of the $g_{\theta\theta} = r^2$ is related to the idea that the distance traversed along a circle for a displacement $\Delta\theta$ depends on the radius of the circle.}
+    \label{fig:polar:displacement}
+\end{figure}
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=\textwidth]{figures/calvin_and_hobbes_record.jpg}
+    \caption{\emph{Calvin and Hobbes}, ``Record Player,'' by Bill Watterson, 5 June 1990. Image from \url{https://www.gocomics.com/calvinandhobbes/1990/06/05}. If you have never heard of a record player than look it up.}
+    \label{fig:CH:record:player}
+\end{figure}
+% Also: mechanical integrator: https://www.youtube.com/watch?v=s-y_lnzWQjk
+% Also: differential steering: https://www.youtube.com/watch?v=yYAw79386WI
+
+\begin{example}
+While this is not really relevant for linear algebra, there are a few neat ways in which the difference between angular and linear velocity show up. One is the mechanical integrator\footnote{\url{https://www.youtube.com/watch?v=s-y_lnzWQjk}}, and another is differential steering\footnote{\url{https://www.youtube.com/watch?v=yYAw79386WI}}. 
+\end{example}
+
+
+\begin{exercise}\label{ex:polar:location:dependence}
+Consider the vector $\vec{v} = 3\bas{e}_r - (\pi/4)\bas{e}_\theta$ located at the point $(r,\theta)=(2, \pi/6)$. Find the length of this vector, $|\vec{v}|$ using the polar coordinate metric \eqref{eq:polar:metric}. Observe that for this problem we have to specify the location of the vector---a location on the base (coordinate) space. 
+\end{exercise}
+
+
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/PolarBasis.pdf}
+    \caption{Consider a point in $\RR^2$ and some vector $\vec{v}$ that represents the velocity of a particle at that point. We can write $\vec{v}$ in the usual Cartesian basis (left), or in the polar basis (right). Both bases are orthonormal, but they are oriented differently.}
+    \label{fig:polar:coordinate:vs:vector:space}
+\end{figure}
+
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.6\textwidth]{figures/polar_different_orientation.pdf}
+    \caption{The basis vectors are a basis for potential velocities of a particle at that point. The orientation of the polar coordinate basis vectors depends on the point at which we are using them. }
+    \label{fig:polar:coordinate:vs:vector:space:two:points}
+\end{figure}
+
+
+When a metric that differs from the identity\footnote{By which we mean a metric whose components are different from the components of the identity matrix.} we should suspect that we may be in a \emph{curved space}. For example, the surface of the Earth is a curved space whose metric in spherical coordinates is
+\begin{align}
+    g_{ij} = 
+    \begin{pmatrix}
+        g_{\theta\theta} & g_{\theta\phi}\\
+        g_{\phi\theta} & g_{\phi\phi}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        r^2 & \\
+        & r^2 \sin^2\theta
+    \end{pmatrix} \ ,
+    \label{eq:metric:surface:of:sphere}
+\end{align}
+where $r$ is the radius of the Earth. However, it is not true that all `funny looking metrics' imply that the underlying space is curved. In the polar coordinate example of this subsection, the space itself is the same two-dimensional Euclidean space that we are used to. All we have done is changed coordinates. We see that a funny looking metric may mean that the space is curved, or it may mean that our coordinate system is curved (that is, \emph{curvilinear}). 
+
+\begin{exercise}
+Prove \eqref{eq:metric:surface:of:sphere}. You may need to review your trigonometry and draw the sphere carefully. Observe that this is a two-dimensional metric space for the surface of the sphere. There is no radial vector. Feel free to derive the three-dimensional spherical coordinate metric that includes the radial direction. 
+\end{exercise}
+
+\subsubsection{The polar basis}
+
+Let us check the orthonormality of the polar basis at some point, $(r,\theta) = (3,\pi/4)$. The fact that $\bas{e}_r$ and $\bas{e}_\theta$ are orthogonal should be obvious: one points in the radial direction and one points in the polar direction---these are orthogonal directions by definition. Another way of seeing this is that the metric is diagonal. 
+\begin{exercise}
+Confirm that if a metric is diagonal, then the basis vectors are obviously orthogonal. 
+\end{exercise}
+The length of the $\bas{e}_r$ vector is also normalized since $\langle \bas{e}_r, \bas{e}_r\rangle = g_{rr} = 1$. What about the length of $\vec{e}_\theta$? This is a vector corresponding to a shift of one unit in the $\theta$ direction. We have
+\begin{align}
+    \langle \vec{e}_\theta, \vec{e}_\theta \rangle = g_{\theta\theta} = r^2 \ .
+\end{align}
+Well that's unusual. If we are at $r=3$, then $\langle \vec{e}_\theta, \vec{e}_\theta \rangle = 9$. This means that the normalized basis vector is
+\begin{align}
+    \bas{e}_\theta = \frac{\vec{e}_\theta}{r} \ .
+\end{align}
+This makes sense because a `shift of one unit in the $\theta$ direction' is a much larger step the further away you are from the coordinate origin, as we saw in Fig.~\ref{fig:polar:displacement}.
+
+
+
+
+
+
+
+
+
+
 \section{Inner Product, pre-loaded}\label{eq:inner:product:pre:loaded}
 
 The inner product\sidenote{Which, again, is really the same thing as the metric but often is written out with angle brackets.} is a linear function from $V\times V \to \#$. This is a good place to review the linear map picture of tensors from Section~\ref{sec:linear:maps}. We recognized in that section that a linear map from $V\times V \to \#$ could equivalently be understood as a linear map from $V \to V^*$. In fact, this is precisely what it means to `lower an index' and convert a vector into a dual vector.
@@ -3805,6 +4202,7 @@ Here we have written a space, \Vtextvisiblespace[1em]{} to mean \emph{ put in th
     \row{v}\left(\ket{w}\right)
     =
     \la \vec{v}, \vec{w} \ra \ .
+    \label{eq:row:vector:inner:product}
 \end{align}
 This means that $\row{v}$, the row-vector version of $\vec{v}$, is a linear function from $V\to \#$ in the sense that you can feed it any vector $\vec{w}$ and it returns $\la \vec{v}, \vec{w}\ra$, which is a number. Linearity is guaranteed because the inner product $\la \Vtextvisiblespace[1em]{}\,,\, \Vtextvisiblespace[1em]{} \ra $ is linear in each argument.\sidenote{In case you forgot, this means that $\row{v}(\alpha \vec{a} + \beta \vec{b}) = \alpha \row{v}\vec{a} + \beta\row{v}\vec{b}$.}
 \begin{exercise}
@@ -4105,6 +4503,226 @@ If you are stuck on a desert island and wanted to remember the conditions for a 
 In order to simplify this, rewrite the right-hand side by relabeling the dummy indices: $g_{ij}v^i v^j \equiv g_{k\ell}v^k w^\ell$ and then `cancel' the $v^k$ and $w^\ell$ on both sides.\footnote{This is not quite a mathematically rigorous statement, but it is mathematically true. The ambiguity is that we are taking indices that are formally summed and somehow identifying just one component. The reason why this is valid is that the equation is true for \emph{any} values of $v^k$ and $w^\ell$. Convince yourself of why this holds. If you are confused, try choosing $v^k = (1,0, \cdots)^\trans$.}
 \end{example}
  
+\section{Rediscovering Dual Vectors}
+\flip{I'm not sure where to put this in these notes.}
+
+Let us return to the question of understanding the components of an isometry. For concreteness, we focus on two-dimensional Euclidean space. We start with the standard basis, $\ket{e_{1,2}}$. From this standard basis, we \emph{define} the basis of dual vectors (bras) by
+\begin{align}
+    \la e^i \mid e_j \ra &= \delta^i_j \ .
+    \label{eq:row:col:delta:bra:ket}
+\end{align}
+Making this definition was our approach in \eqref{eq:defining:bra:ket:relatin}. However, in a metric space we can \emph{derive} \eqref{eq:row:col:delta:bra:ket} using the metric through the identification in \eqref{eq:row:vector:inner:product},
+\begin{align}
+    \bra{e^i} \defeq \la e_i , \Vtextvisiblespace[1em]{} \ra \ .
+    \label{eq:basis:dual:vectors:as:inner:prod}
+\end{align}
+The orthonormality of a good basis then gives us \eqref{eq:row:col:delta:bra:ket}.
+\begin{exercise}
+Applying the metric space definition of row vectors in terms of column vectors, \eqref{eq:row:vector:inner:product}, onto the \emph{basis} column vectors. Show that with this definition of $\bra{e^i}$, one automatically has the `defining' relation \eqref{eq:row:col:delta:bra:ket}.
+\end{exercise}
+
+\section{Rediscovering The Identity}
+
+Any matrix may be written in terms of a basis of \emph{ket-bras} $M\aij{i}{j} \ket{e_i}\!\bra{e^j}$, as we saw in \eqref{eq:M:2:2:basis:of:matrices:1}. The identity matrix has components that are the Kronecker-$\delta$:
+\begin{align}
+    \one &= \delta^i_j \; \ket{e_i}\!\bra{e^j} \ .
+\end{align}
+Using what we know about the Kronecker-$\delta$ in Section~\ref{sec:kronecker}, we see that another way of writing the identity is
+\begin{align}
+    \one &= \ket{e_i}\!\bra{e^i} \ .
+    \label{eq:resolution:of:the:identity}
+\end{align}
+This is called a \textbf{resolution of the identity}\index{resolution of the identity} and works in any basis:\sidenote{While this works in \emph{any} basis, we note that the definition of $\bra{f^i}$ is only convenient in an orthonormal basis. If the basis is not orthonormal, then the definition is tricky. If you are feeling fiendish, you may try to figure this out for a not-orthonormal basis. The most straightforward way to do this is to write everything in terms of an orthonormal basis. At this point it the exercise is so perverse that even I would not assign it.}
+\begin{align}
+    \one &= \ket{f_i}\!\bra{f^i} \ .
+\end{align}
+The practice of ``multiplying by one'' is surprisingly helpful because it is a trick for converting between bases.
+
+\sidenotetext{We are being a bit slick with our notation here and we are choosing to index the $\ket{f_a}$ basis with letters from a different part of the alphabet than the original basis $\ket{e_i}$. This helps us keep track of what basis we are in and when we are converting from one basis to another. This is not a standard practice, but it helps me keep track of everything.}
+\begin{example}\label{eg:rotations:from:bra:ket}
+If you know the components of a vector $\ket{v} = v^i \ket{e_i}$ in the standard basis, you may convert them into the components $(v')^a \ket{f_a}$ in a different basis\sidenotemark $\ket{f_a}$ by inserting the identity:
+\begin{align}
+    \ket{v} = v^i\; \ket{f_a}\!\bra{f^a} \; \ket{e_i}
+    = v^i \la f^a \mid e_i \ra \; \ket{f_a}
+    \equiv R\aij{a}{i}v^i \ket{f_a} \ .
+    \label{eq:eg:rotations:from:bra:ket:int}
+\end{align}
+In the first step we inserted the identity in a way where the $\bra{f^a}$ acts on the $\ket{e_i}$. In the last step we \emph{define} the rotation matrix $R\aij{a}{i} = \la f^a \mid e_i \ra$. We then identify the components in the $\ket{f_a}$ basis,
+\begin{align}
+    (v')^a = R\aij{a}{i}v^i \ .
+\end{align}
+One can see this by matching the coefficients of each basis ket. IF you wanted to derive this, one may act on \eqref{eq:eg:rotations:from:bra:ket:int} with $\bra{f^b}$ to project out the $(v')^b$ component.
+\end{example}
+
+\section{Components of a rotation}
+
+In Example~\ref{eg:rotations:from:bra:ket}, the identification
+\begin{align}
+    R\aij{a}{i} = \la f^a \mid e_i \ra
+    \label{eq:rotation:from:bra:ket}
+\end{align}
+is particularly helpful.\sidenote{Please note that I often mix up whether I define this to be a rotation $R$ or the inverse rotation $R\inv$. Since the inverse rotation is just a rotation in the opposite direction, it is simply semantics which one we call $R$ and which we call $R\inv$.} Alternatively, we could have been given the components in the $\ket{f_a}$ basis and want to find the components in the $\ket{e_i}$ basis. Following through the same steps would lead us to define another rotation,
+\begin{align}
+    \bar R\aij{i}{a} = \la e^i \mid f_a \ra \ .
+    \label{eq:rotation:from:bra:ket:inv}
+\end{align}
+How are $R$ and $\bar R$ related, and how are these related to the sines and cosines in a rotation matrix?
+\begin{example}[Rotations and their inverses]
+You may have guessed that $\bar R = R\inv$. One way to see this is by multiplying by the identity several times:
+\begin{align}
+    \one = \ket{e_i}\!\bra{e^i}
+    &= 
+    \ket{e_i}\!\bra{e^i}\;
+    \ket{f_a}\!\bra{f^a}\;
+    \ket{e_j}\!\bra{e^j} 
+    \\
+    &= 
+    \ket{e_i}\; \la e^i \mid f_a \ra \; \la f^a \mid e_j \ra \; \bra{e^j}
+    \\
+    &= \bar{R}\aij{i}{a} R\aij{a}{j} \; \ket{e_i}\!\bra{e^j} \ .
+\end{align}
+By requiring the coefficients match $\delta^i_j\; \ket{e_i}\!\bra{e^j}$ gives
+\begin{align}
+    \bar{R}\aij{i}{a} R\aij{a}{j} = \delta^i_j \ .
+\end{align}
+We thus find that
+\begin{align}
+    \bar{R}\aij{i}{a} = (R\inv)\aij{i}{a} \ .
+\end{align}
+Make sure you appreciate why the \emph{types} of indices of $R\inv$ appear swapped relative to $R$.
+\end{example}
+The above example shows us that $\la f^a \mid e_i \ra$ and $\la e^i \mid f_a \ra $ are the components of a rotation from one basis to another and its inverse rotation from the other basis back to the original. 
+
+In two-dimensional Euclidan space, how do we understand that these give the usual sines and cosines? First, we sketch the components of $R\aij{a}{i} = \la f^a \mid e_i \ra$ in Figure~\ref{fig:basis:change:ef}.
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/basis_change_ef.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Components of $(R\inv)\aij{i}{a}$ in \eqref{eq:rotation:from:bra:ket:inv} understood as a projection.}
+    \label{fig:basis:change:ef}
+\end{marginfigure}
+The numbers $\la e^i \mid f_a\ra$ are the \emph{projection} each $f$-basis vector $\ket{f_a}$ onto its $\ket{e_i}$ components. Let us take a moment to pause here: we say it is a projection because $\la e_i, v\ra$ is the component vector $\ket{v}$ in the $\ket{e_i}$ basis direction. But we also argued in \eqref{eq:basis:dual:vectors:as:inner:prod} that $\bra{e^i}$ can be \emph{defined} by $\bra{e^i} \defeq \la e_i , \Vtextvisiblespace[1em]{} \ra$. Thus $\la e^i \mid f_a\ra$ is simply asking what is the component of $\ket{f_a}$ in the $\ket{e_i}$ direction. In Figure~\ref{fig:basis:change:ef} we write out these components. Because all of the vectors are normalized, the projections are all sines and cosines with the appropriate signs.
+
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/basis_change_fe.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Components of $R\aij{a}{i}$ in \eqref{eq:rotation:from:bra:ket} understood as a projection.}
+    \label{fig:basis:change:fe}
+\end{marginfigure}
+
+We can do the same analysis for $(R\inv)\aij{i}{a}$ by looking at the components of $\ket{e_i}$ in the $\ket{f_a}$ basis. We show this in Figure~\ref{fig:basis:change:fe}. Please appreciate that the picture should make it clear that the rotation to go from $\ket{f_a}$ to $\ket{e_i}$ is the `opposite' to that of the rotation to from from $\ket{e_i}$ to $\ket{f_a}$. You can just think about changing the sign of the rotation parameter $\theta$. 
+
+\begin{exercise}
+Take a moment to build up the familiarity that $\la f^a \mid e_i$ and $\la e^i \mid f_a$ are components of rotation matrices between bases. Which one rotates from $\ket{f_a}$ to $\ket{e_i}$? Which one goes in the opposite direction? 
+\end{exercise}
+
+\begin{exercise}
+[\emph{This problem is rather challenging but perhaps enlightening if you can put the time in to do it.}] Redo everything in the last few sections for the case of a Minkowski metric. How are the bras related to the kets? What does the completeness relation look like? How do  you determine  components of the `rotation' matrices (now known as Lorentz transformations)?
+\end{exercise}
+
+\begin{subappendices}
+\section{Rotations in Three-Dimensions}
+
+In $\RR ^3$ there are three different axes about which we can perform a rotation. These roughly correspond to three rotation matrices:
+\begin{align}
+    R_1(\theta_1)
+    &=
+    \begin{pmatrix}
+        1 & 0 & \pp 0 \\
+        0 & \text{c}_{\theta_1} & -\text{s}_{\theta_1} \\
+        0 & \text{s}_{\theta_1} & \pp \text{c}_{\theta_1}
+    \end{pmatrix}
+    \\
+    R_2(\theta_2)
+    &=
+    \begin{pmatrix}
+        \pp \text{c}_{\theta_2} & 0 & \text{s}_{\theta_2} \\
+        \pp 0 & 1 & 0 \\
+        -\text{s}_{\theta_2} & 0 & \text{c}_{\theta_2}
+    \end{pmatrix}
+    \\
+    R_3(\theta_3)
+    &=
+    \begin{pmatrix}
+        \text{c}_{\theta_3} & -\text{s}_{\theta_3} & 0 \\
+        \text{s}_{\theta_3} & \pp\text{c}_{\theta_3} & 0 \\
+        0 & \pp 0 & 1
+    \end{pmatrix} \ .
+    \label{eq:rotation:matrix:basic}
+\end{align}
+You can see how these break down into two-dimensional rotations along each respective axis. If that is not obvious, please do the following exercise.
+\begin{exercise}
+Write the transformation of a three-component vector $\vec{v}$ with components $v^i$ under reach of the transformations in \eqref{eq:rotation:matrix:basic}. 
+\end{exercise}
+Additional rotations are produced by taking products of $R_1$, $R_2$, and $R_3$ by appropriate amounts. The properties of these rotations are outside the scope of our course, but their study is a big part of physics and is known as the \emph{representation theory of Lie groups}. If you want to do a deeper dive into rotation matrices in three dimensions, I recommend Howie Haber's lecture notes for Physics 216 at \acro{UCSC}\footnote{\url{http://scipp.ucsc.edu/~haber/ph216/rotation_12.pdf}}. 
+
+
+All this is to say that there are more options for rotations in three dimensions. Given a particular rotation, $R$, then the tensor transformation rule in Rule~\ref{idea:transformation:of:upper:and:lower:indices} holds. In fact, one can start to piece together what a rotation in even higher dimensions looks like. You extend the list \eqref{eq:rotation:matrix:basic} to include rotations about every plane---where the plane is simply defined by the two components of the vector that are being mixed into each other. That gives you the list of rotations about each axis. A general rotation is a product of the rotation-about-a-given-axis. Now you know how to manipulate tensors in arbitrary dimensions. Not bad.
+
+\begin{exercise}
+One thing to notice is that the order in which you apply rotations matters. Explicitly perform the matrix multiplication on each side of the following non-equation to confirm this:
+\begin{align}
+    R_1(\theta_1) R_2(\theta_2) \neq R_2(\theta_2) R_1(\theta_1) \ .
+\end{align}
+We say that the rotation matrices along different axes do not \textbf{commute} because the order in which they are applied matters. This is demonstrated in Fig.~\ref{fig:rotate:QFT}.
+\end{exercise}
+
+% non commutivity
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.9 \textwidth]{figures/rotation_qft.pdf}
+    \caption{Example of the non-commutativity of rotations. Consider this copy of Peskin and Schr\"oder's \emph{Introduction to Quantum Field Theory}. Orient the $\hat x$ axis in the horizontal direction along the desk and the $\hat y$ axis in the vertical direction along the desk. Performing a $\pi/2$ rotation in the $\hat x$ direction then in the $\hat y$ direction (upper path) gives a different result than performing the rotations in the opposite order (lower path).}
+    \label{fig:rotate:QFT}
+\end{figure}
+
+\begin{exercise}
+Show that the determinant of each of the rotations in \eqref{eq:rotation:matrix:basic} is one. Argue that a general rotation in three dimensions, which is a product of these rotations, also has determinant equal to one. Argue further that the determinant of a rotation in any number of dimensions is equal to one.
+\end{exercise}
+
+\section{Invariance of Trace and Determinant}
+
+The trace and the determinant of a matrix are invariant under rotations. This may sound trivial\footnote{``Trivial'' is the mathematical translation of when I say `obvious.'}: they are numbers with no indices, and numbers with no indices do not transform under rotations. The relevance of the invariance of the trace and determinant are that they are numbers that are formed out of the components of a matrix that do not transform, even though the components of a matrix, $M\aij{i}{j}$, \emph{do} transform under a rotation. 
+
+Let us see that this is the case. Under a rotation, the trace of a matrix, $M\aij{i}{j}$ transforms as:
+\begin{align}
+    M\aij{i}{j} \to (M')\aij{i}{i} = R\aij{i}{k} M\aij{k}{\ell} (R\inv)\aij{\ell}{i} \ .
+\end{align}
+We have started writing $R$ instead of $R(\theta)$ since we generalize to the case of higher-dimensional rotations with more than one parameters. Now we're going to do something sneaky. Let us move the $(R\inv)\aij{\ell}{i}$ factor around on the right-hand side. We made a big deal in \eqref{eq:multiplication:MN:indices} that we are allowed to do this \emph{as long as we keep the indices the same}:
+\begin{align}
+    (M')\aij{i}{i}
+    =
+    (R\inv)\aij{\ell}{i} R\aij{i}{k} M\aij{k}{\ell} 
+    = (R\inv\, R)\aij{\ell}{k} M\aij{k}{\ell} 
+    = \delta^\ell_k M\aij{k}{\ell} 
+    = M\aij{k}{k} \ . 
+\end{align}
+Did you see what we did? We noticed that because the last index of $(R\inv)\aij{\ell}{i}$ matches the first index of $R\aij{i}{k}$, these two matrices are actually being multiplied in the expression for the trace. In other words, we have derived the following matrix-level expression:
+\begin{align}
+    \Tr R M R\inv = \Tr R\inv R M = \Tr M \ .
+\end{align}
+\begin{exercise}
+Check that the above argument holds for the trace of any product of matrices, not necessarily rotations:
+\begin{align}
+    \Tr ABC = \Tr CAB = \Tr BCA \ .
+\end{align}
+We call this a \emph{cyclic permutation} of the product $ABC$.
+\end{exercise}
+I hope you are starting to appreciate the utility of the index notation.
+
+Moving on to the determinant, we appeal a couple of rules that we motivated in \eqref{eq:det:of:product} and \eqref{eq:det:of:inverse}
+\begin{align}
+    \det(MN) &= (\det M)(\det N)
+    &
+    \det(M\inv ) &= (\det M)\inv  \ .
+\end{align}
+Then it is straightforward to read off that
+\begin{align}
+    \det M \to \det M' = \det(RMR\inv ) = \det M\ \frac{\det R}{\det R} = \det M \ .
+\end{align}
+Appealing to our pictorial interpretation that the determinant is a volume, we remark that rotations do not change the volume of the parallelpiped formed by basis vectors. Rotating a mug does not change the capacity of the mug, though it may cause its contents to spill out. 
+\end{subappendices}
+
+
 
 % Need to define transformation on basis 
 % then transformation of matrices in general first
@@ -4709,6 +5327,10 @@ The lightcone is the set of possible trajectories of a particle traveling at the
 
 The restriction of causality then tells us that the physics of the present can only depend on events in the past lightcone and can only influence events in the future lightcone.\sidenote{In fact, causality really tells us that on a microscopic level, all interactions occur on the lightcone.} Ultimately this is a statement that the laws of physics must be \emph{local}: the microscopic laws of physics cannot depend on what is going on some finite distance away. This is why all of your favorite `laws of physics' are written as \emph{derivatives}. Derivatives are the infinitesimal separation of two points in spacetime. When the underlying laws of physics are written this way, it guarantees that you do not end up with a break in causality.
 
+\begin{bigidea}[Causality and derivatives]\label{idea:causality:and:derivatives}
+The reason why equations of motion in physics are all \emph{differential equations} is that we assume that the laws of physics must be causal, which in turn implies that the description of physics can at most depend on infinitesimal separations in space. This means that our Lagrangians are written with derivatives and hence the functional variations of these Lagrangians yield differential equations.
+\end{bigidea}
+
 \begin{exercise}[The length of a Minkowski space vector]
 In Euclidean space, any vector with non-zero components has positive length-squared. In Minkowski space the length-squared can be positive, zero, or negative. This is clear from \eqref{eq:minkowski:length:2d}. In the $v^0$--$v^1$ plane, constant values of $|\vec{v}|^2$ correspond to hyperbolas. Plot the hyperbolas of points that correspond to $\vec{v}^2 = \pm 1$ and $0$. The null case, $|\vec{v}|=0$, correspond to the lightcone. In our metric sign convention, $|\vec{v}|>0$ corresponds to a timelike vector and $|\vec{v}|<0$ corresponds to a spacelike vector. Each connected component of the hyperbolae represent all of the possible components that a given vector can be observed to have by observers in different reference frames.
 \end{exercise}
@@ -5083,6 +5705,37 @@ Draw the resulting vector. Do the same for the case with the same matrix except 
 
 \section{Projections}
 
+Solving for the components of a matrix inverse boils down to $N^2$ equations for $N^2$ unknowns. This does not mean that those equations have a solution. A simple example is the case of a diagonal matrix with one component zero. We illustrate this in Fig.~\ref{fig:map:M:no:inv}
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/maps_noninv.pdf}
+    \caption{$M$ is a non-invertible matrix. We notice that there's no problem applying $M$ to vectors. The odd thing is that there are multiple vectors---$\vec{v}$, $\vec{w}$, and $\vec{u}$ in the picture---that all turn into the same vector, $M\vec{v} = M\vec{w}=M\vec{u}\equiv \vec{z}$. The problem shows up when we try to ``undo'' the transformation $M$ by applying $M\inv$ to $\vec{z}$. $M\inv\vec{z}$ should be a vector. Instead, we have at least three different valid options: $\vec{v}$, $\vec{w}$, and $\vec{u}$. This means that $M\inv$ is not a well defined linear map: it can send one vector $\vec{z}$ into many possible vectors. }
+    \label{fig:map:M:no:inv}
+\end{figure}
+% 
+Thinking of the matrix $M$ as a map, we see the the problem is one of uniqueness. A linear map should take each vector $\vec{v}$ into a single, well-defined vector $M\vec{v}$. $M$ is suspicious because it sends multiple different vectors to the \emph{same} vector, say $M\vec{v} = M\vec{w}$. That's fine. Each of $\vec{v}$ and $\vec{w}$ are sent to \emph{a} vector. The problem shows up when we try to take the inverse. If we write $\vec{z} = M\vec{v} = M\vec{w}$, we know that
+\begin{align}
+    (M\inv)\vec{z} = (M\inv)M\vec{v} &= \vec{v}
+    &
+    (M\inv)\vec{z} = (M\inv)M\vec{w} &= \vec{w} \ .
+\end{align}
+However, we assumed that $\vec{v} \neq \vec{w}$. This means makes the above line inconsistent. The inverse transformation is not defined. Bummer.
+
+Fortunately, most of the \emph{dynamics} in physics \emph{is} invertible. That does not mean that we can ignore non-invertible matrices, though. Non-invertible matrices can be understood as \textbf{projections} onto a subspace. You can see this in the example in Fig.~\ref{fig:map:M:no:inv}. The map $M$ is essentially only using the information about the second component of its input vector and mapping it to just the second component of the output vector. That means that $M$ is really just a map to a one-dimensional subspace. In this way, the two dimensional vector space $\RR ^2$ is \textbf{projected} onto a one-dimensional subspace of $\RR ^2$. In that example, the one dimensional space is defined by vectors of the form
+\begin{align}
+    \vec{v} = 
+    \begin{pmatrix}
+    0\\ v^2    
+    \end{pmatrix} \ .
+\end{align}
+
+Projections are really useful in physics. Sometimes you want to take a big vector space and only focus on a subspace that satisfy certain conditions. For example, it turns out that in nature you can have two types of massless matter particles: left-handed and right-handed according to their quantum spin in the direction of their motion. One may want to project onto only the space of left-handed particles because that is easier to deal with than the entire space. Because projections necessarily ``throw out'' information, they are non-invertible.\footnote{I think this was more intuitive to past generations of physicists. When you throw out a piece of paper, it ends up in a recycling plant and it gets torn up and is lost forever. Since the advent of computers, when you ``throw out'' a file, you can usually control/command-z and undo to bring it back.}
+
+\begin{example}
+One of the most curious puzzles in fundamental physics over the last half century is the black hole information paradox.\footnote{\url{https://www.quantamagazine.org/the-most-famous-paradox-in-physics-nears-its-end-20201029/}} One way of stating the paradox is the question of whether or not ``falling into a black hole'' is a \emph{projection} that throws out information. 
+\end{example}
+
+
 \section{Gram-Schmidt}
 
 
@@ -5092,8 +5745,156 @@ Draw the resulting vector. Do the same for the case with the same matrix except 
 Yes, \emph{this} is the transpose!
 \end{quote}
 
+\begin{subappendices}
+
+\section{Discrete isometries}
+\label{sec:discrete:isometries}
+
+One of the notable features of rotations is that you can rotate by any continuous amount, $\theta$. You can rotate by $\theta=\pi/2$, or $\theta = \pi/2 + \varepsilon$ for, say, $\varepsilon = .0001$. Thus the rotation matrix parameterizes an infinite number of possible rotations. Because there is a continuous parameter for the amount by which one performs a rotation, we say that this is a continuous isometry. There are, however, often \emph{discrete} isometries where there is simply a handful of matrices under which the metric is invariant. In Euclidean two dimensional space, one such matrix is 
+\begin{align}
+    P = \begin{pmatrix}
+        1 & \\
+        & -1 
+    \end{pmatrix} \ .
+\end{align}
+Under $P$, the second component of a vector (in the standard basis) changes sign. Because the metric transforms with two factors of $P$---here we use $P^\dag = P$---it remains unchanged:
+\begin{align}
+    P^\text{T}gP = 
+    \begin{pmatrix}
+        1 & \\ 
+        & -1 
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & \\ 
+        & 1 
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 & \\ 
+        & -1 
+    \end{pmatrix}
+    = 
+    \begin{pmatrix}
+        1 & \\ 
+        & 1 
+    \end{pmatrix} \ .
+\end{align}
+\begin{exercise}
+Suppose that the components of the metric in $\RR^2$ are not diagonal. That is, $g_{12} = g_{21}\neq 0$. Is $P$ an isometry of this metric space?
+\end{exercise}
+
+The total set of isometries is every combination of rotations and discrete transformations. We often say that this is a \textbf{group}\index{group}. One may write a generic isometry as a product of rotations and discrete transformations. 
+\begin{example}
+The following transformation is a combination of a discrete transformation $P$ and a rotation:
+\begin{align}
+    \tilde R = PR =
+    \begin{pmatrix}
+        1 & \\ 
+        & 1 
+    \end{pmatrix}
+    \begin{pmatrix}
+        c & -s\\ 
+        s & \pp c
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        c & -s\\ 
+        -s & - c
+    \end{pmatrix} \ .
+    \label{eq:discrete:isometry:eg}
+\end{align}
+This matrix does \emph{not} look like a rotation. The diagonal elements differ by a sign, while the off-diagonal elements are the same. If we did not know about discrete isometries, we would have said that this matrix does not map one orthonormal basis to another. In fact, it does.
+\end{example}
+\begin{exercise}
+Compare the rotation-and-discrete transformation in \eqref{eq:discrete:isometry:eg} to a transformation that is simply a rotation. For concreteness, pick a rotation angle $\theta = \pi/4$ so that $c=s=1/\sqrt{2}$. Apply the rotations $R$ and $\tilde R$ to the standard basis. How do the ``rotated'' bases differ?
+\end{exercise}
+
+In three dimensions this notion shows up as \emph{parity}. Here are two ways to represent the parity transformation in three dimensions:
+\begin{align}
+    P &=
+    \begin{pmatrix}
+        -1 & & \\
+        & -1 & \\
+        & & -1
+    \end{pmatrix} 
+    &
+    P =
+    \begin{pmatrix}
+        1 & & \\
+        & 1 & \\
+        & & -1
+    \end{pmatrix}
+    \ .
+\end{align}
+The reason why there are different ways to represent this discrete symmetry is that the two are related by a rotation. 
+\begin{exercise}
+Describe---in words or drawing if that is simpler---the rotation that relates the two parity matrices above. It may help to think about what each representation of $P$ does to the standard basis vectors. 
+\end{exercise}
+
+You can tell that the two are related by a rotation if you think about all that ``right hand rule'' stuff you learned when you first did angular momentum in mechanics. The right hand rule enforced a certain \emph{orientation} of your basis vectors. The positive $x$, $y$, and $z$ directions are chosen to have a particular orientation: if you curl the fingers of your right hand from the $x$-axis to the $y$-axis, then your thumb is pointing in the $z$ direction. You can rotate your hand in any way, but this orientation stays the same. Similarly, if you are contrarian and decided to define your axes by a ``left hand rule,'' then (1) several of your angular momentum-related results are off by a minus sign, and (2) there is no way to rotate your left hand to make it match the orientation of your right hand. This notion is pervasive in nature in three spatial dimensions: fundamental particles have a spin that defines an orientation that is either left- or right-handed. Even protein can have a \emph{chirality} where identical sequences of amino acids may spiral in one direction or another---and biological life on earth can only use one orientation and not the other. 
+
+By manipulating objects (like your right hand) you have an intuitive sense of rotations in three-dimensions. What may be less obvious is that you also have a simple tool for understanding what a parity transformation does: look in the mirror. If you raise your right hand, then the image of you in the mirror raises their left hand. If you do physics with a right-handed coordinate system, then your mirror image will do physics in a left-handed coordinate system. You can bet that the image of you is composed of proteins with the opposite chirality and subatomic particles spinning in the opposite orientation. 
+\begin{exercise}
+Explain why your image in a mirror exchanges left and right but does not swap up and down.\footnote{This is a question that was posed in my freshman physics class. It was not the first time that I heard the question, but I was surprised that it is a mathematical question in the realm of physics. I have since come to appreciate the significant role that parity plays in many aspects of physics. I hope that soon you will as well.}
+\end{exercise}
+
+
+\end{subappendices}
+
 
 \chapter{Eigensystem}
+
+In this section we take a step back and mostly write in matrix notation. 
+
+\section{A useful example}
+
+Suppose you have a matrix in Euclidean space:
+\begin{align}
+    M\aij{i}{j} =
+    \begin{pmatrix}
+        M\aij{1}{1} & M\aij{1}{2} \\
+        M\aij{2}{1} & M\aij{2}{2}
+    \end{pmatrix}=
+    \begin{pmatrix}
+        2 & 1 \\
+        1 & 2
+    \end{pmatrix} \ .
+\end{align}
+This is a symmetric matrix because $M\aij{i}{j} = M\aij{j}{i}$. The matrix $M$ has a special basis called an \emph{eigenbasis}\index{eigenbasis}, or a basis of \textbf{eigenvectors}\index{eigenvector}. Eigenvectors are special vectors $\ket{\xi}$ where $M\ket{\xi_i} = \lambda_i \ket{\xi_i}$ (no sum over $i$). When $M$ acts on one of its eigenvectors, it simply rescales  the eigenvector. The rescaling constant $\lambda_i$ is called the \textbf{eigenvalue}\index{eigenvalue} of $\ket{\xi_i}$.
+
+
+The eigenvectors of $M$ are
+\begin{align}
+    \ket{\xi_1} &= \frac{1}{\sqrt{2}}\ket{e_1} + \frac{1}{\sqrt{2}}\ket{e_2}
+    &
+    \ket{\xi_2} &= \frac{1}{\sqrt{2}}\ket{e_1} - \frac{1}{\sqrt{2}}\ket{e_2} \ .
+\end{align}
+
+\begin{exercise}
+Show that the eigenvalues are $\lambda_1 = 3$ and $\lambda_2 = 1$. That is, show that
+\begin{align}
+M\ket{\xi_1} &= 3 \ket{\xi_1}
+&
+M\ket{\xi_2} &=  \ket{\xi_2} \ .
+\end{align}
+\end{exercise}
+
+\begin{exercise}[Inverses are easy in the eigenbasis]
+In the eigenbasis, the vector $\ket{v} = v^1\ket{\xi_1} + v^2 \ket{\xi_2}$. Suppose you have an equation
+\begin{align}
+    M\ket{v} = 2 \ket{\xi_1} -  \ket{\xi_2} \ .
+\end{align}
+What are the components $v^1$ and $v^2$? \textsc{Hint}: you can act on both sides by $\bra{\xi^1}$ and then by $\bra{\xi^2}$. \textsc{Partial answer:} $v^1 = 2/3$. 
+\end{exercise}
+
+\begin{exercise}[A general solution]
+Let $A$ be some other matrix with eigenbasis $\ket{\zeta_1}$ and $\ket{\zeta_2}$. (Those are zetas.) These have eigenvalues $\kappa_1$ and $\kappa_2$. A vector $\ket{v} = v^1\ket{\zeta_1} + v^2 \ket{\zeta_2}$. Suppose you have an equation
+\begin{align}
+    M\ket{v} = w^1 \ket{\zeta_1} +  w^2\ket{\zeta_2} \ .
+\end{align}
+What are the components $v^1$ and $v^2$ in terms of $w^{1,2}$ and $\kappa_{1,2}$? \textsc{Partial answer:} $v^1 = w^1/\kappa_1$.
+
+\textsc{Comment}: look how \emph{easy} this is compared to inverting $M$ the hard way. 
+\end{exercise}
 
 \chapter{Complex Spaces}
 
@@ -5546,13 +6347,82 @@ Show in one line that \eqref{eq:fourier:representation:of:Dirac:delta} is equiva
 which is another common integral representation of the $\delta$-function.
 \end{exercise}
 
-\section{Momentum Space}
+\section{Momentum Space and Its Cousins}
 
-What does the Fourier transform buy us? 
+What does the Fourier transform buy us? The power of the Fourier transform is that we are able to represent a function in terms of a sum (integral) over momentum eigenstates, $e^{-ipx}$. In turn, the magic of these states is that they are \emph{eigenstates} of the derivative operator:
+\begin{align}
+    \frac{\D{}}{\D{x}} e^{-ipx} = (-ip) e^{-ipx} \ .
+\end{align}
+\begin{example}
+Note that the eigenvalue of $\D{}/\D{x}$ is not real. This is because the single derivative is not a Hermitian operator. A more proper statement is that a momentum eigenstate is an eigenstate of the Laplacian, $(\D{}/\D{x})^2$ with eigenvalue $-p^2$.
+\end{example}
+\begin{exercise}
+In more than one dimension, the momentum eigenstates are $e^{-i p\cdot x}$ where $p\cdot x = p_\mu x^\mu$. Show that these satisfy
+\begin{align}
+    \frac{\partial}{\partial x^\mu} e^{-ip\cdot x}
+    &= (-ip_\mu) e^{-ip\cdot x} \ .
+\end{align}
+This is a simple extension of the single dimensional case, but please make sure you follow both the presence of the $\mu$ index and its height on each side of the equation.
+\end{exercise}
 
-We 
+\paragraph{Solving differential equations}
+Eigenstates of the derivative are \emph{especially} useful in physics because, as we motivated in \bigidearef{}~\ref{idea:causality:and:derivatives}, the laws of physics are written in terms of derivatives.\sidenote{Recall that one way to see this is a requirement of causality.} In fact, often times we have equations of the form 
+\begin{align}
+    (\text{differential operator}) f(x) &= s(x) \ ,
+\end{align}
+where we want to determine some state $f(x)$ as a function of some known source $s(x)$. The differential operator is some polynomial of derivatives,\sidenote{I am writing derivatives as partial derivatives in anticipation of $x$ being multidimensional in many cases.} $P(\partial)$. For example, the Laplacian/d'Alembertian is
+\begin{align}
+    P(\partial) = \partial_\mu \partial^\mu = \frac{\partial}{\partial x^\mu}\frac{\partial}{\partial x_\mu} \ .
+\end{align}
+When we write $f(x)$ as a Fourier transform, each term in the integral/sum contains simple $x$-dependence: $e^{-ip\cdot x}$. Then the action of $P(\partial)$ becomes multiplication by a polynomial in $p$:
+\begin{align}
+    P(\partial) e^{-ip\cdot x}
+    = 
+    P(-ip) e^{-ip\cdot x} \ .
+\end{align}
+\begin{exercise}
+Confirm the above equation. 
+\end{exercise}
+Further, this means that \emph{inverting} the equation becomes easy---at least writing down a closed form integral:
+\begin{align}
+    P(\partial) 
+    \int \DDbar{d}{p}\, \tilde f(p)
+    e^{-ip\cdot x}
+    =
+    \int \DDbar{d}{p}\, \tilde f(p) P(-ip) 
+    e^{-ip\cdot x}
+    = 
+    \int \DDbar{d}{p}\, \tilde s(p)
+    e^{-ip\cdot x} \ .
+\end{align}
+Then we may identify the coefficients of independent $e^{-ip\cdot x}$ modes for each $p$:
+\begin{align}
+    \tilde f(p) = \frac{\tilde s(p)}{P(-ip)} \ .
+\end{align}
+Specifying each of the Fourier components of a function $f(x)$ is equivalent to specifying the entire function. Thus one has solved the differential equation.\sidenote{One has solved it in momentum space, but one still has to perform an inverse Fourier transform to write it in position space, so there's still an integral to be done. There is definite progress, though: often this integral can be approximated, numerically if need be.}
 
-Exercise~\ref{ex:Fourier:using:Peskin:exponential:sign:convention}... with minus sign convention ***
+
+
+
+
+\paragraph{Special functions} The general procedure here is something that shows up over and over in mathematical physics:
+\begin{bigidea}[Why do some functions have names?]\label{rule:special:functions}
+There is a surprisingly small number of `really important differential operators' that show up over and over in physics. These tend to be cousins of the Laplacian. These operators have some natural basis of eigenfunctions that are the \emph{correct} basis to use to solve any differential equation in a straightforward way. Because these eigenfunctions are so common in physics, we end up giving them names. You may have heard of Bessel functions, Legendre polynomials, spherical harmonics, Airy functions, and so forth. If an exotic-looking class of functions has a name, it is probably the eigenfunction of some significant differential operator. So when you meet these functions, do not think that you have met some weird new species: ask `what operator is this an eigenfunction for'? Once you understand these functions as an orthonormal basis, you have no reason to fear or be puzzled by them. 
+\end{bigidea}
+Please keep this organizing principle in mind every time you meet a new family of special functions. It is a `unification' of the general approach to all sorts of physics problems---especially the ones that show up in first-year graduate courses. 
+
+
+\begin{exercise}[Why are there so few differential operators?]\label{ex:few:differential:ops}
+The observation in \bigidearef{}~\ref{rule:special:functions} assumes that there are only a few `really important differential operators' in physics. In fact, these are essentially the Laplacian (second derivative) written in different coordinate systems. Why is this? 
+
+One way to argue is to assume that the laws of physics are derived from an action principle: there exists some scalar function  $S=\int \D{t}\, L[\cdots]$ that depends on the dynamical variables (`states') of your physical theory. This is true in all of your physics courses.  This scalar function contains derivatives, as per \bigidearef{}~\ref{idea:causality:and:derivatives}. Argue that the second derivative is the most significant term.
+
+Argue that the first derivative does not typically contribute because then there is no natural way for $S$ or $L$ to be a scalar function. Argue that third and higher derivatives do not typically contribute from dimensional analysis. This latter point comes from recognizing that the action and the dynamical fields carry some units. The derivative, too carries units. Terms with more derivatives must then have these units compensated by some scale. In a physical theory, scales that are `put in by hand' represent \emph{microphysics}: the underlying dynamics that lie \emph{beyond} the present theory. For example, a theory of light passing through the atmosphere may have the typical size of a nitrogen molecule as its microscopic scale. At length scales smaller than this, the interactions of photons with the molecule cannot be described by the typical Rayleigh theory that explains why the sky is blue.
+
+This exercise has a conceptually simple answer, but it draws on a rather sophisticated understanding of physics---it is rather subtle if you have not thought about this before. Feel free to ask about it in class. 
+\end{exercise}
+
+
 
 
 
@@ -5637,13 +6507,18 @@ We see that it is convenient to take a convention where every $\D{p}$ comes with
 \begin{exercise}\textbf{Lorentz-Invariant Phase Space.}
 % See also https://physics.stackexchange.com/questions/141724/why-is-there-1-2-pi-in-int-fracdp2-pip-rangle-langle-p (
 % Josh's response)
-In relativistic systems, the energy and the momenta are related by $E^2 = \vec{p}^2 + m^2$. We are, of course, using natural units where $c=1$. The phase space integral over $\dbar^3p$ is thus also an integral over the energy. In order to enforce the relativistic relation, the full phase space density is usually written as $\DDbar{4}{p}\, (2\pi)\,\delta(E^2-p^2-m^2)$. Show that integrating over the $\delta$-function gives
+In relativistic systems, the energy and the momenta are related by $E^2 = \vec{p}^2 + m^2$. We are, of course, using natural units where $c=1$. The phase space integral over $\DDbar{3}{\vec{p}}$ is thus also an integral over the energy. In order to enforce the relativistic relation, the full phase space density is usually written as $\DDbar{4}{p}\, (2\pi)\,\delta(E^2-p^2-m^2)\,\Theta(E)$. The Heaviside step function $\Theta(E)$ is one when $E\geq 0$ and zero otherwise; it ensure that the outgoing energies are positive. Show that integrating over the $\delta$-function gives
 \begin{align}
   \int \DDbar{4}{p}\, \delta(E^2-p^2-m^2) &= 
   \int \frac{\DDbar{3}{\vec{p}}}{2E(p)}
   &
   E(p) \equiv \sqrt{p^2 + m^2} \ .
 \end{align}
+\textsc{Hint}: use the relation
+\begin{align}
+    \delta(f(x)) &= \sum_{x_i} \frac{\delta(x-x_i)}{\left|\D{f}(x_i)/\D{x}\right|}
+\end{align}
+where the sum is over the root of $f(x)$, that is: one sums over the $x_i$ such that $f(x_i)=0$. The $\Theta$ function ensures that only one such root contributes.
 \end{exercise}
 
 \end{subappendices}
