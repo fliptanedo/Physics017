@@ -1100,12 +1100,13 @@ satisfies \eqref{eq:RTR:one}. Using this form of rotations, show that rotations 
 \end{exercise}
 
 \begin{subappendices}
-\section{Transpose}
-The \textbf{transpose} of a matrix is what happens when you `flip all the elements along the diagonal.' Given a matrix $M$, the transpose of $M$ is $M^T$ with components
+\section{Transpose}\label{sec:transpose}
+The \textbf{transpose} of a matrix is what happens when you \emph{flip all the elements along the diagonal}.\sidenote{By \emph{diagonal} we mean the elements from the top left of the matrix down to the bottom right.} Given a matrix $M$, the transpose of $M$ is $M^T$ with components
 \begin{align}
-    (M^T)\aij{i}{j} &= M\aij{j}{i} \ .
+    (M^\trans)\aij{i}{j} &= M\aij{j}{i} \ .
     \label{eq:transpose:components}
 \end{align}
+This working definition of a transpose is not \emph{quite} the most useful one---but it is the most clear to write out.
 
 \begin{example}
 The following two matrices are transposes of each other.
@@ -1117,7 +1118,7 @@ The following two matrices are transposes of each other.
         1 & \pp 0 & 3
     \end{pmatrix}
     &
-    M^T &= 
+    M^\trans &= 
     \begin{pmatrix}
         \pp 9 & 2 & 1 \\
         -3 & 5 & 0 \\
@@ -1127,7 +1128,7 @@ The following two matrices are transposes of each other.
 \end{align}
 \end{example}
 
-This unusual operation will turn out to be rather useful for us. I leave the following cryptic statement: the transpose of a matrix is \emph{not} its inverse, but it does have a \emph{dual} relationship to the original matrix. Once we define a metric, we will be able to give a more rigorous definition for transpose. For now, let use take \eqref{eq:transpose:components} as the definition of something we can `do' to matrices. 
+This unusual operation will turn out to be rather useful for us. I leave the following cryptic statement: while the transpose of a matrix is \emph{not} its inverse, but it does have a \emph{dual} relationship to the original matrix. Once we define a metric, we will be able to give a more rigorous definition for transpose. For now, let use take \eqref{eq:transpose:components} as the definition of something we can do to matrices. We tackle this properly when we define the adjoint in Section~\ref{sec:adjoint}.
 
 
 \section{Trace}
@@ -1139,83 +1140,29 @@ The \textbf{trace} of a matrix $M$ is simply the sum of its diagonal components:
 It is not obviously meaningful from the perspective of $M$ being a linear transformation. However, it ends up being useful as as a mechanical procedure that one can do to matrices. The reason for this is something we will see soon: the trace of a matrix is unchanged under rotations. 
 
 \section{Determinant}
+\label{sec:determinants:easy}
 
 
 Here's another seemingly strange operation that you can do on a matrix. The determinant of a $2\times 2$ matrix is defined to be
 \begin{align}
     \det M \equiv M\aij11 M\aij12 - M\aij12 M\aij21 \ .
 \end{align}
-Weird, right? Determinants for higher-dimensional square matrices can be defined recursively by taking specific linear combinations of sub-matrices. There are silly rules for this. There are fancy words for the sub-matrices (minors) and the appropriate sign for summing together those determinants (cofactors). Look, it's a mess. You should be able to calculate the determinant of a general $2\times 2$ matrix because it's easy. In case of national crisis, you should be able to calculate the determinant of a general $3\times 3$ matrix after consulting a reference to double check the signs. However, at this stage we will not make a big deal about determinants. I think engineering classes make a big deal about determinants because they can help with solving systems of linear equations using matrices---but \emph{that's not the kind of linear algebra we're doing in physics}.
+Weird, right? Determinants for higher-dimensional square matrices can be defined recursively by taking specific linear combinations of sub-matrices. There are silly rules for this. There are fancy words for the sub-matrices (minors) and the appropriate sign for summing together those determinants (cofactors). Look, it's a mess. You should be able to calculate the determinant of a general $2\times 2$ matrix because it's easy. In case of national crisis, you should be able to calculate the determinant of a general $3\times 3$ matrix after consulting a reference to double check the signs.\sidenote{That reference will not be these notes.} However, at this stage we will not make a big deal about determinants. I think engineering classes make a big deal about determinants because they can help with solving systems of linear equations using matrices---but \emph{that's not the kind of linear algebra we're doing in physics}.
 
 \begin{example}\label{eg:determinant:of:diagonal}
 The determinant of a diagonal matrix is simply the product of each of its diagonal elements. 
 \end{example}
 
-Determinants of a matrix are at least as curious as its trace because the determinant of a matrix turns out to also be unchanged under rotations. Furthermore, in multivariable calculus, the determinant shows up in the volume element. In fact, there is a formal definition of the determinant that comes from differential geometry where we use the determinant to rigorously define volumes of curved spaces. This sort of thing shows up in general relativity.
-%
-One way of starting to see why this is plausible is the observation that the determinant of a matrix $M$ is equal to the area of the parallelogram whose sides are given by the transformed basis vectors, $M\bas{e}_i$. We sketch this in two dimensions in Fig.~\ref{fig:determinant:map:area}. 
-% 
-\begin{figure}[tb]
-    \centering
-    \includegraphics[width=.8\textwidth]{figures/determinant_sketch.pdf}
-    \caption{The transformation by $M$ of a unit square with sides $\bas{e}_i$ is a parallelogram with sides $M\bas{e}_i$. The determinant of $M$ is the area of the parallelogram. In more than three dimensions the shape is called a parallelpiped, which is a fun word to say.}
-    \label{fig:determinant:map:area}
-\end{figure}
-% 
-To prove this claim in two dimensions, we enclose the parallelogram into a box and start figuring out the area of various sub-shapes. Let $A_\text{r}$ be the area in the two red triangles, $A_\text{b}$ be the area in the two green triangles, and $A_\text{g}$ be the area of the two blue boxes. These areas are---accounting for the factor of two because there are two of each shape:
-\begin{align}
-    A_\text{r} &= M\aij 11 M \aij 21
-    &
-    A_\text{g} &= M\aij 22 M \aij 12
-    &
-    A_\text{b} &= 2 M\aij 12 M \aij 21 \ .
-\end{align}
-The total area of the large box is
-\begin{align}
-    A_\text{tot} &= (M\aij 11 + M\aij 12)(M\aij 22 + M\aij 21) 
-    \\&= M\aij 11 M\aij 22 + 
-    M\aij 11 M\aij 21 + 
-    M\aij 12 M\aij 22 + 
-    M\aij 12 M\aij 21 
-    \\ &= 
-    M\aij 11 M\aij 22 + 
-    A_\text{r} + 
-    A_\text{g}  + 
-    \frac 12 A_\text{b} 
-    \ . 
-\end{align}
-% 
-\begin{figure}[tb]
-    \centering
-    \includegraphics[width=.8\textwidth]{figures/determinant_sketch2.pdf}
-    \caption{Graphical aid for understanding the area of the parallelogram whose sides are $M\bas{e}_i$.}
-    \label{fig:determinant:map:area:proof}
-\end{figure}
-% 
-The area of the parallelogram is simply the area of the large box minus the areas of the non-parallelogram shapes, $A_\text{tot}- A_\text{r} - A_\text{g} - A_\text{b}$:
-\begin{align}
-    A_\text{parallelogram} =  M\aij 11 M\aij 22 - \frac 12 A_\text{b}  = M\aij 11 M\aij 22  - M\aij 12 M\aij 21  = \det M \ .
-    \label{eq:det:is:area:parallelogram}
-\end{align}
-And so we have shown the result in a simple case: determinants are related to areas. Specifically, we see that the determinants are related to the areas (volumes) of parallelograms (parallelpipeds) with sides $M\bas{e}_i$. 
+In Section~\ref{sec:determinatns} we take time to define the determinant properly.\sidenote{We are skipping all pretense of taking the determinant anything bigger than a $2\times 2$ matrix by hand. There are computers for that. Instead, let us figure out how to use the determinant.} 
 
-This interpretation of determinants as volumes\footnote{I now say `volumes' instead of `area' because what follows is general to any dimension of space.} also motivates some further expressions for the determinant of the product of matrices and the determinant of the inverse of a matrix. If we perform subsequent transformations with two matrices, $N$ and $M$, then the unit parallelpiped is first mapped to a parallelpiped of volume $\det N$. When we apply the second matrix $M$, this intermediate parallelpiped is mapped to a third parallelpiped whose volume is rescaled by $\det M$. The resulting volume is $(\det N)(\det M)$. We thus deduce that the determinant of a product of matrices is the product of the determinants of each matrix:
-\begin{align}
-    \det NM = (\det N)(\det M) \ . 
-    \label{eq:det:of:product}
-\end{align}
-Going further, because $M M\inv = \one$, we have
-\begin{align}
-    \det M M\inv &= (\det M)(\det M\inv ) 
-    % = \det\one 
-    = 1 
-    & \Rightarrow&
-    &
-     \det M\inv &= \frac{1}{\det M} \ .
-    % {eq:det:of:product}
-    \label{eq:det:of:inverse}
-\end{align}
-We have been deliberately hand-wavy to motivate thesse relations for determinants. If we were to be more rigorous, the are rather tricky to prove, though you can do them by brute force by calculating components. 
+\section{Cross product}
+
+The cross product is an incredibly strange operation. It takes two vectors and returns another vector. Not only that, the \emph{order of the input vectors} matters. $\vec{v}\times\vec{w} = -\vec{w}\times\vec{v}$. The length of the cross product of two vectors is somehow related to the area of the parallelogram formed out of the two vectors. You have seen the cross product in your introductory physics courses: it shows up in the definition of angular momentum, the force law for a magnetic field, and the expression for the magnetic field from a vector potential. You would think that the cross product is a big part of our story. 
+
+It is not.
+
+The reason is that the cross product only exists in three dimensions. There is a structure that generalizes the cross product, but we first need to build up the mathematical machinery to use it. 
+
 
 
 \end{subappendices}
@@ -3624,6 +3571,97 @@ Sometimes it is helpful to see something written in gory detail. Let us write ou
 The key here is to first understand why several terms are zero, then to learn the `rule of thumb' that the $\delta^i_j$ reduces a double sum into a single sum. Any time you have a repeated index where one of the repeated indices is on a Kronecker-$\delta$, you can simply remove the Kronecker $\delta$ and replace that index with the \emph{other} index on $\delta$. In the example above, we saw that there was a repeated $j$ index in $w_i \delta^i_j v^j$. We found that we can simply remove the $\delta$ and replace the $v^j$ with $v^i$ because $i$ is the `other' index on $\delta^i_j$.
 \end{example}
 
+\section{Canceling factors in a tensor equation}
+
+\begin{wide}
+Sometimes you will find equations of the following form:
+\begin{align}
+    w_i M\aij{i}{j}v^j = w_i A\aij{i}{j}v^j \ .
+    \label{eq:canceling:factors:wMv}
+\end{align}
+If we were to expand this, the equation reads:
+\begin{align}
+    w_1 M\aij{1}{1}v^1 + w_1 M\aij{1}{2}v^2
+    + w_2 M\aij{2}{1}v^1 + w_2 M\aij{2}{2}v^2
+    =
+    w_1 A\aij{1}{1}v^1 + w_1 A\aij{1}{2}v^2
+    + w_2 A\aij{2}{1}v^1 + w_2 A\aij{2}{2}v^2 \ ,
+    \label{eq:canceling:factors:wMv:long}
+\end{align}
+where we take the two-dimensional case for brevity. 
+\end{wide}
+
+Based on this equation, can you infer anything about how the matrices $M$ and $A$ relate to one another? Not by itself since the equation seems to depend on the values of $w_i$ and $v^j$. 
+
+However, if we further said that \eqref{eq:canceling:factors:wMv} is true \emph{for any vector $\vec{v}$ and any dual vector $\row{w}$}, then we can deduce that 
+\begin{align}
+    M\aij{i}{j} = A\aij{i}{j} \ ,
+\end{align}
+the two matrices are equivalent. This is clear in the expanded form of the equation. If you set $w_1 = v^2 = 1$ while $w_2 = v^1 = 0$, then \eqref{eq:canceling:factors:wMv:long} reduces to $M\aij{1}{2} = A\aij{1}{2}$. You can do this for any choices of the $\row{w}$ and $\vec{v}$ components. This leads us to want to take \eqref{eq:canceling:factors:wMv} and \emph{cancel} the common factors on both sides:
+\begin{align}
+    \cancel{w_i} M\aij{i}{j} \cancel{v^j} = \cancel{w_i} A\aij{i}{j} \cancel{v^j} \ ,
+    \label{eq:canceling:factors:wMv:cancel}
+\end{align}
+which indeed gives us the equality $M=A$. Note that we can \emph{only} do this when we mandate that \eqref{eq:canceling:factors:wMv} is true for \emph{any} $\row{w}$ and $\vec{v}$.
+\begin{example}
+Suppose
+\begin{align}
+    M &= 
+    \begin{pmatrix}
+        1 & 3 \\
+        7 & 3
+    \end{pmatrix}
+    &
+    A&=
+    \begin{pmatrix}
+        1 & 3\\
+        2 & 3
+    \end{pmatrix} \ .
+\end{align}
+If we choose
+\begin{align}
+    \row{w} &=
+    \begin{pmatrix}
+        1 & 0
+    \end{pmatrix}
+    &
+    \vec{v} &=
+    \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix} \ ,
+\end{align}
+then \eqref{eq:canceling:factors:wMv} is true. However, if we instead choose 
+\begin{align}
+    \row{w} &=
+    \begin{pmatrix}
+        0 & 1
+    \end{pmatrix}
+    &
+    \vec{v} &=
+    \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix} \ ,
+\end{align}
+then \eqref{eq:canceling:factors:wMv} is not true. The equality of each component of $M$ and $A$ requires that \eqref{eq:canceling:factors:wMv} is true for \emph{any} $\row{w}$ and $\vec{v}$. 
+\end{example}
+
+
+The `cancel on both sides' step in \eqref{eq:canceling:factors:wMv:cancel} is curious in that we are canceling a objects that have indices that are summed over with the rest of an expression. You went from an equation between sums of many terms to an equation that related specific terms in that sum. Alternatively, you went from an equation between two numbers to an equation between the components of two matrices. These components, of course, represent specific terms in \eqref{eq:canceling:factors:wMv:long} that that may be singled out on each side of the equation by judicious choice of $\row{w}$ and $\vec{v}$. 
+
+A word of caution is in order. When doing this trick, you should start by writing out the dummy indices\sidenote{Dummy indices are indices that are contracted over: they appear twice in an expression, once as an upper index and once as a lower index.} in such a way that the factors that you are canceling have \emph{exactly} the same index names. Thus it is true that we may rewrite the right-hand side of \eqref{eq:canceling:factors:wMv} as 
+\begin{align}
+    w_i A\aij{i}{j}v^j = w_a A\aij{a}{b}v^b \ ,
+\end{align}
+and it is even true that 
+\begin{align}
+    w_i M\aij{i}{j}v^j = w_a A\aij{a}{b}v^b \ .
+\end{align}
+However, we cannot then write that
+\begin{align}
+    M\aij{i}{j} = A\aij{a}{b} \ ,
+\end{align}
+because the indices between the left-hand and right-hand sides of this equation make no sense: when $i=1$ and $j=2$, what do $a$ and $b$ correspond to? It may be obvious in this simple example because there is a unique upper and lower index, but this can become rather subtle.
+
 
 \end{subappendices}
 
@@ -3835,6 +3873,7 @@ Show that the components the metric are easily (perhaps \emph{tautologically}\fo
 There is one more practical requirement for a metric: the metric is invertible. Another way of saying this is that it is \emph{non-degenerate}. 
 
 \section{A tool to define length}
+\label{sec:machine:to:make:row:vectors}
 
 The \textbf{length}\index{length} of a vector $\vec{v}$ is defined by
 \begin{align}
@@ -3910,6 +3949,7 @@ Show that in (1+1)-dimensional Minkowski space two vectors may each be \emph{nul
 
 
 \section{A tool to lower indices}
+\label{{sec:machine:to:make:row:vectors}}
 
 The following observation is, by far, the most common way to think about the metric:
 \begin{quote}
@@ -4195,7 +4235,9 @@ the inner product with one of the slots pre-filled with $\vec{v}$.
 \end{quote}
 To let this sink in, let us write it out mathematically:
 \begin{align}
-    \row{v} \defeq \la \vec{v}, \Vtextvisiblespace[1em]{}\, \ra \ .
+    % \row{v} \defeq \la \vec{v}, \Vtextvisiblespace[1em]{}\, \ra \ .
+    \row{v} \defeq \la \vec{v}, \slot{}\, \ra \ .
+    \label{eq:dual:vec:is:pre:filled:inner:product}
 \end{align}
 Here we have written a space, \Vtextvisiblespace[1em]{} to mean \emph{ put in the argument of the linear function $\row{v}$ in here}. In other words, the \emph{dual vector} $\row{v}$ acts on some other vector $\vec{w}$ as
 \begin{align}
@@ -4513,10 +4555,11 @@ Let us return to the question of understanding the components of an isometry. Fo
 \end{align}
 Making this definition was our approach in \eqref{eq:defining:bra:ket:relatin}. However, in a metric space we can \emph{derive} \eqref{eq:row:col:delta:bra:ket} using the metric through the identification in \eqref{eq:row:vector:inner:product},
 \begin{align}
+    % inner product reloaded (pre-loaded) def of row basis
     \bra{e^i} \defeq \la e_i , \Vtextvisiblespace[1em]{} \ra \ .
     \label{eq:basis:dual:vectors:as:inner:prod}
 \end{align}
-The orthonormality of a good basis then gives us \eqref{eq:row:col:delta:bra:ket}.
+The orthonormality of a good basis then gives us \eqref{eq:row:col:delta:bra:ket}.\sidenote{This is one of the few times we have the indices on the left-hand side of an equation not match the height of the indices on the right-hand side. Maybe this okay because \eqref{eq:basis:dual:vectors:as:inner:prod} is not an equation, but rather a definition.}
 \begin{exercise}
 Applying the metric space definition of row vectors in terms of column vectors, \eqref{eq:row:vector:inner:product}, onto the \emph{basis} column vectors. Show that with this definition of $\bra{e^i}$, one automatically has the `defining' relation \eqref{eq:row:col:delta:bra:ket}.
 \end{exercise}
@@ -5704,8 +5747,13 @@ Draw the resulting vector. Do the same for the case with the same matrix except 
 % active leaves basis, but changes components, actual change
 
 \section{Projections}
+\label{sec:projections}
 
-Solving for the components of a matrix inverse boils down to $N^2$ equations for $N^2$ unknowns. This does not mean that those equations have a solution. A simple example is the case of a diagonal matrix with one component zero. We illustrate this in Fig.~\ref{fig:map:M:no:inv}
+When a matrix acts on a vector and produces another vector, you can take the output vector and \emph{infer} the initial vector. This is because the equation
+\begin{align}
+    M\vec{v} = \vec{w}
+\end{align}
+can be solved as long as you know how to compute $M\inv$. Solving $M\inv M = \one$ is has $N^2$ equations for $N^2$ unknowns---but those equations do not necessarily have a solution. A simple example is the case of a diagonal matrix with one component zero. We illustrate this in Fig.~\ref{fig:map:M:no:inv}
 \begin{figure}[tb]
     \centering
     \includegraphics[width=.8\textwidth]{figures/maps_noninv.pdf}
@@ -5713,7 +5761,7 @@ Solving for the components of a matrix inverse boils down to $N^2$ equations for
     \label{fig:map:M:no:inv}
 \end{figure}
 % 
-Thinking of the matrix $M$ as a map, we see the the problem is one of uniqueness. A linear map should take each vector $\vec{v}$ into a single, well-defined vector $M\vec{v}$. $M$ is suspicious because it sends multiple different vectors to the \emph{same} vector, say $M\vec{v} = M\vec{w}$. That's fine. Each of $\vec{v}$ and $\vec{w}$ are sent to \emph{a} vector. The problem shows up when we try to take the inverse. If we write $\vec{z} = M\vec{v} = M\vec{w}$, we know that
+We see the the problem is one of uniqueness. A linear map should take each vector $\vec{v}$ into a single, well-defined vector $M\vec{v}$. $M$ is suspicious because it sends multiple different vectors to the \emph{same} vector, say $M\vec{v} = M\vec{w}$. That's fine. Each of $\vec{v}$ and $\vec{w}$ are sent to \emph{a} vector. The problem shows up when we try to take the inverse. If we write $\vec{z} = M\vec{v} = M\vec{w}$, we know that
 \begin{align}
     (M\inv)\vec{z} = (M\inv)M\vec{v} &= \vec{v}
     &
@@ -5735,15 +5783,435 @@ Projections are really useful in physics. Sometimes you want to take a big vecto
 One of the most curious puzzles in fundamental physics over the last half century is the black hole information paradox.\footnote{\url{https://www.quantamagazine.org/the-most-famous-paradox-in-physics-nears-its-end-20201029/}} One way of stating the paradox is the question of whether or not ``falling into a black hole'' is a \emph{projection} that throws out information. 
 \end{example}
 
+\subsection{Projections in Bra-Ket Notation}
+Recall our resolution of the identity \eqref{eq:resolution:of:the:identity}. Each piece in this sum is a projection. For example, consider $\ket{e_2}\!\bra{e^2}$. This is a matrix that acts on a vector $\ket{v}$, pulls out the second component $v^2$, and then returns a vector in the $\ket{e_2}$ direction with length $v^2$. We can see this mathematically:
+\begin{align}
+    \ket{e_2}\!\bra{e^2} \; v^i\ket{e_i} \;
+    &= 
+    v^1\ket{e_2}\!\la{e^2}\mid {e_1}\ra + 
+    v^2\ket{e_2}\!\la{e^2}\mid {e_2}\ra +
+    v^2\ket{e_2}\!\la{e^2}\mid {e_2}\ra + \cdots
+    \\ 
+    &= v^2 \ket{e_2} \ ,
+    \label{eq:projection:e2:e2}
+\end{align}
+where we used the defining relation $\la e^i \mid e_j \ra = \delta^i_j$\ . This means we can think of our resolution of the identity, $\ket{e_i}\!\bra{e^i}$ as a sum over projections along each axis. 
+
+\subsection{Projecting One Vector Onto Another}
+
+Suppose you have two vectors, $\ket{v}$ and $\ket{w}$ and you want find the projection of $\ket{w}$ onto $\ket{v}$, as shown in Figure~\ref{fig:gram:projection}. 
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/gram-projection.jpg}
+    \caption{Projection of a vector $\ket{w}$ onto the axis of another vector, $\ket{v}$.}
+    \label{fig:gram:projection}
+\end{figure}
+
+Our strategy is to separate the ket $\ket{w}$ into a piece that is parallel to $\ket{v}$ and a piece that is perpendicular to $\ket{v}$,
+\begin{align}
+    \ket{w}= \ket{w_\paral} + \ket{w_\perp} \ .
+\end{align}
+The parallel piece $\ket{w_\paral}$ is precisely the projection of $\ket{w}$ onto $\ket{v}$.  The defining characteristic of $\ket{w_\paral}$ is that $\la \hat{w}_\paral, \hat{v}\ra = 1$. That is: the angle between the \emph{unit vectors} is zero---they are parallel. This means that 
+\begin{align}
+    \ket{w_\paral} \propto \ket{\hat{v}} \ .
+\end{align}
+What is the proportionality? This is simply the length of $\ket{w}$ along the $\ket{\hat{v}}$ axis, $\la w, \hat v \ra$. Then the statement that $\ket{w_\paral}$ is the vector of length $\la w, \hat v \ra$ in the $\ket{\hat v}$ direction is:
+\begin{align}
+    \ket{w_\paral} = \la w, \hat{v} \ra \ket{\hat{v}} 
+    % =  \ket{\hat{v}}\la \hat{v}, w \ra  
+    \ .
+\end{align}
+We recall from the symmetry of the inner product and our definition of kets \eqref{eq:basis:dual:vectors:as:inner:prod} that we may further write
+\begin{align}
+    \la w, \hat{v} \ra = \la \hat{v}, w \ra = \la \hat{v} \mid w \ra \ .
+\end{align}
+What we have done here is written the length of $\ket{w_\paral}$ with respect to a \emph{bra} $\bra{\hat{v}}$ acting on $\ket{w}$. Plugging this back into our expression for $\ket{w_\paral}$, we recover a projection matrix of exactly the form in \eqref{eq:projection:e2:e2}:
+\begin{align}
+    \ket{w_\paral} = \ket{\hat{v}} \la{\hat{v}} | w \ra  =
+    \left(\ket{\hat{v}} \bra{\hat{v}} \right)  \, \ket{w} \ .
+     \ .
+\end{align}
+Evidently $\ket{\hat{v}} \bra{\hat{v}}$ is the matrix that takes $\ket{w}$ and returns $\ket{w_\paral}$, the component of $\ket{w}$ along $\ket{\hat{v}}$. In this language, it is somewhat \emph{obvious} that this is what $\ket{\hat{v}} \bra{\hat{v}}$ does. However, we have not written the components of $\ket{\hat{v}} \bra{\hat{v}}$ in terms of our standard basis. To do that, one simply expands each  of $\ket{\hat{v}}$ and $\bra{\hat{v}}$ in the standard basis. One may invoke linearity to read off the components of the projection matrix, $P = P\aij{i}{j}\ket{e_i}\bra{e^j}$, as seen in the following examples. 
+
+% \begin{example}
+% First a simple warm up. Consider the vectors
+% \begin{align}
+%     \ket{v} &= 2.5 \ket{1}
+%     &
+%     \ket{w} &= 3\ket{1} + 4\ket{2} \ .
+% \end{align}
+% We want to find $\ket{w_\paral}$. First we identify the unit vector in the $\ket{v}$ direction, which is simply $\ket{\hat{v}} = \ket{1}$. As a matrix, the projection operator $P = \ket{\hat{v}} \bra{\hat{v}}$ is
+% \begin{align}
+%     \ket{\hat{v}} \bra{\hat{v}} = \ket{1}\bra{1} 
+%     &=
+%     \begin{pmatrix}
+%         1 & \\
+%         & 0
+%     \end{pmatrix}
+%     \ .
+% \end{align}
+% Int he last step we have matched the components to  $P = P\aij{i}{j}\ket{i}\bra{j}$.
+% Applying this to $\ket{w}$ gives
+% \begin{align}
+%     \ket{\hat{v}} \bra{\hat{v}}w\ra = \ket{1}\bra{1}\left(3\ket{1}+ 4\ket{2}\right)
+%     = 3 \ket{1} \ .
+% \end{align}
+% \end{example} 
+
 
 \section{Gram-Schmidt}
 
+The metric allows us to determine whether a basis is orthonormal or not. We \emph{like} orthnormal bases. Sometimes life gives us garbage bases that are not orthonormal. What are we to do? The Gram--Schmidt procedure is a way to use the metric to take any basis and convert it into an orthonormal basis. We already met the key ideas in Section~\ref{sec:projections}. Here we focus on the two dimensional case. Refer back to Fig.~\ref{fig:gram:projection}: we have two vectors, $\ket{v}$ and $\ket{w}$. How do we turn these into two orthonormal basis vectors?
+%
+The general procedure is:
+\begin{enumerate}
+    \item Grab one vector from the pile of garbage basis vectors. \emph{Normalize} this vector and stick it in your bag of nice basis vectors. 
+    \item Grab another vector from the pile and do whatever you need to do to make it fit as a nice basis vector with the other nice basis vectors in your bag. Start by finding what new `direction' the vector identifies relative to the existing basis vectors. That means finding a direction that is perpendicular\sidenote{It helps to think of this as the part that is not parallel to any existing basis vectors.} to the existing basis vectors. Then normalize the vector pointing in that new direction. The resulting vector can now be placed in the bag of nice basis vectors as an additional orthonormal basis vector.
+    \item Repeat the previous step until you have a complete basis. 
+\end{enumerate}
+
+We can start with $\ket{v}$ and simply normalize it:
+\begin{align}
+    \ket{{e}_1}\defeq \ket{\hat{v}}
+\end{align}
+is the first basis vector. The next step is to take the next vecotr, $\ket{w}$ and pull out the perpendicular part of $\ket{w}$. In Section~\ref{sec:projections} we saw how to do this: simply decompose
+\begin{align}
+    \ket{w} &= \ket{w_\paral} + \ket{w_\perp}
+    &
+    \ket{w_\paral} &=  \la {\hat v} , w\ra  \ket{\hat v}  \ .
+\end{align}
+This gives us $\ket{w_\perp}$ in terms of two vectors $\ket{w}$ and $\ket{w_\paral}$ that we know:
+\begin{align}
+    \ket{w_\perp} = \ket{w} - \la {\hat v} , w \ra  \ket{\hat{v}} \ .
+\end{align}
+
+ We can thus normalize this and that gives us the second basis vector: 
+\begin{align}
+    \ket{e_2} \defeq \ket{\hat w_\perp}
+\end{align}
+If you have more vectors, then you can take your next vector and follow the above steps. The only difference with the iterative step is that the decomposition of a vector 
+\begin{align}
+\ket{u} = \ket{u_\paral} + \ket{u_\perp}    
+\end{align}
+is such that
+\begin{align}
+    \ket{u_\paral} = \la \hat{v}, u \ra \ket{\hat{v}} + \la \hat{w}, u \ra \ket{\hat{w}} + \cdots \ ,
+\end{align}
+where the $\cdots$ represents projections onto all other existing basis vectors. You then normalize the ``leftover'' perpedicular part, $\ket{\hat{u}_\perp}$, and add that to your bag of orthonormal basis vectors.
+
+
+\begin{exercise}
+Would you have the same basis vectors if you started with $\ket{w}$ and then took the perpendicular part of $\ket{v}$? Explain why or why not; your explanation must include a picture illustrating the result.
+\end{exercise}
+
 
 \section{Adjoints}
+\label{sec:adjoint}
 
 \begin{quote}
-Yes, \emph{this} is the transpose!
+Yes, \emph{this} is the transpose! (c.f.~Figure~\ref{fig:is:this:a:transpose})
 \end{quote}
+
+In Section~\ref{sec:transpose} we introduced the \emph{transpose} of a matrix. We noted that while the working definition there is easy to explain, it does not properly capture the core mathematical idea. The reason for this was that we needed to appreciate that matrices are not arrays of numbers, but are linear transformations from vectors into other vectors. The definition that captures this is called the adjoint of a matrix. The \textbf{adjoint}\index{adjoint} of a matrix\sidenote{Here we mean a linear transformations that take vectors to vectors.} $M$ is written $M^\dag$ and is defined by the relation
+\begin{align}
+    \la M^\dag w, v \ra = \la w, M v \ra \ . 
+\end{align}
+Using the pre-filled inner product definition of dual vectors \eqref{eq:dual:vec:is:pre:filled:inner:product}, we may rewrite this as
+\begin{align}
+    \la M^\dag w \mid v \ra = \la w \mid M v \ra \ .
+\end{align}
+We show below that for real vector spaces, $M^\dag$ is precisely the transpose $M^\trans$. However, this definition generalizes to complex vector spaces where $M^\dag$ is called the \textbf{Hermitian conjugate}. We use the $M^\dagger$ notation to emphasize the utility of this more general definition. 
+
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/MordorIndices.jpg}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{``One does not simply walk into Mordor'' meme, adapted to the transpose. Generated at \url{https://imgflip.com/i/8opffm}.}
+    \label{fig:transpose:mordor}
+\end{marginfigure}
+\begin{example}[One does not simply swap the indices] See Figure~\ref{fig:transpose:mordor}. What could possibly go wrong with the usual ``swap the indices'' definition of the transpose? The problem is that in our sophisticated upper/lower index notation, we need to deal with the height of the indices. Matrices have their first index upper and their second index lower. If $M=M\aij{i}{j}\ket{i}\bra{j}$, then what is the appropriate index structure of the transpose?
+\begin{align}
+    M^\trans \stackrel{?}{=} 
+    \begin{cases}
+    (M^\trans)\aij{j}{i}\ket{j}\bra{i}    & \text{ or }\\
+    (M^\trans)_{j}^{\phantom{j}i}\ket{i}\bra{j}
+    \end{cases}
+    \quad\text{.}
+\end{align}
+The adjoint gives us a way to make sense of this rigorously. The existence of a metric is critical in this analysis. 
+\end{example}
+
+\begin{example}
+By the symmetry of the metric we could have equivalently written
+\begin{align}
+    \la M^\dag \vec{w}, \vec{v} \ra =
+    \la \vec{w} ,  M \vec{v} \ra =
+    \la \vec{v}, M^\dag \vec{w} \ra =
+    \la M \vec{v}, \vec{w} \ra 
+    \ .
+\end{align}
+
+
+The point of the metric is \emph{not} that you're moving the matrix $M$ from one slot to the other, it is that you are changing from a transformation $M$ that acts on $\ket{v}$ to a transformation $M^\dag$ that acts on the \emph{other} input vector $\ket{w}$ defined such that the inner product is the same.
+\end{example}
+
+\subsection{The indices of the `transpose'}
+When $M$ is a real matrix, we usually say $M^\dag \equiv A^\trans$. What does this \emph{mean}? Write out the components of each side:
+\begin{align}
+    \la M^\dag v, w \ra
+    &=
+   w^k \, g_{ki}  (M^\dag)\aij{i}{\ell} v^\ell  \,  
+    &
+    \la  v,M w \ra
+    &=
+   v^\ell\, g_{\ell j}  M\aij{j}{k} w^k  
+   \ .
+   \label{eq:adjoint:transpose:int1}
+\end{align}
+Now set these two inner products equal to each other gives\sidenote{Here we have canceled $w^kv^\ell$ on both sides. The result is correct, but this justification is suspect because the $k$ and $\ell$ indices are summed over. What we have really done is used the fact \eqref{eq:adjoint:transpose:int1} is true for \emph{all} allowed $w^k$ and $v^\ell$ so that the rest of the equality cannot depend on those factors. Indeed, the equality \eqref{eq:adjoint:transpose:int1} must be true for \emph{each} $k$ and $\ell$. This is a subtle argument that lets use do a slick manipulation. It is worth thinking carefully about it.}
+\begin{align}
+    g_{ki}(M^\dag)\aij{i}{\ell}
+    &=
+    g_{\ell j} M\aij{j}{k}
+    \label{eq:adjoint:transpose:int2}
+\end{align}
+Contracting both sides with the inverse metric $g^{km}$ gives
+\begin{align}
+    (M^\dag)\aij{m}{\ell} &= g_{\ell j} M\aij{j}{k} g^{km} \ .
+    \label{eq:adjoint:def}
+\end{align}
+This relation \emph{defines} the components adjoint, $(M^\dag)\aij{i}{j}$. We see that the adjoint has the normal index structure of a linear transformation: first index raised, second index lowered. Further, when the metric is diagonal, it is clear that the first index of $M^\dag$ corresponds to the second index of $M$ and vice  versa. In this sense, the order of the indices have swapped.  In fact, the right-hand side of  \eqref{eq:adjoint:def} can be written with the metric implicit:
+\begin{align}
+    g_{\ell j} M\aij{j}{k} g^{km} \equiv 
+    M_\ell^{\phantom{\ell}m} \ ,
+\end{align}
+though we shall avoid this notation since it is a bit uncommon.
+
+
+
+\begin{exercise}
+In your own words, articulate the difference between a matrix $A$, its inverse $A\inv$, and its transpose $A^\trans$. What if $A$ is a rotation?
+\end{exercise}
+
+\begin{exercise}
+Show that taking the adjoint twice returns you to the original matrix, $(A^\dag)^\dag = A$.
+\end{exercise}
+
+% \begin{example}
+% The adjoint also gives us another way to understand why isometries act differently on column vectors (ket) versus row vectors (bra). The metric lets us convert a column vectors into row vectors, as we saw in Section~\ref{sec:machine:to:make:row:vectors}. Start with a vector $\ket{v}$ with components $v^i$. Under a rotation, these components become $(v')^i = R\aij{i}{j}v^j$. From the transformed ket $\ket{v'} = (v')^i \ket{e_i}$ we invoke the metric to convert this into a bra:
+% \begin{align}
+% \bra{v'} = \la v', \smallslot \ra = \la \smallslot, v' \ra \equiv v'_i \bra{i} \ .    
+% \end{align}
+% In the last line we have implicitly used the metric: we have a definition for $(v')^i$, so the meaning of $(v')_i$
+% is understood to be
+% \begin{align}
+%     (v')_i = g_{ij} R\aij{j}{k}v^k \ .
+% \end{align}
+% What are the components of $(v')_i$ relative to $v_i$? To do that we can insert $\one$ in a clever way:
+% \begin{align}
+%     g^{mn}g_{n\ell} = \delta^m_\ell
+% \end{align}
+% so that 
+% \begin{align}
+%     (v')_i = g_{ij} R\aij{j}{k} g^{k\ell}g_{\ell m} v^m
+%     = 
+%     \left(g_{ij} R\aij{j}{k} g^{k\ell}\right)
+%     v_\ell
+%     = 
+%     v_\ell(R^\dag)\aij{\ell}{i} 
+%     \ ,
+% \end{align}
+% where again we have implicitly \emph{defined} $v_\ell = g_{\ell m}v^m$. That's just what metrics do. That's what they \emph{do}.\footnote{\url{https://www.youtube.com/watch?v=Akq0xeu-RHE}} In the last equality we recognize the definition of the adjoint, \eqref{eq:adjoint:def}. In our case of a real metric space, of course, this is simply $R^\dag = R^T$. This confirms for us that the objects with lower indices transform by contracting with $R^\dag$, which we identified in \eqref{eq:rotation:definition:one} to be the inverse of the rotation $R$. So there you have it: objects with lower indices transform with $R\inv = R^\dag$. 
+
+% We can do a sanity check for this. The inner product is a number and should not transform under rotations. We can see what happens:
+% \begin{align}
+%     \la v , w \ra \to \la Rv, Rw \ra = \la v, R^\dag R w \ra = \la v, w \ra \ .
+% \end{align}
+% where we used $R^\dag R = \one$. 
+
+
+
+
+% % Starting with a ket $\ket{v}$, we define the bra
+% % \begin{align}
+% % \bra{v} = \la v, \smallslot \ra = \la \smallslot, v \ra \ .    
+% % \end{align}
+% % Now act $\bra{v}$ on a ket $\ket{w}$. By linearity, I can also transform the ket by a matrix $A$ and then feed $\ket{Aw}=A\ket{w}$ to $\bra{v}$:
+% % \begin{align}
+% %     \la{v} | {Aw} \ra = \bra{v}A \ket{w} = \la v, Aw \ra \equiv \la A^\dag v, w\ra = \bra{A^\dag v} w\ra \ .
+% % \end{align}
+% % Now suppose $A$ is an isometry. Assuming that the space is real\footnote{That is: every time we say `number' we mean a \emph{real} number, $\RR$.} and that we have the Euclidean metric, this is simply the assumption that $A=R$, a rotation. 
+% \end{example}
+
+\subsection{Self-Adjoint}
+
+There is a special class of matrices that are called \textbf{self-adjoint}\index{self-adjoint} or, equivalently, \textbf{Hermitian}\index{Hermitian}. For real matrices, this turns out to simply mean that they are \emph{symmetric}. These are matrices $M$ for which 
+\begin{align}
+    M^\dag = M \ .
+\end{align}
+We shall come to appreciate that these matrices not only have nice properties, but that they are precisely the types of matrices that play significant roles in physics.
+
+We can see that self-adjoint matrices are symmetric. The definition of self-adjoint is:
+\begin{align}
+    \la M w, v \ra = \la w, M^\dag v \ra = \la w, M v \ra \ .
+\end{align}
+By the symmetry of the metric, we also have 
+\begin{align}
+    \la M w, v \ra = \la v, Mw \ra \ .
+\end{align}
+Combining these gives, for a self-adjoint matrix $M$,
+\begin{align}
+    \la w, M v \ra = \la v, Mw \ra \ .
+\end{align}
+We apply this result to basis vectors, $\ket{w} = \ket{e_i}$ and $\ket{v} = \ket{e_j}$ for some $i$ and $j$. Recall the \emph{pre-loaded inner product} definition of basis dual vectors in \eqref{eq:basis:dual:vectors:as:inner:prod}: $\bra{e^i} = \la e_i, \slot \ra$, we may write our self-adjoint definition as\sidenote{To be clear: the arguments of the inner product are vectors. This means that $Me_i$ as one of the arguments means $M\ket{e_i}$. } 
+\begin{align}
+    \la e_i,  Me_j \ra &= \la e_j, M e_i \ra \\
+    \la e_i \mid M \mid e_j \ra &= \la e_j \mid M \mid e_i\ra\\
+    M\aij{i}{j} &= M\aij{j}{i}
+    \ .
+    \label{eq:self:adjoint:is:symmetric}
+\end{align}
+Do not be confused by the notation: 
+\begin{enumerate}
+    \item $\la e_i \mid M \mid e_j \ra$ simply means that $M$ acts on the vector $\ket{e_j}$ to produce a vector $\ket{Me_j}$. Then the dual vector $\bra{e_j}$ acts on $\ket{Me_j}$ to produce a number.
+    \item The number that is produced from $\la e_i \mid M \mid e_j \ra$ is the $j$--$i$ component of $M$. You can see this because the components of $\ket{e_i}$ are zero everywhere and one on the $i^\textnormal{th}$ component. (See example below.)
+\end{enumerate}
+
+\begin{example}
+In matrix multiplication notation, we may write:
+\begin{align}
+    \begin{pmatrix}
+        0 & 1
+    \end{pmatrix}
+    \begin{pmatrix}
+        M\aij{1}{1} & M\aij{1}{2}\\
+        M\aij{2}{1} & M\aij{2}{2}
+    \end{pmatrix}
+    \begin{pmatrix}
+        1 \\ 0
+    \end{pmatrix}
+    &= 
+    M\aij{2}{1} \ .
+\end{align}
+\end{example}
+
+You may feel justifiably uncomfortable that in \eqref{eq:self:adjoint:is:symmetric} we ended up with an equation where the heights of the $i$ and $j$ indices on the left-hand side do not match with those on the right-hand side. This happened because the \emph{pre-loaded inner product} effectively raises the index of a basis vector. It is a bit of a notational quandry and has to do with the metric's role as an index lower-er or raise-er. If you wish to be more comfortable with this, you can treat \eqref{eq:self:adjoint:is:symmetric} as a component-wise identity. Alternatively, you may think about it component-wise using \eqref{eq:adjoint:def}: a self-adjoint operator has $(M^\dag)\aij{i}{j} = M\aij{i}{j}$. There are factors of the metric that account for raising and lowering the indices.
+
+\section{Determinant and Levi--Civita}
+\label{sec:determinants}
+
+We return to the question of making sense of the \textbf{determinant}\index{determinant} of a matrix. We reminded ourselves of the determinant of a $2\times 2$ matrix in Section~\ref{sec:determinants:easy}. The result was
+\begin{align}
+    \det M = M\aij{1}{1}M\aij{2}{2} - M\aij{1}{2} M\aij{2}{1} \ .
+    \label{eq:detM:2:expand}
+\end{align}
+You should be comfortable taking the determinant of a $2\times 2$ matrix using the above expression. For slightly larger matrices, there are recursive expressions that one may derive---but these are such a pain to use that in any practical modern application you would use a computer algebra system. So rather than spending time on that recursion relation, let us actually learn what a determinant \emph{is} in a way that can be written non-recursively for a matrix of any dimension. A hint for our main result in this section comes from writing the expression for the determinant of a $2\times 2$ matrix above in terms of a new symbol:
+\begin{align}
+    \det M = \epsilon_{ij}M\aij{i}{1} M\aij{j}{2} \ .
+    \label{eq:detM:2:eps:ij}
+\end{align}
+Even without defining $\epsilon_{ij}$, you can guess the components simply by comparing the two expressions for the determinant:
+\begin{align}
+    \begin{pmatrix}
+        \epsilon_{11} & \epsilon_{12} \\
+        \epsilon_{21} & \epsilon_{22} 
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \pp 0 & 1 \\
+        -1 & 0
+    \end{pmatrix} \ .
+\end{align}
+\begin{exercise}
+Explicitly write out the sum in \eqref{eq:detM:2:eps:ij} to show that it equals the right-hand side of \eqref{eq:detM:2:expand}.
+\end{exercise}
+The tensor $\epsilon_{ij}$ is called the two-dimensional \textbf{Levi-Civita} tensor\index{Levi-Civita tensor}.\sidenote{This is named after Tullio Levi-Civita rather than being a compound of two different names. As such, typographically we use a dash to signify a compound last name. This is in contrast to ideas that are named after pairs of people, such as the Randall--Sundrum model. In the latter case, we typographically use something called an \emph{en-dash} (it is the width of the letter `n') to separate the two names.} A mathematical definition is:
+\begin{align}
+    \varepsilon_{ij} = 
+    \begin{cases}
+    \pp 1 &\text{if }\{i,j\}\text{ is an even permutation of }\{1,2\}\\
+    -1 &\text{if }\{i,j\}\text{ is an odd permutation of }\{1,2\}\\
+    \pp 0 &\text{otherwise}
+    \end{cases}
+    \ .
+\end{align}
+By \emph{permutation} we mean some rearrangement of the list. Whether a permutation is even or odd is based on whether you can reach that permutation by doing an even or an odd number of component swaps. Thus $\{1,3,2,4\}$ is an even permutation of $\{1,2,3,4\}$ but $\{2,1,3,4\}$ is an odd permutation.
+
+
+
+
+
+******
+************
+Determinants of a matrix are at least as curious as its trace because the determinant of a matrix turns out to also be unchanged under rotations. Furthermore, in multivariable calculus, the determinant shows up in the volume element. In fact, there is a formal definition of the determinant that comes from differential geometry where we use the determinant to rigorously define volumes of curved spaces. This sort of thing shows up in general relativity.
+%
+One way of starting to see why this is plausible is the observation that the determinant of a matrix $M$ is equal to the area of the parallelogram whose sides are given by the transformed basis vectors, $M\bas{e}_i$. We sketch this in two dimensions in Fig.~\ref{fig:determinant:map:area}. 
+% 
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/determinant_sketch.pdf}
+    \caption{The transformation by $M$ of a unit square with sides $\bas{e}_i$ is a parallelogram with sides $M\bas{e}_i$. The determinant of $M$ is the area of the parallelogram. In more than three dimensions the shape is called a parallelpiped, which is a fun word to say.}
+    \label{fig:determinant:map:area}
+\end{figure}
+% 
+To prove this claim in two dimensions, we enclose the parallelogram into a box and start figuring out the area of various sub-shapes. Let $A_\text{r}$ be the area in the two red triangles, $A_\text{b}$ be the area in the two green triangles, and $A_\text{g}$ be the area of the two blue boxes. These areas are---accounting for the factor of two because there are two of each shape:
+\begin{align}
+    A_\text{r} &= M\aij 11 M \aij 21
+    &
+    A_\text{g} &= M\aij 22 M \aij 12
+    &
+    A_\text{b} &= 2 M\aij 12 M \aij 21 \ .
+\end{align}
+The total area of the large box is
+\begin{align}
+    A_\text{tot} &= (M\aij 11 + M\aij 12)(M\aij 22 + M\aij 21) 
+    \\&= M\aij 11 M\aij 22 + 
+    M\aij 11 M\aij 21 + 
+    M\aij 12 M\aij 22 + 
+    M\aij 12 M\aij 21 
+    \\ &= 
+    M\aij 11 M\aij 22 + 
+    A_\text{r} + 
+    A_\text{g}  + 
+    \frac 12 A_\text{b} 
+    \ . 
+\end{align}
+% 
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/determinant_sketch2.pdf}
+    \caption{Graphical aid for understanding the area of the parallelogram whose sides are $M\bas{e}_i$.}
+    \label{fig:determinant:map:area:proof}
+\end{figure}
+% 
+The area of the parallelogram is simply the area of the large box minus the areas of the non-parallelogram shapes, $A_\text{tot}- A_\text{r} - A_\text{g} - A_\text{b}$:
+\begin{align}
+    A_\text{parallelogram} =  M\aij 11 M\aij 22 - \frac 12 A_\text{b}  = M\aij 11 M\aij 22  - M\aij 12 M\aij 21  = \det M \ .
+    \label{eq:det:is:area:parallelogram}
+\end{align}
+And so we have shown the result in a simple case: determinants are related to areas. Specifically, we see that the determinants are related to the areas (volumes) of parallelograms (parallelpipeds) with sides $M\bas{e}_i$. 
+
+This interpretation of determinants as volumes\footnote{I now say `volumes' instead of `area' because what follows is general to any dimension of space.} also motivates some further expressions for the determinant of the product of matrices and the determinant of the inverse of a matrix. If we perform subsequent transformations with two matrices, $N$ and $M$, then the unit parallelpiped is first mapped to a parallelpiped of volume $\det N$. When we apply the second matrix $M$, this intermediate parallelpiped is mapped to a third parallelpiped whose volume is rescaled by $\det M$. The resulting volume is $(\det N)(\det M)$. We thus deduce that the determinant of a product of matrices is the product of the determinants of each matrix:
+\begin{align}
+    \det NM = (\det N)(\det M) \ . 
+    \label{eq:det:of:product}
+\end{align}
+Going further, because $M M\inv = \one$, we have
+\begin{align}
+    \det M M\inv &= (\det M)(\det M\inv ) 
+    % = \det\one 
+    = 1 
+    & \Rightarrow&
+    &
+     \det M\inv &= \frac{1}{\det M} \ .
+    % {eq:det:of:product}
+    \label{eq:det:of:inverse}
+\end{align}
+We have been deliberately hand-wavy to motivate these relations for determinants. If we were to be more rigorous, the are rather tricky to prove, though you can do them by brute force by calculating components.\sidenote{If you are a stickler that determinants are somehow really important in linear algebra, then I suggest reading Sheldon Axler's ``Down with Determinants!'' in \emph{American Mathematical Monthly} (1995). Axler is the author of a very nice, if somewhat more formal, textbook called \emph{Linear Algebra Done Right.} In a similar-yet-opposite vein, Sergei Treil has written a competing excellent textbook, \emph{Linear Algebra Done Wrong}.\footnotemark}\footnotetext{See \url{https://www.axler.net/DwD.html} and \url{https://www.math.brown.edu/streil/papers/LADW/LADW.html}}
+
+
+\section{Cross Products and Levi-Civita}
+
+
 
 \begin{subappendices}
 
@@ -5896,7 +6364,1129 @@ What are the components $v^1$ and $v^2$ in terms of $w^{1,2}$ and $\kappa_{1,2}$
 \textsc{Comment}: look how \emph{easy} this is compared to inverting $M$ the hard way. 
 \end{exercise}
 
+
+
+\section{Diagonal Matrices in Disguise}
+
+\begin{exercise}[Diagonal to symmetric] In some basis you have a diagonal matrix $D$:
+\begin{align}
+D =
+\begin{pmatrix}
+    \lambda_1 & 0 \\
+    0 & \lambda_2
+\end{pmatrix}     \ .
+\end{align}
+Perform a rotation to another basis and show that the resulting matrix is not diagonal, but it is symmetric. 
+\end{exercise}
+
+
+On our pantheon of really nice matrices, diagonal matrices are pretty high up. In fact, they're the nicest matrices that actually behave like matrices rather than just numbers times the identity matrix. 
+\begin{bigidea}[Symmetric is really diagonal in disguise]
+If a matrix $D$ is diagonal in some basis, then under a rotation (isometry) to another basis it is no longer diagonal, but remains symmetric.
+\end{bigidea}
+In order to show this, we instead prove a more general statement\sidenote{This more general statement implies that diagonal matrices are symmetric in another basis---which is not \emph{quite} the same as proving that all symmetric matrices are diagonal in some basis.},
+\begin{theorem}\label{thm:symmetric:rotates:to:symmetric}
+If a matrix $D$ is self-adjoint (symmetric) in some basis, then under a rotation (isometry) to another basis it is is still self-adjoint (symmetric).
+\end{theorem} 
+If $D$ is diagonal, then it is self-adjoint, $D^\dag = D$. This is true tautologically for a real diagonal matrix.\sidenote{Tautologically is a mathematician's way of saying that it is almost definitionally true---there is nothing to prove.} By showing that $D$ remains self-adjoint, we know that it is symmetric in other bases, even if it is no longer diagonal. 
+% 
+We give an index-based proof of this in Section~\ref{sec:another:proof:diag:is:symmetric}
+\begin{proof}
+We may rotate any two vectors $\ket{v}$ and $\ket{w}$ by a matrix $\bar R$ and then use the self-adjoint property of $D$:
+\begin{align}
+    \la D \bar R v, \bar R w \ra
+    =
+    \la  \bar R v, D \bar R w \ra
+    \ .
+\end{align}
+Since isometries preserve the inner product, we may rotate each side by another rotation, $R$:
+\begin{align}
+    \la R D \bar R v,  R\bar R w \ra
+    =
+    \la R \bar R v, R D \bar R w \ra
+    \ .
+\end{align}
+If we then choose $\bar R = R\inv$, we have
+\begin{align}
+    \la R D R\inv  v,  w \ra
+    =
+    \la v, R D R\inv  w \ra \ .
+\end{align}
+We recognize taht $RDR\inv$ is precisely $D$ in some other basis.
+Because this is true for any $\ket{v}$ and $\ket{w}$, we see that the rotated matrix $RDR\inv$ is self-adjoint---this is the definition of self-adjoint-ness: $\la A v,w \ra = \la v, Aw \ra$. We have thus proven the assertion.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+ultimately we want the opposite.
+
+*******
+
+
+
+**************
+
+
+\section{Eigensystem}
+\label{sec:eigensystem}
+
+The German prefix \emph{eigen-} means ``proper.'' When you have a sufficiently nice matrix that admits a basis of eigenvectors, then that is simply the \emph{correct} basis for applying that matrix. Consider the following expression for a matrix $M$:
+\begin{align}
+    M\ket{\xi} = \lambda\ket{\xi} \ .
+\end{align}
+Here $M$ is a matrix and $\lambda$ is a number. We say that this is an eigenvalue equation because $M$ acts on a particular vector, $\ket{\xi}$, and the result is a rescaling of that vector, $\lambda\ket{\xi}$. The vector $\ket{\xi}$ is called an \textbf{eigenvector} of $M$ with \textbf{eigenvalue} $\lambda$.  The matrix $M$ acts on the eigenvector $\ket{\xi}$ the way that a diagonal matrix acts on a basis vector.
+ 
+\begin{exercise}
+Show that if $\ket{\xi}$ is an eigenvector of $M$ with eigenvalue $\lambda$, then it is also an eigenvector of $M\inv$ with eigenvalue $\lambda\inv$. 
+\end{exercise}
+
+\subsection{Self Adjoint (Hermitian) Matrices}
+
+The eigenvalue problem for Hermitian (self-adjoint) matrices is particularly compelling. The following two facts show why:
+\begin{enumerate}
+    \item The eigenvalues of Hermitian matrices are real.
+    \item The eigenvectors of Hermitian matrices are orthogonal.
+\end{enumerate}
+
+\begin{exercise}
+Prove the above statements. 
+\end{exercise}
+
+\begin{exercise}\label{ex:orthogonal:eigenvectors:not:normal}
+We say that the eigenvectors of Hermitian matrices are \emph{orthogonal}, but not necessarily orthonormal. This is because the eigenvalue condition does not guarantee a normalization of the eigenvector. Show that if $\ket{\xi}$ is an eigenvector of $M$ with eigenvalue $\lambda$, then $\alpha\ket{\xi}$ is also an eigenvector of $M$ with eigenvalue $\lambda$. In the same vein, argue that we can always \emph{choose} eigenvectors that are normalized so that the eigenvectors of a Hermitian matrices can be chosen to be an orthonormal basis.
+\end{exercise}
+
+\subsection{Finding Eigenvalues: Characteristic Equation}
+
+Suppose you have a Hermitian matrix $M$. This means that there is a nice basis where $M$ is diagonal, which we indicate with a hat: $\hat M$. In this \emph{eigenbasis}, each basis vector $\ket{\xi_i}$ has an associated eigenvalue $\lambda_i$. Suppose that none of the eigenvalues are zero so that $\hat M$ is nice and invertible. The diagonal elements of $\hat M$ are simply these eigenvalues, see \eqref{eq:diagonal:matrix}. This means that the matrix $\hat M - \lambda_i \one$ is diagonal with (at least) one zero element: the the $i^\text{th}$ element along the diagonal:
+\begin{align}
+\hat M -\lambda_i\one = 
+    \begin{pmatrix}
+        (\lambda_1 - \lambda_i) & & & && \\
+         & (\lambda_2 - \lambda_i) & & && \\
+         & & \ddots &&& \\
+         & & & 0 & & \\
+         & & && \ddots & \\
+         & & &&& (\lambda_N-\lambda_i)
+    \end{pmatrix} \ .
+    \label{eq:characteristic:1}
+\end{align} 
+We can exploit this curious fact using the observation in Example~\ref{eg:determinant:of:diagonal}: the determinant of a diagonal matrix is simply the product of its diagonal elements. This means that
+\begin{align}
+     \det(\hat M - \lambda \one) = 0
+     \label{eq:characteristic:2}
+\end{align}
+whenever $\lambda$ is an eigenvalue of $\hat M$. This would be a great way to find the eigenvalues of diagonal matrix, $\hat M$, if it weren't for the fact that this is a silly task: if $\hat M$ is diagonal, then you can simply \emph{read off} the eigenvalues from the diagonal elements. It would be \emph{much} more useful if we had an expression like \eqref{eq:characteristic:2} that we could use to find the eigenvalues of non-diagonal matrices.  
+
+It turns out that we can do this. Recall \eqref{eq:det:of:product}: the determinant of a product of matrices is the product of the determinants. We motivated this from the observation that the determinant is the area of a parallelogram in two dimensions---though the result generalizes hyper-volumes of \emph{parallelpipeds} in any number of dimensions. From this observation, we also found that the determinant of an inverse matrix is the inverse of the determinant \eqref{eq:det:of:inverse}. This means that
+\begin{align}
+    \det(R\hat M R^\dag) = 
+    \det R \; \det \hat M \; \det R^\dag
+    =
+    \det R \; \det \hat M \; \frac{1}{\det R}
+    =
+    \det \hat M \ .
+\end{align}
+Here we used the fact that the adjoint of a rotation\footnote{And again, this generalizes to complex matrices with a Euclidean metric to a unitary matrix. In full generality, this is an isometry.} is its inverse. Using the fact that $R\one R^\dag = \one$, we may thus rotate \eqref{eq:characteristic:2} to a basis where $\hat M$ is not diagonal:
+\begin{align}
+     0=\det(\hat M - \lambda \one) 
+     = \det\left[R(\hat M - \lambda \one)R^\dag\right]
+     = \det(R\hat M R^\dag - \lambda \one) 
+     = \det(M - \lambda \one) 
+     \label{eq:characteristic:equation} \ .
+\end{align}
+This is the \textbf{characteristic equation} for the eigenvalues of $M$. This is incredibly powerful: suppose you have a nice, invertible, self-adjoint matrix $M$. The matrix is not diagonal and so it is not obvious what its eigenvalues are. The characteristic equation gives you a polynomial in $\lambda$ that you can solve to determine the values of $\lambda$ that are eigenvalues of $M$. For an $N$-dimensional vector space, you will have an $N$-dimensional polynomial. Because the matrix is self-adjoint, we know that the eigenvalues are real and so there will be $N$ real roots to the characteristic equation.
+
+\begin{example}
+Solving the characteristic equation for $2\times 2$ matrices is straightforward.\footnote{The method is straightforward for $N\times N$ matrices as well, but the determinant becomes more tedious to calculate by hand.} Suppose you have a real, symmetric (i.e.\ self-adjoint in a real vector space) matrix:
+\begin{align}
+    M = 
+    \begin{pmatrix}
+        M\aij 11 & M\aij 12 \\
+        M\aij 21 & M\aij 22
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        a & c \\
+        c & b
+    \end{pmatrix} \ .
+\end{align}
+The characteristic equation \eqref{eq:characteristic:equation} is
+\begin{align}
+    \det(M - \lambda \one) 
+    =
+    \begin{pmatrix}
+        (a-\lambda) & c \\
+        c & (b-\lambda)
+    \end{pmatrix}
+    = 
+    (a-\lambda)(b-\lambda)-c^2 = 0 \ .
+\end{align}
+This is a quadratic equation with roots\footnote{There may come a time in your life where you can rattle off facts about the zeros of Bessel functions or wax poetic about the normalization of the Planck mass... only to find that you cannot for the life of you remember the correct factors of two in the quadratic equation. Faced with the choice of re-deriving it in a margin or looking it up on Google, you decide the latter is faster. Then puzzled undergraduates students come into your office and glance at your screen in bewilderment: you're teaching us this advanced stuff and \emph{this} is what is in your search history?}
+\begin{align}
+    \lambda_\pm = \frac{(a+b)}{2}\pm \frac{\sqrt{(a+b)^2 - 4(ab-c^2)}}{2} \ .
+\end{align}
+These are the eigenvalues of $M$. You can check that the argument of the square root is always non-negative in accordance with our expectation that the eigenvalues are real. To see this, we note that as $|c|$ becomes larger the argument becomes more positive. For $c=0$, the argument becomes $(a-b)^2$, whose square root is $|a-b|$. Note that in the $c=0$ case we find that the eigenvalues are precisely $a$ and $b$, since in that case $M$ is a diagonal matrix.
+\end{example}
+
+\subsection{Finding Eigenvectors}
+
+Once you have the eigenvalues of a matrix, you can find the eigenvectors using the eigenvalue equation for each eigenvalue $\lambda_i$:
+\begin{align}
+    M\ket{\xi} = \lambda \ket{\xi} \ .
+\end{align}
+This is a set of $N$ equations for the $N$ components of $\ket{\xi}$. Let us examine a simple example:
+\begin{example}
+Consider the $2\times 2$ matrix $M$ with the eigenvalues $\lambda_\pm$:
+\begin{align}
+    M &=
+    \begin{pmatrix}
+        -2 & 1\\
+        1 & -2
+    \end{pmatrix}
+    &
+    \lambda_\pm = -2 \pm 1 \ .
+\end{align}
+You should take a moment to derive those eigenvalues using the characteristic equation. Let us find the eigenvector, $\ket{\xi_+}$ corresponding to the eigenvalue $\lambda_+ = -1$. We would like to solve for the components
+\begin{align}
+    \ket{\xi_+}
+    =
+    \begin{pmatrix}
+        x\\y
+    \end{pmatrix} \ .
+\end{align}
+We are relaxing some of our notation for clarity: the above equation really means $\ket{\xi_+}=x\ket{1} + y\ket{2}$ with respect to the standard basis in which we defined $M$. Plugging this into the eigenvalue equation:
+\begin{align}
+   \begin{pmatrix}
+        -2 & 1\\
+        1 & -2
+    \end{pmatrix}
+    \begin{pmatrix}
+        x\\y
+    \end{pmatrix}
+    = 
+    \lambda_+
+    \begin{pmatrix}
+        x\\y
+    \end{pmatrix} \ .
+    \label{eq:ex:eigenvector:finding:1}
+\end{align}
+The equation for the first component is
+\begin{align}
+    -2x + y &= -x  \ ,
+\end{align}
+from which we deduce $x=y$. This tells us that
+\begin{align}
+    \ket{\xi} \propto \begin{pmatrix}
+        1\\ 1
+    \end{pmatrix} .
+\end{align}
+Great! The second equation should give us the overall normalization of the vector, right? Let us check:
+\begin{align}
+    x - 2y = -y \ .
+\end{align}
+Huh: this gives us the \emph{same} equation: $x=y$. Is this unusual? No! We already expressed that the eigenvectors are defined up to an overall normalization: if $\ket{\xi_+}$ is an eigenvector, then so is $\alpha\ket{\xi_+}$. So it is no surprise that the second equation is redundant with the first: the eigenvalue condition is simply not enough to determine the normalizaiton. 
+
+In our lives as physicists, we will always want to work with normalized eigenvectors. This normalization, $\la\xi_+,\xi_+\ra = 1$, fixes the components of $\ket{\xi_+}$:
+\begin{align}
+    \ket{\xi_+} = 
+    \frac{1}{\sqrt{2}}
+    \begin{pmatrix}
+        1 \\ 1
+    \end{pmatrix} \ .
+\end{align}
+And there you go!
+\end{example}
+
+
+\begin{exercise}
+Find the eigenvector $\ket{\xi_-}$ of $M$ in \eqref{eq:ex:eigenvector:finding:1} with eigenvalue $\lambda_- = -3$. 
+\end{exercise}
+
+For an $N$-dimensional vector space, the eigenvalue equation gives $N$ equations for the $N$ components of an eigenvector. It will always be the case that one of these equations will be redundant: it will not contribute any additional information about the eigenvector components. This is because the overall normalization of the eigenvector is not set by the eigenvector equation. One simply replaces this redundant equation with the normalization condition $\la \xi,\xi\ra = 1$. 
+% normalizing
+
+You may have noticed that in my examples, I try to keep all of my numbers integers. Physicists `in the field' also try to keep their numbers nice---often by picking convenient units. However, despite our best efforts, there you will find that your upper division textbooks are full of funny factors of $\sqrt{2}$ or even $(2\pi)$. These factors are usually unavoidable consequences of normalizing eigenvectors. 
+
+\begin{exercise}
+If you have to find the eigenvalues and eigenvectors for matrices larger than $3\times 3$, you may want to use a computer algebra system. Find your favorite computer algebra system (e.g.~\emph{Mathematica} or ~\emph{SciPy}) and learn how to find the eigenvectors and eigenvalues of a $3\times 3$ matrix. 
+\end{exercise}
+
+\begin{exercise}
+Suppose you had to diagonalize a $3\times 3$ matrix by hand. Go through the process of finding the eigenbasis, even if you do not ``do the math.'' How many eigenvalues are there? What does the characteristic equation look like? Is it still a polynomial? If so, what order? Are the roots of the characteristic equation all real, or could there be complex solutions? How do you solve for the eigenvectors? How many equations are there for how many components? How do you use the normalization condition? 
+\end{exercise}
+
+\begin{example}
+It is curious that the Standard Model of particle physics contains matrices up to $3\times 3$. This shows up in both the gauge group (definition of forces) and the number of generations of matter (so called Yukawa matrices). This is just about the threshold of what a graduate student can work through by hand. At least three Nobel prizes in particle physics came from diagonalizing $2\times 2$ matrices. Two of these diagonalizations are so famous that the rotation angles have names attached to them: the Weinberg angle (for which Steven Weinberg won the prize in 1979) and the Cabbibo angle (for which Cabbibo did not win the prize, but the physicists who generalized the result to $3\times 3$ matrices did). The Weinberg angle measures how the photon and $Z$-boson mass eigenstates are related to a basis of underlying forces. The Cabbibo angle measures the mixing between the first two generations of quarks. A cousin of the Cabbibo angle for neutrinos was the subject of the 2015 Nobel prize, though to the best of my knowledge this angle has no special name.
+\end{example}
+
+\subsection{Rotating to the Eigenbasis}
+\label{sec:rotation:to:eigenbasis}
+
+``Finding the eigenvectors'' really means finding the components of the eigenvectors in the standard basis. This defines the rotation between the eigenbasis and the standard basis. Let us see how this works explicitly.\footnote{This section generalizes to any change of basis. We present it here because in physics, nearly all of your change of basis will be between the basis in which your problem is posed (the standard basis) and the basis in which it is most simply solved (the eigenbasis).}
+
+For simplicity, we work with a two-dimensional vector space. The final result will be general. Suppose we have an eigenbasis for some nice matrix $M$. That is we know the components of two eigenvectors $\xi^i_{A}$ with respect to the two standard basis elements:
+\begin{align}
+    \ket{\xi_\text{I}} \equiv \ket{\text{I}} 
+    & = 
+    \xi^1_\text{I} \ket{1}
+    +
+    \xi^2_\text{I} \ket{2}
+    &
+    \ket{\xi_\text{II}} \equiv \ket{\text{II}} 
+    & = 
+    \xi^1_\text{II} \ket{1}
+    +
+    \xi^2_\text{II} \ket{2} \ .
+    \label{eq:eigen:to:standard:basis}
+\end{align}
+Here's what's going on with our notation. Our standard basis vectors are $\ket{1}$ and $\ket{2}$. We want to write the eigenbasis in a similar way, so instead of $\ket{\xi_\text{I}}$ we write $\ket{\text{I}}$. We use Roman numerals to index the eigenbasis to disambiguate from the standard basis. Do not confuse $\text{I}$ with a index variable: we use $A = \text{I}, \text{II}$ as a variable that indexes the eigenbasis. We write the components of the eigenbasis written in the standard basis as $\xi^i_A$, where $i=1,2$ indexes the standard basis. You notice that $\xi^i_A$ is an object with one upper index and one lower index... this smells like a matrix. The indices $i$ and $A$ index the same vector space, but with respect to different bases. So far we are agnostic about whether we write $\xi\aij{i}{A}$ or $\xi_A^{\phantom{A}i}$. Because the indices are different, there is never a danger of ambiguity. We will choose a convenient definition shortly.
+
+What can we do with \eqref{eq:eigen:to:standard:basis}? Let us suppose that we have a vector $\vec{v}$ written in the eigenbasis. We know the components $v^A$, and we would like to find the components in the standard basis. We can simply plug in \eqref{eq:eigen:to:standard:basis}:
+\begin{align}
+    \ket{v} = 
+    v^A\ket{A}
+    = v^A \xi_A^i \ket{i} =  \xi\aij{i}{A}v^A \ket{i}
+    \equiv v^i \ket{i} \ .
+    \label{eq:vA:as:vi}
+\end{align}
+Here we have chosen to write the indices of $\xi^i_A$ in a particular order, $\xi\aij{i}{A}$. This makes $\xi\aij{i}{A}v^A$ a standard ``matrix multiplication'' contraction of indices. We identify the components $v^i$ in the standard basis as a transformation of the components $v^A$ in the eigenbasis. This means that $\xi\aij{i}{A}$ is the rotation from the eigenbasis to the standard basis:
+\begin{align}
+    v^i_\text{std.} = \xi\aij{i}{A}v^A_\text{eig.} \equiv R(\text{std.}\to\text{eig.})\aij{i}{A}v^A_\text{eig.} \ .
+\end{align}
+Note that in doing this, it was critical that the eigenvectors are normalized. Otherwise this transformation is not a pure rotation, but a rotation and a rescaling. 
+
+\begin{bigidea}
+The components of the (normalized) eigenbasis written in the standard basis are simply the components of the rotation matrix from the eigenbasis to the standard basis. The rotation from the standard basis to the eigenbasis is simply the inverse (Hermitian conjugate or transpose) of this rotation. 
+\end{bigidea}
+
+
+We can go further and relate this rotation to my favorite operation: multiplication by the identity. The trick is as follows:
+\begin{align}
+    \one = \ket{i}\bra{i} \ .
+\end{align}
+Suppose you have a vector $\ket{v}$ whose components you know in the eigenbasis. Another way of writing \eqref{eq:vA:as:vi} is to multiply by one:
+\begin{align}
+    \ket{v} = v^A \ket{i}\la i | A\ra = \la i | A\ra v^A \ket{i} \ .
+\end{align}
+We identify $\la i | A \ra$ as the rotation from the eigenbasis $\ket{A}$ to the standard basis $\ket{i}$, 
+\begin{align}
+    \la i | A \ra = R\aij{i}{A} = \xi\aij{i}{A} \ .
+\end{align}
+We remember that $R$ takes a vector's components in the eigenbasis and returns the vector's components in the standard basis. As a mnemonic, the height of the indices tell you that $R$ can contract with an upper $A$ index (which we use to denote eigencomponents) and returns an upper $i$ index (which we use for standard basis components). Of course, the $A$ and $i$ indices both run over the dimension of the same vector space: we have simply chosen a different notation to make it more clear how this rotation matrix is meant to be used.\footnote{Nothing stops you from contracting the eigenbasis $A$ index with a vector's components in the standard basis. However, the way we have constructed $R$ is that such a contraction has no significance: it does not rotate to the eigenbasis and is effectively a random rotation. }
+
+Another way that this is often written is that one can insert $\one = R^\dag R$ where $R^\dag$ acts on the basis $\ket{A}$ and $R$ acts on the components of a vector, $v^A$. This is precisely what we meant by a \emph{passive transformation} in Section~\ref{sec:active:vs:passive}---albeit with $R\Leftrightarrow R^\dag$. Let us see this more explicitly. Rather than using $\one = \ket{i}\bra{i}$, we use the components of $\one = R^\dag R$:
+\begin{align}
+    \delta^A_B = (R^\dag R)\aij{A}{B} = 
+    (R^\dag)\aij{A}{i}R\aij{i}{B} \ .
+\end{align}
+Observe that $R^\dag$ has an upper $A$ index and lower $i$ index. This is because $R^\dag = R^{-1}$, so that it takes in a vector in the standard basis and returns a vector in the eigenbasis.\footnote{Again: we know that $R^\dag$ is meaningful as a rotation that takes components in the standard basis and returns the components in the eigenbasis. You could use $R^\dag$ to act on the components in \emph{any} basis, but in general the vector that comes out is not meaningful from the perspective of the eigenvalue problem.} Now we can insert this into the expansion of $\ket{v}$ in the eigenbasis:
+\begin{align}
+    \ket{v} = \delta^A_B v^A\ket{A} 
+    = (R^\dag)\aij{A}{i} R\aij{i}{B} v^B \ket{A}
+    = R\aij{i}B{v}^B \left[(R^\dag)\aij{A}{i}\bas{e}_i\right]
+    = R\aij{i}B{v}^B \ket{i}
+    = v^i \ket{i}  \ .
+\end{align}
+We have used the fact that the basis vector is a lower-indexed object that transforms with $R^\dag$ under a rotation that acts on the vector space as $R$. This means that $(R^\dag)\aij{A}{i}\ket{A} = \ket{i}$. We write $v^i = R\aij{i}{B} v^B$, the component of $\ket{v}$ in the standard basis. 
+
+
+\begin{bigidea}
+Because finding the eigenvectors of a matrix corresponds to finding the components of the rotation matrix between the standard basis and eigenbasis, we often refer to this whole eigen-procedure as \textbf{diagonalizing} a matrix.
+\end{bigidea}
+
+% relation to R^\dag R
+
+
+\subsection{Intuition for a linear transformation in the eigenbasis}
+
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/eigen_transform.pdf}
+    \caption{Standard basis (black) and eigenbasis (red) vectors and the vector $\ket{v}$ (blue) in \eqref{eq:eigen:example:v}. Under a transformation $M$, the vector is mapped to $M\ket{v}$ (green) which is a rescaling of the components of $\ket{v}$ along the eigenbasis directions (shown as a green box). Right: the transformation as seen by an eigen-observer's frame.}
+    \label{fig:eigentransform}
+\end{figure}
+
+Passing to the eigenbasis gives a clear understanding of what a Hermitian linear transformation does. We sketch this in Figs.~\ref{fig:eigentransform} and \ref{fig:eigenbal}. For that example, we consider a matrix $M$ with eigenvectors $\ket{{\text{I},\text{II}}}$ and corresponding eigenvalues $\lambda_{\text{I},\text{II}}$:
+\begin{align}
+    M &= \begin{pmatrix}
+        2 & 1 \\
+        1 & 3
+    \end{pmatrix}
+    &
+    \lambda_{\text{I},\text{II}} &\approx 3.6,\; 1.4 \ .
+    &
+    \ket{\text{I}},\ket{\text{II}}&\approx
+    \begin{pmatrix}
+        0.5 \\ 0.9
+    \end{pmatrix},
+    \;
+    \begin{pmatrix}
+        -0.9 \ \\pp 0.5
+    \end{pmatrix} \ .
+\end{align}
+Figure~\ref{fig:eigentransform} shows a vector 
+\begin{align}
+    \ket{v} = 0.5\ket{\text{I}} + 2\ket{\text{II}} \approx
+    -1.4\ket{1} + 1.5 \ket{2} 
+    \label{eq:eigen:example:v}
+\end{align}
+under the transformation $M$,
+\begin{align}
+    M\ket{v} = 0.5\lambda_\text{I}\ket{\text{I}} + 2 \lambda_\text{II}\ket{\text{II}} \approx
+    -1.4\ket{1} + 3 \ket{2} \ .
+    \label{eq:eigen:example:Mv}
+\end{align}
+What we see is that in the eigenbasis, $M$ simply \emph{rescales} the components of $\ket{v}$ along the eigenbasis directions. 
+
+
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/eigen_ball.pdf}
+    \caption{Eigenbasis directions are shown in red. The surface of the yellow ball represents all vectors of unit length. The green ellipse represents the deformation of this surface by acting on each of those vectors by $M$. We see that the eigenbasis components of these vectors are simply rescaled by the eigenvalues of $M$. Right: Same figure, but drawn relative to the standard basis.}
+    \label{fig:eigenbal}
+\end{figure}
+
+Figure~\ref{fig:eigentransform} shows a unit ball in the eigenbasis and how it is deformed under $M$. The surface of the ball should be understood as endpoints of a set of possible vectors. Under $M$, this surface is deformed to the green ellipse. In the standard basis, this ellipse is skewed by the rotation between the two bases. 
+
+
+\begin{bigidea}
+Let us revisit our pantheon of nice matrices that we presented in Section~\ref{sec:nice}. The gold medal (proportional to identity) matrices were too simple: they behave like numbers. The silver medal matrices are those matrices that are already in an eigenbasis. The bronze medal matrices are the kinds of matrices that you will most likely have to deal with ``in the field.'' These matrices that are diagonalizable by a rotation, but that are not yet in an eigenbasis. The meaning of these kinds of transformation is simply a rescaling along a set of orthogonal axes---with independent rescaling along each direction. 
+
+You can also start to imagine what a generic `trash' matrix does. If the matrix is non-invertible, it is some sort of projection. It throws out information. If the matrix is invertible but not diagonalizable by a rotation, then it means that it is not simply rescaling along a set of orthogonal directions. For example, it may be a rescaling along a set of non-orthogonal directions. 
+\end{bigidea}
+
+\begin{exercise}
+Trash matrices that are invertible but not diagonalizable by a rotation can usually still be diagonalized. You can look up the procedure, it is called a singular value decomposition. The matrix can be made diagonal not by a rotation $M_\text{trash}\to RM_\text{trash}R^\dag$, but by ``half rotation'' by two different rotation matrices: $M_\text{trash} \to SM_\text{trash} R^\dag,$ where $S \neq R$. One way to find these matrices is to diagonalize the Hermitian matrices $N=M^\dag M$ and $L = M M^\dag$. Show that $N$ and $M$ are indeed Hermitian and that they are diagonalized by $S$ and $R$ .
+\end{exercise}
+
+
+
+
+
+
+\subsection{Degenerate Eigenvalues}
+% commutators
+% start with trivial example, diagonal 
+
+Sometimes a matrix will have degenerate eigenvalues. This means that $\lambda_i = \lambda_{i+1}$ for some pair of eigenvalues. We continue to assume that the eigenvalues are all non-zero, as required for invertible (nice!) matrices.  Degenerate eigenvalues can lead to some curiosities when applying the `standard procedure' above. 
+
+\subsubsection*{Diagonal Matrix}
+
+Let us start with the simplest case where we have a diagonal $3\times 3$ matrix, $\hat M$, with a pair of degenerate eigenvalues\footnote{That means that the eigenvalues are the same, not that they are somehow immoral.}:
+\begin{align} 
+    \hat M &= 
+    \begin{pmatrix}
+        \lambda_1 & & \\
+        & \lambda_\text{d} & \\
+        & & \lambda_\text{d} \ .
+    \end{pmatrix}
+    &
+    \lambda_\text{d}  \neq \lambda_1\ .
+    \label{eq:degenerate:eigenvalue:diagonal}
+\end{align}
+It should be obvious that the eigenvalues are $\lambda_{1,\text{d}}$ and that we can choose eigenvectors $\ket{1}$, $\ket{2}$, $\ket{3}$. That is: the standard basis is an eigenbasis. After all, that's what it means for a matrix to be diagonal in a basis. 
+
+Just for the sake of argument, let us try to `derive' the eigenvectors. The first eigenvalue equation is
+\begin{align}
+    \begin{pmatrix}
+        \lambda_1 & & \\
+        & \lambda_\text{d} & \\
+        & & \lambda_\text{d} \ .
+    \end{pmatrix}
+    \begin{pmatrix}
+        x\\y\\z
+    \end{pmatrix}
+    &= 
+    \lambda_1
+    \begin{pmatrix}
+        x\\y\\z
+    \end{pmatrix} \ .
+\end{align}
+We can solve this to find that $x$ can be anything and $y=z=0$ because $\lambda_1\neq \lambda_\text{d}$. The normalized choice is that the first eigenvector is $\ket{1}$. Curiously, second and third eigenvalue equations are the same:
+\begin{align}
+    \begin{pmatrix}
+        \lambda_1 & & \\
+        & \lambda_\text{d} & \\
+        & & \lambda_\text{d} \ .
+    \end{pmatrix}
+    \begin{pmatrix}
+        x\\y\\z
+    \end{pmatrix}
+    &= 
+    \lambda_\text{d}
+    \begin{pmatrix}
+        x\\y\\z
+    \end{pmatrix} \ .
+    \label{eq:eigenvalue:degenerate}
+\end{align}
+We can see that $x=0$, but there appears to be no constraints on $y$ or $z$ other than that they eigenvectors are normalized. How are we supposed to pick them? Let us take stock of the situation: We know that the standard basis vectors $\ket{2}$ and $\ket{3}$ work as eigenvalues. Why doesn't the eigenvalue equation \eqref{eq:eigenvalue:degenerate} just tell us that? If we stuck in \emph{any} values for $y$ and $z$, then it appears that \eqref{eq:eigenvalue:degenerate} is still satisfied! Curious!
+
+The degeneracy of the second and third eigenvalues has created a degeneracy in how we define our eigenvectors. One way of thinking about this is that the lower $2\times 2$ block of $\hat M$ is a $2\times 2$ matrix proportional to the identity. This means if we did a rotation on that block, it does not change:
+\begin{align}
+    \bar R \hat M R^\dag &= \hat M
+    &
+    \bar R&=
+    \begin{pmatrix}
+        1 & & \\
+        & \cos\theta & -\sin\theta \\
+        & \sin\theta & \pp \cos\theta
+     \end{pmatrix} \ .
+     \label{eq:rot:lower:2}
+\end{align}
+In the same way, it does not matter how we orient our $\ket{2}$ and $\ket{3}$ basis vectors in this plane as long as (1) they are orthogonal to each other and (2) they are normalized. Any rotation of these two vectors into each other is not only a legitimate basis (which is always true), it is still a legitimate eigenbasis of $\hat M$, see Fig.~\ref{fig:det:eig:rot}:
+\begin{align}
+    \ket{2'} &= \cos\theta \ket{2} -\sin\theta \ket{3}
+    &
+    \ket{3'} &= \sin\theta \ket{2} +\cos\theta \ket{3} \ .
+\end{align}
+% 
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.8\textwidth]{figures/deg_eig_rot.pdf}
+    \caption{Example of a rotation of a subspace while leaving one direction in the full space unchanged.}
+    \label{fig:det:eig:rot}
+\end{figure}
+% 
+
+\subsubsection*{Hermitian Matrix}
+
+So far so good. What happens with general Hermitian matrices with degenerate eigenvalues? We can reduce this case to the case of a diagonal matrix and deduce that the degeneracy in the eigenbasis appears in this more general case as well. To start, we remember that any Hermitian matrix $M$ can be written as a rotation of a diagonal matrix, $\hat M$: 
+\begin{align}
+    M = R \hat M R^\dag \ .
+\end{align}
+Suppose that $M$ has eigenvalues, $\lambda_1$ and $\lambda_\text{d}$, where the latter eigenvalue has ``multiplicity two.'' This is our fancy way of saying that there are two eigenvalues that are $\lambda_\text{d}$. This just means that $\hat M$ takes the form in \eqref{eq:degenerate:eigenvalue:diagonal}. 
+
+From Section~\ref{sec:rotation:to:eigenbasis}, we know that the eigenvectors are 
+\begin{align}
+    \ket{\text{A}} &= (R^\dag)\aij{i}{A}\ket{i} \ .
+    &
+    A = \{\text{I, II, III}\} \ .
+    \label{eq:eigenvectors:from:rotation:review}
+\end{align}
+\begin{exercise}
+Verify \eqref{eq:eigenvectors:from:rotation:review}. One way is to folow the method in Section~\ref{sec:rotation:to:eigenbasis}. Another way is to use the fact that $M = R\hat{M}R^\dag$ and to notice that $\hat M$ acts on the eigenbasis. At any rate, make sure you are comfortable with this step. 
+\end{exercise}
+In the eigenbasis, we know that there is a degeneracy where we can rotate by $\bar R$ in \eqref{eq:rot:lower:2}. That means:
+\begin{align}
+    M = R \bar R\hat M \bar R^\dag R^\dag \ .
+\end{align}
+But we see that $R'= R\bar{R}$ is simply a rotation from the eigenbasis to the standard basis. Alternatively, $(R\bar R)^\dag = \bar R^\dag R^\dag$, is the rotation from the standard basis to \emph{an} eigenbasis. We have used the rule for the Hermitian conjugate of a product of matrices, \eqref{eq:adjoint:of:product}. 
+
+We have discovered that both $R^\dag$ and $R'^\dag$ are rotations from the standard basis to valid eigenbases. This means that for any lower $2\times 2$ rotation $\hat R$, we still have an eigenbasis with the same eigenvalues. 
+
+
+
+\begin{bigidea}
+When there is a degeneracy in the eigenvalues of a matrix, there is a degeneracy in the definition of the corresponding eigenvectors. A better word to use is symmetry: if two eigenvalues are the same, then there is a symmetry that allows us to rotate the corresponding eigenvectors between themselves while preserving the eigenbasis.
+\end{bigidea}
+
+\subsubsection*{Lifting the Degeneracy}
+
+It is often the case that when we have a degenerate eigenvalue, there is a small effect that distinguishes the two eigenvalues. In fact, you may already know examples of this in a different guise: the fine structure of hydrogen. To good approximation, the hydrogen atom's three lowest energy states are a lowest-energy \acro{1S} state and two excited \acro{2P} states. The energies of these states are eigenvalues of a Hamiltonian (``energy matrix''). The two \acro{2P} states correspond to electrons with opposite spins. However, the orbital angular momentum of the electrons creates a little magnetic field that causes one of these degenerate `eigenstates' to have a little more energy and the other to have a little less energy. 
+
+Let us see this in action, albeit for a simpler example. Suppose that in addition to the matrix $\hat M$, you have another matrix, $\hat N$ that \emph{also} is diagonal and \emph{also} is degenerate. (This latter features is not necessary, but helps illustrate our point nicely.) 
+\begin{align} 
+    \hat N &= 
+    \begin{pmatrix}
+        \rho_\text{d} & & \\
+        & \rho_\text{d} & \\
+        & & \rho_3 \ .
+    \end{pmatrix}
+    &
+    \rho_\text{d}  \neq \rho_3\ .
+    \label{eq:degenerate:eigenvalue:diagonal:too} 
+\end{align}
+Observe that the degeneracy in $\hat N$ is in the upper two basis vectors, while the degeneracy in $\hat M$ is in the lower two basis vectors. While the eigenbasis of \emph{either} $\hat N$ \emph{or} $\hat M$ has some freedom to be rotated, there is only \emph{one} eigenbasis that simultaneously leaves $\hat N$ and $\hat M$ diagonal.
+\begin{exercise}
+Show that the rotation \eqref{eq:rot:lower:2} that represents the degeneracy in $\hat M$ will turn $\hat N$ into a non-diagonal (but Hermitian) matrix. Argue that conversely, the rotation that represents the degeneracy in $\hat N$ sill render $\hat M$ non-diagonal (but Hermitian).
+\end{exercise}
+
+If we happen to have these two matrices, then it should be obvious that there is a \emph{best} basis in which we render both of them diagonal. This basis is unique. In fact, because $\hat M$ and $\hat N$ are diagonal in the standard basis, then it is \emph{only} in the standard basis that these two matrices are simultaneously diagonal. Let that sink in: there is no longer any degeneracy in what the eigenvectors are or what their eigenvalues are. They are the following:
+\begin{enumerate}
+    \item $\ket{1}$ that has eigenvalue $\lambda_1$ under $\hat M$ and $\rho_\text{d}$ under $\hat N$
+    \item $\ket{2}$ that has eigenvalue $\lambda_\text{d}$ under $\hat M$ and $\rho_\text{d}$ under $\hat N$
+    $\ket{3}$ that has eigenvalue $\lambda_\text{d}$ under $\hat M$ and $\rho_\text{3}$ under $\hat N$ \ .
+\end{enumerate}
+In fact, we can use the eigenvalues to \emph{label} our eigenvectors:
+\begin{align}
+    \ket{1} &\equiv \ket{\lambda_1,\rho_\text{d}}
+    &
+    \ket{2} &\equiv \ket{\lambda_\text{d},\rho_\text{d}}
+    &
+    \ket{3} &\equiv \ket{\lambda_\text{d},\rho_3} \ .
+\end{align}
+Thus, for example, $M\ket{\lambda_\text{d},\rho_\text{d}} = \lambda_\text{d}\ket{\lambda_\text{d},\rho_\text{d}}$ or $N\ket{\lambda_\text{d},\rho_3} = \rho_3\ket{\lambda_\text{d},\rho_3}$.
+In physics, you will find `kets' with lists of eigenvalues. These simply mean that you are in a system that has many matrices that are simultaneously diagonal. The eigenvectors of that system are being labelled by the simultaneous eigenvalues with respect to these matrices. 
+
+\begin{example}
+When we give the electron states in the hydrogen atom funny names, those funny names are precisely labelling the eigenvalues of simultaneously diagonalizable matrices.
+\end{example}
+
+
+\subsubsection*{Diagonalize all the matrices?}
+% commutator
+
+The procedure so far seems to reduce to the following observation: everything is good in an eigenbasis. Why don't we just diagonalize \emph{all the matrices} and work in some mega eigenbasis? Maybe we never have to worry about degenerate eigenvalues because there will always be enough diagonal matrices---like $M$ and $N$ in the previous subsection---to lift all the degeneracies and define a unique eigenbasis.
+
+This is not generally possible. The reason is that the rotation that diagonalizes one matrix is, in general, not the rotation that diagonalizes another. 
+
+\begin{exercise}\label{ex:spin:1:2:Sz:Sx}
+Here's a real-world example from quantum mechanics. Consider the spin of an electron. The spin can be measured along any axis. Let us consider the $z$- axis and the $x$-axis. The spin measurement is encoded in the eigenvalues of the following spin matrices:
+\begin{align}
+    \hat S_z &= \frac{\hbar}{2}
+    \begin{pmatrix}
+    1 & \\ 
+    & -1     
+    \end{pmatrix}
+    &
+    \hat S_x &= \frac{\hbar}{2}
+    \begin{pmatrix}
+     & 1\\ 
+    1 &    
+    \end{pmatrix} \ .
+\end{align}
+Please check that both of these matrices have eigenvalues $\pm \hbar/2$. The first matrix is already in an eigenbasis, while the second is not. Show that diagonalizing $\hat S_x$ will cause $\hat S_z$ to be not-diagonal.  
+
+\textbf{Comment}: in quantum mechanics, measurements are associated with Hermitian matrices. The eigenvalues of the Hermitian matrix  encodes the possible values that one may measure. Here we see that the spin of the electron is $\pm 1/2$ along some measurement axis. 
+\end{exercise}
+
+\begin{exercise}\label{ex:spin:1:2:Sz:Sx:prob}
+Vectors in quantum mechanics are possible states of a system. A state that is an eigenvector of a Hermitian matrix is one where there is no uncertainty in the value of a measurement. If a state is a linear combination of eigenstates, $\ket{\psi} = a \ket{\text{I}}+b\ket{\text{II}}$, then the probability of measuring a particular eigenvalue is the squared absolute value of its eigenvector coefficient. That is: given a state $\ket{\text{I}}$, the probability of measuring eigenvalue $\lambda_\text{I}$ is $|a|^2$. 
+
+We assume that the states are always normalized, so $|a|^2 + |b|^2 = 1$. In Example~\ref{ex:spin:1:2:Sz:Sx}, suppose you started with a state $\ket{\psi} = \ket{\lambda_z = +\hbar/2}$. That is, the eigenstate with $\hat S_z$ eigenvalue $\lambda_z = \hbar/2$. Write this in the eigenbasis of $\hat S_x$. Show that the state of \emph{definite} spin in the $z$-direction has \emph{maximally uncertain} spin in the $x$-direction. That means that the probabilities of measuring spin in the $x$-direction to be either $\pm\hbar/2$ is 50\%. 
+\end{exercise}
+
+
+Maybe that's fair enough. If every matrix could be diagonalized then we would never deal with non-diagonal matrices. But now we have a more pressing question. Suppose you have two different Hermitian matrices, $M$ and $N$. You know that they can both be diagonalized, but you do not know if they can be \emph{simultaneously} diagonalized. This is an critical question. There are two possibilities:
+\begin{enumerate}
+    \item The two matrices can be simultaneously diagonalized. They are different only because they have different eigenvalues. Then there is a rotation $R$ such that 
+    \begin{align}
+        M &= R \hat M R^\dag
+        &
+        N &= R \hat N R^\dag \ ,
+    \end{align}
+    where $\hat M$ and $\hat N$ are diagonal. The rotation $R^\dag$ is the transformation to go from the standard basis to the eigenbasis.
+    \item The two matrices cannot be simultaneously diagonalized. They may even have the same eigenvalues (in general they will not), but there is no basis where both $M$ and $N$ are diagonal. In other words:
+     \begin{align}
+        M &= R \hat M R^\dag
+        &
+        N &= S \hat N S^\dag 
+        &
+        S\neq R \ .
+    \end{align}
+\end{enumerate}
+You could simply diagonalize both matrices and see what happens. Unfortunately, as algorithmic as we have made the procedure of diagonalization---that is, finding the eigenvectors---it is still kind of a pain to do this to every single matrix we meet. Is there perhaps an easier way to see whether or not two matrices are simultaneously diagonalizable?
+
+\begin{example}
+We have a hint from an observation in Section~\ref{sec:nice}. If you have two diagonal matrices, $\hat M$ and $\hat N$, then obviously the two matrices are simultaneously diagonalizable. However, the multiplication of diagonal matrices reduces to the multiplication of the diagonal elements as numbers. This means that
+\begin{align}
+    \hat M \hat N &= \hat N \hat M
+    &\Rightarrow 
+    \left[\hat M, \hat N\right] = 0
+    \ .
+\end{align}
+Here we have used the definition of the \textbf{commutator}, $[A,B] = A,B$. We say that two matrices \textbf{commute} if their commutator vanishes. We have shown that diagonal matrices commute.
+\end{example}
+
+If you are already in the basis where two matrices are diagonal, then the question is moot. The answer to whether they are simultaneously diagonalizable is solved. The observation that $[\hat M,\hat N] =0 $ for simultaneously diagonalizable matrices holds for any pair of Hermitian matrices. Let us see why. Let us take our diagonal matrices and rotate them by some matrix $R$ to go to any other basis where they are non-diagonal but Hermitian. Then we have matrices
+\begin{align}
+    M &= R \hat M R^\dag
+    &
+    N &= R \hat N R^\dag \ .
+\end{align}
+We can write the diagonal matrices in terms of their rotated form and plug this into the commutator:
+\begin{align}
+    0=
+    \left[ R^\dag M R, R^\dag N R  \right] = 
+    R^\dag M R R^\dag N R
+    -
+    R^\dag N R R^\dag M R
+    =
+    R^\dag(MN - NM)R
+    = R^\dag \left[M,N\right] R \ .
+\end{align}
+Here we have used $RR^\dag =\one$. We can multiply both sides by $R$ from the left and $R^\dag$ on the right---or we may simply argue that rotating a matrix cannot cause it to vanish---to find that the commutator of the matrices vanishes:
+\begin{align}
+    \left[M,N\right] = 0 \ .
+\end{align}
+Critically, this is true in \emph{any} basis, whether or not $M$ and $N$ are diagonal in that basis. Further, you can show that this is true \emph{only} when $M$ and $N$ are simultaneously diagonalizable. 
+
+If $M$ and $N$ are not simultaneously diagonalizable, then we could \emph{try} to massage their commutator into a commutator of diagonal matrices:
+\begin{align}
+    \left[M,N\right] = 
+    \left[R\hat M R^\dag, S\hat N S^\dag\right]
+    =
+    R \hat M R^\dag S \hat N S^\dag
+    -
+    S \hat N S^\dag    R \hat M R^\dag  \ .
+\end{align}
+We see that $R^\dag S$ and $S^\dag R$ do not equal to $\one$ and so we cannot massage this into a form where we get $[\hat M, \hat N]$. 
+
+\begin{bigidea}
+Matrices are simultaneously diagonalizable if they all commute with one another, $[M,N] = 0$. When this is the case, there is a single eigenbasis where all the matrices are diagonal. If some of the matrices have degenerate eigenvalues, it is possible that other matrices can lift those degeneracies. In this way, it is convenient to label eigenvectors by their unique combination of eigenvalues with respect to the set of commuting matrices. 
+
+When matrices do not commute, they cannot be simultaneously diagonalized. In quantum mechanics, two observables that do not commute are observables that you cannot simultaneously measure. This is the algebraic manifestation of quantum uncertainty.
+\end{bigidea}
+
+
+\subsection{Inverting Nice Matrices}
+\label{sec:inverting:nice:matrices}
+
+The power of all of this eigenstuff is that we can solve problems of the following form
+\begin{align}
+    M \ket{v} = \ket{s} \ ,
+    \label{eq:Mv:s}
+\end{align}
+where we are given a nice matrix $M$ and the output vector $\ket{s}$. We are asked to solve for $\ket{v}$. The solution is obviously $\ket{v} = M\inv \ket{s}$. Because $M$ is `nice,' we know it is invertible---after all, it is a Hermitian matrix with non-zero eigenvalues. For small and simple matrices, you can simply solve $M\inv M = \one$ component-by-component. For moderately difficult matrices you can plug this into a computer. However, we will soon concern ourselves with the problem of \emph{infinite dimensional} vector spaces. In this limit, the problem \eqref{eq:Mv:s} becomes a differential equation 
+\begin{align}
+    \mathcal O f(x) = s(x) \ ,
+    \label{eq:Of:s}
+\end{align}
+where $\mathcal O$ is a differential operator like $-(d/dx)^2$. The vector $\ket{v}$ is now written as a function $f$ and the discrete component index $i$ of $v^i$ has become a continuous argument $x$ in $f(x)$. You are familiar with these differential equations: they show up all the time in physics. 
+\begin{example}
+Newton's law of motion is
+\begin{align}
+    m\frac{d^2}{dt^2} \vec{x}(t) = -\nabla V[x] \ ,
+\end{align}
+where $V$ is the potential of the force. 
+\end{example}
+For this infinite-dimensional limit, the best way to solve \eqref{eq:Of:s} is to rotate into a basis of \emph{eigenfunctions} and use the fact that the action of $\mathcal O$ simplifies greatly in this basis.
+
+It is thus instructive to walk through the process of solving \eqref{eq:Mv:s} using a rotation to to the eigenbasis. It may seem silly that we do things this way for a $2\times 2$ matrix, but this example will make it clear how everything works. To this end, let us solve \eqref{eq:Mv:s} with the following values:
+\begin{align}
+    M &= 
+    \begin{pmatrix}
+        9 & -\sqrt{3}\\
+        -\sqrt{3} & 11
+    \end{pmatrix}
+    &
+    v^i &= 
+    \begin{pmatrix}
+        x \\ y
+    \end{pmatrix}
+    &
+    s^i &=
+    \begin{pmatrix}
+        a \\ b
+    \end{pmatrix} \ .
+\end{align}
+We choose explicit numbers for the components of $M$ so that we can write out explicit eigenvalues and derive explicit eigenvectors. We would like to find the components $v^i$ in the standard basis, which we have labelled as $x$ and $y$. For the source, $s^i$, we simply assume some \emph{a priori} known values $a$ and $b$. In fact, our solution will depend linearly on $a$ and $b$ so that we will have solved the problem of inverting this matrix $M$ for \emph{any} source. 
+
+
+\paragraph{Characteristic equation} First we solve for the eigenvalues of $M$. The characteristic equation is
+\begin{align}
+    0=\det(M-\lambda \one) &= 
+    (9-\lambda)(11-\lambda) - 3
+    &
+    \lambda_{\text{I},\text{II}}&= 8,12 \ .
+\end{align}
+
+\paragraph{Eigenvectors} The eigenvectors come from solving $M\ket{A} = \lambda_A \ket{A}$ for $A=\text{I}, \text{II}$. The general form of this equation is
+\begin{align}
+    9q - \sqrt{3}s &= \lambda_A q
+    &
+    -\sqrt{3}q + 11 s &= \lambda_B s \ ,
+\end{align}
+where the standard basis components of $\ket{A}$ are $s$ and $q$. Of course, only one of these equations is sufficient to specify the relation between the two components of the eigenvector $\ket{A}$: the other is redundant.\footnote{Be sure you are clear \emph{why} the second equation has to be redundant. The eigenvalue equation is true even for $\ket{A}\to \alpha\ket{A}$, so it cannot determine the normalization of the eigenvectors.} This fixes the ``direction'' of the eigenvector. We find that the eigenvectors are proportional to 
+\begin{align}
+    \ket{\text{I}}
+    &\propto 
+    \begin{pmatrix}
+        \sqrt{3}\\ 1
+    \end{pmatrix}
+    &
+    \ket{\text{II}}
+    &\propto 
+    \begin{pmatrix}
+        1\\ -\sqrt{3}
+    \end{pmatrix} \ .
+\end{align}
+Since this is a two dimensional space, one could have simply used orthogonality to deduce $\ket{\text{II}}$ from $\ket{\text{I}}$. Normalizing the eigenvectors according to $\la A | A\ra = 1$ gives us
+\begin{align}
+    \ket{\text{I}}
+    &=
+    \frac{\sqrt{3}}{2} 
+    \ket{1}
+    + 
+    \frac{1}{2}
+    \ket{2}
+    &
+    \ket{\text{II}}
+    &=
+    \frac{1}{2}
+    \ket{1} 
+    - 
+    \frac{\sqrt{3}}{2}
+    \ket{2}
+    \ .
+    \label{eq:ex:greens:func:eig:in:std}
+\end{align}
+
+\paragraph{Rotating to the eigenbasis} Now that we have the components of the eigenbasis in terms of the standard basis, $\la i | A \ra$, we know all of the components of the rotation matrix between the two bases, as we saw in Section~\ref{sec:rotation:to:eigenbasis}. If you're like me, you always get confused about whether these components are the rotation from the standard basis to the eigenbasis, or from the eigenbasis to the standard basis. Do we arrange them as rows or as columns? It is worth taking a moment to sort that out without looking at Section~\ref{sec:rotation:to:eigenbasis}. For the sake of pedagogy, let us do this a bit more tediously but straightforwardly. Let us invert \eqref{eq:ex:greens:func:eig:in:std} to write the standard basis vectors in terms of the eigenbasis vectors.\footnote{This is, of course, a rotation.} By taking appropriate linear combinations, we find that
+\begin{align}
+    \ket{1}
+    &=
+    \frac{\sqrt{3}}{2} 
+    \ket{\text{I}}
+    + 
+    \frac{1}{2}
+    \ket{\text{II}}
+    &
+    \ket{2}
+    &=
+    \frac{1}{2}
+    \ket{\text{I}}
+    - 
+    \frac{\sqrt{3}}{2}
+    \ket{\text{II}}
+    \ .
+    \label{eq:ex:greens:func:std:in:eig}
+\end{align}
+You might object that \eqref{eq:ex:greens:func:std:in:eig} does not look like much of a rotation. You may recall that this is the form of a rotation with a discrete isometry, \eqref{eq:discrete:isometry:eg}. What has happened is that we have changed the relative orientation\footnote{I say this somewhat colloquially because the term `orientation' has a more formal meaning.} of the basis vectors. Or, in other words, maybe we should have chosen a different overall sign for one of the eigenvectors in \eqref{eq:ex:greens:func:eig:in:std}. No matter! We press forward.
+
+Inserting \eqref{eq:ex:greens:func:std:in:eig} into our expression for $\ket{v}$, we find the components of $\ket{v}$ in the eigenbasis:
+\begin{align}
+    \ket{v} &=
+    x\ket{1} + y\ket{2}
+    =
+    \frac{1}{2}\left(\sqrt{3}x+y\right)\ket{\text{I}}
+    +
+    \frac{1}{2}\left(x-\sqrt{3}y\right)\ket{\text{II}}
+    \equiv
+    x' \ket{\text{I}} + y' \ket{\text{II}} \ .
+\end{align}
+Similarly, the components of the source $\ket{s}$ are
+\begin{align}
+    \ket{s} &=
+    \frac{1}{2}\left(\sqrt{3}a+b\right)\ket{\text{I}}
+    +
+    \frac{1}{2}\left(a-\sqrt{3}b\right)\ket{\text{II}}
+    \equiv
+    a' \ket{\text{I}} + b' \ket{\text{II}} \ .
+    \label{eq:eigen:greens:eg:source:components:eig}
+\end{align}
+The primed variables are the components in the eigenbasis. Now that our kets are written as linear combinations of eigenvectors, the action of $M$ is straightforward. Further, the inverse is simply
+\begin{align}
+    M\inv = 
+    \begin{pmatrix}
+        1/\lambda_\text{I} &\\
+        & 1/\lambda_\text{II}
+    \end{pmatrix} \ .
+\end{align}
+This means that the equation $M\ket{v}=\ket{s}$ is
+\begin{align}
+    \begin{pmatrix}
+        \lambda_\text{I} & \\
+        & \lambda_\text{II}
+    \end{pmatrix}
+    \begin{pmatrix}
+        x' \\ y'
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        a' \\
+        b'
+    \end{pmatrix} \ ,
+\end{align}
+from which we straightforwardly deduce
+\begin{align}
+    x' &= \frac{a'}{\lambda_\text{I}}
+    &
+    y' &= \frac{b'}{\lambda_\text{II}} \ .
+\end{align}
+This formally solves the problem, though we should be courteous and state the result in the standard basis.\footnote{This is similar to the etiquette that you should re-rack your weights in the gym.}
+
+\paragraph{Rotating back to the standard basis} We have already written transformation back to the standard basis, \eqref{eq:ex:greens:func:eig:in:std}. It is straightforward to plug this into our solution in the eigenbasis. For the sake of pedagogy, let us try to write this a a rotation. We find that
+\begin{align}
+    \frac{1}{2}
+    \begin{pmatrix}
+        \sqrt{3} & 1\\
+        1 & -\sqrt{3}
+    \end{pmatrix}
+    \begin{pmatrix}
+        x \\ y
+    \end{pmatrix}
+    = 
+    \begin{pmatrix}
+        x' \\ y'
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        a'/\lambda_{I}\\
+        b'/\lambda_{II}
+    \end{pmatrix} \ ,
+\end{align}
+where we have explicit expression for $a'$ and $b'$ in terms of the original source components $a$ and $b$ in \eqref{eq:eigen:greens:eg:source:components:eig}. We recall that this matrix is not a rotation, but rather a rotation and a discrete isometry. We may simplify the problem by multiplying both sides by the discrete isometry 
+\begin{align}
+    P = \begin{pmatrix}
+        1 & \\
+        & - 1
+    \end{pmatrix} 
+\end{align}
+to to ``undo'' the discrete isometry and recover a rotation matrix
+\begin{align}
+    \frac{1}{2}
+    \begin{pmatrix}
+        \sqrt{3} & 1\\
+        -1 & \sqrt{3}
+    \end{pmatrix}
+    \begin{pmatrix}
+        x \\ y
+    \end{pmatrix}
+    &=
+    \begin{pmatrix}
+        \pp a'/\lambda_{I}\\
+        -b'/\lambda_{II}
+    \end{pmatrix} 
+    &
+    \begin{pmatrix}
+        x \\ y
+    \end{pmatrix}
+    &=
+    \frac{1}{2}
+    \begin{pmatrix}
+        \sqrt{3} & -1\\
+        1 & \sqrt{3}
+    \end{pmatrix}
+    \begin{pmatrix}
+        \pp a'/\lambda_{I}\\
+        -b'/\lambda_{II}
+    \end{pmatrix} \ ,
+\end{align}
+On the right-hand side we have used the fact that the inverse of a rotation is simply its transpose. 
+
+
+\begin{subappendices}
+\section{Another proof that diagonal becomes symmetric}
+\label{sec:another:proof:diag:is:symmetric}
+
+We present an alternative proof of Theorem~\ref{thm:symmetric:rotates:to:symmetric}. The proof is a little tedious and may be skipped on a first reading.
+% 
+% \begin{proof}
+We use the fact that because $D$ is self-adjoint in the following form:
+\begin{align}
+    \la Dv, w \ra = \la v, Dw\ra \ .
+\end{align}
+Now we use the fact that rotations (isometries) $R$ preserve the inner product so that
+\begin{align}
+    \la RDv, Rw \ra = \la Rv, RDw \ra \ .
+\end{align}
+In components this is
+\begin{align}
+    R\aij{i}{j}D\aij{i}{k} \cancel{v^k}\,
+    R\aij{\ell}{m} \cancel{w^m}\,
+    g_{i\ell}
+    =
+    R\aij{q}{k} \cancel{v^k}\,
+    R\aij{s}{t} D\aij{t}{m} \cancel{w^m}\,
+    g_{qs} \ .
+\end{align}
+We deliberately chose and labels so that the $v^kw^m$ on each side would have the same indices and those factors could be `canceled out.' We may only do this because the above expression is true for any vectors $\ket{v}$ and $\ket{w}$ and so cannot depend on those components. This means that the objects contracting with these vectors on each side must be equivalent component-wise.  We then contract both sides with $(R\inv)\aij{m}{n}(R\inv)\aij{k}{u}$. The reason for this is that we know that the rotation of a matrix $D\aij{i}{j}$ is $R\aij{i}{k}D\aij{i}{\ell}(R\inv)\aij{\ell}{j}\defeq M$.
+\begin{align}
+    g_{\ell i} R\aij{i}{j} D\aij{j}{k}\delta^\ell_n
+    (R\inv)\aij{k}{u}
+    &=
+    g_{sq}\delta^q_u R\aij{s}{t} D\aij{t}{m}
+    (R\inv)\aij{m}{n}
+    \\
+    g_{ni} M\aij{i}{u}
+    &=
+    g_{su} M\aij{s}{n} \ .
+\end{align}
+We now seek to show that $M$, the rotation of $D$ into another basis\sidenote{Or rather: $M\aij{i}{j}$ are the components of $D$ in a basis \emph{other} than the one where it is diagonal.} is symmetric. Indeed, if we look at the equation above, we may simply lower indices with the metric factors and write out
+\begin{align}
+    M_{nu} = M_{un} \ ,
+\end{align}
+which effectively proves our assertion. However, matrices have their first index raised an their second index lowered. So we can multiply both sides by $g^{ur}$ to write
+\begin{align}
+    g_{ni}M\aij{i}{u}g^{ur} &= M\aij{r}{n} \ .
+\end{align}
+We recognize the adjoint, \eqref{eq:adjoint:def}, so that $(M^\dag)\aij{r}{n} = M\aij{r}{n}$. This indeed tells us that the rotation of a self-adjoint matrix is self-adjoint. \flip{Is this what we wanted? Since diagonal matrices are self-adjoint, then their rotations are self-adjoint. Then we just have to explain---matthews and walker, theorem 4.7 }
+
+\end{subappendices}
+
+
+
 \chapter{Complex Spaces}
+
+
+
+
+\paragraph{Complex vector spaces}\index{complex vector space}
+It is time to embrace complex numbers. A complex vector space is one where all of the numbers that we previously assumed were real can now be complex: $\RR \to \CC$. This means that a linear combination of vectors $\alpha\vec{v}+ \beta\vec{w}$ may have complex coefficients, $\alpha,\beta\in\CC$. 
+
+\paragraph{Quick refresher of complex numbers}
+Recall that complex numbers may be written either in Cartesian form, $z = x+iy$ or in polar form $z= re^{i\theta}$. The defining features is that $i^2 = -1$. The complex conjugate of a complex number is the complex number you get from changing $i\to -i$:
+\begin{align}
+    (x+iy)^* &= x-iy
+    &
+    re^{i\theta} &= re^{-i\theta} \ .
+\end{align}
+
+\paragraph{Metrics on complex spaces}
+Things become a bit more interesting when we complexify a metric space. We have to update our rules a bit. Previously we assumed that the metric is symmetric, $\langle v, w\rangle = \langle w, v\rangle$. This turns out to only be true for real spaces. When we have a complex vector space, the metric must satisfy symmetry with a complex conjugation:
+\begin{align}
+    \la v, w \ra = \la w, v \ra^* \ .
+    \label{eq:complex:metric:star}
+\end{align}
+That is a little unusual. At least means that the norm (length squared) of a complex vector is real:
+\begin{align}
+    |v|^2 = \la v, v \ra = \la v, v \ra^* \ .
+\end{align}
+This helps justify the notation $|v|$ for the magnitude of a vector. 
+
+What about the adjoint of a transformation? For a real vector space, the adjoint is simply the transpose. For a complex vector space, the adjoint is the transpose \emph{and} a complex conjugation on each component:
+\begin{align}
+    (A^\dag)\aij{i}{j} = g^{ik}(A\aij{\ell}{k})^*g_{\ell j} \ .
+\end{align}
+In terms of components:
+\begin{align}
+    \begin{pmatrix}
+        A\aij 11 & A\aij 12 \\
+        A\aij 21 & A\aij 22 
+    \end{pmatrix}^\dag &= 
+    \begin{pmatrix}
+        (A\aij 11)^* & (A\aij 21)^* \\
+        (A\aij 12)^* & (A\aij 12 )^*
+    \end{pmatrix} \ .
+\end{align}
+\begin{example}
+Here's the adjoint of an explicit matrix:
+\begin{align}
+\begin{pmatrix}
+        3.5 +2i & 2.3+7i \\
+        8.3 + 5i & 5-2i
+    \end{pmatrix}^\dag &= 
+    \begin{pmatrix}
+        3.5 -2i &  8.3 - 5i\\
+        2.3 -7i & 5 +2i
+    \end{pmatrix} \ .
+\end{align}
+\end{example}
+
+It is also useful to consider the adjoint of a product of matrices, $AB$. We can see that
+\begin{align}
+    \la AB \vec{v}, \vec{w} \ra
+    =
+    \la B \vec{v},  A^\dag \vec{w} \ra
+    =
+    \la \vec{v}, B^\dag A^\dag \vec{w} \ra \ .
+\end{align}
+This tells us that
+\begin{align}
+    (AB)^\dag = B^\dag A^\dag \ .
+    \label{eq:adjoint:of:product}
+\end{align}
+
+
+
+\begin{example} What do isometries look like in a complex vector space? Let us suppose that we have the Euclidean metric (even though the space is now complex):
+\begin{align}
+    g_{ij} = \text{diag}(1,1,\cdots, 1) = \mathbbm{1} \ .
+\end{align}
+Let $U$ be an isometry in this space; this is a conventional name whose meaning will be clear soon. The condition for an isometry in this space is that a transformation $\ket v \to U\ket{v}$ preserves the metric. Observe that because the metric is not symmetric, but rather symmetric-up-to-a-conjugate, it is useful to write the inner product using brackets rather than simply index contraction. We have:
+\begin{align}
+    \la U\vec{v}, U\vec{w} \ra = \la \vec{v}, U^\dag U \vec{w} \ra \stackrel{?}{=} \la \vec{v}, \vec{w} \ra \ .
+\end{align}
+This tells us that the condition for $U$ to be an isometry is that $U^\dag U = \mathbbm{1}$. Matrices that satisfy this are called \textbf{unitary} matrices, thus justifying the name $U$. 
+\end{example}
+
+\begin{example}
+The usual rotation matrices (obviously!) satisfy the unitary condition. Thus rotations are a simple example of a unitary matrix. There are more complicated unitary matrices, for example in two complex dimensions:
+\begin{align}
+    U(\theta) = 
+    \begin{pmatrix}
+        e^{i\theta} & 0\\
+        0 & e^{-i\theta}
+    \end{pmatrix}
+    \label{eg:unitary:matrix:diagonal}
+\end{align}
+is a transformation that rephases the first $v^1 \to e^{i\theta}v^1$  and second $v^2 \to e^{-i\theta}v^2$ components of a vector by opposite phases. It should be obvious that $U^\dag U = \one$. 
+\end{example}
+
+
+\begin{exercise}
+A bonus observation: show that \eqref{eg:unitary:matrix:diagonal} can be understood as a Taylor expansion with respect to a matrix $T$:
+\begin{align}
+    U(\theta) &= \sum_{n=0}^\infty \frac{\theta^n}{n!} T^n
+    &
+    T=
+    \begin{pmatrix}
+        i & 0\\
+        0 & -i
+    \end{pmatrix} \ .
+\end{align}
+The matrix $T$ is called the \textbf{generator} of the isometry $U$. 
+\end{exercise}
+
+
+\begin{exercise}
+Show that the generator of rotations is
+\begin{align}
+    R(\theta) &= \sum_{n=0}^\infty \frac{\theta^n}{n!} T^n
+    &
+    T=
+    \begin{pmatrix}
+        0 & -1\\
+        1 & \pp 0
+    \end{pmatrix} \ .
+\end{align}
+\end{exercise}
+
+
+% \begin{table}
+%     \renewcommand{\arraystretch}{1.3} % spacing between rows
+%     \centering
+%     \begin{tabular}{ @{} llllll @{} } \toprule % @{} removes space
+%         Space
+%         & Numbers
+%         & Inner Product
+%         & Contraction
+%         & Matrix
+%         & Identity
+%         \\ \hline
+%         Classic
+%             & vector
+%             & row-vector
+%             & 
+%             &       
+%         \\
+%             & $\vec{v} = v^i \bas{e}_i$
+%             & $\row{w} = w_i \rbas{e}^i$
+%             & $\rbas{e}^i\bas{e}_j = \delta^i_j$
+%             & $M=M\aij{i}{j} \bas{e}_i\otimes \rbas{e}^j$
+%             & $\one$
+%         \\ \hline
+%         Quantum 
+%             & ket
+%             & bra
+%             &       
+%             &
+%         \\
+%             & $\ket{v} = v^i\ket{i}$
+%             & $\bra{w} = w_i \bra{i}$
+%             & $\langle i | j\rangle = \delta^i_j$
+%             & $M=M\aij{i}{j} \ket{i}\bra{j}$
+%             & $\ket{i}\bra{i}$
+%         \\ \bottomrule
+%     \end{tabular}
+%     \caption{
+%         Dictionary between `classic' notation and `quantum' (bra--ket) notation.
+%         \label{tab:classic:bra:ket:dictionary}
+%     }
+% \end{table}
+
 
 \chapter{Quantum Mechanics}
 
@@ -6531,9 +8121,212 @@ where the sum is over the root of $f(x)$, that is: one sums over the $x_i$ such 
 
 \chapter{Function Spaces}
 
+\section{Distributions}
+
+Distributions are the bras (dual vectors) of function space. They are almost functions, but they are waiting to be integrated. They are the analog of the definition of dual vectors through the inner product
+\begin{align}
+    \row{v} \defeq \la \vec{v}, \Vtextvisiblespace[1em]{}\, \ra \ .
+\end{align}
+In a function space the inner product is some kind of integral. A distribution is an additional weighting factor.\sidenote{You may want to compare this to related ideas: kernels and convolutions.}
+
+
+\begin{subappendices}
+\section{\texorpdfstring{The $\delta$ function}{The Delta Function}}
+
+The Dirac $\delta$ function\sidenote{The $\delta$ function is not formally a function. It is an object called a \emph{distribution} that only makes sense when integrated over.} is defined to be the distribution over which
+\begin{align}
+    \int_{-\infty}^\infty \D{x}\, f(x)\delta(x-y) &= f(y) \, .
+\end{align}
+In fact, we may more carefully refine this:
+\begin{align}
+\lim_{\epsilon \to 0}
+    \int_{y-\epsilon}^{y+\epsilon} \D{x}\, f(x)\delta(x-y) &= f(y) \, .
+\end{align}
+In this definition, it is clear that the entirety of the support\sidenote{Support means the region where something is nonzero} of $\delta(x-y)$ is an infinitesimal sliver around $x=y$. One can compare this to the Kronecker $\delta$ in a sum:
+\begin{align}
+    \sum_i \Delta x\; \delta^j_i v^i = v^j \ ,
+\end{align}
+where we have explicitly written in $\Delta x = 1$. If you want to make the comparison closer, you could imagine writing a two-argument function $\delta(x,y)\defeq \delta(x-y)$ and treat the $x$ and $y$ as continuous `indices.'
+
+We make a key observation that the $\delta$ function has infinitesimal support. It is zero \emph{everywhere} except for a set of measure zero.\sidenote{This is a mathy way of saying: you may be looking at the real line, but the the function is only non-zero at a single point. This point has no `length' or spatial extent.} However, it integrates to one, so it has unit area under its odd curve.
+
+We may motivate the $\delta$ function in a limiting procedure. Some textbooks like to do this by writing out a function that becomes skinnier and taller in some limit. That is a little dishonest because the $\delta$ function is really the degenerate extreme of that limit. Instead, let us consider the limiting procedure of the $\delta$ function integrated over some test function, $f(x)$. First let us imagine a pre-$\delta$ function that we call $\tilde \delta(x)$. As a first iteration, we sketch it in Figure~\ref{fig:delta:limit:1}.
+
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/Delta_limit_01.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{A pre-$\delta$ function, $\tilde \delta(x)$, green. In the lower plot, we show the area under the curve $f(x)\tilde\delta(x-x_0)$. Observe that $f(x)\tilde\delta(x-x_0)$ is zero everywhere except in the region of size $\Delta x=1$ around $x_0$. For $\Delta x =1$, the non-zero region traces $f(x)$. }
+    \label{fig:delta:limit:1}
+\end{marginfigure}
+
+In this picture, we assume that $\tilde\delta(x-x_0)$ is zero everywhere except for a region of width $\Delta x = 1$ around $x_0$. In that region, we write that $\tilde\delta(x-x_0)$ has height $\Delta x\inv = 1$. This means that the product with a test function $f(x)$ satisfies
+\begin{align}
+    f(x)\tilde\delta(x-x_0)
+    =
+    \begin{cases}
+    \frac{f(x)}{\Delta x} &\text{if } x_0-\frac{\Delta x}{2} \leq x \leq x_0 +\frac{\Delta x}{2} \\
+    0 &\text{otherwise}
+    \end{cases}
+    \ ,
+\end{align}
+where $\Delta x = 1$ in Figure~\ref{fig:delta:limit:1}. This means that the area under $f(x)\tilde\delta(x-x_0)$ is the area under $f(x)$ in the unit region around $x_0$. 
+
+We can now imagine making $\Delta x$ successively smaller, for example in Figure~\ref{fig:delta:limit:2} we take $\Delta x = 1/2$. Observe that because $\Delta x$ is smaller, the value of $f(x)\tilde\delta(x-x_0)$ is larger---at least in the [smaller] region where $\tilde\delta(x-x_0)$ is non-zero. 
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/Delta_limit_02.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Same as above, but with $\Delta x = 1/2$. The product $f(x)\tilde \delta(x-x0)$ is now $f(x)/\Delta x$ in the sliver of extent $\Delta x$ around $x_0$ where it is nonzero.}
+    \label{fig:delta:limit:2}
+\end{marginfigure}
+As we take the limiting case where $\Delta x$ is smaller than any characteristic scale over which $f(x)$ changes appreciably, we find that the integral over $f(x)\tilde\delta(x-x_0)$ is approximately
+\begin{align}
+    \int_{-\infty}^\infty \D{x}\, f(x)\tilde\delta(x-x_0) = \frac{f(x_0)}{\Delta x} \Delta x = f(x_0) \ .
+\end{align}
+This becomes exact as $\Delta x \to 0$ and the $\tilde\delta(x)\to \delta(x)$ function becomes infinitely tall and infinitesimally thin but maintains unit area under its curve.
+
+The $\delta$ function cancels an integral in the same way that a Kronecker $\delta$ cancels a sum: It replaces the integral with the integrand evaluated at a single point:
+
+While $\delta$ functions may look like a silly way of writing a function, they serve as basis dual functions in function space written in the position basis. In physics they are clever ways to write out constraints. For example, the unit circle is a one dimensional slice of the two-dimensional plane. One way of writing this integral is to integrate some function $f(x,y)$ along the plane but restrict the integral to the unit circle in the following way:
+\begin{align}
+    \int \D{x}\D{y}\; \delta(x^2 + y^2 - 1) \, f(x,y) \ .
+\end{align}
+
+The example above brings us to the question of how to evaluate a $\delta$ function when the argument is not linear in the integration variable. That is, what do you do with $\D{x}\, \delta(f(x))$? The trick here is to do a change of variables where $u = f(x)$.
+\begin{align}
+    \int \D{x}\, \delta(f(x))\, g(x)
+    &= 
+    \int \frac{\D{u}}{|f'(x(u))|} \, \delta(u) \, g(x(u))
+    \\
+    &= \sum_i\frac{g(x_i)}{|f'(x_i)|} \ ,
+\end{align}
+where the points $x_i$ are the points for which $f(x_i) = 0$. This gives us a rule that
+\begin{align}
+    \delta(f(x)) &= \sum_i \frac{\delta(x-x_i)}{f'(x_i)} \ .
+\end{align}
+
+
+
+
+
+
+\end{subappendices}
+
+
+\chapter{Some loose ends}
+
+\flip{These are topics I'd like to fill in some day. Maybe if they'll let me teach 117. }
+
+\section{A proper definition of the determinant}
+\section{Representation theory of SU(2)}
+\section{Vector calculus in 3 dimensions}
+\section{Vector calculus in general dimensions}
+\section{Differential Forms}
+\section{Lie algebras as vector spaces}
 
 
 \chapter*{Closing Thoughts}
+
+
+It is potentially confusing that physicists use multiple conventions to describe what are essentially the same ideas in linear algebra. Table~\ref{table:vectors:conventions} makes some of these connections explicit.
+
+\begin{table}
+    \renewcommand{\arraystretch}{1.3} % spacing between rows
+    \centering
+    \begin{tabular}{ @{} llll @{} } \toprule % @{} removes space
+        Vector Space & $\RR$ & $\CC$ & $\infty$-dimensional
+        \\ \hline
+        Vector/ket 
+            & $\vec{v} = \ket{v}$ 
+            & $\vec{v} = \ket{v}$
+            & $f$
+            \\
+        Basis vector
+            & $\bas{e}_i = \ket{i}$ 
+            & $\bas{e}_i = \ket{i}$ 
+            & $\hat{e}_i(x)$
+            \\
+            & 
+            & 
+            & $\hat{e}_p(x)$
+            \\
+        Components
+            & $v^i \in \RR$
+            & $v^i \in \CC$
+            & $f^i, \tilde{f}(p) \in \CC$
+            \\
+        % Components
+            & $\vec{v} = v^i\bas{e}_i = v^i\ket{i}$
+            & $\vec{v} = v^i\bas{e}_i = v^i\ket{i}$
+            & $f(x) = f^i\, \hat{e}_i(x) $
+            \\
+            & 
+            & 
+            & $f(x) = \int \dbar p\,\tilde f(p) e_p(x)$
+        \\
+        Row vector/bra
+            & $\row{w} = w_i\rbas{e}^i = w_i\bra{i}$
+            & $\row{w} = w_i\rbas{e}^i = w_i\bra{i}$
+            & distribution, e.g.~$\delta(x)$
+        \\
+        Matrix
+            & $A = A\aij{i}{j}\ket{i}\bra{j}$
+            & $A = A\aij{i}{j}\ket{i}\bra{j}$
+            & operator, e.g.~$\frac{d^2}{dx^2}$
+        \\
+        Inner Product
+            & $\la v, w \ra = g_{ij}v^iw^j$
+            & $\la v, w \ra$
+            & $\la f, g \ra = \int dx\, f^*(x)g(x)$        
+            \\
+        % Inner Product
+            & $\la v, w \ra = \la w,v\ra$
+            & $\la v, w \ra = \la w,v\ra^*$
+            & $\la f, g \ra = \la g,f\ra^*$
+        \\
+        Adjoint
+            & Transpose
+            & Hermitian Conjugate
+            & Integration by parts
+        \\
+        % Adjoint
+            & $(A^T)\aij{i}{j} = g_{jk}A\aij{k}{\ell}g^{\ell i}$
+            & $(A^\dag)\aij{i}{j}= [(A^T)\aij{i}{j}]^*$
+            & e.g.~$\left(\frac{d}{dx}\right)^\dag = -\left(\frac{d}{dx}\right)$
+        \\
+        Self-adjoint
+            & Symmetric
+            & Hermitian
+            & Sturm--Liouville
+        \\
+        % Self-adjoint
+            & $A^T = A$
+            & $A^\dag = A$
+            & $\mathcal O^\dag = \mathcal O$
+        \\
+        % Self-adjoint
+            & $\RR$ Eigenvalues
+            & $\RR$ Eigenvalues
+            & $\RR$ Eigenvalues
+        \\
+        % Self-adjoint
+            & $\perp$ Eigenvectors
+            & $\perp$ Eigenvectors
+            & $\perp$ Eigenvectors
+        \\
+        Isometry, e.g.
+            & Rotations, Boosts
+            & Unitary Matrices
+            & Change of variable
+        \\ \bottomrule
+    \end{tabular}
+    \caption{
+        Terms and notation in real, complex, and infinite-dimensional vector spaces. 
+        \label{table:vectors:conventions}
+  }
+\end{table}
+
+
+
 
 \section*{Acknowledgments}
 
