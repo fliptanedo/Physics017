@@ -1093,8 +1093,9 @@ Show that the standard form of a rotation in two dimensions,
 R=
     \begin{pmatrix}
     \cos \theta & -\sin\theta \\
-    \sin \theta & \cos\theta      
+    \sin \theta & \pp\cos\theta      
     \end{pmatrix} \ .
+    \label{eq:2D:rotation:standard}
 \end{align}
 satisfies \eqref{eq:RTR:one}. Using this form of rotations, show that rotations in 2-dimensional Euclidean space preserve the length of vectors and the angle between vectors. \textsc{Hint}: use $\cos^2\theta + \sin^2\theta = 1$.
 \end{exercise}
@@ -1153,7 +1154,7 @@ Weird, right? Determinants for higher-dimensional square matrices can be defined
 The determinant of a diagonal matrix is simply the product of each of its diagonal elements. 
 \end{example}
 
-In Section~\ref{sec:determinatns} we take time to define the determinant properly.\sidenote{We are skipping all pretense of taking the determinant anything bigger than a $2\times 2$ matrix by hand. There are computers for that. Instead, let us figure out how to use the determinant.} 
+In Chapter~\ref{ch:determinant} we take time to define the determinant properly.\sidenote{We are skipping all pretense of taking the determinant anything bigger than a $2\times 2$ matrix by hand. There are computers for that. Instead, let us figure out how to use the determinant.} 
 
 \section{Cross product}
 
@@ -2639,6 +2640,7 @@ Now we can invoke our defining rule for the basis dual vectors \eqref{eq:basis:o
     v^j \delta^i_j
     = v^j
 \ ,
+\label{eq:dual:basis:returns:ith:component}
 \end{align}
 so that the $i^\textnormal{th}$ basis row vector $\rbas{e}^i$ acting on a vector simply returns the $i^\textnormal{th}$ component of the vector in the associated vector basis $\bas{e}_i$.
  
@@ -3317,6 +3319,34 @@ Let us observe that the rule we proposed in Rule~\ref{idea:transformation:of:upp
 The moment of inertia tensor has two lower indices.\footnote{This may depend on conventions. It is certainly true that the moment of inertia tensor has two indices that are both the same height.} Explain why it transforms differently from a matrix, which has one upper and one lower index.
 \end{example}
 
+\subsection{(Non-)Transformation of Numbers}
+
+Numbers---perhaps you want to call them scalars---do not transform. They have no free indices to transform. Some numbers have contracted indices. Consider a bra $\bra{w}$ acting on $M$, which in turn acts on a $\ket{v}$,\sidenote{You can alternatively say that $M$ is acted on by both $\bra{w}$ and $\ket{v}$, or many other combinations.}
+\begin{align}
+    \la w \mid M \mid v \ra 
+    &= 
+    w_i \bra{e^i} \; M\aij{j}{k}\ket{e_j}\!\bra{e^k}
+    \; v^\ell \ket{e_\ell} 
+    \\&=
+    w_i M\aij{i}{k}v^k 
+    \ ,
+\end{align}
+where we have used the defining relation $\la e^i\mid \ra e_j = \delta^i_j$. These combinations are invariant and no longer transform. That's why we may use the $\delta$ function to collapse sums. We are left with a transformation law
+\begin{align}
+    w_i M\aij{i}{k}v^k 
+    \to 
+    w_\ell(R\inv)\aij{\ell}{i} \, R\aij{i}{m}
+    M\aij{m}{n} (R\inv)\aij{n}{k} \, R\aij{k}{p} v^p \ .
+\end{align}
+We find two instances of the contraction $(R\inv)\aij{a}{b}R\aij{b}{c} \equiv \delta^a_c$, which shows that the right-hand side is identical to the left-hand side. In this way an object whose indices are fully contracted does not transform. 
+
+\begin{exercise}
+Analogously, an object with some contracted indices and some uncontracted indices \emph{does} transform, but only according to the uncontracted indices. If $T_{ik}$ is a (0,2) tensor, show that $T_{ik}v^k$ transforms like a row vector by transforming each pf $T_{ik}$ and $v^k$ independently and showing that one factor of $R$ and one factor of $R\inv$ cancel each other out.
+\end{exercise}
+
+
+
+
 \section{Dropping the Basis Tensors... Again}
 
 In Section~\ref{sec:component:notation} we presented tensors the way that most physicists use tensors: objects with indices. In the rest of this chapter, we built up the machinery of basis linear maps that form the underlying structure of what tensors are. This helps us understand how the components of a tensor transform when we change basis. By virtue of the defining relation between basis bras and kets, \eqref{eq:defining:bra:ket:relatin}, you may have found that once we all agree upon a basis, then \emph{all of those basis tensors are kind of redundant}!
@@ -3776,6 +3806,11 @@ Often the tensors on the tangent bundle are defined with respect to the coordina
 Thus in relativity you will often see change of coordinates written as ${\partial y^j}/{\partial x^i}$. On a given tangent plane, these play the role of generalized rotation matrices.
 
 
+\begin{bigidea}
+Through this part of the course, the rules for how a tensor transforms in Section~\ref{sec:transformation:under:symmetries} are true for \emph{any} transformation, including diffeomorphisms if one is on a bundle. In that section and in most of this course, we focus only on the case when these transformations are rotations (or their generalizations, isometries). The reason for this is that in Chapter~\ref{ch:metric:spaces} we introduce the inner product, which defines a special class of transformations---rotations (isometries)---which are the main focus of our course. However, an object with indices is a tensor if it transforms tensorially under \emph{any} transformation, including diffeomorphisms. 
+\end{bigidea}
+The above \bigidearef{} comes up again in Section~\ref{sec:Levi:Civita:Tensor:vs:Symbol} when we look at an object called the Levi-Civita tensor.
+
 
 
 \section{Bundles of Fun}
@@ -4109,6 +4144,7 @@ In this course the primary example of a non-Euclidean metric is Minkowski space 
 
 
 \section{Example: Polar Coordinates}
+\label{sec:polar:coordinates}
 
 In the bundle picture of Chapter~\ref{ch:bundles}, we said that each tangent plane is a different vector space. Polar coordinates on Euclidean space is an example where this bundle structure shows up in a space that is \emph{not} actually curved, but is described readily with curved for the base space. 
 
@@ -4195,6 +4231,7 @@ When a metric that differs from the identity\footnote{By which we mean a metric 
     \label{eq:metric:surface:of:sphere}
 \end{align}
 where $r$ is the radius of the Earth. However, it is not true that all `funny looking metrics' imply that the underlying space is curved. In the polar coordinate example of this subsection, the space itself is the same two-dimensional Euclidean space that we are used to. All we have done is changed coordinates. We see that a funny looking metric may mean that the space is curved, or it may mean that our coordinate system is curved (that is, \emph{curvilinear}). 
+
 
 \begin{exercise}
 Prove \eqref{eq:metric:surface:of:sphere}. You may need to review your trigonometry and draw the sphere carefully. Observe that this is a two-dimensional metric space for the surface of the sphere. There is no radial vector. Feel free to derive the three-dimensional spherical coordinate metric that includes the radial direction. 
@@ -4546,7 +4583,7 @@ In order to simplify this, rewrite the right-hand side by relabeling the dummy i
 \end{example}
  
 \section{Rediscovering Dual Vectors}
-\flip{I'm not sure where to put this in these notes.}
+% \flip{I'm not sure where to put this in these notes.}
 
 Let us return to the question of understanding the components of an isometry. For concreteness, we focus on two-dimensional Euclidean space. We start with the standard basis, $\ket{e_{1,2}}$. From this standard basis, we \emph{define} the basis of dual vectors (bras) by
 \begin{align}
@@ -4563,6 +4600,18 @@ The orthonormality of a good basis then gives us \eqref{eq:row:col:delta:bra:ket
 \begin{exercise}
 Applying the metric space definition of row vectors in terms of column vectors, \eqref{eq:row:vector:inner:product}, onto the \emph{basis} column vectors. Show that with this definition of $\bra{e^i}$, one automatically has the `defining' relation \eqref{eq:row:col:delta:bra:ket}.
 \end{exercise}
+
+When acting on a vector, $\ket{v} = v^j \ket{e_j}$, the basis bra $\bra{e^i}$ simply returns the vector's $i^\textnormal{th}$ component:
+\begin{align}
+    \la e^i \mid v \ra = v^j \la e^i \mid e_j \ra = v^j \delta^i_j = v^i \ .
+    \label{eq:dual:basis:returns:ith:component:ket}
+\end{align}
+This is a re-statement of what we defined by fiat in \eqref{eq:dual:basis:returns:ith:component}. In a sense, we have `derived' this result by using the metric to define the basis of dual vectors. The idea that we can use $\la e^i |$ as a machine to project out specific components is important enough to state boldly:
+\begin{bigidea}
+The basis dual vector $\bra{e^i}$ acts on vectors and returns the $i^\textnormal{th}$ component of the vector in that basis. 
+\end{bigidea}
+This is especially useful if we need to translate \emph{between} expressions in different bases. 
+
 
 \section{Rediscovering The Identity}
 
@@ -4726,6 +4775,8 @@ Show that the determinant of each of the rotations in \eqref{eq:rotation:matrix:
 
 The trace and the determinant of a matrix are invariant under rotations. This may sound trivial\footnote{``Trivial'' is the mathematical translation of when I say `obvious.'}: they are numbers with no indices, and numbers with no indices do not transform under rotations. The relevance of the invariance of the trace and determinant are that they are numbers that are formed out of the components of a matrix that do not transform, even though the components of a matrix, $M\aij{i}{j}$, \emph{do} transform under a rotation. 
 
+\subsection{Trace}
+
 Let us see that this is the case. Under a rotation, the trace of a matrix, $M\aij{i}{j}$ transforms as:
 \begin{align}
     M\aij{i}{j} \to (M')\aij{i}{i} = R\aij{i}{k} M\aij{k}{\ell} (R\inv)\aij{\ell}{i} \ .
@@ -4752,7 +4803,9 @@ We call this a \emph{cyclic permutation} of the product $ABC$.
 \end{exercise}
 I hope you are starting to appreciate the utility of the index notation.
 
-Moving on to the determinant, we appeal a couple of rules that we motivated in \eqref{eq:det:of:product} and \eqref{eq:det:of:inverse}
+\subsection{Determinant}
+
+Moving on to the determinant, we appeal a couple of rules that we motivate in Chapter~\ref{ch:determinant}, see Section~\ref{sec:determinant:of:product},
 \begin{align}
     \det(MN) &= (\det M)(\det N)
     &
@@ -4762,7 +4815,8 @@ Then it is straightforward to read off that
 \begin{align}
     \det M \to \det M' = \det(RMR\inv ) = \det M\ \frac{\det R}{\det R} = \det M \ .
 \end{align}
-Appealing to our pictorial interpretation that the determinant is a volume, we remark that rotations do not change the volume of the parallelpiped formed by basis vectors. Rotating a mug does not change the capacity of the mug, though it may cause its contents to spill out. 
+In Chapter~\ref{ch:determinant} we define the determinant as a volume of a parallelpiped. Rotations do not change the volume of a parallelpiped . Rotating a mug does not change the capacity of the mug, though it may cause its contents to spill out. 
+
 \end{subappendices}
 
 
@@ -5189,6 +5243,7 @@ Rephrase everything in this example in terms of the inner product in Minkowski s
 
 
 \section{Isometry}
+\label{sec:spacetime:isometry}
 
 How does one know that rotations are important symmetries in Euclidean space? This certainly comes from our own experience with physics---the laws of physics are rotationally invariant. In fact, we learn very quickly in our physics training to use rotational invariance to simplify problems. What about in special relativity? Historically, the Michelson--Morley non-observation\sidenote{Perhaps the most significant null result in science.} of aether---that is, the observation that the speed of light is constant---led us to realize that requirement that physics cannot depend on reference frame leads to a different class of symmetries. What characterizes these symmetries?
 
@@ -5610,7 +5665,7 @@ The electric and magnetic fields are unified in the \emph{electromagnetic field 
         E^y&B^z&0&-B_x\\
         E^z&-B^y&B^x&0
     \end{pmatrix} %\ .
-    &
+    \\
     F_{\mu\nu}
     &=
     \begin{pmatrix}
@@ -5619,6 +5674,7 @@ The electric and magnetic fields are unified in the \emph{electromagnetic field 
         -E^y&B^z&0&-B_x\\
         -E^z&-B^y&B^x&0
     \end{pmatrix} \ .
+    \label{eq:fmunu:lower}
 \end{align}
 We see that electricity and magnetism are unified in that their components mix into one another under a Lorentz transformation. 
 \begin{exercise}
@@ -5693,17 +5749,18 @@ In this chapter we focus on linear transformations in metric spaces. Recall that
 
 
 \section{The hierarchy of transformations}
+\label{sec:hierarchy:of:transformations}
 
 There is something odd that I do when I think about mathematical objects. I impose upon these objects some subjective feeling of niceness or not-niceness. Nice matrices are easy to use. The nicest matrices are easy to undo. Matrices that are not nice may be complicated---perhaps they are a complicated manifestation of something which is supposed to be simple. Another not-nice feature is if a matrix is not invertible: once you apply it, the object on which you have applied it has lost information. The worst matrices do not fall into these categories. There is one step below `worst': matrices that are not even matrices by our definition, for example linear maps that do not return vectors in the same vector space as the input.\sidenote{There are even worse (worser?) ``matrices'' like the $N\times (N+1)$ objects you write down to do weird shit like ``reduced row echelon form'' in a traditional linear algebra class. That's just solving a system of linear equations---that's just algebra, it is not even \emph{linear algebra}.}
 
 The following hierarchy of matrices is not official. It is not found in any textbook of mathematics or physics. In fact, I would vehemently deny that I even taught this to you.\sidenote{This reminds me of the advice my Ph.D advisor gave me when I asked what I should do if my first seminar talk does not go well. He told me, ``If it goes \emph{really} poorly, then lie about who your advisor is.''} However, it does help me categorize the types of matrices that \emph{do} show up in physics and how to think about them.\sidenote{You may compare this to what psychologist refer to as Maslow's hierarchy of needs.}
 
 \begin{enumerate}
-    \item The top-of-the line, S-rank, nicest matrices are multiples of the identity. These are just numbers: not only are they defined by a single proportionality constant, but they add and multiply as if they are just numbers. Unfortunately, these matrices are \emph{too} nice: all they do is rescale the vector or dual vector that they act on. That is a little boring, even for us.
-    \item The A-class matrices are diagonal in the basis you are currently using. We also assume that each of the diagonal elements are non-zero.\sidenote{We say the matrix is \emph{non-degenerate}.} In this basis, the matrix acts by rescaling each component of a vector or row vector. Each component is stretched or shrunk independently: that means that the resulting vector could look rather different. Most of the time we specialize to the case where the diagonal elements are positive.
-    \item At \emph{almost} the same level as the diagonal matrices are matrices that are \emph{diagonalizable} and, when diagonalized, have no zero elements along the diagonal. The verb `to diagonalize' means that there is some \emph{isometry} (rotation) where we may change basis and the components of $A$ would be diagonal. Most of our active transformations in physics---the ones where we ``do something''---take this form. Because diagonal matrices are so nice, it then behooves us to take these matrices and rotate into the proper basis where they are diagonal.\sidenote{This is called the eigenbasis or basis of eigenvectors. The word `eigen' means `proper' in German. At least I think that's what it means. The diagonal components of the matrix in the eigenbasis are called eigenvalues.}
-    \item Now I pause to (re-)define a different class of matrices, \textbf{isometries}. Isometries are transformations that preserve the form of the metric. In some sense, they should not even be on this list since they are most naturally understood as \emph{passive} transformations---see Section~\ref{sec:active:passive}. They are a special class because we use these isometries to go into a basis where matrices are diagonal.\sidenote{In my brain diagonalizing matrices is ``doing [the] eigenstuff.''}
-    \item There are matrices that are not so `nice' are often meaningful and useful. These are called \textbf{projections}. These are matrices that are not invertible because they remove information from the vectors that they act on. A good example is a diagonal matrix with at least one zero diagonal component. When that matrix acts on a vector, the information of that component is completely lost---there is no way to recover it based on the output vector. 
+    \item The top-of-the line, S-rank, nicest matrices are \textbf{multiples of the identity}. These are just numbers: not only are they defined by a single proportionality constant, but they add and multiply as if they are just numbers. Unfortunately, these matrices are \emph{too} nice: all they do is rescale the vector or dual vector that they act on. That is a little boring, even for us.
+    \item The A-class matrices are \textbf{diagonal} in the basis you are currently using. We also assume that each of the diagonal elements are non-zero.\sidenote{We say the matrix is \emph{non-degenerate}.} In this basis, the matrix acts by rescaling each component of a vector or row vector. Each component is stretched or shrunk independently: that means that the resulting vector could look rather different. Most of the time we specialize to the case where the diagonal elements are positive.
+    \item At \emph{almost} the same level as the diagonal matrices are matrices that are \textbf{diagonalizable} and, when diagonalized, have no zero elements along the diagonal. The verb `to diagonalize' means that there is some \emph{isometry} (rotation) where we may change basis and the components of $A$ would be diagonal. Most of our active transformations in physics---the ones where we ``do something''---take this form. Because diagonal matrices are so nice, it then behooves us to take these matrices and rotate into the proper basis where they are diagonal.\sidenote{This is called the eigenbasis or basis of eigenvectors. The word `eigen' means `proper' in German. At least I think that's what it means. The diagonal components of the matrix in the eigenbasis are called eigenvalues.}
+    \item Now I pause to (re-)define a different class of matrices, \textbf{isometries}. Isometries are transformations that preserve the form of the metric. In some sense, they should not even be on this list since they are most naturally understood as \emph{passive} transformations---see Section~\ref{sec:active:passive}. They are a special class because we use these isometries to go into a basis where matrices are diagonal.\sidenote{In my brain diagonalizing matrices is ``doing [the] eigenstuff.''} Even among isometries, there are two types depending on whether or not they preserve the orientation of your basis.\sidenote{This is a matter of whether or not you change the \emph{handedness} of your basis.}
+    \item There are matrices that are not so `nice' but are often meaningful and useful. These are called \textbf{projections}. These are matrices that are not invertible because they remove information from the vectors that they act on. A good example is a diagonal matrix with at least one zero diagonal component. When that matrix acts on a vector, the information of that component is completely lost---there is no way to recover it based on the output vector. 
     \item The last useful type of matrix are those that are none of the above but are otherwise $N\times N$ matrices that take vectors from one vector space and return vectors in the same vector space. These may be random $N\times N$ matrices, for example. We neither expect them to be diagonalizable by a rotation nor are they obviously meaningful as projections. These matrices may still be diagonalized, but usually the transformation to do this is not a simple isometry. Further, the diagonal matrices may not necessarily be positive upon diagonalization.
     \item All other matrices---for example, $N\times M$ matries with $M\neq N$---are just completely off the table. 
 \end{enumerate}
@@ -5737,10 +5794,150 @@ Draw the resulting vector. Do the same for the case with the same matrix except 
 % All others
 % not included: $N\times M$
 
+\section{Non-invertible matrices}
+
+The nicest matrices are invertible. In fact, most of the linear transformations you encounter in a physics curriculum are invertible simply because so many of the mathematical tasks in physics involve inverting the dynamics encoded in these matrices. It behooves us to say a few words about the types of matrices that are not so nice.
+
+\subsection{A first look at projections}
+
+Projections are the matrices that are non-invertible because they send some non-zero vector to zero. A simple example follows:
+\begin{example}
+Consider the matrix
+\begin{align}
+    M = 
+    \begin{pmatrix}
+        2 & 0 \\
+        0 & 0
+    \end{pmatrix} \ .
+\end{align}
+This matrix takes any vector oriented in the $\hat{e_2}$ direction to zero: $M\ket{e_2} = 0$. This means that the action of the matrix on a general vector $\ket{v} = v^i\ket{e_i}$ is
+\begin{align}
+    M \ket{v} = v^1 M\ket{e_1} = 2 v^1 \ket{e_1} \ .
+\end{align}
+It does not matter what $v^2$ is, the image of $M\ket{v}$ only depends on $v^1$. In this way, one has \emph{lost} information. If you know that
+\begin{align}
+    M\ket{v} = \ket{w}
+    \label{eq:Mv:eq:w:projection:eg}
+\end{align}
+for some known vector $w^i\ket{e_i}$, then there is no way to figure out what $\ket{v}$ is uniquely because there is a degeneracy where any vector $\ket{v}$ satisfying \eqref{eq:Mv:eq:w:projection:eg}, any vector of the form $\ket{v} + \alpha\ket{e_2}$ will also satisfy \eqref{eq:Mv:eq:w:projection:eg}. 
+
+In fact, you may notice that if $w^2 \neq 0$, then \eqref{eq:Mv:eq:w:projection:eg} has no solution.
+\end{example}
+
+\begin{exercise}
+A slightly less trivial example is as follows:
+\begin{align}
+    M = 
+    \begin{pmatrix}
+        2 & 1 & 0 \\
+        3 & 2 & 0 \\
+        0 & 0 & 0
+    \end{pmatrix} \ .
+\end{align}
+Verify that the image of any vector $\vec{v}$ does not contain any component in the $\ket{e_3}$ direction. Further verify that the image of any any vector $\vec{v}$ is independent of $v^3$.
+\end{exercise}
+
+Matrices of these types are projections. We discuss these more fully in Section~\ref{sec:projections}. When a matrix causes a non-zero vector to vanish, it is necessarily a projection.\footnote{A narrow definition of a projection is that most components of a vector are preserved while some are lost. An example of this is the matrix $\ket{e_2}\!\bra{e_2}$. However, for our purposes we use projection to mean any transformation that loses information.} A key theme is that one \emph{loses information} about the original vector $\vec{v}$ when acting on it with a projection. There is no way to unambiguously reconstruct $\ket{v}$ given its image $M\ket{v}$.
+
+
+
+\subsection{Degenerate image}
+
+You may think that the problem with the matrices in the example above is that there are too many zeros in the matrix. After all, these zeros throw away the dependence on components of the input vector. This is na\"ive: the numerical values of a matrix are basis-dependent. Here's another example:
+% 
+\begin{example}
+The following matrix is degenerate:
+\begin{align}
+    M = 
+    \begin{pmatrix}
+        1 & 1 \\
+        2 & 2
+    \end{pmatrix} \ .
+\end{align}
+This matrix has no zero elements---at least not in this basis---but there's clearly something fishy about it. If you act on this matrix on any vector, you find that the result is proportional to $\ket{e_1} + 2 \ket{e_2}$. Go ahead, try it. 
+
+One way to see this is that it takes both basis vectors $\ket{e_{1,2}}$ to
+\begin{align}
+    M\ket{e_{1,2}} = \ket{e_1} + 2 \ket{e_2} \ .
+\end{align}
+We see that $M$ is again non-invertible. Given some vector of the requisite form, $\ket{w} = \alpha \ket{e_1} + 2\alpha \ket{e_2}$, there is no unambiguous solution for $\ket{v}$ to the equation $M\ket{v} = \ket{w}$. We can show this simply by writing out two solutions that both gives the same $\ket{w}$:
+\begin{align}
+    \ket{v_I} &= \alpha \ket{e_1}
+    &
+    \ket{v_{II}} &= \alpha \ket{e_2} \ .
+\end{align}
+\end{example}
+\begin{exercise}
+In the previous example, show that the most general solution to $M\ket{v} = \ket{w}$ is
+\begin{align}
+    \ket{v} &= \beta\ket{e_1} + (\alpha-\beta)\ket{e_2} \ .
+\end{align}
+\end{exercise}
+\begin{exercise}
+In the previous example, argue that the matrix $M$ has many zeros in the basis
+\begin{align}
+    \ket{f_1}&= \frac{1}{\sqrt{2}}
+    \left[\ket{e_1}+\ket{e_2}\right]
+    &
+    \ket{f_2}&= \frac{1}{\sqrt{2}}
+    \left[\ket{e_1}-\ket{e_2}\right] \ .
+\end{align}
+\end{exercise}
+The lesson from this section is that projections are not always so obvious by their zero components. 
+
+
 \section{Action on basis vectors}
+
+A linear transformation is defined by its action on basis vectors. Consider a matrix $M$ that is non-degenerate. A convenient way of stating this is that the action of $M$ onto each of the basis vectors $M\ket{e_i}$ produces a set of vectors that are \emph{linearly independent}.\sidenote{Unless $M$ is an isometry, the vectors $M\ket{e_i}$ are not orthonormal.} This is another way of saying that $M$ is invertible and so does not lose information. 
+\begin{exercise}
+In your own words, articulate why the linear independence of the $M\ket{e_i}$ image vectors implies that $M$ is invertible? \textsc{Hint}: one way to do this is to argue that a given vector $\ket{w}$ is the image of a unique vector $\ket{v}$ under $M$: $M\ket{v} = \ket{w}$.
+\end{exercise}
+
+This leads us to a useful point:
+\begin{bigidea}
+A linear transformation is defined---and completely described---by its action on the basis vectors of a vector space.
+\end{bigidea}
+We can see this by writing a vector as a linear combination of basis vectors, $\ket{v} = v^i\ket{e_i}$. Because $M$ is a linear transformation, knowing the action of $M$ on each $\ket{e_i}$ completely specifies the action of $M$ on the linear combination $\ket{v}$. 
+
+What does it mean to know the action of $M$ on the basis vectors? $M$ maps each basis vector into some other vector. In general the image vector will not be normalized nor orthogonal to the images of other basis vectors. How does one describe the image vector? The obvious way is to give the components of $M\ket{e_i}$ with respect to the $\ket{e_i}$ basis. The component of $M\ket{e_i}$ in the $\ket{e^j}$ direction is simply
+\begin{align}
+    \la e^j \mid M \mid e_i \ra 
+    = 
+    \la e^j \mid M\aij{k}{\ell}\ket{e_k}\!\bra{e^\ell} \mid e_i \ra 
+    = M\aij{j}{i} \ .
+\end{align}
+This is one of those \emph{aha} moments where you may first feel surprised that the components of $M\aij{j}{i}$ have popped out, but then you realize that this is \emph{precisely} what the components of a matrix \emph{mean}. 
+
+Indeed, the `ket-bra' basis $\ket{e_k}\!\bra{e^\ell}$ is doing the following: \emph{give me the component in the $\ket{e_\ell}$ direction so that I can send it into the $\ket{e_k}$ direction}. The matrix components $M\aij{k}{\ell}$ instruct the machine $\ket{e_k}\!\bra{e^\ell}$ \emph{how much} of the component in the $\ket{e_\ell}$ direction should be sent into the $\ket{e_k}$ direction.
+
+We thus have the following interpretation of the components of a matrix:
+\begin{bigidea}[Components of a Matrix]
+The $M\aij{i}{j}$ component of a matrix tells you the components of the image of $\ket{e_j}$ under $M$:
+\begin{align}
+    M\aij{i}{j} = \la e^j \mid M \mid e_i \ra \ .
+\end{align}
+This means that the $j^\textnormal{th}$ columns of the matrix $M$ are the components of $M\ket{e_j}$ in the $\ket{e_i}$ basis.
+\end{bigidea}
+
+
+
 
 \section{Isometries}
 \label{sec:isometries}
+
+We gave a formal definition of isometries in Section~\ref{sec:isometry:next:pass:bases} and put them to use in Section~\ref{sec:spacetime:isometry} for special relativity. It is now worth returning to isometries to highlight their special role in a metric space as symmetries.
+
+An \textbf{isometry}\index{isometry} is a linear transformation that leaves the components of the metric unchanged.\sidenote{These are generalizations of rotations, but I often use the words interchangeably. I try to speak plainly when the loss of precision of language does not detract from the content of the message. Otherwise I am reminded of a friend from the midwest who \emph{sounds} like a midwesterner except for the unexpected moments when he is ordering a \emph{kwah-sohn} from dunkin' donuts and I remember that he's actually from Quebec.} When we harp on the virtues of index notation and tensors in physics, it is because the tensor indices tell us how objects transform \emph{with respect to isometries}. 
+
+We rigorously introduced the idea that indices tell us how objects transform in Section~\ref{sec:transformation:under:symmetries}. In that section, we \emph{said} that the transformations $R$ are rotations. Now we must come clean: in that section we only had a vector space. Without a metric, there is no way to define a rotation. In fact, all of the results in Section~\ref{sec:transformation:under:symmetries} for ``rotations'' $R$ are valid for \emph{any} invertible transformation.
+\begin{exercise}
+Go back to Section~\ref{sec:transformation:under:symmetries} and check that all of the transformation rules are valid for the case where $R$ any invertible transformation. The conceptual picture is clear: our rule was that the basis vectors transformed with $R$ and the components transformed with $R\inv$---or vice versa depending on the height of the index. Because $RR\inv = \one$ for any matrix $R$ with an inverse, all of the results in that section hold.
+\end{exercise}
+
+What is different when we have a metric? The inner product allows us to define length and angle. As we see in the previous section, the action of a transformation is completely encoded in its action on the basis vectors. Rotations can thus be defined as those transformations which preserve lengths and angles. In so doing, rotations are those transformations that take orthonormal bases to other orthonormal bases. 
+
+% By the way ,you ca YOUC AN LOOK AT EFFECT OF NON ORTHONORMAL ...
+
 
 % active vs passive: 
 % passive acts on basis, so components compensate
@@ -6096,122 +6293,6 @@ In matrix multiplication notation, we may write:
 
 You may feel justifiably uncomfortable that in \eqref{eq:self:adjoint:is:symmetric} we ended up with an equation where the heights of the $i$ and $j$ indices on the left-hand side do not match with those on the right-hand side. This happened because the \emph{pre-loaded inner product} effectively raises the index of a basis vector. It is a bit of a notational quandry and has to do with the metric's role as an index lower-er or raise-er. If you wish to be more comfortable with this, you can treat \eqref{eq:self:adjoint:is:symmetric} as a component-wise identity. Alternatively, you may think about it component-wise using \eqref{eq:adjoint:def}: a self-adjoint operator has $(M^\dag)\aij{i}{j} = M\aij{i}{j}$. There are factors of the metric that account for raising and lowering the indices.
 
-\section{Determinant and Levi--Civita}
-\label{sec:determinants}
-
-We return to the question of making sense of the \textbf{determinant}\index{determinant} of a matrix. We reminded ourselves of the determinant of a $2\times 2$ matrix in Section~\ref{sec:determinants:easy}. The result was
-\begin{align}
-    \det M = M\aij{1}{1}M\aij{2}{2} - M\aij{1}{2} M\aij{2}{1} \ .
-    \label{eq:detM:2:expand}
-\end{align}
-You should be comfortable taking the determinant of a $2\times 2$ matrix using the above expression. For slightly larger matrices, there are recursive expressions that one may derive---but these are such a pain to use that in any practical modern application you would use a computer algebra system. So rather than spending time on that recursion relation, let us actually learn what a determinant \emph{is} in a way that can be written non-recursively for a matrix of any dimension. A hint for our main result in this section comes from writing the expression for the determinant of a $2\times 2$ matrix above in terms of a new symbol:
-\begin{align}
-    \det M = \epsilon_{ij}M\aij{i}{1} M\aij{j}{2} \ .
-    \label{eq:detM:2:eps:ij}
-\end{align}
-Even without defining $\epsilon_{ij}$, you can guess the components simply by comparing the two expressions for the determinant:
-\begin{align}
-    \begin{pmatrix}
-        \epsilon_{11} & \epsilon_{12} \\
-        \epsilon_{21} & \epsilon_{22} 
-    \end{pmatrix}
-    =
-    \begin{pmatrix}
-        \pp 0 & 1 \\
-        -1 & 0
-    \end{pmatrix} \ .
-\end{align}
-\begin{exercise}
-Explicitly write out the sum in \eqref{eq:detM:2:eps:ij} to show that it equals the right-hand side of \eqref{eq:detM:2:expand}.
-\end{exercise}
-The tensor $\epsilon_{ij}$ is called the two-dimensional \textbf{Levi-Civita} tensor\index{Levi-Civita tensor}.\sidenote{This is named after Tullio Levi-Civita rather than being a compound of two different names. As such, typographically we use a dash to signify a compound last name. This is in contrast to ideas that are named after pairs of people, such as the Randall--Sundrum model. In the latter case, we typographically use something called an \emph{en-dash} (it is the width of the letter `n') to separate the two names.} A mathematical definition is:
-\begin{align}
-    \varepsilon_{ij} = 
-    \begin{cases}
-    \pp 1 &\text{if }\{i,j\}\text{ is an even permutation of }\{1,2\}\\
-    -1 &\text{if }\{i,j\}\text{ is an odd permutation of }\{1,2\}\\
-    \pp 0 &\text{otherwise}
-    \end{cases}
-    \ .
-\end{align}
-By \emph{permutation} we mean some rearrangement of the list. Whether a permutation is even or odd is based on whether you can reach that permutation by doing an even or an odd number of component swaps. Thus $\{1,3,2,4\}$ is an even permutation of $\{1,2,3,4\}$ but $\{2,1,3,4\}$ is an odd permutation.
-
-
-
-
-
-******
-************
-Determinants of a matrix are at least as curious as its trace because the determinant of a matrix turns out to also be unchanged under rotations. Furthermore, in multivariable calculus, the determinant shows up in the volume element. In fact, there is a formal definition of the determinant that comes from differential geometry where we use the determinant to rigorously define volumes of curved spaces. This sort of thing shows up in general relativity.
-%
-One way of starting to see why this is plausible is the observation that the determinant of a matrix $M$ is equal to the area of the parallelogram whose sides are given by the transformed basis vectors, $M\bas{e}_i$. We sketch this in two dimensions in Fig.~\ref{fig:determinant:map:area}. 
-% 
-\begin{figure}[tb]
-    \centering
-    \includegraphics[width=.8\textwidth]{figures/determinant_sketch.pdf}
-    \caption{The transformation by $M$ of a unit square with sides $\bas{e}_i$ is a parallelogram with sides $M\bas{e}_i$. The determinant of $M$ is the area of the parallelogram. In more than three dimensions the shape is called a parallelpiped, which is a fun word to say.}
-    \label{fig:determinant:map:area}
-\end{figure}
-% 
-To prove this claim in two dimensions, we enclose the parallelogram into a box and start figuring out the area of various sub-shapes. Let $A_\text{r}$ be the area in the two red triangles, $A_\text{b}$ be the area in the two green triangles, and $A_\text{g}$ be the area of the two blue boxes. These areas are---accounting for the factor of two because there are two of each shape:
-\begin{align}
-    A_\text{r} &= M\aij 11 M \aij 21
-    &
-    A_\text{g} &= M\aij 22 M \aij 12
-    &
-    A_\text{b} &= 2 M\aij 12 M \aij 21 \ .
-\end{align}
-The total area of the large box is
-\begin{align}
-    A_\text{tot} &= (M\aij 11 + M\aij 12)(M\aij 22 + M\aij 21) 
-    \\&= M\aij 11 M\aij 22 + 
-    M\aij 11 M\aij 21 + 
-    M\aij 12 M\aij 22 + 
-    M\aij 12 M\aij 21 
-    \\ &= 
-    M\aij 11 M\aij 22 + 
-    A_\text{r} + 
-    A_\text{g}  + 
-    \frac 12 A_\text{b} 
-    \ . 
-\end{align}
-% 
-\begin{figure}[tb]
-    \centering
-    \includegraphics[width=.8\textwidth]{figures/determinant_sketch2.pdf}
-    \caption{Graphical aid for understanding the area of the parallelogram whose sides are $M\bas{e}_i$.}
-    \label{fig:determinant:map:area:proof}
-\end{figure}
-% 
-The area of the parallelogram is simply the area of the large box minus the areas of the non-parallelogram shapes, $A_\text{tot}- A_\text{r} - A_\text{g} - A_\text{b}$:
-\begin{align}
-    A_\text{parallelogram} =  M\aij 11 M\aij 22 - \frac 12 A_\text{b}  = M\aij 11 M\aij 22  - M\aij 12 M\aij 21  = \det M \ .
-    \label{eq:det:is:area:parallelogram}
-\end{align}
-And so we have shown the result in a simple case: determinants are related to areas. Specifically, we see that the determinants are related to the areas (volumes) of parallelograms (parallelpipeds) with sides $M\bas{e}_i$. 
-
-This interpretation of determinants as volumes\footnote{I now say `volumes' instead of `area' because what follows is general to any dimension of space.} also motivates some further expressions for the determinant of the product of matrices and the determinant of the inverse of a matrix. If we perform subsequent transformations with two matrices, $N$ and $M$, then the unit parallelpiped is first mapped to a parallelpiped of volume $\det N$. When we apply the second matrix $M$, this intermediate parallelpiped is mapped to a third parallelpiped whose volume is rescaled by $\det M$. The resulting volume is $(\det N)(\det M)$. We thus deduce that the determinant of a product of matrices is the product of the determinants of each matrix:
-\begin{align}
-    \det NM = (\det N)(\det M) \ . 
-    \label{eq:det:of:product}
-\end{align}
-Going further, because $M M\inv = \one$, we have
-\begin{align}
-    \det M M\inv &= (\det M)(\det M\inv ) 
-    % = \det\one 
-    = 1 
-    & \Rightarrow&
-    &
-     \det M\inv &= \frac{1}{\det M} \ .
-    % {eq:det:of:product}
-    \label{eq:det:of:inverse}
-\end{align}
-We have been deliberately hand-wavy to motivate these relations for determinants. If we were to be more rigorous, the are rather tricky to prove, though you can do them by brute force by calculating components.\sidenote{If you are a stickler that determinants are somehow really important in linear algebra, then I suggest reading Sheldon Axler's ``Down with Determinants!'' in \emph{American Mathematical Monthly} (1995). Axler is the author of a very nice, if somewhat more formal, textbook called \emph{Linear Algebra Done Right.} In a similar-yet-opposite vein, Sergei Treil has written a competing excellent textbook, \emph{Linear Algebra Done Wrong}.\footnotemark}\footnotetext{See \url{https://www.axler.net/DwD.html} and \url{https://www.math.brown.edu/streil/papers/LADW/LADW.html}}
-
-
-\section{Cross Products and Levi-Civita}
-
-
 
 \begin{subappendices}
 
@@ -6306,7 +6387,1051 @@ Explain why your image in a mirror exchanges left and right but does not swap up
 \end{exercise}
 
 
+
 \end{subappendices}
+
+
+\chapter{Determinant, Levi-Civita, Cross Products}
+\label{ch:determinant}
+
+This chapter is outside the flow of the course, but it formally introduces the determinant, which we invoke as a tool when solving for eigenvalues. We introduced the determinant for $2\times 2$ matrices in Section~\ref{sec:determinants:easy}. The rules to generalize this picture to higher-dimensional matrices become rather cumbersome and do not contribute any intuition for what the determinant \emph{means}. Rather than going over the iterative rules for calculating $N\times N$ determinants, we provide a concise definition and build a physical intuition for the determinant as an object used to calculate volumes.\sidenote{In this chapter there is a conspicuous absence of the metric. Without a machine to define distance, how does one measure volume? The answer is that volumes are defined relative to the volume of formed by using all of the basis vectors to bound a surface (a parallelpiped).} 
+
+
+\section{2D Determinant is an Area}
+\label{sec:determinants:2D}
+
+We return to the question of making sense of the \textbf{determinant}\index{determinant} of a matrix. We reminded ourselves of the determinant of a $2\times 2$ matrix in Section~\ref{sec:determinants:easy}. The result was
+\begin{align}
+    \det M = M\aij{1}{1}M\aij{2}{2} - M\aij{1}{2} M\aij{2}{1} \ .
+    \label{eq:detM:2:expand}
+\end{align}
+You should be comfortable taking the determinant of a $2\times 2$ matrix using the above expression. For slightly larger matrices, there are recursive expressions that one may derive---but these are such a pain to use that in any practical modern application you would use a computer algebra system. So rather than spending time on that recursion relation, let us actually learn what a determinant \emph{is} in a way that can be written non-recursively for a matrix of any dimension.
+
+So what is the determinant?\sidenote{The definition below is standard, but the proof in two dimensions and the extension to higher dimensions is not something I have seen in other textbooks.}
+\begin{bigidea}[The determinant is an area]\label{idea:det:area}
+The determinant of a $2\times 2$ matrix $M$ is the area of a parallelogram formed using the two vectors $M\ket{e_1}$ and $M\ket{e_2}$. 
+\end{bigidea}
+This area is relative to the area of the square formed by $\ket{e_1}$ and $\ket{e_2}$. If $\text{Area}(\vec{v}, \vec{w})$ is the area of the parallelogram formed by $\ket{v}$ and $\ket{w}$---forgive the mixed notation for the vectors---then
+\begin{align}
+    \text{Area}(M\bas{e}_1, M\bas{e}_2) = 
+    \det M \; \text{Area}(\bas{e}_1, \bas{e}_2) 
+    \ .
+\end{align}
+This definition \emph{had} to be so because we are not actually using the metric anywhere, so we have not defined distance let alone area. 
+
+The general definition of a determinant in $N$ dimensions is that of an $N$-volume. In order to see that, we start by understanding why \bigidearef{}~\ref{idea:det:area} should be true. We assume that we have the standard basis, $\ket{e_1}$ and $\ket{e_2}$ and that they define a unit area. Figure~\ref{fig:det:the:vectors} shows the image (what they transform into) of these basis vectors under the action of the matrix $M$.
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/det TheVectors.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Sketch of the standard basis $\ket{e_{1,2}}$ and their transformation under the matrix $M$.}
+    \label{fig:det:the:vectors}
+\end{marginfigure}
+We write $\ket{v} = M\ket{e_1}$ and $\ket{w} = M\ket{e_2}$. Observe that the components of these vectors are simply the components of the matrix $M$:\sidenote{Appreciate that the heights of the indices in $\la e^i \mid M \mid e_j \ra$ helps keep track of whether this evaluates to $M\aij{i}{j}$ or $M\aij{j}{i}$.} Having mapped this out, our claim is that the determinant of $M$ is the area shown in Figure~\ref{fig:det:area}.
+\begin{align}
+    v^1 &= \la e^1 \mid v\ra = \la e^1 \mid M \mid e_1 \ra  = M\aij{1}{1}
+    \label{eq:det:v1:inner:prod}
+    \\
+    v^2 &= \la e^2 \mid v\ra = \la e^2 \mid M \mid e_1 \ra = M\aij{2}{1}
+    \\ 
+    w^1 &= \la e^1 \mid w\ra = \la e^1 \mid M \mid e_2 \ra  = M\aij{1}{2}
+    \\
+    w^2 &= \la e^2 \mid w\ra = \la e^2 \mid M \mid e_2 \ra = M\aij{2}{2}
+    \label{eq:det:w2:inner:prod}
+    \ .
+\end{align}
+Here we are simply using the identification that $\la e^i |$ is a machine that takes in a vector and outputs its $i^\text{th}$ component, as we showed in \eqref{eq:dual:basis:returns:ith:component:ket}.
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/det ParallelogramDet.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{The area of this parallelogram formed out of $\ket{v} = M\ket{e_1}$ and $\ket{w}= M\ket{e_2}$ is the determinant of $M$.}
+    \label{fig:det:area}
+\end{marginfigure}
+\begin{exercise}
+Following the analysis argue that in any dimension, the \emph{columns} of a matrix $M\aij{i}{j}$ correspond to the vectors obtained by acting with $M$ on the basis vectors. That is to say: $M\aij{i}{j}$ is the $i^\textnormal{th}$ component of $M\ket{e_j}$. 
+
+\textsc{Comment}: this is something I always get mixed up: are they the rows or the columns that matter? The heights of the indices are helpful reminder: the basis vectors are labeled by a lower index and vector components are labeled by an upper index.
+\end{exercise}
+
+It helps to peek at the proposed answer. \eqref{eq:detM:2:expand} tells us that the determinant is $M\aij{1}{1}M\aij{2}{2} - M\aij{1}{2} M\aij{2}{1}$. We now understand that each of the components maps onto one of the components of $\vec{v}=M\vec{e_1}$ or $\vec{w}=M\vec{e_2}$,
+\begin{align}
+    \det M = M\aij{1}{1}M\aij{2}{2} - M\aij{1}{2} M\aij{2}{1} 
+    = v^1 w^2 - w^1 v^2 
+    \ .
+\end{align}
+Lets proceed step by step. 
+
+\paragraph{Difference of two boxes} We may interpret each of the two terms as the area of a rectangle on the plane, see Figure~\ref{fig:det:vis:boxes}. Our task then reduces to explaining why the difference of two rectangles should match the area of the parallelogram formed by $\vec{v}$ and $\vec{w}$. The first term, $v^1w^2$, is the area given by the yellow box in Figure~\ref{fig:det:vis:boxes}. Similarly, the second term, $v^2w^1$ is the area given by the blue box.
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/det TwoPiecesofDet.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{The expression \eqref{eq:detM:2:expand} for $\det M$ is the difference between the yellow and blue boxes.}
+        \label{fig:det:vis:boxes}
+\end{marginfigure}
+
+\paragraph{Covering the parallelogram} Compare the yellow box in Figure~\ref{fig:det:vis:boxes} to the parallelogram in Figure~\ref{fig:det:area}. We see that the yellow box of area $v^1w^2$ overlaps with the parallelogram except in two triangular areas, highlighted as the green and pink triangles on the bottom-left of Figure~\ref{fig:det:vis:triangles}. That figure shows that that we can rearrange the green and pink triangles to the upper-right of the box to fully cover the area of the parallelogram. 
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/det TwoPiecesofDetall.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{The expression \eqref{eq:detM:2:expand} for $\det M$ is the difference between the yellow and blue boxes.}
+    \label{fig:det:vis:triangles}
+\end{marginfigure}
+
+\paragraph{Overcounting} In Figure~\ref{fig:det:vis:triangles}, after moving the green and pink triangles to the top right, we see that we are \emph{overcounting} the area of the parallelogram. The cross-colored green/pink region are regions in the parallelogram that have been double counted. On top of this, the blue regions in Figure~\ref{fig:det:vis:extra} are counted in the yellow rectangle of Figure~\ref{fig:det:vis:boxes}  but are not part of the area of the parallelogram. If we rearrange them to the upper right of the diagram, we see that they combine with the double-counted region to recreate the $v^2w^1$ area of the blue box in Figure~\ref{fig:det:vis:boxes}. 
+
+\bigskip
+We thus confirm \bigidearef{}~\ref{idea:det:area} where we stated that our formula \eqref{eq:detM:2:expand} for the determinant of a $2\times 2$ matrix $M$ represents the area of the parallelogram formed out of $\ket{v}=M\ket{e_1}$ and $\ket{w} = M\ket{e_2}$.
+
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/det TwoPiecesofDetExtraTeal.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{The blue triangles in the lower left are counted in the area $v^1w^2$ but, upon rearranging the green and pink triangles in Figure~\ref{fig:det:vis:triangles}, represent an area that is \emph{not} part of the parallelogram. Combining these two triangles with the cross-colored region of Figure~\ref{fig:det:vis:triangles} recovers the blue box of area $v^2w^1$ in Figure~\ref{fig:det:vis:boxes}.}
+    \label{fig:det:vis:extra}
+\end{marginfigure}
+
+
+Our proposal for the general definition of the determinant in any dimension is as follows:
+\begin{bigidea}[The determinant is a volume]\label{idea:det:volume}
+The determinant of a $N\times N$ matrix $M$ is the (hyper-)volume of a parallelpiped formed out of the vectors $M\ket{e_1}$, $\cdots$, $M\ket{e_N}$. Here `parallelpiped' is the $N$-dimensional version of a two-dimensional parallelogram.
+\end{bigidea}
+In order to go from the $2\times 2$ area that we have shown here to higher dimensions, we introduce another big idea: the Levi-Civita\sidenote{This is named after Tullio Levi-Civita rather than being a compound of two different names. As such, typographically we use a dash to signify a compound last name. This is in contrast to ideas that are named after pairs of people, such as the Randall--Sundrum model. In the latter case, we typographically use something called an \emph{en-dash} (it is the width of the letter `n') to separate the two names.} symbol.
+
+
+\section{Levi-Civita Symbol}
+
+We motivate the Levi-Civita symbol by writing the expression for the determinant of a $2\times 2$ matrix \eqref{eq:detM:2:expand} in terms of the two-dimensional Levi-Civita:
+\begin{align}
+    \det M = \epsilon_{ij}M\aij{i}{1} M\aij{j}{2} \ .
+    \label{eq:detM:2:eps:ij}
+\end{align}
+Even without defining $\epsilon_{ij}$, you can guess the components simply by comparing the two expressions for the determinant:
+\begin{align}
+    \begin{pmatrix}
+        \epsilon_{11} & \epsilon_{12} \\
+        \epsilon_{21} & \epsilon_{22} 
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        \pp 0 & 1 \\
+        -1 & 0
+    \end{pmatrix} \ .
+\end{align}
+% 
+\begin{exercise}
+Explicitly write out the sum in \eqref{eq:detM:2:eps:ij} to show that it equals the right-hand side of \eqref{eq:detM:2:expand}.
+\end{exercise}
+% 
+The object $\epsilon_{ij}$ is called the two-dimensional \textbf{Levi-Civita} symbol\index{Levi-Civita symbol}.\sidenote{We deliberately call this object a \emph{symbol} instead of a \emph{tensor}. In the context of this course, the two are interchangeable---but the distinction between the two is a big deal in field theory.} A mathematical definition is:
+\begin{align}
+    \epsilon_{ij} = 
+    \begin{cases}
+    \pp 1 &\text{if }\{i,j\}\text{ is an even permutation of }\{1,2\}\\
+    -1 &\text{if }\{i,j\}\text{ is an odd permutation of }\{1,2\}\\
+    \pp 0 &\text{otherwise}
+    \end{cases}
+    \ .
+\end{align}
+By \emph{permutation} we mean some rearrangement of the list. Whether a permutation is even or odd is based on whether you can reach that permutation by doing an even or an odd number of component swaps.
+
+\begin{example}
+$\{1,3,2,4\}$ is an even permutation of $\{1,2,3,4\}$ but $\{2,1,3,4\}$ is an odd permutation.
+\end{example}
+
+
+\begin{wide}
+In a $d$-dimensional vector space one may use the Levi-Civita symbol with $d$-indices, defined as
+\begin{align}
+    \epsilon_{i_1\cdots i_d} \defeq 
+    \begin{cases}
+    \pp 1 &\text{if }\{i_1,\cdots, 1_d\}\text{ is an even permutation of }\{1,\cdots, d\}\\
+    -1 &\text{if }\{i_1,\cdots, 1_d\}\text{ is an odd permutation of }\ \{1,\cdots, d\}\\
+    \pp 0 &\text{otherwise}
+    \end{cases} \ .
+    \label{eq:Levi:Civita:symbol:definition:d:dim}
+\end{align}
+\end{wide}
+We say that the Levi-Civita symbol is \emph{totally antisymmetric}\sidenote{\emph{Totally antisymmetric} is not valleyspeak.\footnotemark We mean that the interchange of \emph{any} two indices introduces a minus sign.} in its indices.\footnotetext{\cite{suh2011social} }
+
+\begin{example}
+In three dimensions
+\begin{align}
+\epsilon_{123} &=
+\epsilon_{312} = 
+\epsilon_{231} = \pp 1
+\\
+\epsilon_{213} &= 
+\epsilon_{321} = 
+\epsilon_{132} = -1 
+\end{align}
+with all other values zero.
+\end{example}
+
+There is also an upper-index version of the Levi-Civita symbol. By convention we choose it to have the same components as the lower-indexed version:
+\begin{align}
+    \epsilon^{i_1\cdots i_d}
+    \defeq
+    \epsilon_{i_1\cdots i_d} \ .
+    \label{eq:def:levi:civita:d:dim:upper}
+\end{align}
+Be clear that this is a \emph{choice}. We could have just as validly defined the two components to differ by an overall sign.
+
+\section{Where did Levi-Civita come from?} 
+
+The Levi-Civita symbol is totally antisymmetric\index{antisymmetric} under permutations of its indices. We motivate the significance of permutation symmetry for tensors with multiple upper or lower indices in Section~\ref{sec:permutation:symmerty}. Tensors in two dimensions with two lower indices may be written in terms of a symmetric and antisymmetric part $T_{ij}= S_{ij} + A_{ij}$. One may write the antisymmetric part in terms of the two-component Levi-Civita symbol,
+\begin{align}
+    A_{ij} = \epsilon_{ij} \frac{1}{2} \left(A_{12}-A_{21}\right)
+    =\epsilon_{ij} A_{12}
+     \ .
+    \label{eq:antisymmetric:wrt:levi:civita}
+\end{align}
+One may read this as the product of a factor $\epsilon_{ij}$ that enforces the antisymmetry of the indices and a factor that represents the average over the totally antisymmetric part of the tensor $A$, which by definition is the antisymmetric part of $T$.
+\begin{exercise}
+Generalize the above expression for the antisymmetric part $A$ of a tensor in $d$-dimensions with $d$ indices in terms of the $d$-index Levi-Civita tensor.
+\end{exercise}
+One of the neat things about separating out the totally symmetric and totally antisymmetric parts of a tensor is that those pieces tend to transform among themselves. Isometries will take totally symmetric tensors to totally symmetric tensors and totally antisymmetric tensors to totally antisymmetric tensors. This observation is useful when decomposing representations of groups.
+
+\paragraph{Where did this really come from?}
+% 
+The Levi-Civita tensor is also the index-based manifestation of an idea called \textbf{Hodge duality}\index{Hodge duality} in differential geometry.\sidenote{If only I could use this sentence when kids used to ask me ``where are you \emph{really} from?'' when I was growing up.} While this is outside the scope of our course, this duality is related to interchange of electric and magnetic fields in the absence of sources in Maxwell's equations. From a tensorial perspective, the manifestation of the duality is that the Levi-Civita tensor in $d$ dimensions can contract with a tensor $T^{i_1\cdots i_p}$ with $p$ upper indices to return a `dual' object with $(d-p)$ totally antisymmetric indices
+\begin{align}
+   \tilde T_{j_{(d-p)}\cdots j_{d}} 
+   = 
+   \epsilon_{j_1 \cdots j_d}  T^{j_1 \cdots j_p} \ .
+   \label{eq:Hodge:duality:epsilon}
+\end{align}
+This idea is just below the surface of a chunk of electrodynamics
+~\autocite{Fumeron:2020bjj}. Another closely related invitation to this topic is called geometric algebra, \autocite{Doran:2007tqa}.
+
+\begin{exercise}
+Show that the Hodge dual $\epsilon^{\mu\nu\alpha\beta}F_{\alpha\beta}$ of the electromagnetic field strength tensor $F_{\mu\nu}$ in \eqref{eq:fmunu:lower} swaps swaps electric and magnetic fields relative to $F^{\mu\nu}$. This  \emph{electromagnetic duality} is a discrete symmetry of Maxwell's equations in the absence of sources. 
+\end{exercise}
+
+\section{Antisymmetry Gymnastics}
+\label{sec:antisymmetric:dynamics}
+
+\paragraph{(Anti-)Symmetrizing Over Indices}
+The Levi-Civita symbol is a powerful tool for working with antisymmetric tensors. First, we introduce a handy notation for indicating the symmetric and antisymmetric parts of a tensor. We define any indices of the same height that are enclosed in round brackets as being symmetrized. For example, over three indices: 
+\begin{align}
+    T^{(ijk)} = \frac{1}{3!}\left(T^{ijk} + T^{jik} + T^{kji}
+                      + T^{ikj} + T^{kij} + T^{jki}\right) \ .
+\end{align}
+The factor of $1/3!$ is a convention to account for the fact that we are \emph{averaging} over the three indices. Square brackets indicate \emph{anti}-symmetrization over the enclosed indices:
+\begin{align}
+    T^{(ijk)} = \frac{1}{3!}\left(T^{ijk} - T^{jik} + T^{kji}
+                      + T^{ikj} - T^{kij} - T^{jki}\right) \ .
+\end{align}
+The generalization to $n$ enclosed indices is understood to be
+\begin{align}
+    T^{(i_1\cdots i_n)} &= 
+    \frac{1}{n!}\sum_{\sigma} \phantom{(\sgn{\sigma})} T^{\sigma_1\cdots\sigma_n}
+    \\
+    T^{[i_1\cdots i_n]} &= 
+    \frac{1}{n!}\sum_{\sigma} (\sgn{\sigma}) T^{\sigma_1\cdots\sigma_n} \ ,
+\end{align}
+where $\sigma$ is a permutation of the $n$ indices and $\sgn(\sigma)$ is $\pm 1$ depending on whether the permutation is even or odd. 
+
+\paragraph{Levi-Civita and Antisymmetrized Indices}
+The Levi-Civita tensor lets us write the antisymmetric piece of a tensor by factoring out the indices. \eqref{eq:antisymmetric:wrt:levi:civita} demonstrates this in two dimensions. For our purposes, let us consider antisymmetrization of $d$ indices in a $d$-dimensional vector space
+\begin{align}
+    T_{[i_1\cdots i_d]} = 
+    \epsilon_{i_1\cdots i_d}
+    T_{1\cdots d} \ .
+    \label{eq:totally:antisymmetric:propto:epsilon}
+\end{align}
+\begin{example}\label{eg:pull:out:epsilon}
+Suppose you have a totally antisymmetric tensor $A^{[i\cdots k]}$. This object has $k$ indices, but they have been fully antisymmetrized. Once you know any one non-zero component, you know all of the components---the tensor contains one number's worth of information. \eqref{eq:totally:antisymmetric:propto:epsilon} defines that one number as the element $A^{1\cdots d}$. We may reconstruct $A^{[i\cdots k]}$ by using $\epsilon^{i_1\cdots i_d}$ to insert the index-dependence:
+\begin{align}
+    A^{[i\cdots k]} = \epsilon^{i\cdots k} \, A^{1\cdots d}
+\end{align}
+\end{example}
+
+\paragraph{Antisymmetric Products of Matrices}
+We often find ourselves antisymmetrizing over indices multiple matrices. For example,
+\begin{align}
+    M\aij{i}{[k}M\aij{j}{\ell]} &\defeq
+    \frac{1}{2}
+    \left(M\aij{i}{k}M\aij{j}{\ell} - M\aij{i}{\ell}M\aij{j}{k} \right) \ .
+\end{align}
+We can then use the fact that $M\aij{a}{b}M\aij{c}{d} = M\aij{c}{d} M\aij{a}{b}$ in order to convert the antisymmetrization of the lower matrix indices to the antisymmetrization of the upper indices:
+\begin{align}
+    M\aij{i}{[k}M\aij{j}{\ell]}
+    = 
+    M\aij{[i}{k}M\aij{j]}{\ell} \ .
+    \label{eq:moving:antisymmetrization:up}
+\end{align}
+\begin{exercise}
+Prove \eqref{eq:moving:antisymmetrization:up} and argue that it generalizes to
+\begin{align}
+   M\aij{i}{[\ell} M\aij{j}{m} \cdots M\aij{k}{n]} 
+   =
+   M\aij{[i}{\ell} M\aij{j}{m} \cdots M\aij{k]}{n} \ .
+   \label{eq:antisymmetrize:goes:up}
+\end{align}
+\end{exercise}
+\begin{exercise}
+Show that \eqref{eq:detM:2:eps:ij} is equivalent to 
+\begin{align}
+    \det M = \epsilon^{ij} M\aij{1}{i}M\aij{2}{j}
+\end{align}
+
+\end{exercise}
+
+
+\begin{exercise}
+Show that the arguments for antisymmetrized indices also hold for symmetrized indices.
+\end{exercise}
+
+\paragraph{Pulling out the antisymmetric part}
+Because $\epsilon_{ij}$ `annihilates' the symmetric part of $M\aij{i}{k}M\aij{j}{\ell}$, we have
+\begin{align}
+    \epsilon_{ij}
+    M\aij{i}{k}M\aij{j}{\ell}
+    &=
+    \epsilon_{ij}
+    M\aij{i}{[k}M\aij{j}{\ell]} \ .
+    \label{eq:det:invariant:int:lemma:eps:M:anti}
+\end{align}
+
+\paragraph{A word of caution}
+Please be \emph{very} clear that \eqref{eq:antisymmetrize:goes:up} \emph{depends} on the fact that $M\aij{a}{b}M\aij{c}{d} = M\aij{c}{d} M\aij{a}{b}$. The generalization \eqref{eq:antisymmetrize:goes:up} also depends on the fact that you have products of the \emph{same} matrix which imposes a symmetry between the indices.\sidenote{Please appreciate that this symmetry is simple to see because of our index notation, as we first suggested in Example~\ref{eg:moving:coefficients:around}.} If one were acting on a general tensor $T\aij{ab}{cd}$, then symmetrizing or antisymmetrizing the upper indices does \emph{not} imply anything about the lower indices. What was special about the tensor $W\aij{ab}{cd} \equiv M\aij{a}{b}M\aij{c}{d}$ is that its definition implies a key relationship:
+\begin{align}
+    W\aij{ab}{cd} = W\aij{ba}{dc} \ ,
+\end{align}
+which is ultimately what we used in the previous two exercises. It is \emph{not} true in general that $W\aij{(ab)}{cd} = W\aij{ab}{(cd)}$ or that $W\aij{[ab]}{cd} = W\aij{ab}{[cd]}$.
+
+
+\section{Levi-Civita and the Determinant}
+\label{sec:levi:civita:determinant}
+
+The Levi-Civita symbol allows us to formalize the definition of the determinant as a volume of a parallelpiped in \bigidearef{}~\ref{idea:det:volume}:\sidenote{Some authors define $|M| = \det M$ to mean the determinant of a matrix $M$. We avoid this potentially confusing notation because there are other contexts---such as on spacetime---where one has to write the absolute value of the determinant.}
+\begin{align}
+    \det M \defeq \epsilon_{i_1 \cdots i_d} M\aij{i_1}{1}\cdots M\aij{i_d}{d} \ .
+    \label{eq:levi:civita:determinant:definition}
+\end{align}
+\begin{exercise}
+Use your antisymmetrization gymnastics to show that
+\begin{align}
+    \det M = \frac{1}{n!}
+    \epsilon_{i_1 \cdots i_d}
+    \epsilon^{j_1 \cdots j_d}
+    M\aij{i_1}{j_1}\cdots M\aij{i_d}{j_d} \ .
+    \label{eq:levi:civita:determinant:definition:totally:antisymmetrized}
+\end{align}
+\end{exercise}
+This definition is a clear generalization of \eqref{eq:detM:2:eps:ij}. We now show that this definition allows us to iteratively generalize the geometric argument in Section~\ref{sec:determinants:2D} to successively higher dimensions. The result of that argument is that for a $2\times 2$ matrix $M$ the area of a parallelogram formed out of $\ket{v}=M\ket{e_1}$ and $\ket{w}=M\ket{e_2}$. 
+
+\paragraph{Volume of a parallelpiped}
+We extend that two-dimensional space with a third dimension. This means that $M$ is now a $3\times 3$ matrix. We \emph{choose coordinates} so that $\ket{e_1}$ and $\ket{e_2}$ are the same in the three-dimensional space as they were in the two-dimensional space. That is: we have simply augmented the space Section~\ref{sec:determinants:2D} with a third orthonormal basis direction, $\ket{e_3}$. We show this in Figure~\ref{fig:det:parallelpiped}. 
+\begin{marginfigure}%[th]
+    \includegraphics[width=\textwidth]{figures/det Parallelpiped.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Three dimensional extension of Fig.~\ref{fig:det:area}. In general the parallelogram is not aligned with the $\ket{e_{1,2}}$ basis. We define the basis $\ket{f_i}$ to be that where the $\ket{v}$ and $\ket{w}$ vectors live on the $\ket{f_{1,2}}$ plane.}
+    \label{fig:det:parallelpiped}
+\end{marginfigure}
+
+The old $2\times 2$ matrix $M$ now occupies the upper-left corner of the new $3\times 3$ matrix $M$. In general, $M\ket{e_1}$  and $M\ket{e_2}$ are not in the same plane as $\ket{e_{1}}$ and $\ket{e_2}$. We may \emph{choose} a new basis $\ket{f_{1,2}}$ that lives on the same plane as $M\ket{e_{1,2}}$.  We then choose a third orthonormal basis vector, $\ket{e'_3}$. In this new basis, $\ket{v} = (v')^i\ket{f_i}$ and $\ket{w}=(w')^i\ket{f_i}$ are on the $\ket{f_{1,2}}$ plane. The area of the parallelogram on this plane formed by $\ket{v}$ and $\ket{w}$ is still
+\begin{align}
+    \text{Area of parallelogram} = \epsilon_{ij}(v')^i(w')^j \ .
+\end{align}
+There is a third vector $\ket{u} = M\ket{e_3} = (u')^i \ket{f_i}$ that we use to form the parallelpiped out of the parallelogram. 
+
+Given that we are in three dimensions, the natural object is the Levi-Civita symbol with three indices, $\epsilon_{ijk}$. In the $\ket{f_{i}}$ basis, we may construct the following object:
+\begin{align}
+    \epsilon_{ijk}\;(v')^i(w')^j \ .
+\end{align}
+By construction, $(v')^i$ and $(w')^j$ are zero for $i,j=3$. However, $\epsilon_{ijk}$ above is \emph{only} non-zero when $\{i,j,k\}$ is a permutation of $\{1,2,3\}$. If This means that the only non-zero term in this sum over $i$ and $j$ is the case when $k=3$. This means:
+\begin{align}
+    \epsilon_{ijk}\;(v')^i(w')^j
+    &=
+    \begin{cases}
+    0 &\text{if } k = 1,2\\
+    \epsilon_{ab}(v')^a (v')^b &\text{if } k = 3
+    \end{cases} \ ,
+    \label{eq:det:eps:v:w}
+\end{align}
+where $a$ and $b$ only take values 1 or 2. The first two components vanish, and the third component is simply the area of the parallelogram formed out of $\ket{v}$ and $\ket{w}$. 
+
+The dual vector $\epsilon_{ijk}\;(v')^i(w')^j$ takes in a vector and returns the product of the third component of that vector with the area of the parallelogram formed out of $\ket{v}$ and $\ket{w}$. The natural thing to do is to fee this dual vector our one remaining vector, $\ket{u}$. Because $\epsilon_{ijk}\;(v')^i(w')^j$ projects out the third component, it multiplies the area of the parallelogram by the `height' of the vector $\ket{u}$ relative to the plane of the parallelogram. This is simply the volume of the parallelpiped:
+\begin{align}
+    V = \epsilon_{ijk}\;(v')^i(w')^j(u')^k \ .
+\end{align}
+We now have a way of writing the volume of the parallelpiped formed out of the vectors $M{\ket{e_i}}$. This is precisely our definition of the determinant in \bigidearef{}~\ref{idea:det:volume}. The expression was derived in terms of the components in the $\ket{f_i}$ basis. However, you may intuit that the volume of the parallelpiped is basis independent. This is indeed true, with one small caveat.
+
+The components (primed) in the $\ket{f_i}$ basis are related to the components (unprimed) in the $\ket{e_i}$ basis by a rotation, $(v')^i=R\aij{i}{j}v^i$, and similarly for $(w')^i$ and $(u')^i$. If we plug this into our expression for the volume of the parallelpiped,
+\begin{align}
+    V' = \epsilon_{ijk}\; 
+    R\aij{i}{\ell}
+    R\aij{j}{m}
+    R\aij{k}{n}
+    v^\ell w^m u^n \ .
+\end{align}
+Using some of our antisymmetry gymnastics, we see that antisymmetrizing in the $ijk$ indices also antisymmetrizes the $\ell m n$ indices so that
+\begin{align}
+    V' = \epsilon_{ijk}\; 
+    R\aij{i}{1}
+    R\aij{j}{2}
+    R\aij{k}{3}\;
+    \epsilon_{\ell m n}
+    v^\ell w^m u^n 
+    =
+    (\det R)\; V
+    \ .
+\end{align}
+On the right-hand side we identify $V=\epsilon_{\ell m n} v^\ell w^m u^n $, the volume one would measure in the original basis. We see that these are equivalent when $\det R = 1$. For ordinary rotations this is always the case.\sidenote{This is because rotations preserve the inner product and so preserve the length and relative angles of vectors. This, in turn, is related to \eqref{eq:det:v1:inner:prod}--\eqref{eq:det:w2:inner:prod} because the bras are defined with respect to the inner product \emph{a la} \eqref{eq:basis:dual:vectors:as:inner:prod}.} That means we can simply write the volume $V$ of the parallelpiped in terms of the components $M\aij{i}{j}$ in the original basis:
+\begin{align}
+    V = \epsilon_{ijk}
+    M\aij{i}{1}
+    M\aij{j}{2}
+    M\aij{k}{3}
+    = \det M \ ,
+\end{align}
+where we have used the same arguments as \eqref{eq:det:v1:inner:prod}--\eqref{eq:det:w2:inner:prod} to show that $M\aij{i}{j} = \la e^i \mid M e_j \ra $ . 
+
+\begin{exercise}
+Show by explicit component-wise calculation that the standard form of a $2\times 2$ rotation matrix satisfies $\det R = 1$. 
+\end{exercise}
+
+\paragraph{Generalization to higher dimensions}
+
+The arguments above show how to use the Levi-Civita symbol to take the `volume' (area) formed by two vectors into the volume formed by three vectors. By identifying these vectors as the image of a matrix acting on the basis vectors, $M\ket{e_i}$, we were able to bootstrap a connection between the Levi-Civita definition of the determinant of a $3\times 3$ matrix \eqref{sec:levi:civita:determinant} and the geometric picture of a volume in \bigidearef{}~\ref{idea:det:volume}.
+
+You may iterate this step by taking the volume of a three-dimensional parallelpiped and then imagining that this is embedded in some four-dimensional space. 
+\begin{enumerate}
+    \item The 3-parallelpiped are then one three-dimensional face of the four-dimensional 4-parallelipied.
+    \item  By judicious choice of basis, $\ket{f_i}$, the dual vector component $\epsilon_{ijk\ell}(v')^i(w')^j(u')^k$ is only non-zero when $\ell=4$.
+    \item  Acting on the fourth vector with this dual vector then gives the volume of the 4-paralellpiped.
+    \item  We recognize that this number is invariant under rotations and so we may write it in the original basis. In that basis, the components of the four vectors are simply the columns of the matrix $M$ and so the expression for the 4-volume is the determinant of $M$.
+\end{enumerate}
+
+
+\paragraph{Unusual Isometries} The primary weakness of the arguments above is that we were quick to say that the determinant of an ordinary rotation is one. You can check this is true for the rotations that we have explored thus far in this course. However, it is not true for all isometries. 
+\begin{exercise}\label{ex:orientation:2d}
+Show that the matrix
+\begin{align}
+    \tilde R = 
+    \begin{pmatrix}
+        \tilde R\aij{1}{1} & \tilde R\aij{1}{2}\\
+        \tilde R\aij{2}{1} & \tilde R\aij{2}{2}
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+     1 & 0 \\
+     0 & -1   
+    \end{pmatrix}
+\end{align}
+is an isometry. Show that
+\begin{align}
+    \det \tilde R = -1 \ .
+\end{align}
+This explicitly demonstrates that there are \emph{weird} isometries that have determinant $-1$. How does $\tilde R$ differ by a rotation $R(\theta)$ by some continous angle $\theta$? Based on this, what is ``weird'' about so-called \emph{weird} isometries?
+
+\textsc{Hint:} what we are calling \emph{nice} isometries are called orientation-preserving while \emph{weird} isometries are called orientation-reversing.
+\end{exercise}
+
+The exercise above is an example of an orientation-changing transformation. The difference between ordinary rotations that preserve orientation and those that change orientation is sketched in Figure~\ref{fig:orientation:non:preserving}.
+\begin{marginfigure}%[th]
+    \includegraphics[width=.5\textwidth]{figures/OrientationPreserving.pdf}
+    \includegraphics[width=.4\textwidth]{figures/OrientationNonPreserving.pdf}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{Example of a orientation preserving (blue) and orientation non-preserving (red) transformation. The transformation that does not preserve orientation cannot be written in the usual form, \eqref{eq:2D:rotation:standard}.}
+    \label{fig:orientation:non:preserving}
+\end{marginfigure}
+When you learn about the \emph{right-hand rule} in freshman physics or when the order of how one multiplies vectors matters---you are dealing with orientation. Orientation is the \emph{handedness} of a basis. 
+
+Isometries that preserve the metric but change orientation are said to be \emph{disconnected from the identity}. This is in contrast to ordinary rotations $R(\theta)$ that are parameterize by some continuous parameter $\theta$ and satisfies $R(\theta = 0) = \one$. Instead, orientation changing isometries are the product of an orientation-preserving isometry with some \emph{discrete} symmetry, such as the matrix
+\begin{align}
+    \begin{pmatrix}
+        1 & \pp 0 \\
+        0 & -1
+    \end{pmatrix}
+\end{align}
+in the example above. These discrete symmetries are called \emph{parities}. 
+
+\begin{example}[Mirror universe] When you look into a mirror, you see a universe that looks identical to our own, except the image of yourself has changed their dominant hand. If you are right-handed, then your mirror image is left-handed. The reason for this is that the mirror universe is a parity transformation (reflection) of our own. If we draw an oriented basis in our universe with the $\ket{e_3}$ direction pointing into the mirror, then we observe the basis in the mirror universe $\ket{e'_i}$ to be the same except $\ket{e'_3} = -\ket{e_3}$. The isometry that takes vector components from our universe to the components in the mirror universe is
+\begin{align}
+    P = \begin{pmatrix}
+        1 & & \\
+        & 1 & \\
+        & & -1
+    \end{pmatrix} \ .
+\end{align}
+\end{example}
+
+Isometries that are orientation changing, $\tilde R$, have determinant $-1$:
+\begin{align}
+\det \tilde R = -1 \ .     
+\end{align}
+The discrete symmetries (parities) that are at the heart of orientation-non-preserving isometries are significant in physics.  For example, the transformation that takes matter into antimatter is a combination of charge inversion and parity reflection. 
+
+\begin{example}
+Show that the product of an orientation-changing isometry (like parity) and an orientation-preserving isometry changes orientation. Show that the product of two orientation-changing isometries preserves orientation.
+\end{example}
+
+Tensors that change sign under a reflection are called \textbf{pseudo-tensors}\index{pseudo-tensors}. 
+\begin{exercise}
+Show that angular momentum is a pseudo-tensor. What other objects in classical mechanics and electrodynamics are pseudo-tensors?
+\end{exercise}
+
+
+\section{Determinant of a Product}
+\label{sec:determinant:of:product}
+
+We now prove the following handy relation for the determinant of a product of matrices:
+\begin{align}
+    \det MN = (\det M)(\det N) \ .
+    \label{eq:det:product:rule}
+\end{align}
+As a corollary, this also tells us that
+\begin{align}
+    \det M\inv = (\det M)\inv \ .
+\end{align}
+
+Armed with our Levi-Civita definition of the determinant \eqref{eq:levi:civita:determinant:definition}, we may derive this rigorously.
+\begin{exercise}
+Even without a mathematically rigorous definition, argue that the multiplication rule above is true based on the interpretation of the determinant as the volume of a parallelpiped. 
+\end{exercise}
+\begin{wide}
+Starting from \eqref{eq:levi:civita:determinant:definition:totally:antisymmetrized}, we may invoke our antisymmetry gynmastics:
+\begin{align}
+    \det MN &= 
+    \epsilon_{i_1 \cdots i_d}
+    (MN)\aij{i_1}{1}\cdots (MN)\aij{i_d}{d} 
+    \\
+    &= 
+    \epsilon_{i_1 \cdots i_d}
+    M\aij{i_1}{j_1}N\aij{j_1}{1}
+    \cdots 
+    M\aij{i_d}{j_d}N\aij{j_d}{d}
+    \\
+    &= 
+    \epsilon_{i_1 \cdots i_d}
+    M\aij{i_1}{[j_1}
+    \cdots 
+    M\aij{i_d}{j_d]}
+    N\aij{j_1}{1}
+    \cdots
+    N\aij{j_d}{d}
+    \\
+    &= 
+    \epsilon_{i_1 \cdots i_d}
+    M\aij{i_1}{[j_1}
+    \cdots 
+    M\aij{i_d}{j_d]}
+    N\aij{[j_1}{1}
+    \cdots
+    N\aij{j_d]}{d}
+    \\
+    &= 
+    \epsilon_{i_1 \cdots i_d}
+    M\aij{i_1}{1}
+    \cdots 
+    M\aij{i_d}{d}\quad
+    \epsilon_{j_1 \cdots j_d}
+    N\aij{j_1}{1}
+    \cdots
+    N\aij{j_d}{d}
+    \\
+    &= 
+    (\det M)
+    (\det N)
+    \ .
+\end{align}
+\end{wide}
+\begin{exercise}
+Justify each step of the above derivation using the antisymmetry gymnastic techniques from Section~\ref{sec:antisymmetric:dynamics}.
+\end{exercise}
+
+\begin{exercise}
+Prove $\det M\inv = (\det M)\inv$ for the specific case of a $2\times 2$ matrix. Use the facts that
+\begin{align}
+    \det 
+    \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}
+    &= 
+    ad - bc
+    &
+    \text{and}&
+    &
+    \begin{pmatrix}
+        a & b \\
+        c & d
+    \end{pmatrix}\inv 
+    =
+    \frac{1}{ad-bc}
+    \begin{pmatrix}
+        \pp d &   -b \\
+          -c &  \pp a
+    \end{pmatrix}
+    \ .
+\end{align}
+\end{exercise}
+
+
+
+
+
+% Does this make sense?
+
+% then show that you get an inverse
+
+
+% *******
+% put in a discussion of diffeomorphisms when talking about transformations...
+% in this class we talk about rotations, but most of the statements
+% are true for more general transformations until we get to metric spaces
+% at which point we care about preserving orhtonormal bases
+
+
+
+
+
+% pseudotensor
+% some identities, how to find them
+% upper index
+% where does it come from? idea that symmetric part and antisymmetric part decouple
+
+
+
+\section{Cross Products and Levi-Civita}
+
+In \eqref{eq:det:eps:v:w} you may have recognized that $\epsilon_{ijk}v^j w^k$ to be a familiar object: it is the $i^\text{th}$ component of the three-space cross product:\sidenote{This is sometimes written $\vec{v}\wedge\vec{w}$, which I first saw in the Landau \& Lifschitz textbooks. The wedge product has come to mean a generalized antisymmetric product in differential geometry and algebraic geometry.}
+\begin{align}
+    \vec{v}\times \vec{w} = 
+    \begin{pmatrix}
+        v^2w^3 - v^3w^2 \\
+        v^3 w^1 - v^1w^3 \\
+        v^1 w^2 - v^2 w^1
+    \end{pmatrix}
+    \ .
+\end{align}
+What we recognize is that $\epsilon_{ijk}v^j w^k$ has a \emph{lower} index. In a metric space we may raise this index to create an object that transforms like a vector under rotations
+\begin{align}
+    g^{i\ell}\epsilon_{\ell j k}v^j w^k \ .
+\end{align}
+This looks like a tensor, but it is in fact a pseudotensor.\sidenote{More accurately, it looks like a vector, but it is actually a pseudovector or axial vector.} Under a reflection, both $v$ and $k$ pick up signs, but so too does $\epsilon_{\ell j k}$. 
+
+We see that the cross product is simply the Levi-Civita symbol pre-loaded with two vectors. The result is a dual pseudo-vector. This is a manifestation of the Hodge duality in \eqref{eq:Hodge:duality:epsilon}. In four dimensions, the analogous operation returns a totally antisymmetric (0,2) tensor:
+\begin{align}
+    \epsilon_{\mu\nu\rho\sigma}v^\rho w^\sigma \ .
+\end{align}
+This explains why the cross product is only defined in three dimensions. 
+
+
+\section{Dependence on the Metric?}
+
+You may think that there is a bit of a conceptual puzzle. The metric was what allowed us to define any notion of length. The Levi-Civita symbol is defined completely independently of the metric. The determinant of a matrix, $M$, in turn is defined with respect to the Levi-Civita symbol and is identified with the volume of a parallelpiped. In what way is the determinant able to define a volume if it does not seem to use the metric? 
+
+Part of the answer here is that the determinant gives an \emph{oriented}\sidenote{We say oriented because the sign of the determinant is negative if the vectors $M\ket{e_i}$ differ by orientation compared to the basis $\ket{e_i}$. To see this, consider the matrix $M$ that simply flips the $\ket{e_1}$ and $\ket{e_2}$ vectors.} volume relative to the volume of the unit [hyper-]cube formed out of the basis vectors. Another way to see this is to appeal to Figure~\ref{fig:det:vis:boxes} where we may see that our identification of $\det M$ in two dimensions with an area invoked areas of boxes whose sides are length $M\aij{i}{j}$. These components of $M$, in turn, are a result the action of dual vectors acting on the $M\ket{e_j}$, \eqref{eq:det:v1:inner:prod}--\eqref{eq:det:w2:inner:prod}. These dual vectors are defined relative to the metric, and so it is here that some sense of measure enters: not in the definition of the determinant, but in the interpretation of that definition as a volume.
+
+\begin{subappendices}
+\section{Levi-Civita Identities}
+
+You may find yourself contracting Levi-Civita symbols. The antisymmetry of the indices gives a hint for how to resolve these. Consider the contraction
+\begin{align}
+\epsilon_{ijk}\epsilon^{nmk}
+= c \, \delta^{[n}_{[i}\delta^{m]}_{j]}    
+\label{eg:product:of:Levi:Civita:example}
+\end{align}
+where we recall that the square brackets mean \emph{antisymmetrize and average over all the terms in the sum}, so that 
+\begin{align}
+    T^{[i_1\cdots i_n]} \defeq \frac{1}{n!}
+    \left(  
+        T^{12\cdots n}
+        - T^{21\cdots n}
+        + \cdots
+    \right) \ .
+\end{align}
+In \eqref{eg:product:of:Levi:Civita:example} we have posited that the contraction on the left-hand side is some sum over Kronecker $\delta$s. We have then used the antisymmetry of the uncontracted indices on the left-hand side to impose antisymmetry onto those indices on the right-hand side. 
+
+You should stop to think: \emph{why} do we know that the right-hand side is a sum of terms that are are products of Kronecker $\delta$s? The glib answer is: \emph{what else could it be?} We have no other invariant tensors lying around. You may wonder if we could use the metric $g_{ij}$ or its inverse $g^{ij}$. We cannot for two reasons, one ideological and one practical:
+\begin{enumerate}
+    \item Ideologically, the Levi-Civita tensor does not invoke the metric in its definition. This means that we could have defined it on a space \emph{without} a metric and so the contraction \eqref{eg:product:of:Levi:Civita:example} should not depend on the metric.
+    \item Practically, the metric and its inverse are symmetric in its indices. On the right-hand side of \eqref{eg:product:of:Levi:Civita:example}, all the indices of the same height are antisymmetrized. This means that any terms that include the metric would identically vanish. 
+\end{enumerate}
+So this leaves us with the Kronecker $\delta$s. All that remains is to find the value of the coefficient $c$. In practice, the easiest way to do this is to simply pick any non-vanishing choice of uncontracted indices to solve for it:
+\begin{align}
+    \epsilon_{12k}\epsilon^{12k} &=
+    \epsilon_{121}\epsilon^{121} 
+    +
+    \epsilon_{122}\epsilon^{122}
+    +
+    \epsilon_{123}\epsilon^{123}
+    = 
+    1 
+    \\
+    &= \frac{c}{(2!)^2}
+    \left(
+    \delta^1_1 \delta^2_2 
+    - \delta^1_2 \delta^2_1
+    -
+    \delta^2_1 \delta^1_2 
+    + \delta^2_2 \delta^1_1
+    \right)
+    =\frac{c}{2} \ ,
+\end{align}
+from which we derive $c=2$, and thus we find the identity
+\begin{align}
+\epsilon_{ijk}\epsilon^{nmk}
+= 2 \, \delta^{[n}_{[i}\delta^{m]}_{j]}    \ .
+\label{eg:product:of:Levi:Civita:example:answer} 
+\end{align}
+\begin{example}
+Let us simplify the contraction $\epsilon_{ijk}\epsilon^{njk}$. We propose that this is simply proportional to the Kronecker $\delta$, since this is the only way to match the free indices:
+\begin{align}
+    \epsilon_{ijk}\epsilon^{njk} = c\, \delta^i_n \ . 
+\end{align}
+We match the coefficient $c$ by picking a non-zero value of the free indices:
+\begin{align}
+    \epsilon_{1jk}\epsilon^{1jk}
+    &=
+    \epsilon_{123}\epsilon^{123}
+    +
+    \epsilon_{132}\epsilon^{132}
+    = 2 \ ,
+\end{align}
+where we do not bother writing terms where either $j$ or $k$ is 1 since those will be zero. This gives $c=2$. One can readily check that for $i\neq n$, $\epsilon_{ijk}\epsilon^{njk}\equiv 0$ because each term has at least one repeated index value. We thus derive 
+\begin{align}
+    \epsilon_{ijk}\epsilon^{njk} = 2\, \delta^i_n \ . 
+\end{align}
+\end{example}
+
+In fact, we can do the general case.\sidenote{This is a good exercise. I am tempted to leave it as an exercise, but I want to write down the derivation before I forget how I solved it. You should attempt to solve it without looking at my solution. Even if you do not, you should justify each step that I make.} We start with the $d$ dimensional Levi-Civita symbol---this means that there are $d$ indices that each take values from 1 to $d$. Consider the contraction of $(d-p)$ indices between two Levi-Civita symbols:
+\begin{align}
+    \epsilon_{i_1\cdots i_p i_{p+1}\cdots i_d}\,
+    \epsilon^{j_1\cdots j_p i_{p+1}\cdots i_d}
+    &=
+    c\, \delta^{[i_1}_{[j_1}\delta^{i_2}_{j_2} \cdots \delta^{i_p]}_{j_p]} \ .
+    \label{eg:product:of:Levi:Civita:general}
+\end{align}
+Let us assume that the signature of the metric is $\sgn{g}=+1$, as it is in Euclidean space. First we assume that $i_1, \cdots, i_p$ and $j_1, \cdots, j_p$ are chosen such that it is possible to have non-zero terms. Consider the left-hand side. This is a sum of the form:
+\begin{align}
+    \epsilon_{i_1\cdots i_p i_{p+1}\cdots i_d}\,
+    \epsilon^{j_1\cdots j_p i_{p+1}\cdots i_d}
+    &= 
+    \sum_\sigma 
+    \epsilon_{i_1\cdots i_p \sigma_1\cdots \sigma_{(d-p)}}\,
+    \epsilon^{j_1\cdots j_p \sigma_1\cdots \sigma_{(d-p)}}
+     \ .
+\end{align}
+where the right-hand side sums over all permutations of the $(d-p)$ contracted indices.\sidenote{We assume that the $\sigma_i$ are permutations of index values that produce non-zero terms.} Then each term on the right-hand side contributes the same value, which is either $\pm 1$ depending on the choice of the free indices. There aer a total of $(d-p)!$ permutations so we may write
+\begin{align}
+    \epsilon_{i_1\cdots i_p i_{p+1}\cdots i_d}\,
+    \epsilon^{j_1\cdots j_p i_{p+1}\cdots i_d}
+    &= 
+    (d-p)!\,
+    \epsilon_{i_1\cdots i_p \hat\sigma_1\cdots \hat\sigma_{(d-p)}}\,
+    \epsilon^{j_1\cdots j_p \hat\sigma_1\cdots \hat\sigma_{(d-p)}}
+     \ ,
+\end{align}
+where there is \emph{no sum} over the $\hat\sigma_i$; it is understood that we are picking some reference choice of the contracted indices for which neither Levi-Civita symbol vanishes. We understand that the right-hand side is either $\pm (d-p)!$ depending on whether the choice of $\{i_n\}$ and $\{j_m\}$ are even of odd permutations of one another. 
+
+Now tackle the right-hand side of \eqref{eg:product:of:Levi:Civita:general}. The antisymmetrized product of Kronecker $\delta$s is
+\begin{align}
+    \delta^{[i_1}_{[j_1}\delta^{i_2}_{j_2} \cdots \delta^{i_p]}_{j_p]}
+    &=
+    \frac{1}{(p!)^2}
+    \left( 
+    \delta^{i_1}_{j_1}\delta^{i_2}_{j_2} \cdots \delta^{i_p}_{j_p}
+    + \cdots
+    \right) \ .
+\end{align}
+The omitted terms are all antisymmetric permutations of indices of the same height. There are a total of $(p!)^2$ such terms.  For a given choice of indices $\{i_n\}$ and $\{j_m\}$ how many of these terms are non-zero? A term is only non-zero if the ordered list of upper indices \emph{exactly} matches the ordered list of lower indices. For a given permutation of the $\{i_n\}$ indices, there is exactly one choice of the $\{j_n\}$ indices that matches it. Since there are $p!$ such permutations of the $\{i_n\}$ indices, there is a total of $p!$ non-zero terms. Further more, each of these terms has the same sign: to go from any one non-zero term to any other non-zero term, you do the same number of permutations of the upper indices and lower indices. Thus you get the same number of sign flips in the $[\cdots]$ antisymmetrization of the indices. As a result, the right-hand side of \eqref{eg:product:of:Levi:Civita:general} is
+\begin{align}
+    c\,
+    \delta^{i_1}_{[j_1}\delta^{i_2}_{j_2} \cdots \delta^{i_p}_{j_p]} \ .
+\end{align}
+We understand that this is equal to $\pm c/p!$ because exactly one term is non-zero in the antisymmetrized sum of terms. Note that the $\pm$ here matches the same $\pm$ on the left-hand side.
+
+All that remains is to match the two sides to each other to determine the value of $c$. The simplest choice is to set $i_n = j_n = n$ for $1\leq n \leq p$. This gives
+\begin{align}
+    (d-p)!
+    \epsilon_{1\cdots p (p+1)\cdots d}\,
+    \epsilon^{1\cdots p (p+1)\cdots d}
+    =
+    \frac{c}{p!}
+    \delta^{1}_{1}\delta^{2}_{2} \cdots \delta^{p}_{p} \ .
+\end{align}
+On the left-hand side we have chosen a convenient reference permutation to be $\hat \sigma_n = n$ for $p < n \leq d$. The Levi-Civita and Kronecker factors evaluate to one and we are left with $c= p! (d-p)!$. 
+
+
+
+
+Overall sign depending on the sign of the metric. 
+
+
+\section{The Levi-Civita Tensor versus Symbol}
+\label{sec:Levi:Civita:Tensor:vs:Symbol}
+
+The Levi-Civita symbol $\epsilon_{i\cdots k}$ is \emph{not} formally a tensor.\sidenote{This section is not part of the main narrative of this course, though the material is helpful for future study. It may be skipped on a first reading.} Maybe I should not even tell you that---in a standard linear algebra course, the observation that the Levi-Civita symbol is not a tensor is so far afield that it is usually one of those little lies that we permit because they are eventually rectified in the special cases where they need to be. However, the cases where it matters that the Levi-Civita symbol is \emph{not} tensorial are often those that show up in physics! As such, I owe it to you to explain why physicists say the Levi-Civita symbol is not a tensor, and why we go out of our way to define a bona fide Levi-Civita tensor.\sidenote{For a more in-depth discussion, I encourage you to pick up your favorite textbook on general relativity. I recommend Sean Carroll's \emph{Introduction to Spacetime and Geometry}. If you have made it this far into this course, all you need is a little bit of familiarity with vector calculus to begin learning the differential geometry that girds relativity.}
+
+\subsection{Why you should be skeptical} 
+
+Just because $\epsilon_{i\cdots k}$ has indicies that does \emph{not} mean that it is a tensor! This \emph{symbol} is defined \emph{by fiat} by \eqref{eq:def:levi:civita:d:dim:upper} and by \eqref{eq:Levi:Civita:symbol:definition:d:dim} for its upper-indexed cousin. This definition set for \emph{any} basis. In contrast, when you specify the components of a matrix, it is understood that those components are with respect to some basis. If you go to a different basis, then the components of the matrix change. The fact that $\epsilon_{i\cdots k}$ does \emph{not} change should make you suspect that it is not an honest tensor.
+\begin{example}
+The only tensor whose components are defined \emph{by fiat} that is \emph{actually} a tensor is the Kronecker $\delta$. Under a rotation, $\delta^i_j \to R\aij{i}{k}(R\inv)\aij{k}{j} = \delta^i_j$.
+\end{example}
+
+Let us diagnose this. If we \emph{pretend} that $\epsilon_{i\cdots k}$ \emph{is} an honest tensor, then it would transform according to our tensor transformation rule \eqref{eq:transformation:of:upper:and:lower:indices}:
+\begin{align}
+    \epsilon_{i_1\cdots i_d} \to 
+    (R\inv)\aij{j_1}{i_1}\cdots
+    (R\inv)\aij{j_d}{i_d}
+    \epsilon_{j_1 \cdots j_d} 
+    =
+    (\det R)\inv \epsilon_{i_1\cdots i_d}
+    \label{eq:transformation:of:Levi:Civita:symbol:if:it:were:a:tensor}
+    \ .
+\end{align}
+\begin{exercise}
+Prove \eqref{eq:transformation:of:Levi:Civita:symbol:if:it:were:a:tensor} assuming that $\epsilon_{i_1\cdots i_d}$ transforms like a tensor.
+\end{exercise}
+As long as we consider orientation preserving isometries $R$, $\det R =1$ and the $\epsilon_{i \cdots k}$ symbol's definition\sidenote{The definition is that the Levi-Civita tensor is the same in any basis.} is consistent with its transformation as an honest tensor. However, if the transformation $R$ is orientation non-preserving, then the Levi-Civita symbol picks up a sign and we are reminded that this is not quite a proper tensor. 
+
+% \paragraph{Is the upper-index Levi-Civita tensor defined consistently?}
+\subsection{Consistent Upper-Index Levi-Civita}
+In \eqref{eq:def:levi:civita:d:dim:upper} we have cavalierly \emph{defined by fiat} an upper-indexed version of an existing tensor. Alarm bells should be ringing! If we are in a metric space, then this object is \emph{already defined} with respect to the inverse metric:
+\begin{align}
+    \epsilon^{i_1\cdots i_d}
+    \equiv
+    g^{i_1j_1}
+    \cdots
+    g^{i_dj_d}
+    \epsilon_{j_1\cdots j_d}
+    \stackrel{?}{=}
+    (\det g^{\cdot\cdot}) \;
+    \epsilon^{i_1\cdots i_d} \ .
+    \label{eq:det:raised:index:det:g}
+     \ .
+\end{align}
+In the last step we recognize the definition of the determinant of $g^{ij}$. This expression appears to only make sense if $\det g = 1$.\sidenote{Sometimes this factor of $\det g^{\cdot\cdot}$ is built into the definition of the upper-indexed Levi-Civita tensor.}
+\begin{exercise}
+Prove the last equality of \eqref{eq:det:raised:index:det:g}. The point here is to show that the antisymmetry in the $j_n$ indices induces an antisymmetry in the $i_n$ indices. \textsc{Hint}: as with many problems, it helps to write out a low-dimensional example explicitly.
+\end{exercise}
+
+When is $\det g = 1?$ This condition is certainly true for the Euclidean metric in the standard basis. 
+\begin{exercise}
+Show that $\det g =1$ in Minkowski space with an odd number of spacetime dimensions, but $\det g = -1$ in Minkowski space with an even number of spacetime dimensions. We assume that there is only one timelike direction. In four spacetime dimensions the upper-index Levi-Civita symbol is not a tensor due to this minus sign.
+\end{exercise}
+In fact, it seems that we are asking the wrong question. The metric defines the length of vectors. If the determinant is positive but not one, then it may simply be a matter of defining properly normalized basis vectors. We thus see that if we are in an orthonormal basis, the upper-index Levi-Civita symbol---whose components are defined by fiat---is \emph{almost} consistent with its definition with respect to the inverse metric raising the indices of the lower-index Levi-Civita symbol. The \emph{almost} boils down to a sign coming from the determinant of the metric.
+
+In fact, there is a simple solution to this. The sign of the determinant of the metric, $\sgn g$, is simply a property of your spacetime.\sidenote{We say `spacetime' because the typical places where you have $\sgn g = -1$ is coming from the relative sign between space and time.} Below \eqref{eq:def:levi:civita:d:dim:upper} we observed that the overall sign in front of the upper-index Levi-Civita symbol $\epsilon^{i\cdots k}$ is a choice. We see that we can get rid of the issue of the sign of $\det g^{\cdot\cdot}$ by simply redefining \eqref{eq:def:levi:civita:d:dim:upper} to be:
+\begin{align}
+    \epsilon^{i_1\cdots i_d}
+    \defeq
+    \sgn g\; 
+    \epsilon_{i_1\cdots i_d} \ .
+    \label{eq:def:levi:civita:d:dim:upper:with:sign}
+\end{align}
+All we are doing here is \emph{choosing} a convention for the definition of upper-indexed Levi-Civita symbol.
+
+\subsection{Problems on a Bundle} 
+
+Thus far we have quibbled over factors of a sign coming from either the determinant of the isometry or the determinant of the metric. If we happen to be in a space where our basis is such that $\det g = 1$ and if we restrict ourselves to only isometries with $\det R = 1$, then we could be forgiven for treating the Levi-Civita symbols as tensors. But it turns out that the situation is actually a bit more dismal.
+
+ 
+In a metric space, we could simply rescale an orthogonal basis to satisfy $\det g =1$. However, when we have not just \emph{one} metric space, but a \emph{bundle} of metric spaces over a manifold---in the sense of Chapter~\ref{ch:bundles}---then it is not always the case that $\det g =1$ for \emph{every} tangent space on the bundle.\sidenote{This is the scenario in general relativity, but also in more the prosaic case of polar coordinates in Section~\ref{sec:polar:coordinates}. }
+% 
+
+In the bundle picture, the metric is a function of the base spacetime, $g(x)_{ij}$. 
+% 
+% 
+We want our would-be-tensors to transform \emph{tensorially} with respect to change of coordinates $x \to  y(x)$. This is called \textbf{diffeomorphism invariance}\index{diffeomorphism invariance}.  In Chapter~\ref{ch:bundles} we saw that partial derivatives are the natural basis vectors on the tangent bundle. In this sense, the transformations at each tangent plane are
+\begin{align}
+    R\aij{a}{i} = \frac{\partial y^a}{\partial x^i}
+\end{align}
+under which vectors transform as
+\begin{align}
+    \frac{\partial}{\partial x^i} \to 
+    \frac{\partial y^a}{\partial x^i} \frac{\partial}{\partial y^a}
+    = R\aij{a}{i} \, \frac{\partial}{\partial y^a} \ .
+\end{align}
+It is with respect to the `rotation' matrices $R\aij{a}{i}$ that we would like all our objects to transform according to tensors. 
+% 
+This means that the metric $g(x)_{ij}$, which is a function of the base spacetime, transforms as
+\begin{align}
+    g(y)_{ab} = \frac{\partial x^i}{\partial y^b}  \frac{\partial x^j}{\partial y^b} g(x)_{ij}
+    = (R\inv)\aij{i}{a} (R\inv)\aij{j}{b} g(x)_{ij} \ .
+\end{align}
+We used $R\inv = (\partial x/\partial y)$. Take the determinant of both sides gives\sidenote{The determinant of the metric is an index-free quantity that transforms. This cannot be a tensor. Instead, it is called a \emph{tensor density}. This is because $\det R$ scales like a volume. Because $\det g_{\cdot\cdot}$ transforms as $(\det R)^{-2}$, we say that it transforms as a tensor density with \emph{weight} $-2$. (The definition of the sign of the weight is up to convention.)}
+\begin{align}
+    \det g(y)_{\cdot\cdot} = (\det R)^{-2} \det g(x)_{\cdot\cdot} \ ,
+    \label{eq:transformation:of:det:g}
+\end{align}
+where we simply invoke the rule for the determinant of a product of matrices \eqref{eq:det:product:rule}. We write $\det g_{\cdot\cdot}$ to indicate that we are taking the determinant of the metric rather than the inverse metric.\sidenote{Most other references simply write $\det g$ or, even more succinctly, $g$. In those references it is understood that $g$ is ``the one with the lower indices.'' We err on the side of pedagogical clarity.} We find that under diffeomorphisms:
+\begin{enumerate}
+    \item The both the lower-indexed and upper-indexed Levi-Civita symbol is not invariant because in general $\det R \neq 1$.
+    \item The upper-index Levi-Civita symbol is not consistently defined relative to the lower-indexed symbol\sidenote{and vice versa.} because $\det g \neq 1$. In fact, $\det g$ itself transforms with diffeomorphisms.
+\end{enumerate}
+And so here we are. In the bundle construction of tangent spaces on a spacetime manifold, the diffeomorphism invariance of the manifold induces transformations on the tangent spaces. We want to treat these transformations as isometries on each tangent space. This means that under a change of coordinates $x^i \to y(x)^a$, objects with respectively upper and lower indices transform as
+\begin{align}
+    v(x)^i &\to v(y)^a = \frac{\partial y^a}{\partial x^i} v(x)^i
+    = R\aij{a}{i}v(x)^i
+    \\
+    w(x)_i &\to w(y)_a = \frac{\partial x^i}{\partial y^a} w(x)_i 
+    = (R\inv)\aij{i}{a}w_i 
+    \ .
+\end{align}
+The objects $v(x)^i$ and $w(x)_i$ are \textbf{vector fields}\index{vector field}---or more generally, tensor fields\index{tensor field}. They generalize the notion of a tensor in a single vector space: at each position $x$, $v(x)^i$ is a vector in the vector space that is the tangent plane at $x$. The problem is that we would like to be able to use the Levi-Civita symbol on these tangent planes. But now the issues above rear their heads: because $\det R \neq 1$ and $\det g_{\cdot\cdot} \neq 1$, the Levi-Civita symbol only takes the prescribed form in a specific basis. 
+
+\subsection{Toward a Levi-Civita Tensor}
+
+What we would like is to have is a version of the Levi-Civita symbol with the following properties:
+\begin{enumerate}
+    \item It must transform as a true tensor, \eqref{eq:transformation:of:Levi:Civita:symbol:if:it:were:a:tensor}.
+    \item The definition must be invariant.
+\end{enumerate}
+We call this object the \textbf{Levi-Civita tensor} $\varepsilon_{i_1\cdots i_d}$. 
+% 
+In \emph{this} course the distinction is \emph{so} miniscule that the two symbols are \emph{almost} typographically identical.\sidenote{Other books may write $\bar\epsilon$ or $\tilde\epsilon$ for the Levi-Civita symbol.} How should we define $\varepsilon_{i_1\cdots i_d}$?
+
+A diffeomorphism $x^i \to y(x)^a$ induces a tangent space transformation
+\begin{align}
+R\aij{a}{i} = \frac{\partial y^a}{\partial x^i}     \ .
+\end{align}
+A \textbf{tensor density}\index{tensor density} of \textbf{weight}\index{weight} $w$ is a quantity $t\aij{i\cdots j}{k\cdots \ell}$ that transforms like a tensor with an additional rescaling by $(\det R)^w$:
+\begin{align}
+    t\aij{i\cdots j}{k\cdots \ell} \to 
+    \left(\det \frac{\partial y}{\partial x}\right)^w
+    t\aij{a\cdots b}{c\dots d}
+    \;
+    \frac{\partial y^i}{\partial x^a}
+    \cdots
+    \frac{\partial y^j}{\partial x^b}\;
+    \frac{\partial y^c}{\partial x^k}
+    \cdots
+    \frac{\partial y^d}{\partial x^\ell} \ .
+\end{align}\sidenotetext{The determinant of the metric is so significant in geometric contexts that it is sometimes shortened as $g=\det g$.}
+\begin{example}
+We see that \eqref{eq:transformation:of:det:g} tells us that the determinant of the metric,\sidenotemark{} $\det g_{\cdot\cdot}$, is an index-free tensor density of weight $w=-2$:
+\begin{align}
+    \det g_{\cdot\cdot} \to \left(\det \frac{\partial x}{\partial y}\right)^2\, \det g_{\cdot\cdot}
+    \label{eq:det:g:tensor:density}
+    \ .
+\end{align}
+\end{example}
+
+The Levi-Civita symbol is a tensor density.\sidenote{This is surprising! The Levi-Civita \emph{symbol} has no business to be a tensor density: it is defined to be the same in any basis. It was defined to have constant components rather than components that transform.} We can see how by starting with the definition of the determinant of a matrix, $M$:
+\begin{align}
+    \det M &=\epsilon_{i\cdots k} M\aij{i}{1}\cdots M\aij{k}{d}
+    \\
+    & =\epsilon_{i\cdots k} M\aij{i}{[1}\cdots M\aij{k}{d]}
+    % \\
+    % & =\epsilon_{i\cdots k} M\aij{i}{[a}\cdots M\aij{k}{c]} \epsilon^{a\cdots c} \
+\end{align}
+Now we may follow Example~\ref{eg:pull:out:epsilon}. The right hand side represents one component $T_{1\cdots d}$ of a totally antisymmetric tensor
+\begin{align}
+    T_{j\cdots \ell}
+    \defeq
+    \epsilon_{i\cdots k} M\aij{i}{[j}\cdots M\aij{k}{\ell]} \ .
+\end{align}
+The determinant definition gives $\det M = T_{1\cdots d}$. We then recover the totally antisymmetric tensor $T_{j\cdots \ell} = (\det M) \epsilon_{j\cdots \ell}$. This tells us that 
+\begin{align}
+    \epsilon_{j\cdots \ell} = (\det M)\inv 
+    \epsilon_{i\cdots k} M\aij{i}{[j}\cdots M\aij{k}{\ell]} \ .
+    \label{eq:epsilon:almost:transformation}
+\end{align}
+We may choose the matrix such that
+\begin{align}
+    M\aij{i}{j} = \frac{\partial x^i}{\partial y^j} \ .
+\end{align}
+we do this because then \eqref{eq:epsilon:almost:transformation} takes the form of the transformation of a tensor density of weight $w=-1$,
+\begin{align}
+    \epsilon_{j\cdots \ell} &= 
+    \left(\det \frac{\partial x}{\partial y}\right)\inv 
+    \epsilon_{i\cdots k} \frac{\partial x^i}{\partial y^j} \cdots \frac{\partial x^k}{\partial y^\ell} 
+    \\
+    &= \left(\det \frac{\partial y}{\partial x}\right)\phantom{\inv}
+    \epsilon_{i\cdots k} \frac{\partial x^i}{\partial y^j} \cdots \frac{\partial x^k}{\partial y^\ell} 
+    \ .
+    \label{eq:epsilon:almost:transformation:dx:dy}
+\end{align}
+We see the Levi-Civita symbol \emph{appears} to transform as a tensor density of weight $w=+1$.\sidenote{Of course, $\epsilon_{i\cdots \ell}$ is defined to \emph{not} transform. Here we simply mean that this definition is consistent with the Levi-Civita symbol being a tensor density.} This means that if we want to define an honest Levi-Civita \emph{tensor} with the properties above, then we should multiply the Levi-Civita \emph{symbol} by some tensor density of weight $w=-1$ to cancel out the $\det \partial y/\partial x$ factor in \eqref{eq:epsilon:almost:transformation}.
+
+The determinant of the metric \eqref{eq:det:g:tensor:density} gives us a natural object to do this. Since the determinant of the metric has weight $w=-2$, we know that $\sqrt{\det g_{\cdot\cdot}}$ has weight $w=-1$ as needed. We thus define the lower-indexed \textbf{Levi-Civita tensor}\index{Levi-Civita tensor} $\varepsilon_{i\cdots k}$ with respect to the Levi-Civita symbol $\epsilon_{i\cdots k}$ to be
+\begin{align}
+    \varepsilon_{i\cdots k} \defeq \sqrt{|\det g_{\cdot\cdot}|} \epsilon_{i\cdots k} \ .
+    \label{eq:Levi:Civita:tensor:definition}
+\end{align}
+This is an tensor in the sense that when you apply a rotation `for each index' according to the tensor transformation laws, the resulting factors simplify to a determinant that cancels with the tensor density transformation of the $\sqrt{|\det g_{\cdot\cdot}|} $ factor. This means that $\varepsilon_{i\cdots k}$ is the same in any basis.
+Observe that we have inserted an absolute value over the determinant of the metric. This is because we want this to make sense on a real vector space so all components should be real. There is nothing `deep' about this. In Euclidean space, $\det g_{\cdot\cdot} > 0$ so you can ignore the absolute value. In four-dimensional Minkowski space, $\det g_{\cdot\cdot} < 0$, so that you sometimes see $|\det g_{\cdot\cdot}|$ written as $(-\det g_{\cdot\cdot})$. The sign, however, does cause some headaches that you should keep track of carefully.
+
+
+What about the upper-indexed tensor? Once we have defined $\varepsilon_{i\cdots k}$ in \eqref{eq:Levi:Civita:tensor:definition}, the upper-indexed object $\varepsilon^{i\cdots k}$ is uniquely specified by
+\begin{align}
+    \varepsilon^{i\cdots k}
+    =
+    g^{ia}\cdots g^{kc}
+    \varepsilon_{a\cdots c} \ .
+    \label{eq:Levi:Civita:tensor:definition:upper:gs}
+\end{align}
+% We want this to match the \emph{definition by fiat} in every basis,
+% \begin{align}
+%     \varepsilon^{i\cdots k} \stackrel{?}{\defeq} \sqrt{|\det g_{\cdot\cdot}|} \epsilon^{i\cdots k} \ .
+%     \label{eq:Levi:Civita:tensor:definition:upper:fiat:maybe}
+% \end{align}
+The right-hand side of \eqref{eq:Levi:Civita:tensor:definition:upper:gs} is
+\begin{align}
+    g^{ia}\cdots g^{kc}
+    \varepsilon_{a\cdots c}
+    &=
+    \sqrt{|\det g_{\cdot\cdot}|}
+    \det{g^{\cdot\cdot}}
+    \bar{\epsilon}^{i\cdots k}
+    % \\&
+    =
+    \frac{\sgn{g}}{\sqrt{|\det{g_{\cdot\cdot}}|}}
+    \bar{\epsilon}^{i\cdots k} 
+    % \\
+    % &= 
+    % \frac{1}{\det{g_{\cdot\cdot}}} \varepsilon^{i\cdots k} 
+    \ .
+    \label{eq:raising:Levi:Civita:tensor:int}
+\end{align}
+We have used the fact that $g^{\cdot\cdot}$ is the inverse of $g_{\cdot\cdot}$ so that $\det{g^{\cdot\cdot}} = (\det g_{\cdot\cdot})\inv$.\sidenote{This was the reason why we put in the two dots in our notation for $\det g_{\cdot\cdot}$.} 
+% 
+We define\sidenote{This definition of $\bar\epsilon^{\cdots}$ is cumbersome. It is helpful to use it to clarify a choice for the overall sign of the upper-index Levi-Civita symbol. One common source of sign errors is to conveniently define $\epsilon^{1\cdots d}$ to match $\epsilon_{1\cdots d}$ in Euclidean space and then to carry that assumption into Minkowski space where one has to be careful about factors of $\sgn g$ that were not there in the Euclidean case.} $\bar\epsilon^{i\cdots k}$ to be the totally antisymmetric Levi-Civita symbol with upper indices and sign convention in \eqref{eq:def:levi:civita:d:dim:upper}, that is $\bar\epsilon^{1\cdots d} \defeq +\epsilon_{1\cdots d}$.
+\begin{exercise}
+Fill in the details of each equality in \eqref{eq:raising:Levi:Civita:tensor:int}. Use antisymmetry gymnastics to explain how the $\bar\epsilon^{i\cdots k}$ appears and why we specify a particular sign convention for it.
+\end{exercise}
+% 
+In \eqref{eq:raising:Levi:Civita:tensor:int} factor of $\sgn g$, the sign of the metric determinant,\sidenote{Because the $\sgn g_{\cdot\cdot} = \sgn{g^{\cdot\cdot}}$ we do not need the little dots here.} is a bit curious, but it is simply there so that we could write $\det g_{\cdot\cdot} = \sgn{g}\; |\det g_{\cdot\cdot}|$, which in turn makes it easier to deal with square roots of this determinant. We have shown that the rule for using the inverse metric to raise indices tells us that
+\begin{align}
+    \varepsilon^{i\cdots k} = \frac{1}{\det{g_{\cdot\cdot}}} \varepsilon^{i\cdots k}  \ .
+\end{align}
+
+Is this sensible with our stated goals of defining a Levi-Civita tensor that is both an honest tensor and uniquely defined? Indeed it does. 
+% 
+The overall factor of $\sgn g$ may seem odd, but this is an overall sign that is simply a property of your metric space. In fact, just below \eqref{eq:def:levi:civita:d:dim:upper} we observed that the \emph{by fiat definition} of the upper-index Levi-Civita symbol includes an arbitrary choice of sign. In 
+\eqref{eq:def:levi:civita:d:dim:upper:with:sign} we then showed that a convenient choice is to absorb $\sgn g$ sign into the definition of the upper-index Levi-Civita symbol:
+\begin{align}
+    \epsilon^{i_1\cdots i_d}
+    \defeq
+    (\sgn g) \;
+    \epsilon_{i_1\cdots i_d} \ .
+\end{align}
+With this understanding, \eqref{eq:raising:Levi:Civita:tensor:int} becomes
+\begin{align}
+    \varepsilon^{i\cdots k}
+    = \frac{\epsilon^{i\cdots k}}{\sqrt{|\det g_{\cdot\cdot}|}}  \ .
+\end{align}
+
+\begin{exercise}
+Show that the upper-index Levi-Civita tensor transforms as a tensor under diffeomorphisms. Compare and contrast this proof to the case of the lower-index Levi-Civita tensor. The proof is completely analogous, except you should be clear where factors of $\partial y/\partial x$ are replaced by factors of $\partial x/\partial y$ and vice versa.
+\end{exercise}
+
+\begin{exercise}
+Show that the upper-index Levi-Civita tensor is an inverse of the lower-index tensor in the sense that
+\begin{align}
+    \varepsilon^{i\cdots k}\varepsilon_{i\cdots k} = n! \ .
+\end{align}
+% I should check this for signs
+\end{exercise}
+
+\end{subappendices}
+
+
+
 
 
 \chapter{Eigensystem}
@@ -6330,7 +7455,7 @@ Suppose you have a matrix in Euclidean space:
 This is a symmetric matrix because $M\aij{i}{j} = M\aij{j}{i}$. The matrix $M$ has a special basis called an \emph{eigenbasis}\index{eigenbasis}, or a basis of \textbf{eigenvectors}\index{eigenvector}. Eigenvectors are special vectors $\ket{\xi}$ where $M\ket{\xi_i} = \lambda_i \ket{\xi_i}$ (no sum over $i$). When $M$ acts on one of its eigenvectors, it simply rescales  the eigenvector. The rescaling constant $\lambda_i$ is called the \textbf{eigenvalue}\index{eigenvalue} of $\ket{\xi_i}$.
 
 
-The eigenvectors of $M$ are
+For this example, suppose you are given\sidenote{In subsequent sections we derive the eigenvectors. However, the situation of ``being given'' the eigenvectors (and eigenvalues) of an operator is actually quite common in physics. There are only a finite list of really significant operators that keep showing up mathematically in physics---the eigenvectors and eigenvalues of those operators are all well-known and have names like Bessel functions, Airy functions, and spherical harmonics.} the eigenvectors of $M$, which happen to be
 \begin{align}
     \ket{\xi_1} &= \frac{1}{\sqrt{2}}\ket{e_1} + \frac{1}{\sqrt{2}}\ket{e_2}
     &
@@ -6467,7 +7592,7 @@ We say that the eigenvectors of Hermitian matrices are \emph{orthogonal}, but no
 
 \subsection{Finding Eigenvalues: Characteristic Equation}
 
-Suppose you have a Hermitian matrix $M$. This means that there is a nice basis where $M$ is diagonal, which we indicate with a hat: $\hat M$. In this \emph{eigenbasis}, each basis vector $\ket{\xi_i}$ has an associated eigenvalue $\lambda_i$. Suppose that none of the eigenvalues are zero so that $\hat M$ is nice and invertible. The diagonal elements of $\hat M$ are simply these eigenvalues, see \eqref{eq:diagonal:matrix}. This means that the matrix $\hat M - \lambda_i \one$ is diagonal with (at least) one zero element: the the $i^\text{th}$ element along the diagonal:
+Suppose you have a Hermitian matrix $M$. This means that there is a nice basis where $M$ is diagonal, which we indicate with a hat: $\hat M$. In this \emph{eigenbasis}, each basis vector $\ket{\xi_i}$ has an associated eigenvalue $\lambda_i$. Suppose that none of the eigenvalues are zero so that $\hat M$ is nice and invertible. The diagonal elements of $\hat M$ are simply these eigenvalues. This means that the matrix $\hat M - \lambda_i \one$ is diagonal with (at least) one zero element: the the $i^\text{th}$ element along the diagonal:
 \begin{align}
 \hat M -\lambda_i\one = 
     \begin{pmatrix}
@@ -6487,21 +7612,26 @@ We can exploit this curious fact using the observation in Example~\ref{eg:determ
 \end{align}
 whenever $\lambda$ is an eigenvalue of $\hat M$. This would be a great way to find the eigenvalues of diagonal matrix, $\hat M$, if it weren't for the fact that this is a silly task: if $\hat M$ is diagonal, then you can simply \emph{read off} the eigenvalues from the diagonal elements. It would be \emph{much} more useful if we had an expression like \eqref{eq:characteristic:2} that we could use to find the eigenvalues of non-diagonal matrices.  
 
-It turns out that we can do this. Recall \eqref{eq:det:of:product}: the determinant of a product of matrices is the product of the determinants. We motivated this from the observation that the determinant is the area of a parallelogram in two dimensions---though the result generalizes hyper-volumes of \emph{parallelpipeds} in any number of dimensions. From this observation, we also found that the determinant of an inverse matrix is the inverse of the determinant \eqref{eq:det:of:inverse}. This means that
+It turns out that we can do this. Recall from Section~\ref{sec:determinant:of:product} that the determinant of a product of matrices is the product of the determinants. We motivated this from the observation that the determinant is the area of a parallelogram in two dimensions---though the result generalizes hyper-volumes of \emph{parallelpipeds} in any number of dimensions. From this observation, we also found that the determinant of the inverse matrix is the inverse of the determinant. This means that
 \begin{align}
-    \det(R\hat M R^\dag) = 
+    \det(R\hat M R^\dag) &= 
     \det R \; \det \hat M \; \det R^\dag
+    \\&
     =
     \det R \; \det \hat M \; \frac{1}{\det R}
+    \\&
     =
     \det \hat M \ .
 \end{align}
 Here we used the fact that the adjoint of a rotation\footnote{And again, this generalizes to complex matrices with a Euclidean metric to a unitary matrix. In full generality, this is an isometry.} is its inverse. Using the fact that $R\one R^\dag = \one$, we may thus rotate \eqref{eq:characteristic:2} to a basis where $\hat M$ is not diagonal:
 \begin{align}
-     0=\det(\hat M - \lambda \one) 
-     = \det\left[R(\hat M - \lambda \one)R^\dag\right]
-     = \det(R\hat M R^\dag - \lambda \one) 
-     = \det(M - \lambda \one) 
+     0&=\det(\hat M - \lambda \one) 
+     \\
+     &= \det\left[R(\hat M - \lambda \one)R^\dag\right]
+     \\
+     &= \det(R\hat M R^\dag - \lambda \one) 
+     \\
+     &= \det(M - \lambda \one) 
      \label{eq:characteristic:equation} \ .
 \end{align}
 This is the \textbf{characteristic equation} for the eigenvalues of $M$. This is incredibly powerful: suppose you have a nice, invertible, self-adjoint matrix $M$. The matrix is not diagonal and so it is not obvious what its eigenvalues are. The characteristic equation gives you a polynomial in $\lambda$ that you can solve to determine the values of $\lambda$ that are eigenvalues of $M$. For an $N$-dimensional vector space, you will have an $N$-dimensional polynomial. Because the matrix is self-adjoint, we know that the eigenvalues are real and so there will be $N$ real roots to the characteristic equation.
@@ -6684,7 +7814,7 @@ We identify $\la i | A \ra$ as the rotation from the eigenbasis $\ket{A}$ to the
 \end{align}
 We remember that $R$ takes a vector's components in the eigenbasis and returns the vector's components in the standard basis. As a mnemonic, the height of the indices tell you that $R$ can contract with an upper $A$ index (which we use to denote eigencomponents) and returns an upper $i$ index (which we use for standard basis components). Of course, the $A$ and $i$ indices both run over the dimension of the same vector space: we have simply chosen a different notation to make it more clear how this rotation matrix is meant to be used.\footnote{Nothing stops you from contracting the eigenbasis $A$ index with a vector's components in the standard basis. However, the way we have constructed $R$ is that such a contraction has no significance: it does not rotate to the eigenbasis and is effectively a random rotation. }
 
-Another way that this is often written is that one can insert $\one = R^\dag R$ where $R^\dag$ acts on the basis $\ket{A}$ and $R$ acts on the components of a vector, $v^A$. This is precisely what we meant by a \emph{passive transformation} in Section~\ref{sec:active:vs:passive}---albeit with $R\Leftrightarrow R^\dag$. Let us see this more explicitly. Rather than using $\one = \ket{i}\bra{i}$, we use the components of $\one = R^\dag R$:
+Another way that this is often written is that one can insert $\one = R^\dag R$ where $R^\dag$ acts on the basis $\ket{A}$ and $R$ acts on the components of a vector, $v^A$. This is precisely what we meant by a \emph{passive transformation} in Section~\ref{sec:active:passive}---albeit with $R\Leftrightarrow R^\dag$. Let us see this more explicitly. Rather than using $\one = \ket{i}\bra{i}$, we use the components of $\one = R^\dag R$:
 \begin{align}
     \delta^A_B = (R^\dag R)\aij{A}{B} = 
     (R^\dag)\aij{A}{i}R\aij{i}{B} \ .
@@ -6761,7 +7891,7 @@ Figure~\ref{fig:eigentransform} shows a unit ball in the eigenbasis and how it i
 
 
 \begin{bigidea}
-Let us revisit our pantheon of nice matrices that we presented in Section~\ref{sec:nice}. The gold medal (proportional to identity) matrices were too simple: they behave like numbers. The silver medal matrices are those matrices that are already in an eigenbasis. The bronze medal matrices are the kinds of matrices that you will most likely have to deal with ``in the field.'' These matrices that are diagonalizable by a rotation, but that are not yet in an eigenbasis. The meaning of these kinds of transformation is simply a rescaling along a set of orthogonal axes---with independent rescaling along each direction. 
+Let us revisit our pantheon of nice matrices that we presented in Section~\ref{sec:hierarchy:of:transformations}. The gold medal (proportional to identity) matrices were too simple: they behave like numbers. The silver medal matrices are those matrices that are already in an eigenbasis. The bronze medal matrices are the kinds of matrices that you will most likely have to deal with ``in the field.'' These matrices that are diagonalizable by a rotation, but that are not yet in an eigenbasis. The meaning of these kinds of transformation is simply a rescaling along a set of orthogonal axes---with independent rescaling along each direction. 
 
 You can also start to imagine what a generic `trash' matrix does. If the matrix is non-invertible, it is some sort of projection. It throws out information. If the matrix is invertible but not diagonalizable by a rotation, then it means that it is not simply rescaling along a set of orthogonal directions. For example, it may be a rescaling along a set of non-orthogonal directions. 
 \end{bigidea}
@@ -6989,7 +8119,7 @@ Maybe that's fair enough. If every matrix could be diagonalized then we would ne
 You could simply diagonalize both matrices and see what happens. Unfortunately, as algorithmic as we have made the procedure of diagonalization---that is, finding the eigenvectors---it is still kind of a pain to do this to every single matrix we meet. Is there perhaps an easier way to see whether or not two matrices are simultaneously diagonalizable?
 
 \begin{example}
-We have a hint from an observation in Section~\ref{sec:nice}. If you have two diagonal matrices, $\hat M$ and $\hat N$, then obviously the two matrices are simultaneously diagonalizable. However, the multiplication of diagonal matrices reduces to the multiplication of the diagonal elements as numbers. This means that
+If you have two diagonal matrices, $\hat M$ and $\hat N$, then the two matrices are obviously simultaneously diagonalizable. However, the multiplication of diagonal matrices reduces to the multiplication of the diagonal elements as numbers. This means that
 \begin{align}
     \hat M \hat N &= \hat N \hat M
     &\Rightarrow 
@@ -8216,12 +9346,204 @@ where the points $x_i$ are the points for which $f(x_i) = 0$. This gives us a ru
 
 \flip{These are topics I'd like to fill in some day. Maybe if they'll let me teach 117. }
 
-\section{A proper definition of the determinant}
+\section{Reduced Row Echelon Form}
+
+Some linear algebra courses make a big deal about something called `reduced row echelon form.' We deliberately choose to drop this topic: it is a manipulation of matrices, but one that in service of a task that is not only trivial---solving a system of linear equations---but one that is completely misleads the student about the significance of linear algebra.\sidenote{Linear algebra is not about how to manipulate arrays of numbers. It is the interpretation of these arrays of numbers as linear transformations.}
+
+Just for shits and giggles, let's see what all that `reduced row echelon form' garbage is all about.
+
+\subsection{Algebra in the linear limit}
+
+First, we should say we are solving algebraic systems of equation that are linear. This is \emph{not} linear algebra. The equations are of the form:
+\begin{align}
+    M\aij{i}{j}x^j = w^i
+    \ ,
+    \label{eq:rref:eq}
+\end{align}
+where we have made liberal use of our index notation. Here the components $x^j$ are unknowns that you are tasked with solving for, and the components $M\aij{i}{j}$ and the right-hand side $w^i$ are all known numbers. It should be obvious that this is simply $M\vec{x} = \ket{w}$. 
+
+\subsection{Manipulating the equation}
+
+The mysticism of `reduced row echelon form' is that one may perform is that one may perform operations on the rows of the matrix $M\aij{i}{j}$ and on the rows of the vector $w^i$ to eventually convert \eqref{eq:rref:eq} into the nice form
+\begin{align}
+    \begin{pmatrix}
+        m\aij{1}{1} & 0 & \cdots \\
+        0 & m\aij{2}{2} & \cdots \\
+        \vdots  &0 & \ddots 
+    \end{pmatrix}
+    \begin{pmatrix}
+        x^1 \\
+        x^2 \\
+        \vdots
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        w^1 \\
+        w^2 \\
+        \vdots 
+    \end{pmatrix} \ .
+\end{align}
+Of course, once you are in this form you can read off the values of $x^i = w^i/m\aij{i}{i}$. Indeed, the goal of our eigenstuff-analysis is precisely to get to this form. 
+
+However, the `reduced row echelon form' mystics say that one should write \eqref{eq:rref:eq} in the unusual form
+\begin{align}
+    \begin{pmatrix}
+        M\aij{1}{1} & 
+        M\aij{1}{2} & 
+        M\aij{1}{3} & 
+        \cdots &
+        w^1
+        \\
+        M\aij{2}{1} & 
+        M\aij{2}{2} & 
+        M\aij{2}{3} & 
+        \cdots &
+        w^2
+        \\
+        \vdots &
+        \vdots &
+        \vdots &
+        \ddots 
+    \end{pmatrix} \ .
+\end{align}
+This is an $N\times (N+1)$ matrix that combines the known coefficients in \eqref{eq:rref:eq}. The rule is that in this $N\times (N+1)$ matrix, one may take linear combinations of rows and add them to any other row. For example, one may take a multiple of the first row and add it to the second row:
+\begin{align}
+    \begin{pmatrix}
+        M\aij{1}{1} & 
+        M\aij{1}{2} & 
+        M\aij{1}{3} & 
+        \cdots &
+        w^1
+        \\
+        M\aij{2}{1} + \alpha M\aij{1}{1}  & 
+        M\aij{2}{2} + \alpha M\aij{1}{2}  & 
+        M\aij{2}{3} + \alpha M\aij{1}{3}  & 
+        \cdots &
+        w^2 + \alpha w^1
+        \\
+        \vdots &
+        \vdots &
+        \vdots &
+        \ddots 
+    \end{pmatrix} \ .
+\end{align}
+Presumably doing this simplifies the second row, perhaps by removing off-diagonal elements. I am rolling my eyes while I type this because this whole set of procedures simply corresponds to taking linear combinations of each equation in \eqref{eq:rref:eq}. But sure, you can play this silly game.
+
+\begin{example}\label{eg:rref:2d}
+Consider the two equation, two unknown system:
+\begin{align}
+    M\aij{1}{1} x^1 + M\aij{1}{2}x^2 &= w^1\\
+    M\aij{2}{1} x^1 + M\aij{2}{2}x^2 &= w^2 \ .
+\end{align}
+In fact, let us put explicit numbers to this:
+\begin{align}
+    x^1 - 1 x^2 &=  \pp 4 \\
+    x^1 + 2x^2 &= -2 \ .
+\end{align}
+To write this in `reduced row echelon form' we do the following:
+\begin{align}
+    \begin{pmatrix}
+        1 & -1 & \pp 4 \\
+        1 & \pp 2 & -2
+    \end{pmatrix}
+    &\to 
+    \begin{pmatrix}
+        1 & -1 & \pp 4 \\
+        0 & \pp 3 & -6
+    \end{pmatrix}
+    \\
+    &\to 
+    \begin{pmatrix}
+        1 & -1 & \pp 4 \\
+        0 & \pp 1 & -2
+    \end{pmatrix}
+    \\
+    &\to 
+    \begin{pmatrix}
+        1 & 0 & \pp 2 \\
+        0 &  1 & -2
+    \end{pmatrix} \ ,
+\end{align}
+from which we infer that $x^1 = 2$ and $x^2 = -2$. 
+\end{example}
+
+\subsection{What you are actually doing}
+
+Each step in the above example corresponds to multiplying both sides of \eqref{eq:rref:eq} by a matrix. For example, the matrix that takes the first row and adds a multiple $\alpha$ of it to the second row is:
+\begin{align}
+    S = 
+    \begin{pmatrix}
+        1 & 
+        0 & 
+        0 & 
+        \cdots 
+        \\
+        \alpha & 
+        1 & 
+        0  & 
+        \cdots 
+        \\
+        0 & 
+        0 & 
+        1  & 
+        \cdots 
+        \\
+        \vdots &
+        \vdots &
+        \vdots &
+        \ddots 
+    \end{pmatrix} \ .
+\end{align}
+If we want to ``add to the second row a multiple $\alpha$ of the first row,'' then we simply take \eqref{eq:rref:eq} and write
+\begin{align}
+    SM\ket{x} = S\ket{w} \ .
+\end{align}
+\begin{exercise}
+Each step in \eqref{eg:rref:2d} can equivalently be written as multiplying both sides of \eqref{eq:rref:eq} by a product of matrices $S_3 S_2 S_1$, where each $S_i$ corresponds to a step in the reduced row echelon form process. Show that these correspond to:
+\begin{align}
+    S_1
+    &=
+    \begin{pmatrix}
+        \pp 1 & 0 \\
+        -1 & 1
+    \end{pmatrix}
+    &
+    S_2
+    &=
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & \frac{1}{2}
+    \end{pmatrix}
+    &
+    S_3
+    &=
+    \begin{pmatrix}
+        1 & 1 \\
+        0 & 1
+    \end{pmatrix} \ .
+\end{align}
+\end{exercise}
+
+Thus we have shown that all we are doing is taking an equation 
+\begin{align}
+    M\ket{x} = \ket{w}
+\end{align}
+and writing it as
+\begin{align}
+    S_3 S_2 S_1 M \ket{x} = S_3 S_2 S_1 \ket{w} \ ,
+\end{align}
+where $S_3 S_2 S_1$ is chosen systematically so that $S_3 S_2 S_1 M$ is diagonal. While the steps here are all reasonable, they do not elucidate anything about the nature of the underlying system nor are they obviously practical when the size of the system of equation grows. The procedure is, however, an algorithm that is well defined. Thus you can code this---or better, draw from optimized open-source codes that do this---to solve systems of equations of finite size. 
+
+
+
+
+
+
 \section{Representation theory of SU(2)}
+\section{Lie Algebras as Vector Spaces}
 \section{Vector calculus in 3 dimensions}
 \section{Vector calculus in general dimensions}
 \section{Differential Forms}
-\section{Lie algebras as vector spaces}
 
 
 \chapter*{Closing Thoughts}
@@ -8358,7 +9680,12 @@ It is potentially confusing that physicists use multiple conventions to describe
     \item ``Multidimensional measurements,'' by David Stevenson in \emph{Physics Today}\autocite{10.1063/pt.ogyk.yscx}. Howard Georgi made a similar argument in the \emph{APS News} in June 2022,\footnote{\url{https://www.aps.org/publications/apsnews/202206/backpage.cfm}} which is a write up from an earlier talk at the Kavli Institute for Theoretical Physics\autocite{Georgi:2022jfv}.
 
     \item One of the building blocks of machine learning is linear algebra. In fact, in the mid-2010s when physicists were starting to realize that deep neural networks could be a powerful tool for research,\sidenote{And, vice versa, that there was a rich physical research program to understand deep learning. See \url{https://iaifi.org}.} the way we would explain neural networks to each other would start with ``look, it really just boils down to matrix multiplication.'' To be fair, the real magic of neural networks is the deliberate \emph{nonlinearity} between what is otherwise a linear system. 
+
+    % The lienar algebra of the Google algorithm, ranking
 \end{itemize}
+
+\section{Diagonalizing Unusual Matrices}
+\flip{insert discussion of Takagi diagonalization, singular value decomposition, ... all that}
 
 \printindex
 
