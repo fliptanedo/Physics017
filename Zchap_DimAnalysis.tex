@@ -1,0 +1,384 @@
+\chapter{Dimensions}\label{ch:dimensions}
+
+
+\flip{To add: \url{https://youtu.be/kkfIXUjkYqE}}
+
+You may be surprised how far one can go in physics by thinking deeply about dimensional analysis. Here we only get started. To take the next step, you may read more about the Buckingham Pi theorem or applications in physics. I recommend any of the following references: \autocite{doi:10.1119/1.1987069, doi:10.1119/1.4902882, doi:10.1119/1.3535586, Stevenson:1980ga}.
+\textbf{Dimensional analysis}\index{dimensional analysis} is simply the idea that by keeping track of the units of physical quantities, we can learn quite a bit about how those quantities must show up in our physical laws.
+
+
+\section{Physics versus Mathematics} 
+
+Let us make one point clear:
+\begin{align}
+  \text{Physics} \neq \text{Mathematics} \ .
+\end{align}
+This is a truth in many different respects. The astronomer Fritz Zwicky (Fig.~\ref{fig:zwicky}) might have called this a \emph{spherical truth}: no matter how you look at it, the statement is still true.\sidenote{Zwicky has such an oft-repeated reputation for having a challenging personality that his daughter has argued and litigated that scientists have deliberately colluded to use this reputation to minimize Zwicky's legacy---see ``The Father of Dark Matter Still Gets No Respect'' by Richard Panek in \emph{Discover}, 30 Dec 2008. I suspect it does not help when one's most enduring photo is the one in Fig.~\ref{fig:zwicky}.}:
+\begin{marginfigure}%[th]
+    \includegraphics[width=.8\textwidth]{figures/zwicky_caltecharchives.jpg}
+    \captionsetup{font={scriptsize,sf}}
+    \caption{The photo of Zwicky that often appears in public talks about dark matter. From the Caltech archives (1971, identifier 10.12-64).}
+    \label{fig:zwicky}
+\end{marginfigure}
+\begin{itemize}
+  \item Physicists are rooted in experimental results. {Even theorists? \emph{Especially} theorists.}
+  
+  \item Physicists Taylor expand to their hearts’ content. Even when it is sometimes not mathematically valid.~\autocite{Baez_Azimuth_2016}
+
+  \item Physicists pick a basis, use coordinates, and decorate every tensor with indices. {Equations in physics appear intimidating because of the indices decorating our variables. Ironically, physicists are often intimidated by mathematics because of the conspicuous absence of any indices.}.
+
+  \item Physicists seek truths about \emph{this} universe.
+
+  \item Physicists have a fast and loose relationship to the concept of infinity and the related concept of the infinitesimal---on this, I recommend Jim Holt's essay ``The Dangerous Idea of the Infinitesimal.''~\autocite{holt2018einstein}
+  At the same time, many of our tools seem to \emph{beg} questions about the infinite.
+\end{itemize}
+My friends, we are not doing mathematics. 
+
+\subsection{The most important binary relation}
+\label{sec:sim:binary:relation}
+
+When we write equations, the symbol that separates the left-hand side from the right-hand side is a binary relation. We use binary relations like $=$ or $\neq$. Sometimes to make a point we write $\cong$ or $\equiv$ or $\dot =$ to mean something like `definition’ or `tautologically equivalent to’ or some other variant of \emph{even more equal than equal}. 
+
+ \begin{figure}[h]
+      \caption{Mathematical symbol fight from \tacro{XKCD}.~\cite{xkcd_2343} \tacro{CC BY-NC 2.5} \label{fig:xkcd:symbol}} 
+      % \includegraphics[width=\textwidth]{mathematical_symbol_fight_2x.png} % or tikz or anything
+      \includegraphics[width=\textwidth]{figures/mathematical_symbol_fight_2x.png}
+  \end{figure}
+% xkcd_2343
+
+As physicists the most important binary relation is none of those things\sidenote{I thank Yuval Grossman teaching me this.}. What we usually care about is  $\sim$.\sidenote{I use this the same way as $\propto$, which is completely different from `approximately,’ $\approx$.} The symbol $\sim$ tells us how how something \emph{scales}. If I double a quantity on the right-hand side, how does the quantity on the left-hand side scale? Does it depend linearly? Quadratically? Non-linearly? The answer encodes something important about the underlying physics of the system. The symbol $\sim$ the reason why \emph{imagine the cow is a sphere} is a popular punchline in a joke about physicists. 
+
+
+Implicit in this discussion is the pragmatic policy that we will not care about stray factors of 2 in this class. As my adviser used to say, if you are worried about a factor of 2, then you have addition homework to figure out that factor of 2.\sidenote{That being said, you are reading these notes and find an error, do let me know about it.} 
+
+\subsection{Units}
+
+There is another way in which physics is different from mathematics. It is far more prosaic. \emph{Quantities in physics have units}. We do deal in simply numbers, we deal with kilograms, electron volts, meters. It turns out that dimensional analysis is a big part of what we do as physicists. 
+
+\begin{exercise}\label{ex:trancendental}
+Explain, in words, why the quantity $\sin(3~\text{cm})$ is absolute nonsense in any context. What about $\text{exp}(2~\text{kg})$?
+\end{exercise}
+
+\begin{example}
+Did you use a Taylor expansion in your solution to Exercise~\ref{ex:trancendental}? That type of argument is something like this:
+\begin{align}
+\e^{2~\text{kg}} = 1 + (2~\text{kg}) + \frac{1}{2!}(2~\text{kg})^2 + \cdots \ ,    
+\end{align}
+from which we see that each term has different powers of mass. Did you catch where I lied to you? Recall that Taylor expansions are of the form
+\begin{align}
+    f(x+\Delta x) 
+    = f(x) + \frac{ \D{f}(x) }{ \D{x} } \Delta x + 
+    \frac{1}{2!} \frac{ \D[2]{f}(x) }{ \D{x}^2 } \Delta x^2 + \cdots \ .
+\end{align}
+Clearly each term has the same dimension because the units in $\Delta x$ cancel those of $\D{x}$. In fact, the underlying reason why trancendental functions cannot take dimensionful arguments is simply that they have no meaningful definition.\autocite{doi:10.1021/ed1000476} 
+\end{example}
+
+\section{Converting Units}
+
+Imagine that you have three apples. This is a number (three) and a unit (apple). The meaning of the unit depends on what you're using it to measure. For example, if apples are \$1 each, then you could use an apple as a unit of currency. The way to do this is to simply \emph{multiply by one}:
+\begin{align}
+  (3\text{ apples}) \times \left(\frac{\text{\$ 1}}{\text{apple}}\right)
+  &= \$ 3 \ .
+\end{align}
+We have used the fact that the exchange rate is simply the statement that
+\begin{align}
+  1\text{ apple} &= \$1
+  & \Rightarrow &&
+  1 &= \frac{\$ 1}{1\text{ apple}} \ .
+\end{align}
+You can do a similar thing for [kilo-]calories or any other conversion rate. 
+
+All that matters is that the conversion factor is a constant. The constants of nature make very good `exchange rates.' For example, high-energy physicists use \textbf{natural units}\index{natural units}:
+\begin{align}
+  \hbar = c = 1 \ .
+\end{align}
+At face value, this does not make sense. $\hbar$ has units of action, $c$ is a speed, and 1 is dimensionless. In more conventional units,\sidenote{For the most part, we are happy with one significant figure in this course.}
+\begin{align}
+  c &= 3 \times 10^{10}~\text{cm}/\text{s} 
+  &
+  \hbar &= 10^{-34}~\text{kg}~\text{m}^2/s
+  \ .
+\end{align}
+However, because nature gives us a \emph{fundamental} unit of action and a \emph{fundamental} unit of speed, we may use them as conversion factors (exchange rates). If $c=1$, then 
+\begin{align}
+  1~\text{s} &=  3 \times 10^{10}~\text{cm} \ .
+\end{align}
+This connects a unit of time to a unit of distance. By measuring time, the constant $c$ automatically gives an associated distance. The physical relevance of the distance is tied to the nature of the fundamental constant: one second (or `light-second') is the distance that a photon travels in one second. Observe that this only works because $c$ is a constant. 
+
+\section{Quantifying units}
+
+We use the notation that a physical quantity $Q$ has \textbf{dimension}\index{dimension} $[Q]$ that can be expressed in terms of units of length, mass, and time:
+\begin{align}
+  [Q] = L^a M^b T^c \ .
+\end{align}
+The {dimension} is the statement of the powers $a$, $b$, and $c$. You may want to also include units of, say, electric charge. Sticklers may pontificate about whether electric charge formally carries a new unit or not. 
+
+\begin{example}
+What are the units of force? We remember that $\vec{F} = m\vec{a}$, so 
+\begin{align}
+  [\vec F] &= [m][\vec{a}] = M\times L T^{-2} = L^1 M^1 T^{-2} \ .
+  \label{eq:02:force:units}
+\end{align}
+\end{example}
+
+\begin{exercise}
+What are the units of the fine structure constant?
+\end{exercise}
+
+When working in \textbf{natural units}, $c=1$ means that units of length and time are the same and $\hbar = 1$ means that units of time and energy (mass) are inversely related. In natural units, one simply writes $[Q]$ to mean the mass-dimension of a quantity. To revert back to conventional units, one simply multiplies by appropriate factors of $1=c$ and $1=\hbar$. 
+
+\begin{example}
+What are the units of force in natural units? From \eqref{eq:02:force:units} we multiply by one to convert length and time into mass dimensions:
+\begin{align}
+  [\vec F] &= [c^{-3} \hbar \vec{F}] = M^2 \ .
+\end{align}
+In natural units we say $[\vec F] = 2$. Recall that energy and mass have the same dimension, which you may recall from the Einstein relation $E^2 = m^2c^4 + p^2c^2$.
+\end{example}
+
+\section{Dimensional analysis at work}
+
+\subsection{Sanity Check}
+
+The simplest use of dimensional analysis is to check your work. The following expression is obviously wrong:
+\begin{align}
+  1 + (3~\text{cm}) \ .
+\end{align}
+This does not make sense. You cannot sum terms with different dimensions. Similarly, $\sin(3\text{ cm})$ does not make sense. What about $e^{5~\text{cm}}$? This doesn't make sense because
+\begin{align}
+  e^x = 1 + x + \frac{1}{2!} x^2 +  \cdots
+\end{align}
+Since each term comes with a different power of $x$, the argument of the exponential must be dimensionless. 
+
+\begin{example}
+As pointed out by Matta et al.\footnote{\emph{J.~Chem.~Educ.} 2011, 88, 1, 67–70. \url{https://doi.org/10.1021/ed1000476}}, this argument is not quite correct. Each term in the Taylor expansion of a function $f(x)$ maintains the dimensions of $f(x)$, as is obvious when written out carefully:
+\begin{align}
+  f(x_0+\Delta x) = f(x_0) + \left.\frac{df}{dx}\right|_{x_0}\Delta x + \frac{1}{2}\left.\frac{d^2f}{dx^2}\right|_{x_0}\Delta x^2 + \cdots \ .
+\end{align}
+The units of every $dx^2$ in the `denominator' of $d^{(n)}f/dx^n$ is canceled by the units in $\Delta x^n$, no matter what the dimensions of $\Delta x$ are.
+%
+The real issue is that for many functions, $f(x_0)$ is simply not defined for dimensionful arguments. This is certainly true for trigonometric functions. For the exponential, one may fall back to the limit definition:
+\begin{align}
+  e^x = \lim_{n\to\infty} \left(1+ \frac{x}{n}\right)^n \ ,
+\end{align}
+where it is now an issue of different terms having different dimensions. Note that the right-hand side is not a Taylor expansion. The exponential definition above is handy because it makes sense even when $x$ is a matrix or operator.
+\end{example}
+
+\begin{exercise}
+Sometimes you may think it is useful to keep track of radians (or degrees) as a dimensionful quantity. This, by the way, is a slippery slope because then you may want to think of $\pi$ as some unit of circles... whatever that means. Following the exercise above, show that (1) each term in the Taylor expansion of $f(x) = \sin(x)$ has the same dimensions, and (2) that there is no issue with trigonometric functions being defined as having `dimensionful' arguments in this way.
+\end{exercise}
+
+\begin{exercise}
+Consider the energy spectrum of light emitted from some constant source---a distant star, the ongoing annihilation of dark matter in the galactic center, or a high-intensity laser. The spectrum encodes how many photons are emitted per unit time. We can plot this spectrum as a curve on a graph. We can even normalize the curve so that it integrates to one photon. This means we only care about the distribution of energy, not the absolute amount. The horizontal axis of such a plot is the photon energy. What are the units of the vertical axis?
+\end{exercise}
+
+\subsection{Solving problems}
+
+Here is a common problem in introductory physics. Assume you have a pendulum with some sufficiently small initial displacement $\theta_0$. What’s the period, $\tau$ of the pendulum? We draw a picture like Fig~\ref{fig:simple_pendulum}.
+%
+% \marginfig{figures/lec01_pendulum.pdf}{Sketch of a simple pendulum.}{fig:simple_pendulum}
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.5\textwidth]{figures/lec01_pendulum.pdf}
+    \caption{Sketch of a simple pendulum.}
+    \label{fig:simple_pendulum}
+\end{figure}
+%
+%
+From dimensional analysis, we know that the period has dimensions of time, $[\tau] = T$. The problem gives us a length $[\ell]=L$ and the gravitational acceleration, $[g]=LT^{-2}$. Note that $[\theta_0] = 1$ is dimensionless. This means that the only way to form a quantity with dimensions of time is to use $g^{-1/2}$. This leaves us with a leftover $L^{-1/2}$, which we can fix by inserting a square root of $\ell$:
+\begin{align}
+  \tau \sim g^{-1/2} \ell^{1/2} \ .
+\end{align}
+If we want to be fancy, we can make this an equal sign by writing a function of the other dimensionless quantities in the problem:
+\begin{align}
+  \tau = f(\theta_0) \sqrt{\frac{\ell}{g}} \ .
+\end{align}
+
+\flip{To do:include problems from R.W.~Robinett \emph{American Journal of Physics} \textbf{83}, 353 (2015); \url{https://doi.org/10.1119/1.4902882}.}
+
+
+\begin{example}
+In an introductory physics class, one finds that $f(\theta_0)\approx 2\pi$ in the small angle approximation, $\sin\theta \approx \theta$. Thus the leading order result is independent of the initial angular displacement---a fact that appears \emph{almost} as remarkable as the independence from mass when we first learn this.
+\end{example}
+
+\begin{example}
+There is a historical consequence of the small angle formula, $\tau = 2\pi \sqrt{\ell/g}$: in meter--kilogram--seconds units, $g \approx \pi^2$~meters per second$^2$. Huygens' early definition for the meter was that a pendulum should complete one full oscillation in two seconds. We find that $g = \ell(2\pi/\tau)^2$. Plugging in $\tau = 2$~seconds and $\ell = 1$~meter gives the approximate relation. The relation is merely approximate due to later redefinitions of the meter.\footnote{Grigory Zaytsev, \url{https://roitman.io/blog/91}}
+\end{example}
+
+\subsection{Scaling}
+
+A key theme in physics is scaling relations. We present a somewhat contrived example of how this works adapted from section 11 of V.\ I.\ Arnold's \emph{Mathematical Methods of Classical Mechanics}.\sidenote{This is one of my favorite differential geometry textbooks because it is disguised as a book on mechanics.}. Suppose you have some static, central potential $U(\vec r)$. Maybe it is some planet orbiting a star. 
+%
+% \textfig[1]{figures/lec01_orbit.pdf}{A orbital trajectory, $\vec{r}_0(t)$.}{fig:simple_orbit}
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.5\textwidth]{figures/lec01_orbit.pdf}
+    \caption{A orbital trajectory, $\vec{r}_0(t)$.}
+    \label{fig:simple_orbit}
+\end{figure}
+%
+The force law gives:
+\begin{align}
+  m 
+  \ddot{\vec{r}} = - \frac{\partial U}{\partial\vec{r}} \ .
+  \label{eq:scaling:eg}
+\end{align}
+Suppose we are given a solution, $\vec r_0(t)$. Perhaps this is a trajectory that is experimentally verified. Dimensional analysis gives us a way to scale this solution into other solutions. For example, let us scale time by defining a new variable $t'$:
+\begin{align}
+  t \equiv \alpha t' \ .
+\end{align}
+Because the potential is static, then only the left-hand side of the force law changes. Even though the right-hand side formally has dimensions of time, $T^{-2}$, it does not transform because those units are carried in a constant, perhaps $G_N$, not a $(d/dt)^2$ like the left-hand side. The left-hand side of the force law gives:
+\begin{align}
+  m\left(\frac{d}{dt}\right)^2 \vec r_0(t) 
+  &=
+  m\alpha^{-2} \left(\frac{d}{dt'}\right)^2 \vec r_0(\alpha t') \ .
+\end{align}
+This begs us to define a new mass $m' = m\alpha^{-2}$ so that
+\begin{align}
+   m' \left(\frac{d}{dt'}\right)^2 {\vec{r}_0}(\alpha t')
+  = - \frac{\partial U}{\partial\vec{r}_0} \ .
+\end{align}
+What this tells us is that we may define a new trajectory, $\vec r_1(t') \equiv \vec{r}_0(\alpha t')$, which is a solution in the same potential that traces the same trajectory but at $\alpha$ times the speed and with mass $m'$. Changing labels $t'\to t$ for a direct comparison:
+\begin{align}
+   m' \left(\frac{d}{dt}\right)^2 {\vec{r}_1}(t)
+  = - \frac{\partial U}{\partial\vec{r}_1} \ ,
+\end{align}
+which is indeed\sidenote{We were able to swap $\vec r_0$ with $\vec r_1$ simply because $U$ only depends on the position.} \eqref{eq:scaling:eg} with a new mass $m'$ and a trajectory $\vec r_1(t') \equiv \vec{r}_0(\alpha t')$. For example, if $\alpha = 2$, then $\vec r_1(t)$ traces the same trajectory at double the velocity with one fourth of the mass.
+
+\begin{exercise} 
+I missed something in the example above. In order for a planet of mass $m'$ to have trajectory $\vec r_1(t')$, what is the mass of the star compared to the original mass $M_\star$?\footnote{Thanks to Eric Zhang (2021) for pointing this out.} 
+\end{exercise}
+
+\begin{example} 
+Business-y people like to quantify effort using words like `person--hour' or `person--years.' This is the idea that a 10 person--hour task would take 10 people one hour to complete, or one person 10 hours to complete, or 5 people two hours to complete, etc.  As you can see, this choice of units implies that effort has a linear scaling in both the number of people and the amount of time needed. Anyone who has worked on a group project knows that this linear scaling is bullshit. Frederick Brooks reflects on this in the 1974 essay, ``Myth of the Man--Month.''\autocite{Brooks1975}
+\end{example}
+
+\subsection{Error Estimates}
+
+This section is based on a lovely \emph{American Journal of Physics} article by Craig Bohren.~\autocite{doi:10.1119/1.1574042}%\footnote{\url{https://doi.org/10.1119/1.1574042}} 
+Let us go back to another high school physics problem: we drop a ball of mass $m$ from height $h$. See Fig.~\ref{fig:simple_drop}. The task is to find the time $t_0$ for the ball to hit the ground.
+%
+% \marginfig{figures/lec01_drop.pdf}{Dropping a ball of mass $m$.}{fig:simple_drop}
+\begin{figure}[tb]
+    \centering
+    \includegraphics[width=.5\textwidth]{figures/lec01_drop.pdf}
+    \caption{Dropping a ball of mass $m$.}
+    \label{fig:simple_drop}
+\end{figure}
+
+% Suppose you drop a mass $m$ from height $h$ that is initially at rest. How long before this hits the ground? 
+You can integrate the force equation to get
+\begin{align}
+  t_0 = \sqrt{\frac{2h}{g}} \ .
+\end{align}
+This is the \emph{exact} answer \emph{within our model} of the system. The model made several assumptions: the mass is a point mass, the gravitational acceleration is constant at all positions, there is no air resistance, etc. In fact, we \emph{know} that if we do an experiment, our result will almost certainly \emph{not} be $t_0$. All we know is that $t_0$ is probably a good approximation of the actual answer. What we would like to to know is: \emph{how good of an approximation is it?}
+
+One way to check this is to do the next-to-leading order (\acro{NLO}) calculation, taking into account a more realistic model and then compare to $t_0$. Of course, ``more realistic'' is also code for ``more complicated.'' Take a moment to appreciate that doing this is \emph{stupid}. Why do we need to do a \emph{hard} calculation to justify doing an \emph{easy} one? If we are going to do the hard calculation anyway, what was the point of ever doing the easy one?
+
+What we really want is an error \emph{estimate}. The error\index{error} is
+\begin{align}
+  \epsilon &= \frac{t_1 - t_0}{t_0} \ .
+\end{align}
+This is a dimensionless quantity that determines how far off $t_0$ is from a more realistic calculation, $t_1$. Ideally we should not actually have to do much work to estimate $t_1$. 
+
+Let us assume that we are not completely nuts and that we are in a regime where the error is small\sidenote{Note the error has to be dimensionless in order for us to be able to call it `small,` otherwise it begs the question of `small with respect to what?'}. Then the error is a function of some dimensionless parameters, $\xi$, in the system. We define these $\xi$ so that as $\xi \to 0$, $\epsilon(\xi) \to 0$. In other words, the approximation gets better as the $\xi$ are made smaller. By Taylor expansion:
+\begin{align}
+  \epsilon(\xi) = \epsilon(0) + \epsilon'(0) \xi + \mathcal O(\xi^2) \ .
+\end{align}
+By assumption, $\epsilon(0) = 0$ and $\mathcal O(\xi^2)$ is  small. We can then make a reasonable \emph{assumption} that the dimensionless value $\epsilon'(0)$  is $\mathcal O(1)$. This tells us that the error goes like $\epsilon(\xi) \sim \xi$.
+
+By the way $\mathcal O(1)$ is read ``order one'' and is fancy notation for the order of magnitude. Numbers like 0.6, 2, and $\pi$ are all $\mathcal O(1)$. A number like $4\pi$, on the other hand, is $\mathcal O(10)$.  The assumption that a dimensionless number is $\mathcal O(1)$ is reasonable. When nature gives you a dimensionless parameter that is both (a) important and (b) very different from $\mathcal O(1)$, then there's a good chance that it's trying to tell you something about your model. Good examples of this are the cosmological constant, the strong \acro{CP} phase, and the electroweak hierarchy problem.\sidenote{There are also `bad' examples. The ratio of the angular size of the moon to the angular size of the sun is unity to very good approximation. This is quite certainly a coincidence. Our universe appears to be in an epoch where the density of matter, radiation, and dark energy all happen to be in the same ballpark. Our cosmological models imply that this is purely a coincidence. It would be very curious if this were not the case. As an exercise, you can critically explore the use of the anthropic principle in physics.} 
+
+Here is how it works in practice. One effect that we miss in our toy calculation of $t_0$ is that the earth is round with radius $R$. This means that assuming a constant $g$ is an approximation. We have two choices for a dimensionless parameter $\xi$:
+\begin{align}
+  \xi &= \frac{h}{R}
+  &\text{or}&&
+  \xi &= \frac{R}{h} \ .
+\end{align}
+There is an obvious choice: $\xi = h/R$, because we know that as $h$ is made smaller (drop the ball closer to the ground) or $R$ becomes bigger (larger radius of Earth) then the constant $g$ approximation gets better. We thus expect that the corrections from the position-dependence of $g$ go like $\mathcal O(h/R)$.
+ 
+% Exercise: check by explicit calculation, 2017 lec 1
+\begin{exercise}
+    Check by explicit calculation that the correction to the constant $g$ approximation is linear in $h/R$. Start by writing the force law for a point source of at distance $r=R+h$ from the center of the Earth. Taylor expand to find a second order differential equation that is difficult to solve:
+    \begin{align} 
+      \ddot{h} = \frac{-g}{\left(1+\frac{h}{R}\right)^2} \ .
+    \end{align}
+    Taylor expand to reduce this to an equation of the form
+    \begin{align}
+      \frac{d^2 q}{ds^2} = -1 + 2q \ ,
+    \end{align}
+    Here we define the natural dimensionless variables, $q = h/R$ and $s = \left(g/R\right)^{1/2} t$. If the choice of $s$ is not obvious, please do everything in terms of $t$ and then observe that one can conveniently absorb a factor of $g/R$ into dimensionless time variables.\footnote{You should find an equation of the form $\ddot q = -(g/R)(1-\cdots)$.} Plug the dimensionless differential equation into \emph{Mathematica} or your favorite symbolic solver to obtain 
+    \begin{align}
+      q(s) = c_1 e^{\sqrt{2}s} + c_2 e^{-\sqrt{2} s} + \frac{1}{2} \ .
+    \end{align}
+    Argue that the initial condition $\left.\dot h(t)\right|_{t=2} = 0$ implies that the coefficients satisfy $c_1 = c_2$ so that you can combine the exponentials into a hyperbolic cosine. 
+    % If $q_0$ is the value of $q(s)$ at $t=0$, show that $c_1 = (q_0  - 1/2)/2$.
+    Show that one obtains:
+    \begin{align}
+      \frac{2q(s) - 1}{2q(0) -1} = \cosh(\sqrt{2}s) \ .
+    \end{align}
+    Argue why you can Taylor expand the right-hand side about small argument; that is, explain why $s \ll 1$. (Hint: use $h\ll R$.) Perform the Taylor expansion of the hyperbolic cosine to find that the leading correction to the fall time is
+    % 
+    \begin{align}
+      s_1 = \frac{2q_0}{1-2q_0} \ .
+    \end{align}
+    % 
+    The zeroth order approximation was $s_0 = (g/R)^{1/2} t_0 = \sqrt{2q_0}$. Calculate $(s_1 - s_0)/s_0$ to confirm that this is $\mathcal O(h/R)$. 
+\end{exercise}
+
+\subsection{Bonus: Allometry}
+
+There is a fun topic called \textbf{allometry}.\index{allometry} This is basically dimensional analysis applied to biology. A typical example is to consider two people who have roughly the same shape but different characteristic lengths, $\ell$ and $L$, Fig.~\ref{fig:lec1_allometry}.
+% \begin{figure}[tb]
+%     \centering
+%     \includegraphics[width=.5\textwidth]{figures/lec01_allometry.pdf}
+%     \caption{Two mathematically similar people.}
+%     \label{fig:lec1_allometry}
+% \end{figure}
+\begin{marginfigure}%[th]
+    \includegraphics[width=.5\textwidth]{figures/lec01_allometry.pdf}
+    \caption{Two mathematically similar people.}
+    \label{fig:lec1_allometry}
+\end{marginfigure}
+
+
+\begin{exercise}
+If both people exercised at the same rate, which one loses more absolute weight? By how much? Let us assume that weight loss is primarily from the conversion of organic molecules into carbon dioxide. 
+\end{exercise}
+
+\begin{exercise}
+David Hu won his first IgNobel prize for determining that mammals take about 21 seconds to urinate, largely independently of their size\footnote{I learned about this in his excellent popular science book, \emph{How To Walk on Water and Climb Up Walls} by David Hu.}. Can you use dimensional analysis to argue why this would be the case? It may be helpful to refer to the paper\autocite{doi:10.1073/pnas.1402289111}. As you read it, figure out which terms are negligible (and in what limits), identify the assumptions of the mathematical model (scaling of the bladder and urethra), and prove the approximate scaling relation. Make a note to yourself of which steps were non-trivial and where one may have naively mis-modeled the system. By the way, David Hu won a second IgNobel prize for understanding wombats' cubical poop.
+\end{exercise}
+
+The above exercise on mammalian urination is a good example of \emph{modeling}.\index{model} As physicists, we must identify and make a mathematical model for the most salient features of a problem. We must also be able to quantify the error from neglecting sub-leading contributions. As a rough model for scaling purposes, we can ignore viscosity and surface tension effects on human-sized mammals. For much smaller mammals, these effects become larger---the authors of the study note that mice tend to urinate droplets---in which case one can ignore the `inertial' $\frac{1}{2} \rho v^2$ term in Bernoulli's equation. For human-sized mammals, we may assume that steady state urination is given by Bernoulli's equation:
+\begin{align}
+  P + \rho g h = \frac{1}{2}\rho v^2 \ ,
+\end{align}
+where $P$ is the pressure from the bladder, $h$ is the column height of the urethra, $\rho$ is the mass density of urine, and $v$ is the velocity of the urine at the end of the urethra. Let us simplify to the condition where urination is purely driven by gravity---that is, the bladder does not exert any additional pressure, $P=0$. You can now show that the total urination time scales like the mass of the mammal to the one-sixth power, $\tau \sim M^{1/6}$. That is, the urination time has a very weak scaling dependence on how massive the mammal is.
+
+\begin{exercise}
+In August 2021, Ezra Klein interviewed Dr.~C\'eline Goudner about the \tacro{COVID-19} variant.~\cite{klein_2021} In the interview, Klein cited the statement that the Delta variant has $\mathcal O(1000)$ times the viral load than prior \tacro{COVID} strains. Goudner then interprets this in the following way: if the \tacro{CDC} defined `close contact' for prior strains as 15 minutes of being indoors with an infected invdividual without a mask, then the equivalent `close contact' time for the Delta variant is around \emph{one second}. What scaling assumptions go into that estimate? Some of these assumptions are not obvious to me: for example, parts of the respiratory have a fractal-like structure that would lead me to suspect fractal scaling dimensions for surface area. \acro{Remark}: Just because you know dimensional analysis, that does not make you a medical, healthcare, or public policy expert.\footnote{Early in the \tacro{COVID-19} pandemic, many physicists became armchair  modelers of epidemics. Some of this was driven by hubris about our mathematical intuition. Many of the physicists lost interest when their models aligned poorly with what actually happened.} 
+\end{exercise}
+
+The following exercises draw from an article by Nicole Meyer-Verneta and Jean-Pierre Rospars in the American Journal of Physics\autocite{doi:10.1119/1.4917310} and the references therein.
+ \begin{exercise}
+ Estimate the expected velocity of an All Terrain Armored Transport (\tacro{AT}-\tacro{AT})\footnote{\url{https://starwars.fandom.com/wiki/All_Terrain_Armored_Transport}} of characteristic height $L$. You can assume that the walking behavior is based on a pendulum. \acro{Answer}: $v \sim \sqrt{Lg}/2\pi$.
+ \end{exercise}
+
+
+ \begin{exercise}
+ Based on the density $\rho$, the force-per-cross-sectional area $\sigma$, and the maximum rate of energy consumption per unit mass $b$, one may estimate the `sprint' velocity of an animal of length $L$. This sprint velocity is conveniently described with respect to the dimensionless `body lengths per time,' $v_\text{spr}/L$.
+
+Remarkably, for over 20 orders of magnitude in animal length $L$, the value of $v_\text{spr}/L$ is within an order of magnitude of 10/sec:
+\begin{center}
+ \includegraphics[width=\textwidth]{figures/allometry_meyer-verneta.png}
+\end{center}
+% \textfig[1]{figures/allometry_meyer-verneta.png}{Image from Meyer-Verneta and Rospars.~\cite{doi:10.1119/1.4917310}}{fig:allometry_meyer-verneta}
+
+
+Argue from dimensional analysis that $v_\text{spr}/L \sim b\rho/\sigma$. (This is the easy part.) It turns out that there are simple physical principles for each of these terms to be roughly constant for all life on Earth (this is the more subtle part); see the article for a discussion.
+\end{exercise}
+
+\begin{exercise}
+The height of trees. How does the maximum height of a tree, $L$ scale with the diameter of its cross section, $d$? For an argument that $L\sim d^{3/2}$, see Thomas McMahon's article ``The Mechanical Design of Trees'' in \emph{Scientific American}\footnote{\url{https://www.jstor.org/stable/24949846} (1975)}. McMahon was the first to propose a physical explanation for the observed scaling law that the metabolic rate of an animal scales like the characteristic size to the 3/4 power. A nice bibliography of his work can be found in \emph{Annual Review of Biomedical Engineering}.~\autocite{doi:10.1146/annurev.bioeng.3.1.0}
+\end{exercise}
+

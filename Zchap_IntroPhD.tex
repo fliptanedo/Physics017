@@ -1,0 +1,170 @@
+%!TEX root = Physics231.tex
+\chapter{Introduction}
+
+
+\section{What is ``Mathematical Methods?''}
+
+This is a \emph{crash course} in the mathematical toolkit necessary for graduate courses in electrodynamics, quantum mechanics, and statistical mechanics. The emphasis is physical intuition rather than mathematical rigor. Let us be clear: as a student you are \emph{expected} to be as mathematically rigorous as your specific discipline requires. Fortunately, there are plenty of excellent textbooks targeted at various levels of rigor and you can find the one most appropriate for you. This course is meant to complement those references, not to replace them.\sidenote{In other words, this is \emph{your} \acro{Ph.D}, craft it appropriately.}
+
+\emph{Unfortunately}, the choice of topics in this course will be neither necessary nor sufficient for your training. If anyone asks, you should say that the theme of this course is to solve the types of linear differential equations that will show up in your physics coursework (\emph{ugh! Boring!}). The actual choice of topics is meant to highlight larger, unifying themes in mathematical physics sprinkled with topics of current research significance.
+
+
+\section{Green's functions and this course}
+
+Our main goal is to solve linear differential equations:
+\begin{align}
+  \mathcal O f(x) = s(x) \ .
+  \label{eq:greens:function:equation}
+\end{align}
+In this equation, $\mathcal O$ is a \emph{differential operator}\index{differential operator} that encodes some kind of physical dynamics\footnote{A \textbf{differential operator} is just something built out of derivatives that can act on a function. The differential operator may contain coefficients that depend on the variable that we are differentiating with respect to; for example, $\mathcal O = (d/dx)^2 + 3x\,(d/dx)$.}, $s(x)$ is the \emph{source} of those dynamics, and $f(x)$ is the system's physical \emph{response} that we would like to determine. The solution to this equation is:
+\begin{align}
+  f(x) &= \mathcal O^{-1} s(x) \ .
+\end{align}
+This statement is trivial and deeply unsatisfying. We will think carefully about what $\mathcal O^{-1}$ actually means and how to calculate it. $\mathcal O^{-1}$ is the \textbf{Green's function}\index{Green's function} for the differential operator $\mathcal O$. 
+
+\begin{exercise}%
+Consider the differential operator $\mathcal O = (d/dx)^2 + 3x\,(d/dx)$. A colleague tells you that $(d/dx)^2$ is squared, therefore it is not a linear operator. Explain why the colleague is mistaken. 
+\end{exercise}
+
+To make sense of the object $\mathcal O^{-1}$, we appeal to linear algebra. A linear transformation---that is, a \textbf{matrix}---$A$ acts on a vector $\vec{v}$ to give equations like
+\begin{align}
+  A \vec{v} = \vec{w} \ ,
+\end{align}
+whose solution is
+\begin{align}
+  \vec{v} = A^{-1} \vec{w} \ .
+\end{align}
+In this course, we think of linear differential operators $\mathcal O$ as infinite-dimensional matrices. $\mathcal O^{-1}$ is the inverse of this matrix. Perhaps you feel a bit nervous because you remember that inverse of a $3\times 3$ matrix is tricky... say nothing of the \emph{infinite} dimensional limit. To assuage this doubt, we remind ourselves that that calculus is infinite-dimensional linear algebra. Complex analysis extends the real line to the complex plane. In so doing, the \emph{analytic structure} of our theories offer both a method to calculate challenging integrals and their own physical significance. 
+
+
+\section{Two powerful questions}
+At any time in this course, you should feel comfortable asking either of the following questions:
+\begin{enumerate}
+    \item Is it obvious that...?
+    \item Why is this significant?
+\end{enumerate}
+The first question is the way to ask for on-the-spot clarification---I will either appreciate that I did not properly explain a subtle point, \emph{or} I will explain the intuition\sidenote{Your sense of mathematical and physical intuition is incredibly valuable. This is one of the key traits that makes a physics training unique.} for why something should be obvious. The second question is a way to remind me that I may have \emph{lost sight of the forest for the trees}: I want this course to \emph{mathematically connect big ideas in physics}. Asking this question is a reminder that making those connections justifies the hard mathematical work we will put into the course.
+
+\section{Exercises and Examples}
+I have tried to insert exercises and examples in these notes. There are still far too few for sound pedagogy. If you really, really want to learn something, you \emph{have} to do exercises. Think of the examples as exercises with solutions---though they are not always written this way. Mull over the exercises: ask yourself why the problems are posed the way they are, challenge the statements to find the domain of validity, think of how one may extend those exercises to other applications. The exercises are a far better gauge of you learning than whether or not you have read a section of the notes. If you are confused reading the text in section 10, it is often the case that you should have been doing the exercises since section 5.
+
+\begin{bigidea}[Do your homework]
+Instructors feel no deep satisfaction when you turn in your homework. Instead, an assignment is a pledge to the student to give an opportunity for practice with feedback from someone more experienced.
+\end{bigidea}
+
+
+
+
+\section{This is not what I expected}
+
+This is a course in mathematical methods for \emph{physicists}.
+%
+We do not solve \emph{every} class of differential equation that is likely to pop up in your research careers---that would be a course on mathematical methods for \emph{engineers}\autocite{pirsa_11110040}.\sidenote{I recommend Carl Bender's 2011 lectures at \tacro{PSI} for an insightful course along those lines.} Instead, we methodically dissect a physically motivated example---the harmonic oscillator---to emphasize how we think about mathematical problems. 
+
+We weave together ideas that are not often connected explicitly in undergraduate physics courses: linear algebra, differential equations, complex analysis, statistics. I expect that you have had \emph{some} formal training in these topics so that we may focus on the \emph{interconnections} between these ideas in our study of nature.
+
+Do not be surprised if we only mention Bessel functions in passing. Do not think less of our efforts if we do not calculate Wronksians or go beyond a single Riemann sheet. As graduate students, it is \emph{your} responsibility to be able to grab your favorite reference to apply mathematics as needed to \emph{your} research. \emph{This} course is about the larger narrative that is not often shared explicitly in those books. It is about that which makes physicists employable in Silicon Valley while simultaneously terrible at splitting the bill at a restaurant. 
+
+\begin{example}
+Our cavalier attitude towards mathematical rigor should not make you think that mathematical rigor is not necessary. For a nice, visual example, see ``How to lie using visual proofs'' by 3Blue1Brown.\cite{3Blue1Brown_2022}
+% https://youtu.be/VYQVlVoWoPY
+\end{example}
+
+
+\section{Nice-ness}
+\label{sec:niceness}
+
+I find it useful to invoke the notion of a \textbf{nice}\index{nice} mathematical situation. This is not a formal idea. In fact, it is one of many things that mathematicians find ridiculous about me. However, as a physicist, the concept of mathematical \emph{niceness} is remarkably helpful.
+
+The physical systems that we spend the most time thinking about are all \emph{nice}. 
+%
+While mathematicians spend years proving every exceptional case to a theorem, we are happy to push onward as long as our mathematical results are true for the \emph{nice} cases. 
+%
+In fact, nature often admits an \emph{approximately} nice mathematical description.\footnote{This is not because nature is kind, but rather because we are only clever enough to build simple theories. What is important to appreciate as a physicist is \emph{why} simple theories can so nearly approximate nature.}
+
+%
+Nice mathematical models make tidy predictions. Then we can Taylor expand about these nice predictions to make better predictions.
+%
+We sometimes chant \emph{perturbation theory}\index{perturbation theory} out loud several times in case someone watching us does not think we are being rigorous enough.\footnote{Sometimes our Taylor expansions have zero radius of convergence. ``\emph{E pur si muove},'' as Galileo would say. Look up the convergence of the Dyson series.}
+% We make Taylor expansions without anguishing about the radius of convergence\footnote{\url{https://johncarlosbaez.wordpress.com/2016/09/21/struggles-with-the-continuum-part-6/}} and validate it post-facto because it \emph{works}.
+
+
+This is not to say that nature cares at all about our simple physical models. 
+%
+Every once in a while, we \emph{do} have to worry about the exceptional cases because our models fail to accommodate what is \emph{actually} happening in nature.\footnote{Full disclosure: Your \acro{Ph.D} will likely depend on finding a clever solution to one of these cases.} Those scenarios are the most exciting of all: that is when our mathematical formalism grabs us by the collar and says, \emph{listen to me---something important is happening!} This often happens when a calculation tells us that a physical result is infinite. 
+
+\begin{exercise}\label{ex:hydrogen:problem}
+Consider the potential that an electron feels in the hydrogen atom:
+\begin{align}
+  V(r) &= -\frac{\alpha}{r} \ .
+\end{align}
+As the electron--proton separation goes to zero, $r\to 0$, the potential goes to infinity. Classical electrodynamics is telling us that something curious is happening. What actually happens? (And why didn't you ask this question when you were in high school?)
+\end{exercise}
+
+We focus on \emph{nice} functions and \emph{nice} operators and \emph{nice} boundary conditions, and so forth. We often only need the \emph{nice} math to make progress on our \emph{nice} physical models. It is worth spending our time learning to work with these \emph{nice} limits. Leave the degenerate cases to the mathematicians for now. Eventually, you will find yourself in a situation where physics demands \emph{not nice} mathematics. In that case---and only when the physics demands it---you will be ready to poke and prod at the mathematical curiosity until the underlying \emph{physics} reason for the not-niceness is apparent. All this is to say: if you object to this course because we do not start with proofs about open sets or convergence, then you are missing the point of an education in physics.
+
+
+
+
+
+\section{Obvious-ness}\label{sec:obviousness}
+Finally, I want to comment on the word \emph{obvious}. I write this often. It is somewhat dangerous because it can come off as being arrogant: \emph{this is so obvious to me, if you do not understand you must be deficient}. This is never the reason why I use that word. Instead, the word \emph{obvious} serves a very practical purpose. The goal of this class is not just to be able to ``do stuff'' (e.g.~diagonalize a symmetric matrix), but to also build that intuition that comes from a deeper understanding how the mathematics works. In this sense, every time I write the word \emph{obvious} it is a flag: I am saying something that---with the proper perspective---should be self-evident. If it is not self-evident, then you should stop to interrogate why it is not self-evident. Most likely there is something where a change in perspective may (1) make it obvious, and (2) in so doing deepen your understanding of the subject. So when you see the word `obvious,' I want you to do a quick check to confirm whether or not the statement is indeed obvious. If it is not, then welcome the opportunity to learn.\sidenote[][-3em]{There is, of course, the possibility that what I have written is \emph{not} obvious. For example, if I have made a typo... in which case, please let me know.}
+
+\begin{bigidea}
+Speaking of arrogance: physicists sometimes have a reputation for being arrogant. The most generous interpretation is that we must have some Promethean \emph{chutzpah} to seek to comprehend/invent/discover an underlying mathematical organizing principle for the universe. Another manifestation is the damaging ways in which academics can mistreat each other. Somewhere in between are footnotes poking fun at mathematicians, or being a bit of a bore at parties. It is outside the scope of lecture notes on mathematical physics to ask to you to figure out how to be the best version of you-as-physicist-and-human-being that you can realize.\footnote{There are plenty of excellent pieces to reflect on this. For example, \emph{The Disordered Cosmos}, \emph{The Only Woman in the Room}, and \emph{Beamtimes and Lifetimes}.}
+\end{bigidea}
+
+
+\begin{example}
+There is a complementary idea that students have a secret superpower that they can exercise. It is terrifying to ask questions in public---after all, what if your peers decide that your question is so basic that you must be \emph{stupid}? There is didactic armor against this. Whenever you are confused, and at the \emph{first appropriate moment} after you are confused, raise your hand and phrase your question as follows:
+\begin{quote}
+\emph{Is it obvious that} $\ldots$ ?
+\end{quote}
+Linguistically, this is a trick of the passive voice: it removes \emph{you} from the query. It does not insist that you are incapable of comprehending something, it simply asks if there is some intuitive understanding that you want to make sure you do not miss. After all, developing your physics intuition is one of the goals of your first-year graduate courses. Any self-respecting instructor will respond sympathetically, either:
+\begin{itemize}
+  \item \emph{no}, it is not obvious. Perhaps then you work through the idea carefully. Or,
+  \item \emph{yes}, it is obvious---but only when we remember some previous key step, which your instructor should then highlight.
+\end{itemize}
+Either way, the result is wisdom rather than risking how you look in front of your peers. 
+
+By the way, \emph{how you look in front of your peers} is not a good reason to do anything. It is almost as bad as not asking questions because you do not want to look stupid in front of your advisor. Here is some free advice: your adviser knows \emph{exactly} how stupid you are. Most likely your advisor does not think you are stupid, but if you are convinced that you are stupid, then rest assured that your advisor knows this and has still chosen to invest their time into you. Make the most of this time: ask questions.
+\end{example}
+
+\section{Motivation}
+
+Here are three deeply significant equations in physics:\sidenote{If you want to be fancy, you can add Maxwell's equations. If you want to be \emph{really} fancy, you can write these as $dF=0$ and $-*dF = *J$, but that's for a different course.}\sidenote{We address the $\defeq$ versus $=$ in the next section.}
+\begin{align}
+    \vec{F} &\defeq m\vec{a}
+    \\
+    % R_{\mu\nu} - \frac{1}{2}Rg_{\mu\nu} 
+    G_{\mu\nu}
+    &\defeq \frac{8\pi G_\text{N}}{c^4} T_{\mu\nu}
+    \\
+    \hat H |\Psi\rangle 
+    &= E |\Psi\rangle \ .
+    \label{eq:three:equations}
+\end{align}
+These are Newton's force law, Einstein's field equations, and the Schr\"odinger equation. They govern classical physics, general relativity, and quantum theory, respectively. 
+
+
+Each equation looks rather unique: they seem to each be speaking their own mathematical language. Newton's law is written with boldfaced vectorial quantities $\vec{F} = (F_x, F_y, F_z)^\trans$ that should look very familiar to any physics undergraduate. Einstein's equation has these funny $\mu$ and $\nu$ indices on every term---have you seen these before? Do they look intimidating? If you ever want to make your equations look ``technical'' and ``physicsy,'' you should dress them up with indices. The Schr\"odinger equation has no indices, but instead has these funny angle-brackety things... and that $\hat H$ looks suspicious. Where did $H$ get a hat, and what is the content of this equation other than $\hat H = E$?
+
+\emph{Each of these equations turns out to be a ``vectorial'' equation.} Each one is actually shorthand for a number of equations. Newton's equation is shorthand for three equations, one for each component. Einstein's equation is shorthand for 16 equations, one for each combination of the indices $\mu$ and $\nu$ that run over four values\sidenote{The four values are the three directions of space and one direction of time.}. The Schr\"odinger equation is shorthand for an \emph{infinite} number of equations, one for each allowed energy of a quantum system.
+
+The mathematical formalism that unifies these different ideas (and notations) of `vector' is called linear algebra. It may sound humble: after all, ``linear'' systems are \emph{easy}, aren't they? Did we not just spend years of our lives learning fancy things like \emph{calculus} and \emph{differential equations} to deal with functions that are more complicated than \emph{lines}? In some sense, yes: linear algebra is about lines and planes in different numbers of dimensions.\sidenote{On the other hand: a good chunk of the calculus that we do is also implicitly linear. Physicists often Taylor expand and keep only the $\mathcal O(\varepsilon)$ term. Integration boils down to summing trapezoids whose angley-bits are given by the first derivative of a function... the linear component.} However, linear algebra turns out to be far more richer than what you may be used to from high school. 
+
+In this course we will see how the three equations in \eqref{eq:three:equations} are connected by the mathematics of linear algebra. We will dive into the different notation and shamelessly pass between $\vec{v}$, $v^i$, and $\ket{v}$ to describe the same abstract vector. We will connect to the mathematical description of \emph{symmetry} and see how it is an underlying theme in our descriptions of nature. And we will do all of this in a way that will make the instructors of the linear-algebra-for-mathematicians course and linear-algebra-for-engineers course vomit a little in disgust. Consider that one of privileges of being a physicist.
+
+\section{Equality}
+
+You may have noticed in \eqref{eq:three:equations} a distinction between two different equal signs: the standard equality $=$ and the definition, $\defeq$. Physicists often write both of theses as $=$, even though conceptually they mean hugely different things\autocite{2019per8.conf..471A,Alaee_2022}. I adopt the following notation:
+\begin{itemize}
+  \item The equal sign $=$ means two sides of an equation evaluate to the same quantity. This is the equal sign you use when simplifying an expression by applying mathematical identities. For example, $\D{x^2}/\D{x} = 2x$.
+  \item The definition $\defeq$ means the left-hand side is \emph{defined} to be the right-hand side. My idiosyncratic notation is inspired by \emph{Mathematica}. When writing by hand I use $\stackrel{\cdot}{=}$. Other sources may use a triple bar (used below). For example, $\dot{x}\defeq \D{x}/\D{t}$.
+  \item I reserve the triple equal sign $\equiv$ for `tautologically equivalent.' I do not have a rigorous definition for this, but the idea is rather useful as a shorthand for the word ``obvious,'' see Section~\ref{sec:obviousness}.\sidenote{I think I picked up this notation early in my university education during a lecture by Yakov Eliashberg in 2002. I have a clear memory of him responding to a question about an equal sign by impishly smiling and saying that the equality is tautological, then saying that perhaps writing an extra bar on the equal sign would make it more clear. At the time we, the students, found this completely vexing---but we came to quickly appreciate its utility. Other variants of this from Eliashberg did not stick, like a `triple-$u$' variable as the third in a sequence after $u$ and double-$u$.} It means ``this is so true that there is nothing I can write to justify it---if you are confused, you may want to take a step back to see if there is a different way of looking at the idea.'' For example, mint chocolate chip ice cream $\equiv$ the best.
+\end{itemize}
+There are two other binary relations worth noting. The first is $\approx$, a statement that two sides are \emph{almost} equal (``almost =''). This is like a `lower class' version of the equal sign. Perhaps amusingly, there is also $\sim$, which I argue is \emph{more} important than the equal sign. It is so significant that we dedicate an entire paragraph to it in Section~\ref{sec:sim:binary:relation}.
+
+\section{One last piece of advice}
+
+It took me way too long to appreciate the crucial significance of homework and exercises in learning physics. Your job in your \acro{Ph.D} is to answer questions where no previous answer had ever existed in the history of humanity. You will be guided by your advisor and your mentors, but you will be the discover-er of new truth. This is a tall order, something like completing a marathon or climbing Everest. And like those physical feats, the only way to succeed in your intellectual pursuit is to \emph{practice}\sidenote{I encourage you to look up Allen Iverson's 2002 ``Practice'' press conference and the vertbatim homage in \emph{Ted Lasso} Season 1 Episode 6.}. And the best training we have in physics are practice problems. These are problems that are crafted to hone your skills. They are examples that are assured to be \emph{solvable}\sidenote{The fact that they are solvable does not mean that you are entitled to a solution set other than the solution that you earn by deriving it yourself.} and with a framework (like a course with peers) to guide you through the challenges. Do not squander the opportunity to \emph{train}. My undergraduate advisor used to say, \emph{you should do every problem in the book---but especially the ones that you cannot do.}

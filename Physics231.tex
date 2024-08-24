@@ -1,0 +1,249 @@
+% \includeonly{Zchap_CA_00_intro}
+
+\documentclass[12pt, oneside]{report}    %% Has chapters
+
+\input{FlipLectureMacros}       %% Notes formatting, load first
+\input{FlipPreamble}			%% \usepackages, formatting
+\input{FlipMacros}              %% Flip's standard macros
+\input{FlipMacros_Comments}     %% Flip's macros for comments
+\input{FlipMacros_Teaching}     %% Flip's macros for course notes
+\input{Flip_listings}           %% Styling for code blocks
+\input{FlipAdditionalHeader}    %% Modify this for each project
+\input{FlipPreambleEnd}         %% has to be loaded last
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% LECTURE NOTES SETTINGS %%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% \linenumbers                  %% lineo package
+\graphicspath{{figures/}}       %% figure folder
+\addbibresource{FlipBib.bib}    %% Define BibLaTeX source(s)
+
+\geometry{                      %% large margin for side notes
+    paper=letterpaper, 
+    hmargin={1cm,7.25cm},       %% 6.25cm space on right
+    vmargin={2cm,2cm}, 
+    marginparsep=.5cm, 
+    marginparwidth=5.75cm
+}
+
+%% Def. full width; uses changepage package
+%%  6.25cm to match hmargin difference;
+\newenvironment{wide}%
+{\begin{adjustwidth}{0cm}{-6.25cm}}%
+{\end{adjustwidth}}
+
+% Reset the sidenote number each section 
+\let\oldsection\section
+\def\section{%
+  \setcounter{sidenote}{1}%
+  \oldsection
+}
+
+
+
+\begin{document}
+
+\newgeometry{margin=2cm}                   % plain geometry for frontmatter
+\newcommand{\FlipTR}{UCR-TR-F2024-FLIP-P231} % TR#, pdfsync may fail on 1st page
+\thispagestyle{firststyle} 	               % TR#; otherwise use \thispagestyle{empty}
+\pagenumbering{gobble}                     % no page number on first page 
+
+\begin{center}
+    {\large \textsf{UC Riverside Physics 231, Fall 2024} \par}
+    {\huge \textbf{Mathematical Methods for Physicists} \par}\vspace{.5em}
+    {\large {Linear algebra, complex analysis, Green's functions, distributions} \par}
+    \vskip .5cm
+\end{center}
+
+\input{FlipAuthors}
+
+\vspace{2em}\noindent
+Lecture notes for Physics 231: Methods of Theoretical Physics, a course on linear algebra, complex analysis, Green's functions, and probability in preparation for graduate-level physics coursework at \acro{UC~R}iverside. The first portion of these notes encompass an introduction to linear algebra ``with indices'' for lower-division undergraduates. 
+
+\vspace{5em}
+\begin{center}
+% \includegraphics[width=.2\textwidth]{figures/Squiggle.pdf}
+\includegraphics[width=.4\textwidth]{figures/vevtilt.pdf}
+\end{center}  
+
+
+% \vspace{2em}
+\vspace*{\fill}
+
+\noindent
+\textsf{Last Compiled: \today}
+
+\noindent
+\textsf{Image: vacuum misalignment}
+
+\noindent
+\textsf{CC BY-NC-SA 4.0}~\ccbyncsa 
+
+\noindent % Course notes URL
+% \url{https://github.com/fliptanedo/P231-2023-Math-Methods}
+
+%% Front page logos
+\vspace*{\fill}
+\begin{center}
+\includegraphics[height=.1\textwidth]{figures/FlipAmbigram.png}
+\hspace{5em}
+\includegraphics[height=.1\textwidth]{figures/UCRPnA_banner.png}
+\end{center}
+
+\newpage
+
+\small
+\setcounter{tocdepth}{2}
+\tableofcontents
+\normalsize
+\clearpage
+\restoregeometry        %% Return to lecture note geometry 
+\pagenumbering{arabic}  %% Turn on regular page numbers
+
+
+%%%%%%%%%%%%%%%%%%%%%
+%%%  THE CONTENT  %%%
+%%%%%%%%%%%%%%%%%%%%%
+
+
+
+\include{Zchap_IntroPhD}
+\include{Zchap_DimAnalysis}
+
+\part{Linear Algebra}
+
+%% This text shows up on its own page, is there a way to add it to the ``Part'' page?
+% FIX: https://tex.stackexchange.com/questions/202235/is-it-possible-to-add-text-underneath-a-parts-title
+This part is a review of undergraduate-level linear algebra and forms the core of the Physics 17 course. The material is likely to be very familiar for graduate students in physics, but we provide it here to emphasize the use of indices and the `unified picture' of vector spaces and their duals that appear in the study of Green's functions.
+
+\include{Zchap_LA_00_Basics}
+\include{Zchap_LA_01_Indexology}
+\include{Zchap_LA_02_vectors}
+\include{Zchap_LA_03_bundle}
+\include{Zchap_LA_04_metric}
+\include{Zchap_LA_05_relativity}
+\include{Zchap_LA_06_transform}
+\include{Zchap_LA_07_det}
+\include{Zchap_LA_08_eigen}
+\include{Zchap_LA_09_complex}
+\include{Zchap_LA_10_QM}
+\include{Zchap_LA_11_fourier}
+\include{Zchap_LA_12_function}
+\include{Zchap_LA_13_spring}
+\include{Zchap_LA_20_manifolds}
+% \include{Zchap_LA_ZZ_looseends}
+
+\part{Complex Analysis}
+
+\include{Zchap_CA_00_intro}
+
+
+
+\chapter{Next}
+
+
+\part{Probability}
+
+
+\chapter{Statistics}
+
+\section{Probability Basics}
+%  Gott estimate
+
+\section{Bayes' Theorem}
+%  Will the LHC destroy the world?
+
+\subsection{The Monty Hall Problem}
+
+\section{Entropy} 
+
+You may be familiar with the notion of \textbf{entropy}\index{entropy} from statistical mechanics\sidenote{You probably first heard about entropy in thermodynamics. I encourage you to derive the thermodynamical definition from the statistical definition},
+\begin{align}
+  S = -\sum_i p_i \ln p_i \ ,
+\end{align}
+where the sum is over the number of microstate configurations and we have chosen sensible units where $k_\textnormal{B} =1$. 
+\begin{example}
+For the microcanonical ensemble, every allowed microstate is equally probably. That means that if there are $N$ possible microstates consistent with a macroscopic observation like energy conservation, then each microstate $i$ has probability $p_i = 1/N$. The entropy is thus
+\begin{align}
+  S = -\frac{1}{N}\sum_i \ln \frac{1}{N} = \ln N \,
+\end{align}
+which is the logarithm of the number of microstates.
+\end{example}
+In statistical physics this is a good working definition: entropy is a measure of the unobserved microstates that are consistent with the observed macroscopic state. The most likely macroscopic state is the one with the most microstates. 
+
+There is a more poetic way to phrase this idea that turns out to be even more useful. The entropy is a measure of information known about the system. A system with large entropy is one where you know comparatively little: an observed macrostate with large entropy is one where there are many possible microstates and you do not know which microstate the system is in at a given instant. A system with low entropy: say, a chunk of iron in its ferromagnetic phase, is one where you know very well that every microscopic spin is more-or-less aligned in a certain direction. In this way, \emph{entropy is a measure of information}.
+
+This idea was formalized in what we now refer to as \textbf{information entropy}\index{information entropy} or \textbf{Shannon entropy}\index{Shannon entropy}. It is defined in exactly the same way up to a factor of $\ln 2$:
+\begin{align}
+  S = -\sum_i p_i \log_2 p_1 \ ,
+\end{align}
+where the only difference is that the logarithm is now taken with base 2. THis is because in information theory we work with bits of binary information. The notion of information versus `physics' entropy are the same. They are so `the same' that I will use the same symbol for them. 
+
+
+
+
+
+
+
+
+\section*{Acknowledgments}
+
+\acro{PT}\ thanks the students of Physics 17 (Spring 2022, 2023, and 2024) for their feedback and patience. It was your curiosity, questions, frustrations, and occasional elation that shaped these notes. He also thanks Owen Long for support to create this course and believing in it, Yakov Eliashberg, from whom he first heard the phrase ``\emph{there is no such thing as a position vector},'' and Savas Dimopoulos who showed him the elegance of a well-chosen index convention.
+%
+% \acro{PT} is supported by the \acro{DOE} grant \acro{DE-SC}/0008541.
+\acro{PT} is supported by a \acro{NSF CAREER} award (\#2045333).
+
+%% Appendices
+\appendix
+
+% \chapter{Proper appendix}
+% Unlike Chapter~\ref{sec:subappendix:eg}, this is an appendix at the end of the document rather than a sub-appendix within a chapter. Check out the index that follows this chapter.
+
+% \section{Things to work on}
+
+% It may be nice to incorporate something like \texttt{classicthesis}\footnote{\url{https://www.ctan.org/tex-archive/macros/latex/contrib/classicthesis/}}
+
+
+% \section{Levi-Civita Tensor}
+% Related to symmetry/antisymmetry?
+% cross product
+
+\chapter{Miscellaneous}
+
+\section{Unexpected linear algebra}
+
+\begin{itemize}
+    \item ``Multidimensional measurements,'' by David Stevenson in \emph{Physics Today}\autocite{10.1063/pt.ogyk.yscx}. Howard Georgi made a similar argument in the \emph{APS News} in June 2022,\footnote{\url{https://www.aps.org/publications/apsnews/202206/backpage.cfm}} which is a write up from an earlier talk at the Kavli Institute for Theoretical Physics\autocite{Georgi:2022jfv}.
+
+    \item One of the building blocks of machine learning is linear algebra. In fact, in the mid-2010s when physicists were starting to realize that deep neural networks could be a powerful tool for research,\sidenote{And, vice versa, that there was a rich physical research program to understand deep learning. See \url{https://iaifi.org}.} the way we would explain neural networks to each other would start with ``look, it really just boils down to matrix multiplication.'' To be fair, the real magic of neural networks is the deliberate \emph{nonlinearity} between what is otherwise a linear system. 
+
+    % The lienar algebra of the Google algorithm, ranking
+\end{itemize}
+
+\section{Diagonalizing Unusual Matrices}
+\flip{insert discussion of Takagi diagonalization, singular value decomposition, ... all that}
+
+
+
+
+
+
+
+
+
+
+
+
+\include{Zchap_ZZ_ColophonEndnotes.tex}
+
+\printindex
+
+%% Bibliography
+%% USING BIBLATEX, SKIP BIBTEX
+%% Use inspireHEP bibtex entries when possible
+% \bibliographystyle{utcaps} 	% arXiv hyperlinks, preserves caps in title
+% \bibliography{bib title without .bib}
+
+
+\end{document}

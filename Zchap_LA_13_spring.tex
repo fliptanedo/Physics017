@@ -1,0 +1,214 @@
+
+\chapter{Spring Theory}
+
+\section{The Variational Principle}
+\label{eq:variational}
+
+One of the fundamental principles in physics is the \textbf{principle of least action}. This is the statement that classically, the trajectory of a system is governed by the minimum of a functional called th{}e action, $S$. A functional is a ``function of functions.'' So suppose we care about the position of a particle $\vec{x}(t)$ in some potential. The position is itself a function of time, and the action is a function of $\vec{x}(t)$. You may be more familiar with the action as the time integral of the Lagrangian,
+\begin{align}
+    S = \int \D{t}\, L[\vec{x}, \dot{\vec{x}}] \ ,
+\end{align}
+where we use the standard convention where we treat the position and velocity as independent variables in phase space. In quantum mechanics, this same object appears as a weight for possible trajectories.\footnote{I recommend looking up Feynman's phasor description of the sum over histories to see how the action in quantum mechanics leads to the principle of least action in classical mechanics.}
+
+\paragraph{The usual method}
+Perhaps you are familiar from analytical mechanics that we can `vary' the Lagrangian to derive the equation of motion. For example, the standard treatment goes something like this. The Lagrangian of a classical particle is the kinetic minus the potential energy,
+\begin{align}
+    L = \frac{m}{2} \dot{\vec{x}}^2 - V[\vec{x}] \ .
+\end{align}
+When we treat $\vec{x}$ and $\dot{\vec{x}}$ as independent variables, the infinitesimal change (variation) of the action $S$ with with respect to infinitesimal perturbations $\delta\vec{x}$ and $\delta\dot{\vec{x}}$ is
+\begin{align}
+    \delta S =
+    \int \D{t} \,
+    \left[
+    \frac{\partial L}{\partial \vec{x}} \delta\vec{x}
+    +
+    \frac{\partial L}{\partial \dot{\vec{x}}}\delta\dot{\vec{x}}
+    \right] \ .
+\end{align}
+Now we `remember' that $\dot{\vec{x}}$ is actually the time derivative of $\vec{x}(t)$. This means we can integrate the second term by parts to remove the time derivative in the $\delta\dot{\vec{x}}$. What we're really saying here is that there is \emph{one} variation we're doing: the function $\vec{x}(t)$. So if the path changes by $\vec{x}\to\vec{x}+\delta\vec{x}$, then the time derivative of the path changes by
+\begin{align}
+    \dot{\vec{x}} 
+    \to \dot{\vec{x}} 
+    + \frac{\D{}}{\D{t}}(\delta\vec{x}) 
+    \equiv \dot{\vec{x}} + \delta\dot{\vec{x}} \ . 
+\end{align}
+We assume some boundary conditions---the position of the particle at some initial and some final times---so that the boundary terms in the integration by parts vanishes. We are thus left with (suppressing the limits of integration)
+\begin{align}
+    \delta S = \int dt\, 
+    \left[
+    \frac{\partial L}{\partial \vec{x}}
+    - 
+    \frac{\D{}}{\D{t}}
+    \frac{\partial L}{\partial \dot{\vec{x}}} 
+    \right]\delta\vec{x} \ .
+\end{align}
+Because this is true for any variation $\delta\vec{x}$ about a path $\vec{x}(t)$ that minimizes $S$, we find that the equatino of motion is 
+\begin{align}
+    \frac{\partial L}{\partial \vec{x}}
+    - 
+    \frac{\D{}}{\D{t}}
+    \frac{\partial L}{\partial \dot{\vec{x}}}  = 0 \ .
+\end{align}
+For the single particle Lagrangian above, this indeed gives
+\begin{align}
+    m\ddot{\vec{x}} = V'[\vec{x}] \ .
+\end{align}
+
+\paragraph{The path integral perspective} Our discretized function space---for all of its flaws---is helpful here for an alternative picture of the equation of motion that is often invoked in field theory. Let us treat everything as `histogram space.' For simplicity, let us stick to one spatial dimension, leaving the generalization as an exercise. We would like to determine what is the function, $\ket{x}=x(t)$ that minimizes $S[x]$. We may write $S$ as a sum:
+\begin{align}
+    S &= \sum_i \Delta t \, L[x^i, \dot x^i] 
+    &
+    \ket{x} &= x^i \ket{i}
+    &
+    \ket{\dot{x}} &= \dot{x}^i \ket{i} \ ,
+\end{align}
+where we are in a `histogram basis' in time slices. The basis ket $\ket{i}$ is a unit `histogram' at time $t=t_0 + i\Delta t$ for some initial time $t_0$. Further, we know that 
+\begin{align}
+    \ket{\dot{x}} = D\ket{x} \ ,
+\end{align}
+where $D$ is the matrix representation of the time derivative, $d/dt$.\footnote{In principle we should specify the forward or the backward derivative, $D_\pm$. We should also remember that $D^2 = D_\mp D_\pm$. However, everything that we say here is applicable to the continuum limit, so if you are a stickler for formalism, you can treat these steps as an analogy to the continuous case.} To be explicit, let us assume a harmonic oscillator potential. The Lagrangian is a local function of time. We can write it---somewhat awkwardly---as an object with an index:
+\begin{align}
+    L^i &= \frac{m}{2}\dot{x}^i\dot{x}^i - V^i
+    &
+    V^i &= \frac{k}{2} x^ix^i \ ,
+\end{align}
+where we understand that there is no sum over $i$. Recalling that our historgram space metric is proportional to $\Delta t$, it is in fact more straightforward to directly write the quadratic part of the action:
+\begin{align}
+    S 
+    % \frac{m}{2} g_{ij}\dot{x}^i\dot{x}^j - \frac{k}{2} g_{ij} x^ix^i
+    =
+    \frac{m}{2} g_{ij}(Dx)^i(Dx)^j - \frac{k}{2} g_{ij} x^ix^i
+     \ .
+    \label{eq:HO:action:discretized}
+\end{align}
+We will see that the \emph{quadratic} part of the action gives a linear equation of motion. This means that higher-order terms (e.g.\ trilinear terms like $(x^i)^3$) must be treated separately.\footnote{Often we treat these as a small correction to the quadratic action. This amounts to saying that everything is a perturbation on a harmonic oscillator. The perturbations can be treated systematically using a technique called Feynman diagrams.}
+\begin{exercise}
+Confirm that \eqref{eq:HO:action:discretized} is the discretization of the action for a simple harmonic oscillator. For example, show that in the continuum limit you recover the simple harmonic oscillator action. 
+\end{exercise}
+Recalling Exercise~\ref{ex:integrate:kinetic:term:by:parts}, we may integrate the derivative term by parts to obtain
+\begin{align}
+    S = 
+    -
+    \frac{m}{2} g_{ij}x^i (D^2x)^j 
+    - \frac{k}{2} g_{ij} x^ix^i
+    \equiv
+    -\frac{1}{2}x^i Q_{ij} x^j
+    \ ,
+    \label{eq:HO:action:discretized:integrated}
+\end{align}
+where we have defined the `quadratic term' operator
+\begin{align}
+    Q_{ij} = 
+    m\, g_{ik}(D^2)\aij{k}{j} 
+    + 
+    k\, g_{ij} 
+    = Q_{ji} \ .
+    \label{eq:Qij}
+\end{align}
+\begin{exercise}
+Confirm that $Q_{ij}$ is symmetric, $Q_{ij} = Q_{ji}$. 
+\end{exercise}
+\begin{exercise}
+What is the \emph{support} of \eqref{eq:Qij}? That is, what is the condition on $i$ and $j$ to find a non-zero $Q_{ij}$?
+\end{exercise}
+
+The principle of least action posits that the classical trajectory $x(t)$---encoded in the discretized $x^i$ coefficients---is the configuration that extremizes $S$. To do this, we vary each $x^i$ independently. This is what the functional variation $\delta x(t)$ means in the continuous limit. The extremization corresponds to the $N$ equations
+\begin{align}
+    \frac{\D{S}}{\D{x^1}} &= 0
+    &
+    \frac{\D{S}}{\D{x^2}} &= 0
+    &
+    \cdots&
+    &
+    \frac{\D{S}}{\D{x^N}} &= 0 \ .
+\end{align}
+where relevant, these are subject to the boundary conditions. 
+% 
+Of course, the $x^i$ are not independent: we know that the kinetic term relates the displacement at time $i$ to the neighboring displacements at time $i\pm 1$.
+% 
+Rather than solving each of these one by one, we can solve the equation for a generic $x^i$:
+\begin{align}
+    -\frac{\D{S}}{\D{x^i}} &= 
+    \frac{\D{}}{\D{x^i}}
+    \left[
+    \frac{1}{2} Q_{ii}(x^i)^2 + \sum_{j\neq i} \frac{1}{2}\left(Q_{ij} x^ix^j + Q_{ji}x^jx^i + \right) 
+    \right] \\
+    &= 
+    Q_{ii}x^i+ \sum_{j\neq i} Q_{ij}x^j \ .
+\end{align}
+where there is no sum over repeated $i$ indices and we have explicitly written the sum over $j\neq i$. In the last term we have used $Q_{ij} = Q_{ji}$. Expanding this expression gives
+\begin{align}
+    0&=
+    -\frac{\D{S}}{\D{x^i}}
+    \\
+    &=
+    -2\frac{m}{\Delta t^2} x^i + k x^i 
+    + \frac{m}{\Delta t^2}x^{i+1} 
+    + \frac{m}{\Delta t^2}x^{i-1}
+    \\
+    &= 
+    g_{ij}\left[m(D^2x)^j + k x^j\right] \ .
+\end{align}
+This gives us the discretized equation of motion:
+\begin{align}
+    (D^2x)^j = - k x^j \ ,
+\end{align}
+which we recognize is the discretized Hooke's law $m\ddot{x} = -k x$. 
+
+What is significant about this approach is that we never invoked the standard Euler--Lagrange trick of first treating $x$ and $\dot{x}$ as independent variables and then `remembering' that they are related by a time derivative when it was convenient. We took a more direct path where we independently varied each piece of the path in time, $x^i$, while treating a differential operator $Q_{ij}$ as a matrix. We noticed that the $x^i$ are \emph{coupled} by the kinetic term, which tells us that wiggles in $x^i$ will affect the variation of $x^{i+\pm 1}$. In quantum mechanics, this approach is known as the path integral formulation.
+
+\begin{example}
+Having established the variational principle approach to the equation of motion ,we may repeat the derivation of Hooke's law by starting with the continuum limit. The action is
+\begin{align}
+    S&= \int_{t_0}^{t_1} dt\, \frac{m}{2}\dot x(t)^2 - \frac{k}{2}x(t)^2
+    \\&
+    = -\int_{t_0}^{t_1} dt\, \frac{1}{2}x(t)
+    \left[m\left(\frac{d}{dt}\right)^2 + k\right]x(t)
+    \\&    
+    \equiv -\int_{t_0}^{t_1} dt\, \frac{1}{2} x(t) \mathcal O x(t) \ .
+\end{align}
+The classical equation of motion is thus
+\begin{align}
+    \mathcal Ox(t) = \left[m\left(\frac{d}{dt}\right)^2 + k\right]x(t) = 0 \ m \ ,
+\end{align}
+or in other words: $\ddot x(t) = -kx(t)$.
+\end{example}
+We have implicitly assumed that the boundary terms vanish.
+
+On physical principles, the kinetic term is typically proportional to a term with two time derivatives. You can argue this based on spacetime symmetry. This means that one must perform an integration by parts on this term to write the equation of motion operator $\mathcal O$. This may give some insight on the meaning of the relative minus sign between the kinetic and potential energy terms in the Lagrangian. 
+
+The path integral is something that shows up in the `sum over histories' approach to quantum mechanics. It is used extensively in quantum field theory because it gives a powerful way to impose constraints on a quantum system using Lagrange multipliers. What is not always obvious is that the path integral can be a more intuitive interpretation of the standard Euler--Lagrange approach. 
+
+
+\section{Coupled Harmonic Oscillators}
+
+Consider an array of $N$ harmonic oscillators. For reasons that will be clear, let us call the displacement at time $t$ of each oscillator $i$ with respect some baseline value to be $q_i(t)$. Previously we called this $x(t)$, but we want to reserve $x$ for something else. If each harmonic oscillator is independent, then each one would have a separate equation of motion---this is essentially $N$ copies of the single harmonic oscillator. Let us instead consider the case where
+\begin{enumerate}
+    \item The point $q_i(t)=0$ is not special and does not represent an equilibrium value. In fact, let us throw out the $V[q_i]=\frac{1}{2}kq_i^2$ potential energy term and replace it with something else.
+    \item Let us couple the harmonic oscillator to the positions of its \emph{nearest neighbors}. The nearest neighbors of the $q_i$ oscillator are the $q_{i\pm 1}$ oscillators. 
+\end{enumerate}
+The potential energy of the system looks like
+\begin{align}
+    V[q_1,\cdots q_N] &=
+    \cdots
+    \frac{1}{2}k(q_{i+1}-q_i)^2 +
+    \frac{1}{2}k(q_{i}-q_{i-1})^2 +
+    \cdots \ .
+\end{align}
+This simply means that the locations of the $i^\text{th}$ oscillator's neighbors will pull the $i^{\text{th}}$ oscillator in one direction or the other. There is \emph{no} potential that pulls $q_i$ to its origin: $(k/2)q_i^2$. 
+
+
+The Lagrangian  for this system is
+\begin{align}
+    L[q_1,\cdots, q_N]
+    &= 
+    \sum_i \frac{1}{2} m \dot q_i^2 - \frac{1}{2}k (q_{i+1}-q_i)^2 \ .
+\end{align}
+You can work out the equation of motion simply by varying the action, $S=\int dt\,L$. For example, the equation of motion for the $q_i(t)$ oscillator is
+\begin{align}
+    m\ddot{q}_i(t) = -k(q_{i}-q_{i-1}) -k(q_{i}-q_{i+1}) \ .
+\end{align}
+We observe that the spring constant terms push to decrease the difference between $q_i$ and its nearest neighbors. The force from the neighboring springs are in the direction to reduce the difference.
+
+\flip{I am here}
+

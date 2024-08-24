@@ -1,0 +1,339 @@
+\chapter{Some loose ends}
+
+\flip{These are topics I'd like to fill in some day. Maybe if they'll let me teach 117. }
+
+\section{Reduced Row Echelon Form}
+
+Some linear algebra courses make a big deal about something called `reduced row echelon form.' We deliberately choose to drop this topic: it is a manipulation of matrices, but one that in service of a task that is not only trivial---solving a system of linear equations---but one that is completely misleads the student about the significance of linear algebra.\sidenote{Linear algebra is not about how to manipulate arrays of numbers. It is the interpretation of these arrays of numbers as linear transformations.}
+
+Just for shits and giggles, let's see what all that `reduced row echelon form' garbage is all about.
+
+\subsection{Algebra in the linear limit}
+
+First, we should say we are solving algebraic systems of equation that are linear. This is \emph{not} linear algebra. The equations are of the form:
+\begin{align}
+    M\aij{i}{j}x^j = w^i
+    \ ,
+    \label{eq:rref:eq}
+\end{align}
+where we have made liberal use of our index notation. Here the components $x^j$ are unknowns that you are tasked with solving for, and the components $M\aij{i}{j}$ and the right-hand side $w^i$ are all known numbers. It should be obvious that this is simply $M\vec{x} = \ket{w}$. 
+
+\subsection{Manipulating the equation}
+
+The mysticism of `reduced row echelon form' is that one may perform is that one may perform operations on the rows of the matrix $M\aij{i}{j}$ and on the rows of the vector $w^i$ to eventually convert \eqref{eq:rref:eq} into the nice form
+\begin{align}
+    \begin{pmatrix}
+        m\aij{1}{1} & 0 & \cdots \\
+        0 & m\aij{2}{2} & \cdots \\
+        \vdots  &0 & \ddots 
+    \end{pmatrix}
+    \begin{pmatrix}
+        x^1 \\
+        x^2 \\
+        \vdots
+    \end{pmatrix}
+    =
+    \begin{pmatrix}
+        w^1 \\
+        w^2 \\
+        \vdots 
+    \end{pmatrix} \ .
+\end{align}
+Of course, once you are in this form you can read off the values of $x^i = w^i/m\aij{i}{i}$. Indeed, the goal of our eigenstuff-analysis is precisely to get to this form. 
+
+However, the `reduced row echelon form' mystics say that one should write \eqref{eq:rref:eq} in the unusual form
+\begin{align}
+    % \begin{pmatrix}
+    %     M\aij{1}{1} & 
+    %     M\aij{1}{2} & 
+    %     M\aij{1}{3} & 
+    %     \cdots &
+    %     w^1
+    %     \\
+    %     M\aij{2}{1} & 
+    %     M\aij{2}{2} & 
+    %     M\aij{2}{3} & 
+    %     \cdots &
+    %     w^2
+    %     \\
+    %     \vdots &
+    %     \vdots &
+    %     \vdots &
+    %     \ddots 
+    % \end{pmatrix} 
+    % \ .
+    \left(
+    \begin{array}{cccc:c}
+    M\aij{1}{1} & 
+        M\aij{1}{2} & 
+        M\aij{1}{3} & 
+        \cdots &
+        w^1
+        \\
+        M\aij{2}{1} & 
+        M\aij{2}{2} & 
+        M\aij{2}{3} & 
+        \cdots &
+        w^2
+        \\
+        \vdots &
+        \vdots &
+        \vdots &
+        \ddots 
+    \end{array}
+    \right)
+    \ .
+\end{align}
+This is an $N\times (N+1)$ matrix that combines the known coefficients in \eqref{eq:rref:eq}. The rule is that in this $N\times (N+1)$ matrix, one may take linear combinations of rows and add them to any other row. For example, one may take a multiple of the first row and add it to the second row:
+\begin{align}
+    % \begin{pmatrix}
+    \left(\begin{array}{cccc:c}
+        M\aij{1}{1} & 
+        M\aij{1}{2} & 
+        M\aij{1}{3} & 
+        \cdots &
+        w^1
+        \\
+        M\aij{2}{1} + \alpha M\aij{1}{1}  & 
+        M\aij{2}{2} + \alpha M\aij{1}{2}  & 
+        M\aij{2}{3} + \alpha M\aij{1}{3}  & 
+        \cdots &
+        w^2 + \alpha w^1
+        \\
+        \vdots &
+        \vdots &
+        \vdots &
+        \ddots 
+    \end{array}\right)
+    % \end{pmatrix} 
+    \ .
+\end{align}
+Presumably doing this simplifies the second row, perhaps by removing off-diagonal elements. I am rolling my eyes while I type this because this whole set of procedures simply corresponds to taking linear combinations of each equation in \eqref{eq:rref:eq}. But sure, you can play this silly game.
+
+\begin{example}\label{eg:rref:2d}
+Consider the two equation, two unknown system:
+\begin{align}
+    M\aij{1}{1} x^1 + M\aij{1}{2}x^2 &= w^1\\
+    M\aij{2}{1} x^1 + M\aij{2}{2}x^2 &= w^2 \ .
+\end{align}
+In fact, let us put explicit numbers to this:
+\begin{align}
+    x^1 - 1 x^2 &=  \pp 4 \\
+    x^1 + 2x^2 &= -2 \ .
+\end{align}
+To write this in `reduced row echelon form' we do the following:
+\begin{align}
+    % \begin{pmatrix}
+    \left(\begin{array}{cc:c}
+        1 & -1 & \pp 4 \\
+        1 & \pp 2 & -2
+    % \end{pmatrix}
+    \end{array}\right)
+    &\to 
+    % \begin{pmatrix}
+    \left(\begin{array}{cc:c}
+        1 & -1 & \pp 4 \\
+        0 & \pp 3 & -6
+    % \end{pmatrix}
+    \end{array}\right)
+    \\
+    &\to 
+    % \begin{pmatrix}
+    \left(\begin{array}{cc:c}
+        1 & -1 & \pp 4 \\
+        0 & \pp 1 & -2
+    % \end{pmatrix}
+    \end{array}\right)
+    \\
+    &\to 
+    % \begin{pmatrix}
+    \left(\begin{array}{cc:c}
+        1 & \pp 0 & \pp 2 \\
+        0 & \pp 1 & -2
+    % \end{pmatrix} 
+    \end{array}\right)
+    \ ,
+\end{align}
+from which we infer that $x^1 = 2$ and $x^2 = -2$. 
+\end{example}
+
+\subsection{What you are actually doing}
+
+Each step in the above example corresponds to multiplying both sides of \eqref{eq:rref:eq} by a matrix. For example, the matrix that takes the first row and adds a multiple $\alpha$ of it to the second row is:
+\begin{align}
+    S = 
+    \begin{pmatrix}
+        1 & 
+        0 & 
+        0 & 
+        \cdots 
+        \\
+        \alpha & 
+        1 & 
+        0  & 
+        \cdots 
+        \\
+        0 & 
+        0 & 
+        1  & 
+        \cdots 
+        \\
+        \vdots &
+        \vdots &
+        \vdots &
+        \ddots 
+    \end{pmatrix} \ .
+\end{align}
+If we want to ``add to the second row a multiple $\alpha$ of the first row,'' then we simply take \eqref{eq:rref:eq} and write
+\begin{align}
+    SM\ket{x} = S\ket{w} \ .
+\end{align}
+\begin{exercise}
+Each step in \eqref{eg:rref:2d} can equivalently be written as multiplying both sides of \eqref{eq:rref:eq} by a product of matrices $S_3 S_2 S_1$, where each $S_i$ corresponds to a step in the reduced row echelon form process. Show that these correspond to:
+\begin{align}
+    S_1
+    &=
+    \begin{pmatrix}
+        \pp 1 & 0 \\
+        -1 & 1
+    \end{pmatrix}
+    &
+    S_2
+    &=
+    \begin{pmatrix}
+        1 & 0 \\
+        0 & \frac{1}{2}
+    \end{pmatrix}
+    &
+    S_3
+    &=
+    \begin{pmatrix}
+        1 & 1 \\
+        0 & 1
+    \end{pmatrix} \ .
+\end{align}
+\end{exercise}
+
+Thus we have shown that all we are doing is taking an equation 
+\begin{align}
+    M\ket{x} = \ket{w}
+\end{align}
+and writing it as
+\begin{align}
+    S_3 S_2 S_1 M \ket{x} = S_3 S_2 S_1 \ket{w} \ ,
+\end{align}
+where $S_3 S_2 S_1$ is chosen systematically so that $S_3 S_2 S_1 M$ is diagonal. While the steps here are all reasonable, they do not elucidate anything about the nature of the underlying system nor are they obviously practical when the size of the system of equation grows. The procedure is, however, an algorithm that is well defined. Thus you can code this---or better, draw from optimized open-source codes that do this---to solve systems of equations of finite size. 
+
+
+
+\section{Biunitary transformations}
+Diagonalizing a non-Hermitian matrix. Example: Yukawa matrices.
+
+
+\section{Representation theory of SU(2)}
+\section{Lie Algebras as Vector Spaces}
+\section{Vector calculus in 3 dimensions}
+\section{Vector calculus in general dimensions}
+\section{Differential Forms}
+
+
+\chapter*{Closing Thoughts}
+
+
+It is potentially confusing that physicists use multiple conventions to describe what are essentially the same ideas in linear algebra. Table~\ref{table:vectors:conventions} makes some of these connections explicit.
+
+\begin{table}
+    \renewcommand{\arraystretch}{1.3} % spacing between rows
+    \centering
+    \begin{tabular}{ @{} llll @{} } \toprule % @{} removes space
+        Vector Space & $\RR$ & $\CC$ & $\infty$-dimensional
+        \\ \hline
+        Vector/ket 
+            & $\vec{v} = \ket{v}$ 
+            & $\vec{v} = \ket{v}$
+            & $f$
+            \\
+        Basis vector
+            & $\bas{e}_i = \ket{i}$ 
+            & $\bas{e}_i = \ket{i}$ 
+            & $\hat{e}_i(x)$
+            \\
+            & 
+            & 
+            & $\hat{e}_p(x)$
+            \\
+        Components
+            & $v^i \in \RR$
+            & $v^i \in \CC$
+            & $f^i, \tilde{f}(p) \in \CC$
+            \\
+        % Components
+            & $\vec{v} = v^i\bas{e}_i = v^i\ket{i}$
+            & $\vec{v} = v^i\bas{e}_i = v^i\ket{i}$
+            & $f(x) = f^i\, \hat{e}_i(x) $
+            \\
+            & 
+            & 
+            & $f(x) = \int \dbar p\,\tilde f(p) e_p(x)$
+        \\
+        Row vector/bra
+            & $\row{w} = w_i\rbas{e}^i = w_i\bra{i}$
+            & $\row{w} = w_i\rbas{e}^i = w_i\bra{i}$
+            & distribution, e.g.~$\delta(x)$
+        \\
+        Matrix
+            & $A = A\aij{i}{j}\ket{i}\bra{j}$
+            & $A = A\aij{i}{j}\ket{i}\bra{j}$
+            & operator, e.g.~$\frac{d^2}{dx^2}$
+        \\
+        Inner Product
+            & $\la v, w \ra = g_{ij}v^iw^j$
+            & $\la v, w \ra$
+            & $\la f, g \ra = \int dx\, f^*(x)g(x)$        
+            \\
+        % Inner Product
+            & $\la v, w \ra = \la w,v\ra$
+            & $\la v, w \ra = \la w,v\ra^*$
+            & $\la f, g \ra = \la g,f\ra^*$
+        \\
+        Adjoint
+            & Transpose
+            & Hermitian Conjugate
+            & Integration by parts
+        \\
+        % Adjoint
+            & $(A^T)\aij{i}{j} = g_{jk}A\aij{k}{\ell}g^{\ell i}$
+            & $(A^\dag)\aij{i}{j}= [(A^T)\aij{i}{j}]^*$
+            & e.g.~$\left(\frac{d}{dx}\right)^\dag = -\left(\frac{d}{dx}\right)$
+        \\
+        Self-adjoint
+            & Symmetric
+            & Hermitian
+            & Sturm--Liouville
+        \\
+        % Self-adjoint
+            & $A^T = A$
+            & $A^\dag = A$
+            & $\mathcal O^\dag = \mathcal O$
+        \\
+        % Self-adjoint
+            & $\RR$ Eigenvalues
+            & $\RR$ Eigenvalues
+            & $\RR$ Eigenvalues
+        \\
+        % Self-adjoint
+            & $\perp$ Eigenvectors
+            & $\perp$ Eigenvectors
+            & $\perp$ Eigenvectors
+        \\
+        Isometry, e.g.
+            & Rotations, Boosts
+            & Unitary Matrices
+            & Change of variable
+        \\ \bottomrule
+    \end{tabular}
+    \caption{
+        Terms and notation in real, complex, and infinite-dimensional vector spaces. 
+        \label{table:vectors:conventions}
+  }
+\end{table}

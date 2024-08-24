@@ -1,0 +1,153 @@
+\chapter{Quantum Mechanics}
+
+\flip{Just some stubs from old parts}
+
+
+Consider a spin-1/2 particle like an electron. If we measure the spin in the $z$-direction, we find that there are only two allowed \emph{eigenvalues} of the spin-in-the-$z$-direction operator, $S_z$: $\pm\hbar/2$.
+We call the corresponding eigenvectors $\ket{\uparrow}$ and $\ket{\downarrow}$:
+\begin{align}
+    S_z\ket{\uparrow} &= + \frac{\hbar}{2}\ket{\uparrow} 
+    &
+    S_z\ket{\downarrow} &= - \frac{\hbar}{2}\ket{\downarrow} \ .
+\end{align}
+We can use this information to write $S_z$ as a matrix in the $\{\ket{\uparrow},\ket{\downarrow}\}$ basis. Because the basis elements are also eigenvectors of $S_z$, we know
+\begin{align}
+    S_z = 
+    \frac{\hbar}{2}\ket{\uparrow}\bra{\uparrow}
+    -
+    \frac{\hbar}{2}\ket{\downarrow}\bra{\downarrow} \ .
+\end{align}
+As a matrix, this is simply
+\begin{align}
+    S_z = \frac{\hbar}{2}
+    \begin{pmatrix}
+        1 & \\ & -1 
+    \end{pmatrix}
+    \equiv \frac{\hbar}{2} \sigma_z \ ,
+\end{align}
+where $\sigma_z$ is called the third \textbf{Pauli matrix}.
+
+
+
+\section{\texorpdfstring{Constructing the spin in the $x$-direction}{Constructing the spin in the x-direction}}
+
+From experiments, we find that: 
+\begin{enumerate}
+    \item If we take a beam of pure $\ket{\uparrow}$ electrons and measure their spin in the $x$-direction, half of electrons have spin $\hbar/2$ in the positive $x$-direction and the other half have spin $-\hbar/2$ in the negative $x$ direction. 
+    \item If we take a beam of pure $\ket{\downarrow}$ electrons and measure their spin in the $x$-direction, half of electrons have spin $\hbar/2$ in the positive $x$-direction and the other half have spin $-\hbar/2$ in the negative $x$ direction. 
+\end{enumerate}
+
+\subsection{\texorpdfstring{Spin-$x$ eigenstates}{Spin-x eignstates}}
+By symmetry---that is, there is nothing special about the $z$ direction versus the $x$ direction---we write the eigenstates of spin-in-the-$x$-direction, $S_x$, as\footnote{I now realize that the direction of my arrows are probably reversed compared to my lecture notes.}
+\begin{align}
+    S_x\ket{\rightarrow} &= + \frac{\hbar}{2}\ket{\rightarrow} 
+    &
+    S_x\ket{\leftarrow} &= - \frac{\hbar}{2}\ket{\leftarrow} \ .
+\end{align}
+If we write these states in the $\{\ket{\uparrow},\ket{\downarrow}\}$ basis, our experiments tell us that the coefficients must all have magnitude $1/\sqrt{2}$. We may write this as:
+\begin{align}
+    \ket{\rightarrow} &= 
+    e^{i\alpha}\left[\frac{1}{\sqrt{2}}\ket{\uparrow} + \frac{e^{i\delta}}{\sqrt{2}}\ket{\downarrow} \right]
+    &
+    \ket{\leftarrow} &= 
+    e^{i\alpha'}\left[\frac{1}{\sqrt{2}}\ket{\uparrow} + \frac{e^{i\beta}}{\sqrt{2}}\ket{\downarrow} \right]
+    \ .
+\end{align}
+We are free to choose $e^{i\delta} = +1$. The overall phases $e^{i\alpha}$ and $e^{i\alpha'}$ are unphysical, so we may set each of those terms to one. What is the constraint on $e^{i\beta}$ from the orthogonality of the $\{\ket{\rightarrow}, \ket{\leftarrow}\}$ basis? Confirm that $e^{-i\beta}=-1$ satisfies this condition. 
+
+
+\subsection{\texorpdfstring{Spin-$x$ operator}{Spin-x operator}}
+By the same argument as for $S_z$, the $S_x$ operator may be written in the $\{\ket{\rightarrow}, \ket{\leftarrow}\}$ basis as
+\begin{align}
+    S_x = 
+    \frac{\hbar}{2}\ket{\rightarrow}\bra{\rightarrow}
+    -
+    \frac{\hbar}{2}\ket{\leftarrow}\bra{\leftarrow} \ .
+\end{align}
+Show that in the $\{\ket{\uparrow},\ket{\downarrow}\}$ basis, this produces a matrix
+\begin{align}
+    S_x = 
+    \frac{\hbar}{2}
+    \begin{pmatrix}
+         & 1\\ 1 &  
+    \end{pmatrix}
+    \equiv \frac{\hbar}{2}  \sigma_x \ ,
+\end{align}
+where $\sigma_x$ is called the first Pauli matrix.
+
+
+
+\section{\texorpdfstring{Spin in the $y$-direction}{Spin in the y-direction}}
+
+This question is a follow up of Short Homework 9, where you found the spin matrices in the $z$ and $x$ directions:
+\begin{align}
+    S_z &= \frac{\hbar}{2}
+    \begin{pmatrix}
+        1 & \\ & -1 
+    \end{pmatrix}
+    &
+    S_x &= 
+    \frac{\hbar}{2}
+    \begin{pmatrix}
+         & 1\\ 1 &  
+    \end{pmatrix} \ ,
+\end{align}
+where these are written in the $\{\ket{\uparrow},\ket{\downarrow}\}$ eigenbasis of the spin-in-the-$z$-direction operator, $S_z$. You found the following representation for the eigenbasis of the spin-in-the-$x$-direction operator, $S_x$:
+\begin{align}
+    \ket{\rightarrow} &= 
+    \frac{1}{\sqrt{2}}\ket{\uparrow} + \frac{1}{\sqrt{2}}\ket{\downarrow}
+    &
+    \ket{\leftarrow} &= 
+    \frac{1}{\sqrt{2}}\ket{\uparrow} - \frac{1}{\sqrt{2}}\ket{\downarrow}
+    \ ,
+\end{align}
+where you used:
+\begin{enumerate}
+    \item The observation that an ensemble of $\ket{\uparrow}$ states are equally likely to be observed as $\ket{\leftarrow}$ or $\ket{\rightarrow}$ states, and similarly for $\ket{\downarrow}$.
+    \item The overall phase of a state is not physical and may be set to one.
+    \item We may chose the relative phase of the two terms on $\ket{\rightarrow}$ to be $+1$. 
+\end{enumerate}
+
+\subsection{\texorpdfstring{Eigenstates of spin in the $y$-direction}{Eigenstates of spin in the y-direction}}
+Using similar arguments, show that the eigenbasis for $S_y$ may be chosen to be:
+\begin{align}
+    \ket{\nearrow} &= 
+    \frac{1}{\sqrt{2}}\ket{\uparrow} - \frac{i}{\sqrt{2}}\ket{\downarrow}
+    &
+    \ket{\swarrow} &= 
+    \frac{1}{\sqrt{2}}\ket{\uparrow} + \frac{i}{\sqrt{2}}\ket{\downarrow}
+    \ .
+\end{align}
+Start with the general form 
+\begin{align}
+    \ket{\nearrow} &= 
+    e^{i\alpha}\left[\frac{1}{\sqrt{2}}\ket{\uparrow} + \frac{e^{i\delta'}}{\sqrt{2}}\ket{\downarrow} \right]
+    &
+    \ket{\swarrow} &= 
+    e^{i\alpha'}\left[\frac{1}{\sqrt{2}}\ket{\uparrow} + \frac{e^{i\beta'}}{\sqrt{2}}\ket{\downarrow} \right]
+    \ .
+\end{align}
+Explain where you are making a choice of phase. You must use the observation that an ensemble of $\ket{\rightarrow}$ states are equally likely to be observed as $\ket{\nearrow}$ or $\ket{\swarrow}$ states, and similarly for $\ket{\leftarrow}$.
+
+\subsection{\texorpdfstring{The $S_y$ operator}{The Sy operator}}
+
+The $S_y$ operator may be written in the $\{\ket{\rightarrow}, \ket{\leftarrow}\}$ basis as
+\begin{align}
+    S_y = 
+    \frac{\hbar}{2}\ket{\nearrow}\bra{\nearrow}
+    -
+    \frac{\hbar}{2}\ket{\swarrow}\bra{\swarrow} \ .
+\end{align}
+Show that in the $\{\ket{\uparrow},\ket{\downarrow}\}$ basis, this produces a matrix
+\begin{align}
+    S_x = 
+    \frac{\hbar}{2}
+    \begin{pmatrix}
+         & -i\\ i &  
+    \end{pmatrix}
+    \equiv \frac{\hbar}{2}  \sigma_y \ ,
+\end{align}
+where $\sigma_y$ is the second Pauli matrix. It may be helpful to remember that
+\begin{align}
+    \left(\ket{a} + i\ket{b}\right)^\dag = \bra{a+ib} = \bra{a} - i \bra{b} \ .
+\end{align}
