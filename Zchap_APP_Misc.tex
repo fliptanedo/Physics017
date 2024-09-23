@@ -1,0 +1,106 @@
+\chapter{Miscellaneous}
+
+\section{Unexpected linear algebra}
+
+\begin{itemize}
+    \item ``Multidimensional measurements,'' by David Stevenson in \emph{Physics Today}\autocite{10.1063/pt.ogyk.yscx}. Howard Georgi made a similar argument in the \emph{APS News} in June 2022,\footnote{\url{https://ww.aps.org/publications/apsnews/202206/backpage.cfm}} which is a write up from an earlier talk at the Kavli Institute for Theoretical Physics\autocite{Georgi:2022jfv}.
+
+    \item One of the building blocks of machine learning is linear algebra. In fact, in the mid-2010s when physicists were starting to realize that deep neural networks could be a powerful tool for research,\sidenote{And, vice versa, that there was a rich physical research program to understand deep learning. See \url{https://iaifi.org}.} the way we would explain neural networks to each other would start with ``look, it really just boils down to matrix multiplication.'' To be fair, the real magic of neural networks is the deliberate \emph{nonlinearity} between what is otherwise a linear system. 
+
+    % The lienar algebra of the Google algorithm, ranking
+\end{itemize}
+
+\section{Diagonalizing Unusual Matrices}
+\flip{insert discussion of Takagi diagonalization, singular value decomposition, ... all that}
+
+
+
+
+
+
+\section{Stirling's Approximation}
+
+Stirling's approximation is an expression for factorials that is a convenient tool in statistical mechanics. It is not particularly helpful if you have to look it up every time you need it, so let us develop some intuition for re-inventing the approximation.
+
+\subsection{Riemann approximation}
+
+The key observation is that sums of logarithms are equivalent to the logarithm of the product: $\ln a + \ln b = \ln ab$.  Applying this to a series gives
+\begin{align}
+  \sum_{n=1}^N \ln n = \ln N! \ .
+\end{align}
+The exponential of this expression is $N!$. Our first trick is to think about the sum on the left-hand side as a Riemann sum with step size $\Delta x = 1$. Then we have
+\begin{align}
+  \ln N! = \sum_{n=1}^N \Delta x\, \ln n
+  \approx \int_1^N dx\; \ln x \ 
+  = 
+  \left[x\ln x - x\right]^N_1
+  = 
+  N\ln N - N+1 \ .
+\end{align}
+
+\subsection{Trapezoidal Rule}
+
+Perhaps one is not surprised that approximating an integral with trapezoids gives a better approximation.\footnote{See “A Mathematical Model for the Determination of Total Area Under Glucose Tolerance and Other Metabolic Curves”, Mary M. Tai, \emph{Diabetes Care}, 1994, \textbf{17}, 152–154. Yes, in 1994 a researcher re-discovered the trapezoidal rule. Be gentle: physicists have been known to re-discover mathematical results; this is illustrated in the cover of \emph{Quantum Fields and Strings: A Course For Mathematicians}.} In the trapezoidal rule the Riemann `histogram' is replaced by the areas a series of trapezoids, 
+\begin{align}
+ \sum_a \frac{1}{2}\left(\ln x_{a+1} + \ln x_a\right) \ .
+\end{align}
+The factor of $1/2$ is cancelled by the fact that each $x_a$ appears twice in the sum---but this is not true for the first and last values, $x_1$ and $x_N$. 
+We find that a better approximation for the continuous integral is
+\begin{align}
+  \int_1^N dx\; \ln x \approx \sum_{n=1}^N \Delta x\, \ln n + \frac{1}{2}\ln 1 + \frac{1}{2} \ln N \ .
+\end{align}
+Only the first term on the right-hand side is equal to $\ln N!$, so we find
+\begin{align}
+  \ln N! \approx 
+  \left(N\ln N - N+1\right) - \frac{1}{2}\ln N \ , 
+\end{align}
+where the terms in parenthesis are the integral and the last term accounts for our trapezoidal correction.
+
+\subsection{Gamma Function}
+
+A more sophisticated approach is to use the $\Gamma$ function.\footnote{From \url{https://www.youtube.com/watch?v=JsUI40uSOTU}.} The $\Gamma$ function shows up all the time in physics. It is defined as a funny integral:
+\begin{align}
+  \Gamma(N+1) = \int_0^\infty dx\, x^N e^{-x} \ .
+\end{align}
+When $N$ is a counting number, then $\Gamma(N+1)=N!$. The tricky step is a very surprising change of variables: $x=Nz$, which gives
+\begin{align}
+  N! &= N^N\int_0^\infty N\,dz\,z^N  e^{-Nz}
+  % \\&
+  = N^{N+1} \int_0^\infty dz\, z^N e^{-Nz} 
+  % \\&
+  = N^{N+1} \int_0^\infty dz\, e^{N\ln z-Nz} 
+  \ .
+\end{align}
+The argument of the exponential is $N(\ln z - z)$.  The term in the parenthesis has a maximum at $z=1$, from which we expect the largest contribution to the integral. We thus Taylor expand this term about $z=1$ up to the quadratic term:
+\begin{align}
+  N! &= N^{N+1} 
+  \int_0^\infty dz \,
+  e^{N\left(
+    -1 - \frac{1}{2}(z-1)^2
+  \right)} 
+  =
+  N^{N+1} e^{-N}
+  \int_0^\infty dz \,
+  e^{- \frac{N}{2}(z-1)^2} 
+  % =
+  % N^{N+1} e^{-N}
+  % \sqrt{\frac{2\pi}{N}}
+    \ .
+\end{align}
+We now recognize a Gaussian integral. Let us change variables once more to $y=z-1$ so that
+\begin{align}
+  N! = 
+  N^{N+1} e^{-N}
+  \int_{-1}^\infty dz \,
+  e^{- \frac{N}{2}y^2} 
+  \approx 
+  N^{N+1} e^{-N}
+  \int_{-1\infty}^\infty dz \,
+  e^{- \frac{N}{2}y^2} 
+  =
+  N^{N+1} e^{-N}\sqrt{\frac{2\pi}{N}} \ .
+\end{align}
+Here we have used the fact that the integral from $y\in (-\infty,-1)$ is small in the large $N$ limit. Rearranging these terms gives
+\begin{align}
+  N! = \frac{N^N}{e^N} \sqrt{2\pi N} \ .
+\end{align}

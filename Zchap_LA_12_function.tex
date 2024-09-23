@@ -1,4 +1,4 @@
-
+%!TEX root = Physics231.tex
 \chapter{Function Spaces}
 \label{ch:function:space}
 
@@ -322,12 +322,13 @@ With Neumann boundary conditions, the matrix expression for the forward/backward
 \end{align}
 This gives
 \begin{align}
-  (f')^N_\text{$+$, Per.} &= \frac{f^{N+1} - f^N}{\Delta x}
-  = 
-  \frac{f^1- f^N}{\Delta x}  
-  &
- (f')^1_\text{$-$, Per.} &=\frac{f^{1} - f^0}{\Delta x} 
- = \frac{f^{1} - f^N}{\Delta x} 
+    (f')^N_\text{$+$, Per.} 
+    &= \frac{f^{N+1} - f^N}{\Delta x}
+    = \frac{f^1- f^N}{\Delta x}  
+    \\
+    (f')^1_\text{$-$, Per.} 
+    &=\frac{f^{1} - f^0}{\Delta x} 
+    = \frac{f^{1} - f^N}{\Delta x} 
   \ .
 \end{align}
 \begin{example}
@@ -356,15 +357,21 @@ With Periodic boundary conditions, the matrix expression for the forward/backwar
         & & & -1 &  1 
     \end{pmatrix}
 \end{align}
-Look at those funny non-zero elements in the far corners. 
+Look at those funny non-zero elements in the far corners. You know what else is curious? 
+\begin{align}
+    \left(D_+\right)_\text{Per.}
+    &=
+    -\left(D_-\right)_\text{Per.}^\dag
+    \label{eq:periodic:Dfwd:dag:Dbkwd}
+\end{align}
+Here the Hermitian conjugate is simply transpose, $\dag = \trans$.
+The relation \eqref{eq:periodic:Dfwd:dag:Dbkwd} is significant: encodes \emph{integration by parts} in a space with no boundary---and hence no boundary terms.
 \end{example}
-% \begin{align}
-%   {(f')}^N = \frac{1}{\Delta x}(f^{N+1} - f^N) 
-%   = 
-%   \frac{1}{\Delta x}(f^{1} - f^N) 
-%   \ .
-% \end{align}
- Periodic boundary conditions show up \emph{all} the time in physics. Sometimes they show up in obvious places, like the Brillouin zone of a crystal lattice. Other times they show up in not-so-obvious places like the boundary conditions of the known universe. %In addition to being crucial for a well-defined function space, the boundary conditions of a system establish its topology\footnote{I cannot over-emphasize the importance of topology in contemporary physics. Most of the physics you will learn in your first year graduate courses are intrinsically \emph{local} because the laws of physics are causal. Topological quantities are \emph{global}, they are integrals over an entire space. Because winding numbers (and their higher-dimensional cousins) are quantized, they are robust against perturbations. The number of holes in a donut is one, whether or not it's been slightly squished in the box.}.
+% 
+% 
+Periodic boundary conditions show up \emph{all} the time in physics. Sometimes they show up in obvious places, like the Brillouin zone of a crystal lattice. Other times they show up in not-so-obvious places like the boundary conditions of the known universe. 
+%
+% In addition to being crucial for a well-defined function space, the boundary conditions of a system establish its topology\footnote{I cannot over-emphasize the importance of topology in contemporary physics. Most of the physics you will learn in your first year graduate courses are intrinsically \emph{local} because the laws of physics are causal. Topological quantities are \emph{global}, they are integrals over an entire space. Because winding numbers (and their higher-dimensional cousins) are quantized, they are robust against perturbations. The number of holes in a donut is one, whether or not it's been slightly squished in the box.}.
 
 \begin{exercise}
 We don't know anything about the universe outside the Hubble radius. Why do you think it would be reasonable in a physical model to \emph{assume} that it has periodic boundary conditions? Hint: what would happen to the $x$-momentum of an asteroid in the classic arcade game \emph{Asteroids} if the game did not have periodic boundary conditions? 
@@ -443,33 +450,35 @@ All we have done in the intermediates steps is regrouped pairs of terms that hav
 Show that the boundary term in \eqref{eq:integration:by:parst:histogram} vanishes for Dirichlet, Neumann, and periodic boundary conditions. The Neumann case is a little tricky and one has to appeal to the $i=1$ and $i=N$ terms of the sum. 
 \end{exercise}
 
-\begin{exercise} \label{ex:integrate:kinetic:term:by:parts}
-If $x(t)$ is the position of a particle of mass $m$, then its kinetic term is $m\dot x(t)/2$. One way to derive the equation of motion for a theory is to integrate this term by parts, see Section~\ref{eq:variational}. Let us see how this works. Rather than $\dot x^2$, let us consider $(D_+f)(D_-g)$. We write $f$ and $g$ to make it easier to keep track of terms, but for the specific case of the kinetic term we know $f=g=x(t)$. 
+%% MOVE THIS TO NEXT CHAPTER
+% \flip{This next exercise is probably wrong: I think the point is that $D_+^\dag = D_-$ so that we can define the forward derivative for vectors and the backward derivative for forms. The action takes the form $(D_+q)^2$ so that the equation of motion is $D_-D_+ q=0$.}
+% \begin{exercise} \label{ex:integrate:kinetic:term:by:parts}
+% If $x(t)$ is the position of a particle of mass $m$, then its kinetic term is $m\dot x(t)/2$. One way to derive the equation of motion for a theory is to integrate this term by parts, see Section~\ref{eq:variational}. Let us see how this works. Rather than $\dot x^2$, let us consider $(D_+f)(D_-g)$. We write $f$ and $g$ to make it easier to keep track of terms, but for the specific case of the kinetic term we know $f=g=x(t)$. 
 
-The integral over time corresponds to a sum over the time slice (histogram) index $i$ of $f$ and $g$:
-\begin{align}
-    \int dt\, \dot x(t)^2 \to \sum_i \Delta x \, (D_+f)^i(D_-g)^i \ .
-\end{align}
-Show that this sum takes the form
-\begin{align}
-    \sum_i \Delta x \, (D_+f)^i(D_-g)^i 
-    = -\sum_i f^i (D^2 g)^i 
-    + f^{N+1}(g^N-g^{N-1})
-    - f^1(g^1 - g^0) \ .
-\end{align}
-I was sloppy with the limits of the sum above. What values does $i$ range over in that sum?
-% HINT:
-\acro{Partial answer:}
-Here's the pattern:
-\begin{align}
-    D_+fD_-g &= 
-    f^2g^2 - f^2g^0 - f^1 g^1 + f^1 g^0\\
-    &+ f^3 g^2 - f^3 g^1 - f^2 f^2 + f^2 g^1 \\
-    &+ f^4 g^3 - f^4 g^2 - f^3 g^3 + f^3 g^2 \\
-    &+ \cdots \\
-    & + f^{N+1} g^N - f^{N+1} g^{N-1} - f^N g^N + f^N g^{N-1}  \ .
-\end{align}
-\end{exercise}
+% The integral over time corresponds to a sum over the time slice (histogram) index $i$ of $f$ and $g$:
+% \begin{align}
+%     \int dt\, \dot x(t)^2 \to \sum_i \Delta x \, (D_+f)^i(D_-g)^i \ .
+% \end{align}
+% Show that this sum takes the form
+% \begin{align}
+%     \sum_i \Delta x \, (D_+f)^i(D_-g)^i 
+%     = -\sum_i f^i (D^2 g)^i 
+%     + f^{N+1}(g^N-g^{N-1})
+%     - f^1(g^1 - g^0) \ .
+% \end{align}
+% I was sloppy with the limits of the sum above. What values does $i$ range over in that sum?
+% % HINT:
+% \acro{Partial answer:}
+% Here's the pattern:
+% \begin{align}
+%     D_+fD_-g &= 
+%     f^2g^1 - f^2g^0 - f^1 g^1 + f^1 g^0\\
+%     &+ f^3 g^2 - f^3 g^1 - f^2 g^2 + f^2 g^1 \\
+%     &+ f^4 g^3 - f^4 g^2 - f^3 g^3 + f^3 g^2 \\
+%     &+ \cdots \\
+%     & + f^{N+1} g^N - f^{N+1} g^{N-1} - f^N g^N + f^N g^{N-1}  \ .
+% \end{align}
+% \end{exercise}
 
 \section{Derivatives in other function space bases}
 \label{sec:derivatives}

@@ -2204,7 +2204,7 @@ The key here is to first understand why several terms are zero, then to learn th
 
 \section{Canceling factors in a tensor equation}
 
-\begin{wide}
+% \begin{wide}
 Sometimes you will find equations of the following form:
 \begin{align}
     w_i M\aij{i}{j}v^j = w_i A\aij{i}{j}v^j \ .
@@ -2212,15 +2212,16 @@ Sometimes you will find equations of the following form:
 \end{align}
 If we were to expand this, the equation reads:
 \begin{align}
-    w_1 M\aij{1}{1}v^1 + w_1 M\aij{1}{2}v^2
+    &w_1 M\aij{1}{1}v^1 + w_1 M\aij{1}{2}v^2
     + w_2 M\aij{2}{1}v^1 + w_2 M\aij{2}{2}v^2
-    =
+    \\
+    =&
     w_1 A\aij{1}{1}v^1 + w_1 A\aij{1}{2}v^2
     + w_2 A\aij{2}{1}v^1 + w_2 A\aij{2}{2}v^2 \ ,
     \label{eq:canceling:factors:wMv:long}
 \end{align}
 where we take the two-dimensional case for brevity. 
-\end{wide}
+% \end{wide}
 
 Based on this equation, can you infer anything about how the matrices $M$ and $A$ relate to one another? Not by itself since the equation seems to depend on the values of $w_i$ and $v^j$. 
 
